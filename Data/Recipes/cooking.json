@@ -1,0 +1,211 @@
+{
+  "cooking": [
+    {
+      "id": "cook_mudcrawler",
+      "name": "Cook Mudcrawler",
+      "skill": "cooking",
+      "level": 1,
+      "xp": 30,
+      "duration": 2,
+      "burnLevel": 34,
+      "inputs": [{ "itemId": "raw_mudcrawler", "quantity": 1 }],
+      "outputs": [{ "itemId": "cooked_mudcrawler", "quantity": 1 }],
+      "burnOutput": { "itemId": "burnt_fish", "quantity": 1 },
+      "facility": ["fire", "range"]
+    },
+    {
+      "id": "cook_minnow",
+      "name": "Cook Minnow",
+      "skill": "cooking",
+      "level": 5,
+      "xp": 40,
+      "duration": 2,
+      "burnLevel": 38,
+      "inputs": [{ "itemId": "raw_minnow", "quantity": 1 }],
+      "outputs": [{ "itemId": "cooked_minnow", "quantity": 1 }],
+      "burnOutput": { "itemId": "burnt_fish", "quantity": 1 },
+      "facility": ["fire", "range"]
+    },
+    {
+      "id": "cook_streamperch",
+      "name": "Cook Streamperch",
+      "skill": "cooking",
+      "level": 10,
+      "xp": 50,
+      "duration": 2,
+      "burnLevel": 41,
+      "inputs": [{ "itemId": "raw_streamperch", "quantity": 1 }],
+      "outputs": [{ "itemId": "cooked_streamperch", "quantity": 1 }],
+      "burnOutput": { "itemId": "burnt_fish", "quantity": 1 },
+      "facility": ["fire", "range"]
+    },
+    {
+      "id": "cook_silverscale",
+      "name": "Cook Silverscale",
+      "skill": "cooking",
+      "level": 20,
+      "xp": 70,
+      "duration": 3,
+      "burnLevel": 50,
+      "inputs": [{ "itemId": "raw_silverscale", "quantity": 1 }],
+      "outputs": [{ "itemId": "cooked_silverscale", "quantity": 1 }],
+      "burnOutput": { "itemId": "burnt_fish", "quantity": 1 },
+      "facility": ["fire", "range"]
+    },
+    {
+      "id": "cook_crimsonfish",
+      "name": "Cook Crimsonfish",
+      "skill": "cooking",
+      "level": 30,
+      "xp": 90,
+      "duration": 3,
+      "burnLevel": 58,
+      "inputs": [{ "itemId": "raw_crimsonfish", "quantity": 1 }],
+      "outputs": [{ "itemId": "cooked_crimsonfish", "quantity": 1 }],
+      "burnOutput": { "itemId": "burnt_fish", "quantity": 1 },
+      "facility": ["fire", "range"]
+    },
+    {
+      "id": "cook_stoneclaw",
+      "name": "Cook Stoneclaw",
+      "skill": "cooking",
+      "level": 40,
+      "xp": 120,
+      "duration": 4,
+      "burnLevel": 74,
+      "inputs": [{ "itemId": "raw_stoneclaw", "quantity": 1 }],
+      "outputs": [{ "itemId": "cooked_stoneclaw", "quantity": 1 }],
+      "burnOutput": { "itemId": "burnt_stoneclaw", "quantity": 1 },
+      "facility": ["fire", "range"]
+    },
+    {
+      "id": "cook_razorfin",
+      "name": "Cook Razorfin",
+      "skill": "cooking",
+      "level": 50,
+      "xp": 140,
+      "duration": 4,
+      "burnLevel": 86,
+      "inputs": [{ "itemId": "raw_razorfin", "quantity": 1 }],
+      "outputs": [{ "itemId": "cooked_razorfin", "quantity": 1 }],
+      "burnOutput": { "itemId": "burnt_razorfin", "quantity": 1 },
+      "facility": ["fire", "range"]
+    },
+    {
+      "id": "cook_ironjaw",
+      "name": "Cook Ironjaw",
+      "skill": "cooking",
+      "level": 65,
+      "xp": 200,
+      "duration": 5,
+      "burnLevel": 99,
+      "inputs": [{ "itemId": "raw_ironjaw", "quantity": 1 }],
+      "outputs": [{ "itemId": "cooked_ironjaw", "quantity": 1 }],
+      "burnOutput": { "itemId": "burnt_ironjaw", "quantity": 1 },
+      "facility": ["fire", "range"]
+    },
+    {
+      "id": "cook_abyssfin",
+      "name": "Cook Abyssfin",
+      "skill": "cooking",
+      "level": 90,
+      "xp": 250,
+      "duration": 6,
+      "burnLevel": 99,
+      "inputs": [{ "itemId": "raw_abyssfin", "quantity": 1 }],
+      "outputs": [{ "itemId": "cooked_abyssfin", "quantity": 1 }],
+      "burnOutput": { "itemId": "burnt_abyssfin", "quantity": 1 },
+      "facility": ["range"],
+      "notes": "Requires range, cannot cook on fire"
+    },
+    {
+      "id": "bake_bread",
+      "name": "Bake Bread",
+      "skill": "cooking",
+      "level": 1,
+      "xp": 40,
+      "duration": 3,
+      "inputs": [{ "itemId": "bread_dough", "quantity": 1 }],
+      "outputs": [{ "itemId": "bread", "quantity": 1 }],
+      "facility": ["range"]
+    },
+    {
+      "id": "make_bread_dough",
+      "name": "Make Bread Dough",
+      "skill": "cooking",
+      "level": 1,
+      "xp": 10,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "flour", "quantity": 1 },
+        { "itemId": "water_bucket", "quantity": 1 }
+      ],
+      "outputs": [
+        { "itemId": "bread_dough", "quantity": 1 },
+        { "itemId": "bucket", "quantity": 1 }
+      ]
+    },
+    {
+      "id": "make_meat_pastry",
+      "name": "Make Meat Pastry",
+      "skill": "cooking",
+      "level": 25,
+      "xp": 110,
+      "duration": 5,
+      "inputs": [
+        { "itemId": "pastry_shell", "quantity": 1 },
+        { "itemId": "cooked_meat", "quantity": 1 }
+      ],
+      "outputs": [{ "itemId": "meat_pastry", "quantity": 1 }],
+      "facility": ["range"]
+    },
+    {
+      "id": "make_sunfruit_tart",
+      "name": "Make Sunfruit Tart",
+      "skill": "cooking",
+      "level": 65,
+      "xp": 260,
+      "duration": 6,
+      "inputs": [
+        { "itemId": "pastry_shell", "quantity": 1 },
+        { "itemId": "sunfruit", "quantity": 1 },
+        { "itemId": "moonmelon", "quantity": 1 },
+        { "itemId": "golden_apple", "quantity": 1 }
+      ],
+      "outputs": [{ "itemId": "sunfruit_tart", "quantity": 1 }],
+      "facility": ["range"]
+    }
+  ],
+  "brewing": [
+    {
+      "id": "brew_ale",
+      "name": "Brew Standard Ale",
+      "skill": "cooking",
+      "level": 1,
+      "xp": 100,
+      "duration": 300,
+      "inputs": [
+        { "itemId": "barley_malt", "quantity": 2 },
+        { "itemId": "water_bucket", "quantity": 1 },
+        { "itemId": "ale_yeast", "quantity": 1 }
+      ],
+      "outputs": [{ "itemId": "ale", "quantity": 8 }],
+      "facility": "brewing_vat"
+    },
+    {
+      "id": "brew_cider",
+      "name": "Brew Cider",
+      "skill": "cooking",
+      "level": 14,
+      "xp": 180,
+      "duration": 360,
+      "inputs": [
+        { "itemId": "golden_apple", "quantity": 4 },
+        { "itemId": "water_bucket", "quantity": 1 },
+        { "itemId": "ale_yeast", "quantity": 1 }
+      ],
+      "outputs": [{ "itemId": "cider", "quantity": 8 }],
+      "facility": "brewing_vat"
+    }
+  ]
+}

@@ -1,0 +1,394 @@
+{
+  "version": "1.0.0",
+  "description": "Anti-cheat configuration for Realm of Eternity",
+
+  "detection_systems": {
+    "client_integrity": {
+      "enabled": true,
+      "memory_scanning": {
+        "enabled": true,
+        "scan_interval_ms": 5000,
+        "signature_database_version": "2024.01.001",
+        "detect_known_cheats": true,
+        "detect_memory_injection": true,
+        "detect_dll_injection": true
+      },
+      "file_integrity": {
+        "enabled": true,
+        "check_game_files": true,
+        "check_critical_dlls": true,
+        "allow_mod_folders": ["cosmetic_mods"],
+        "blocked_modifications": ["*.dll", "*.exe", "game_data/*"]
+      },
+      "process_monitoring": {
+        "enabled": true,
+        "blocked_processes": [
+          "cheatengine*",
+          "artmoney*",
+          "gameguardian*",
+          "memoryeditor*"
+        ],
+        "suspicious_processes": [
+          "autohotkey*",
+          "autoit*",
+          "macro*"
+        ]
+      },
+      "debugger_detection": {
+        "enabled": true,
+        "action_on_detect": "disconnect",
+        "allow_dev_builds": true
+      }
+    },
+
+    "movement_validation": {
+      "enabled": true,
+      "max_speed_multiplier": 1.15,
+      "teleport_threshold_units": 100,
+      "wall_clip_detection": true,
+      "fly_hack_detection": true,
+      "noclip_detection": true,
+      "position_history_samples": 60,
+      "rubber_banding": {
+        "enabled": true,
+        "max_corrections_per_minute": 5,
+        "correction_threshold_units": 50
+      },
+      "pathfinding_validation": {
+        "enabled": true,
+        "check_navmesh_compliance": true,
+        "allow_shortcut_tolerance_percent": 5
+      }
+    },
+
+    "combat_validation": {
+      "enabled": true,
+      "damage_validation": {
+        "max_damage_variance_percent": 10,
+        "validate_critical_hits": true,
+        "validate_ability_damage": true,
+        "validate_equipment_bonuses": true
+      },
+      "attack_speed_validation": {
+        "enabled": true,
+        "min_tick_interval_ms": 580,
+        "max_actions_per_tick": 1,
+        "tolerance_ms": 50
+      },
+      "accuracy_validation": {
+        "enabled": true,
+        "statistical_analysis_window": 100,
+        "impossibly_high_accuracy_threshold": 0.99,
+        "report_threshold_attacks": 50
+      },
+      "healing_validation": {
+        "enabled": true,
+        "validate_food_healing": true,
+        "validate_potion_effects": true,
+        "max_heal_per_tick": 2500
+      },
+      "prayer_validation": {
+        "enabled": true,
+        "validate_drain_rates": true,
+        "detect_prayer_flicking_abuse": true,
+        "max_flicks_per_minute": 120
+      }
+    },
+
+    "economy_protection": {
+      "enabled": true,
+      "item_duplication": {
+        "detect_inventory_anomalies": true,
+        "validate_trade_transactions": true,
+        "track_item_sources": true,
+        "suspicious_wealth_threshold_gp": 100000000
+      },
+      "gold_generation": {
+        "max_gp_per_hour": 50000000,
+        "track_gold_sources": true,
+        "flag_unusual_patterns": true
+      },
+      "grand_exchange": {
+        "detect_price_manipulation": true,
+        "max_offer_value_variance_percent": 500,
+        "wash_trading_detection": true,
+        "monitor_large_transactions": true,
+        "large_transaction_threshold_gp": 1000000000
+      },
+      "trade_protection": {
+        "validate_trade_values": true,
+        "flag_highly_unequal_trades": true,
+        "unequal_trade_threshold_percent": 1000,
+        "rwt_pattern_detection": true,
+        "new_account_restrictions": {
+          "enabled": true,
+          "account_age_hours": 24,
+          "max_trade_value_gp": 10000000
+        }
+      }
+    },
+
+    "botting_detection": {
+      "enabled": true,
+      "behavioral_analysis": {
+        "enabled": true,
+        "action_pattern_analysis": true,
+        "mouse_movement_analysis": true,
+        "keyboard_pattern_analysis": true,
+        "reaction_time_analysis": true,
+        "session_length_monitoring": true
+      },
+      "interaction_patterns": {
+        "detect_pixel_perfect_clicks": true,
+        "detect_inhuman_precision": true,
+        "detect_consistent_timing": true,
+        "timing_variance_threshold_ms": 10
+      },
+      "random_events": {
+        "enabled": true,
+        "failure_tracking": true,
+        "max_failures_before_flag": 3,
+        "captcha_system": {
+          "enabled": true,
+          "trigger_on_suspicious": true,
+          "types": ["image_recognition", "simple_math", "pattern_matching"]
+        }
+      },
+      "afk_detection": {
+        "enabled": true,
+        "max_continuous_activity_hours": 6,
+        "require_interaction_minutes": 15,
+        "logout_on_afk_minutes": 5
+      },
+      "machine_learning": {
+        "enabled": true,
+        "model_version": "2024.01.001",
+        "confidence_threshold": 0.85,
+        "features_tracked": [
+          "action_timing_distribution",
+          "movement_patterns",
+          "skill_training_efficiency",
+          "interaction_coordinates",
+          "session_patterns"
+        ]
+      }
+    },
+
+    "packet_validation": {
+      "enabled": true,
+      "rate_limiting": {
+        "max_packets_per_second": 100,
+        "burst_allowance": 150,
+        "block_duration_seconds": 60
+      },
+      "sequence_validation": {
+        "enabled": true,
+        "detect_replay_attacks": true,
+        "sequence_window": 1000
+      },
+      "payload_validation": {
+        "enabled": true,
+        "validate_checksums": true,
+        "detect_malformed_packets": true,
+        "sanitize_inputs": true
+      },
+      "encryption": {
+        "required": true,
+        "algorithm": "AES-256-GCM",
+        "key_rotation_minutes": 60
+      }
+    },
+
+    "account_security": {
+      "login_protection": {
+        "max_failed_attempts": 5,
+        "lockout_duration_minutes": 30,
+        "progressive_lockout": true,
+        "suspicious_ip_detection": true,
+        "vpn_detection": {
+          "enabled": true,
+          "action": "flag",
+          "allowed_vpns": []
+        }
+      },
+      "session_management": {
+        "max_concurrent_sessions": 1,
+        "session_timeout_minutes": 60,
+        "ip_binding": "soft",
+        "device_fingerprinting": true
+      },
+      "account_sharing_detection": {
+        "enabled": true,
+        "ip_diversity_threshold": 10,
+        "location_change_velocity_check": true,
+        "action_on_detect": "flag"
+      }
+    }
+  },
+
+  "response_actions": {
+    "severity_levels": {
+      "low": {
+        "description": "Minor anomaly, likely false positive",
+        "actions": ["log"],
+        "auto_resolve": true
+      },
+      "medium": {
+        "description": "Suspicious activity requiring review",
+        "actions": ["log", "flag_account", "notify_moderator"],
+        "auto_resolve": false
+      },
+      "high": {
+        "description": "Likely cheating detected",
+        "actions": ["log", "flag_account", "restrict_features", "notify_moderator"],
+        "auto_resolve": false
+      },
+      "critical": {
+        "description": "Confirmed cheating or exploitation",
+        "actions": ["log", "disconnect", "temp_ban", "notify_moderator", "preserve_evidence"],
+        "auto_resolve": false
+      }
+    },
+
+    "automated_responses": {
+      "rubber_banding": {
+        "trigger": "movement_violation",
+        "severity_threshold": "low",
+        "action": "correct_position"
+      },
+      "damage_correction": {
+        "trigger": "damage_validation_failure",
+        "severity_threshold": "medium",
+        "action": "recalculate_damage"
+      },
+      "rate_limit_block": {
+        "trigger": "packet_rate_exceeded",
+        "severity_threshold": "medium",
+        "action": "temporary_block"
+      },
+      "session_termination": {
+        "trigger": "critical_violation",
+        "severity_threshold": "critical",
+        "action": "disconnect_and_log"
+      }
+    },
+
+    "ban_durations": {
+      "first_offense_minor": "24h",
+      "first_offense_major": "7d",
+      "second_offense": "30d",
+      "third_offense": "permanent",
+      "rwt_offense": "permanent",
+      "botting_first": "48h",
+      "botting_repeat": "permanent",
+      "exploitation": "permanent"
+    },
+
+    "appeals": {
+      "enabled": true,
+      "appeal_window_days": 30,
+      "max_appeals": 2,
+      "evidence_retention_days": 90
+    }
+  },
+
+  "thresholds": {
+    "movement": {
+      "max_speed_tiles_per_tick": 2,
+      "max_teleport_distance_tiles": 50,
+      "position_desync_tolerance_tiles": 3
+    },
+    "combat": {
+      "max_damage_per_hit": 15000,
+      "min_attack_interval_ticks": 1,
+      "max_abilities_per_second": 5
+    },
+    "economy": {
+      "suspicious_wealth_gain_per_hour": 500000000,
+      "max_trade_value_ratio": 100,
+      "ge_price_manipulation_threshold_percent": 50
+    },
+    "behavioral": {
+      "max_session_length_hours": 16,
+      "min_action_variance_ms": 5,
+      "max_click_precision_pixels": 0,
+      "suspicious_efficiency_threshold": 0.98
+    }
+  },
+
+  "whitelists": {
+    "trusted_ips": [],
+    "staff_accounts": [],
+    "beta_testers": [],
+    "content_creators": []
+  },
+
+  "reporting": {
+    "real_time_alerts": {
+      "enabled": true,
+      "channels": ["slack", "discord_webhook", "email"],
+      "severity_threshold": "high"
+    },
+    "daily_reports": {
+      "enabled": true,
+      "include_statistics": true,
+      "include_flagged_accounts": true,
+      "recipients": ["security-team@realmofeternity.com"]
+    },
+    "metrics": {
+      "track_false_positives": true,
+      "track_detection_rates": true,
+      "track_ban_statistics": true,
+      "dashboard_enabled": true
+    }
+  },
+
+  "logging": {
+    "log_level": "info",
+    "log_all_detections": true,
+    "log_player_actions": true,
+    "retention_days": {
+      "general_logs": 30,
+      "detection_logs": 90,
+      "ban_evidence": 365,
+      "appeal_records": 730
+    },
+    "gdpr_compliance": {
+      "enabled": true,
+      "anonymize_after_days": 90,
+      "data_export_enabled": true
+    }
+  },
+
+  "integration": {
+    "external_services": {
+      "ip_reputation": {
+        "enabled": true,
+        "provider": "internal",
+        "cache_ttl_hours": 24
+      },
+      "known_cheat_database": {
+        "enabled": true,
+        "update_frequency_hours": 6
+      },
+      "player_reports": {
+        "enabled": true,
+        "weight_in_detection": 0.2,
+        "min_reports_for_flag": 5
+      }
+    },
+    "game_server": {
+      "validation_mode": "server_authoritative",
+      "sync_interval_ms": 100,
+      "rollback_enabled": true
+    }
+  },
+
+  "development": {
+    "debug_mode": false,
+    "bypass_for_devs": true,
+    "test_accounts_exempt": true,
+    "logging_verbose": false,
+    "simulation_mode": false
+  }
+}

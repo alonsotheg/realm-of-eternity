@@ -1,0 +1,361 @@
+{
+  "materials": [
+    {
+      "id": "emberite_ore",
+      "name": "Emberite Ore",
+      "description": "Warm ore with a faint orange glow, used in copperweave",
+      "type": "material",
+      "subtype": "ore",
+      "tier": 1,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 5,
+      "source": { "skill": "mining", "level": 1, "xp": 10 }
+    },
+    {
+      "id": "tin_ore",
+      "name": "Tin Ore",
+      "description": "Common ore used in copperweave alloy",
+      "type": "material",
+      "subtype": "ore",
+      "tier": 1,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 5,
+      "source": { "skill": "mining", "level": 1, "xp": 10 }
+    },
+    {
+      "id": "ironbark_ore",
+      "name": "Ironbark Ore",
+      "description": "Dense ore infused with ancient wood essence",
+      "type": "material",
+      "subtype": "ore",
+      "tier": 2,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 15,
+      "source": { "skill": "mining", "level": 15, "xp": 25 }
+    },
+    {
+      "id": "stormite",
+      "name": "Stormite",
+      "description": "Ore crackling with residual lightning energy",
+      "type": "material",
+      "subtype": "ore",
+      "tier": 3,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 45,
+      "source": { "skill": "mining", "level": 30, "xp": 50 }
+    },
+    {
+      "id": "moonveil_ore",
+      "name": "Moonveil Ore",
+      "description": "Rare ore with a faint silver-blue luminescence",
+      "type": "material",
+      "subtype": "ore",
+      "tier": 4,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 100,
+      "source": { "skill": "mining", "level": 55, "xp": 80 }
+    },
+    {
+      "id": "voidstone_ore",
+      "name": "Voidstone Ore",
+      "description": "Dark ore pulsing with energy from the endless void",
+      "type": "material",
+      "subtype": "ore",
+      "tier": 5,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 250,
+      "source": { "skill": "mining", "level": 70, "xp": 120 }
+    },
+    {
+      "id": "eternium_ore",
+      "name": "Eternium Ore",
+      "description": "The rarest ore, said to be fragments of eternity itself",
+      "type": "material",
+      "subtype": "ore",
+      "tier": 6,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 500,
+      "source": { "skill": "mining", "level": 85, "xp": 175 }
+    },
+    {
+      "id": "coal",
+      "name": "Coal",
+      "description": "Essential fuel for smelting higher-tier metals",
+      "type": "material",
+      "subtype": "ore",
+      "tier": 2,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 20,
+      "source": { "skill": "mining", "level": 30, "xp": 35 }
+    },
+    {
+      "id": "ashwood_log",
+      "name": "Ashwood Log",
+      "description": "Common wood from ashwood trees",
+      "type": "material",
+      "subtype": "log",
+      "tier": 1,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 4,
+      "source": { "skill": "woodcutting", "level": 1, "xp": 8 }
+    },
+    {
+      "id": "goldleaf_log",
+      "name": "Goldleaf Log",
+      "description": "Quality wood with a golden hue",
+      "type": "material",
+      "subtype": "log",
+      "tier": 2,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 20,
+      "source": { "skill": "woodcutting", "level": 35, "xp": 45 }
+    },
+    {
+      "id": "whisperwood_log",
+      "name": "Whisperwood Log",
+      "description": "Flexible wood that seems to whisper in the wind",
+      "type": "material",
+      "subtype": "log",
+      "tier": 3,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 40,
+      "source": { "skill": "woodcutting", "level": 50, "xp": 65 }
+    },
+    {
+      "id": "ironwood_log",
+      "name": "Ironwood Log",
+      "description": "Extremely hard wood, almost like metal",
+      "type": "material",
+      "subtype": "log",
+      "tier": 4,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 80,
+      "source": { "skill": "woodcutting", "level": 65, "xp": 95 }
+    },
+    {
+      "id": "spiritbark_log",
+      "name": "Spiritbark Log",
+      "description": "Mystical wood from enchanted ancient trees",
+      "type": "material",
+      "subtype": "log",
+      "tier": 5,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 200,
+      "source": { "skill": "woodcutting", "level": 80, "xp": 150 }
+    },
+    {
+      "id": "raw_mudcrawler",
+      "name": "Raw Mudcrawler",
+      "description": "A small crustacean from shallow waters",
+      "type": "material",
+      "subtype": "fish",
+      "tier": 1,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 3,
+      "source": { "skill": "fishing", "level": 1, "xp": 10 }
+    },
+    {
+      "id": "raw_silverscale",
+      "name": "Raw Silverscale",
+      "description": "A shimmering freshwater fish",
+      "type": "material",
+      "subtype": "fish",
+      "tier": 2,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 12,
+      "source": { "skill": "fishing", "level": 20, "xp": 30 }
+    },
+    {
+      "id": "raw_crimsonfish",
+      "name": "Raw Crimsonfish",
+      "description": "A vibrant red fish from swift currents",
+      "type": "material",
+      "subtype": "fish",
+      "tier": 2,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 18,
+      "source": { "skill": "fishing", "level": 30, "xp": 45 }
+    },
+    {
+      "id": "raw_stoneclaw",
+      "name": "Raw Stoneclaw",
+      "description": "A hard-shelled crustacean from deep waters",
+      "type": "material",
+      "subtype": "fish",
+      "tier": 3,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 50,
+      "source": { "skill": "fishing", "level": 40, "xp": 60 }
+    },
+    {
+      "id": "raw_razorfin",
+      "name": "Raw Razorfin",
+      "description": "A dangerous fish with blade-like fins",
+      "type": "material",
+      "subtype": "fish",
+      "tier": 4,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 80,
+      "source": { "skill": "fishing", "level": 50, "xp": 85 }
+    },
+    {
+      "id": "raw_ironjaw",
+      "name": "Raw Ironjaw",
+      "description": "A fearsome predator of the deep",
+      "type": "material",
+      "subtype": "fish",
+      "tier": 5,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 150,
+      "source": { "skill": "fishing", "level": 65, "xp": 125 }
+    },
+    {
+      "id": "raw_abyssfin",
+      "name": "Raw Abyssfin",
+      "description": "A mysterious fish from the deepest ocean trenches",
+      "type": "material",
+      "subtype": "fish",
+      "tier": 6,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 300,
+      "source": { "skill": "fishing", "level": 90, "xp": 180 }
+    },
+    {
+      "id": "copperweave_bar",
+      "name": "Copperweave Bar",
+      "description": "A bar of warm copperweave alloy, ready for smithing",
+      "type": "material",
+      "subtype": "bar",
+      "tier": 1,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 15,
+      "recipe": {
+        "skill": "smithing",
+        "level": 1,
+        "xp": 12,
+        "inputs": [
+          { "item": "emberite_ore", "quantity": 1 },
+          { "item": "tin_ore", "quantity": 1 }
+        ]
+      }
+    },
+    {
+      "id": "ironbark_bar",
+      "name": "Ironbark Bar",
+      "description": "A bar infused with nature's strength",
+      "type": "material",
+      "subtype": "bar",
+      "tier": 2,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 40,
+      "recipe": {
+        "skill": "smithing",
+        "level": 15,
+        "xp": 30,
+        "inputs": [{ "item": "ironbark_ore", "quantity": 1 }]
+      }
+    },
+    {
+      "id": "stormforged_bar",
+      "name": "Stormforged Bar",
+      "description": "A bar crackling with storm energy",
+      "type": "material",
+      "subtype": "bar",
+      "tier": 3,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 100,
+      "recipe": {
+        "skill": "smithing",
+        "level": 30,
+        "xp": 45,
+        "inputs": [
+          { "item": "ironbark_ore", "quantity": 1 },
+          { "item": "coal", "quantity": 2 }
+        ]
+      }
+    },
+    {
+      "id": "moonveil_bar",
+      "name": "Moonveil Bar",
+      "description": "A bar shimmering with ethereal light",
+      "type": "material",
+      "subtype": "bar",
+      "tier": 4,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 250,
+      "recipe": {
+        "skill": "smithing",
+        "level": 50,
+        "xp": 75,
+        "inputs": [
+          { "item": "moonveil_ore", "quantity": 1 },
+          { "item": "coal", "quantity": 4 }
+        ]
+      }
+    },
+    {
+      "id": "voidstone_bar",
+      "name": "Voidstone Bar",
+      "description": "A bar pulsing with dark energy",
+      "type": "material",
+      "subtype": "bar",
+      "tier": 5,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 600,
+      "recipe": {
+        "skill": "smithing",
+        "level": 70,
+        "xp": 100,
+        "inputs": [
+          { "item": "voidstone_ore", "quantity": 1 },
+          { "item": "coal", "quantity": 6 }
+        ]
+      }
+    },
+    {
+      "id": "eternium_bar",
+      "name": "Eternium Bar",
+      "description": "The most precious metal bar in the realm",
+      "type": "material",
+      "subtype": "bar",
+      "tier": 6,
+      "stackable": true,
+      "maxStack": 100,
+      "value": 1500,
+      "recipe": {
+        "skill": "smithing",
+        "level": 85,
+        "xp": 150,
+        "inputs": [
+          { "item": "eternium_ore", "quantity": 1 },
+          { "item": "coal", "quantity": 8 }
+        ]
+      }
+    }
+  ]
+}

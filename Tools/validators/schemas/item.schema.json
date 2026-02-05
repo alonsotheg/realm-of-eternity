@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://realmofeternity.com/schemas/item.schema.json",
+  "title": "Item",
+  "description": "Schema for game item definitions",
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "Unique identifier for the item"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Display name of the item"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Item description shown to players"
+    },
+    "examine": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Text shown when examining the item"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "weapon", "armor", "tool", "food", "potion", "rune",
+        "ammunition", "material", "quest", "currency", "pet", "cosmetic"
+      ]
+    },
+    "tradeable": {
+      "type": "boolean",
+      "default": true
+    },
+    "stackable": {
+      "type": "boolean",
+      "default": false
+    },
+    "members_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "value": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Base gold value"
+    },
+    "high_alch": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "High alchemy value"
+    },
+    "low_alch": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Low alchemy value"
+    },
+    "weight_kg": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Weight in kilograms"
+    },
+    "requirements": {
+      "type": "object",
+      "description": "Skill requirements to use/equip",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 120
+      }
+    },
+    "equipment": {
+      "$ref": "#/$defs/equipmentData"
+    },
+    "consumable": {
+      "$ref": "#/$defs/consumableData"
+    }
+  },
+  "$defs": {
+    "equipmentData": {
+      "type": "object",
+      "properties": {
+        "slot": {
+          "type": "string",
+          "enum": [
+            "head", "cape", "neck", "ammo", "weapon", "shield",
+            "body", "legs", "hands", "feet", "ring", "two_handed",
+            "pocket", "aura"
+          ]
+        },
+        "attack_bonus": {
+          "$ref": "#/$defs/combatBonus"
+        },
+        "defence_bonus": {
+          "$ref": "#/$defs/combatBonus"
+        },
+        "strength_bonus": {
+          "type": "integer"
+        },
+        "ranged_strength": {
+          "type": "integer"
+        },
+        "magic_damage_percent": {
+          "type": "number"
+        },
+        "prayer_bonus": {
+          "type": "integer"
+        },
+        "attack_speed": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "attack_range": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "combat_style": {
+          "type": "string",
+          "enum": ["melee", "ranged", "magic", "hybrid", "all"]
+        },
+        "degradable": {
+          "type": "boolean"
+        },
+        "max_charges": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "combatBonus": {
+      "type": "object",
+      "properties": {
+        "stab": { "type": "integer" },
+        "slash": { "type": "integer" },
+        "crush": { "type": "integer" },
+        "magic": { "type": "integer" },
+        "ranged": { "type": "integer" }
+      }
+    },
+    "consumableData": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["food", "potion", "prayer_restore", "boost", "special"]
+        },
+        "healing": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "doses": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stat": { "type": "string" },
+              "boost": { "type": "integer" },
+              "duration_seconds": { "type": "integer" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

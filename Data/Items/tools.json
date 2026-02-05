@@ -1,0 +1,418 @@
+{
+  "tools": {
+    "pickaxes": [
+      {
+        "id": "copperweave_pickaxe",
+        "name": "Copperweave Pickaxe",
+        "description": "A basic mining tool for novice miners",
+        "type": "tool",
+        "subtype": "pickaxe",
+        "tier": 1,
+        "value": 50,
+        "requirements": { "mining": 1 },
+        "stats": { "miningSpeed": 1.0 }
+      },
+      {
+        "id": "ironbark_pickaxe",
+        "name": "Ironbark Pickaxe",
+        "description": "A sturdy pickaxe infused with wood essence",
+        "type": "tool",
+        "subtype": "pickaxe",
+        "tier": 2,
+        "value": 150,
+        "requirements": { "mining": 10 },
+        "stats": { "miningSpeed": 1.2 }
+      },
+      {
+        "id": "stormforged_pickaxe",
+        "name": "Stormforged Pickaxe",
+        "description": "A pickaxe tempered by lightning",
+        "type": "tool",
+        "subtype": "pickaxe",
+        "tier": 3,
+        "value": 400,
+        "requirements": { "mining": 20 },
+        "stats": { "miningSpeed": 1.4 }
+      },
+      {
+        "id": "moonveil_pickaxe",
+        "name": "Moonveil Pickaxe",
+        "description": "A glowing pickaxe of ethereal metal",
+        "type": "tool",
+        "subtype": "pickaxe",
+        "tier": 4,
+        "value": 1500,
+        "requirements": { "mining": 40 },
+        "stats": { "miningSpeed": 1.7 }
+      },
+      {
+        "id": "voidstone_pickaxe",
+        "name": "Voidstone Pickaxe",
+        "description": "A powerful pickaxe from the endless void",
+        "type": "tool",
+        "subtype": "pickaxe",
+        "tier": 5,
+        "value": 5000,
+        "requirements": { "mining": 60 },
+        "stats": { "miningSpeed": 2.0 }
+      },
+      {
+        "id": "eternium_pickaxe",
+        "name": "Eternium Pickaxe",
+        "description": "The finest pickaxe forged from eternal metal",
+        "type": "tool",
+        "subtype": "pickaxe",
+        "tier": 6,
+        "value": 20000,
+        "requirements": { "mining": 80 },
+        "stats": { "miningSpeed": 2.4 }
+      },
+      {
+        "id": "wyrmbone_pickaxe",
+        "name": "Wyrmbone Pickaxe",
+        "description": "A legendary pickaxe crafted from wyrm bone",
+        "type": "tool",
+        "subtype": "pickaxe",
+        "tier": 7,
+        "value": 500000,
+        "requirements": { "mining": 85 },
+        "stats": { "miningSpeed": 2.8 },
+        "ability": { "name": "Stone Shatter", "boostMining": 3, "duration": 30, "cooldown": 180 }
+      }
+    ],
+    "axes": [
+      {
+        "id": "copperweave_axe",
+        "name": "Copperweave Axe",
+        "description": "A basic axe for novice woodcutters",
+        "type": "tool",
+        "subtype": "axe",
+        "tier": 1,
+        "value": 50,
+        "requirements": { "woodcutting": 1 },
+        "stats": { "woodcuttingSpeed": 1.0 }
+      },
+      {
+        "id": "ironbark_axe",
+        "name": "Ironbark Axe",
+        "description": "A sturdy axe with natural reinforcement",
+        "type": "tool",
+        "subtype": "axe",
+        "tier": 2,
+        "value": 150,
+        "requirements": { "woodcutting": 10 },
+        "stats": { "woodcuttingSpeed": 1.2 }
+      },
+      {
+        "id": "stormforged_axe",
+        "name": "Stormforged Axe",
+        "description": "An axe crackling with storm energy",
+        "type": "tool",
+        "subtype": "axe",
+        "tier": 3,
+        "value": 400,
+        "requirements": { "woodcutting": 20 },
+        "stats": { "woodcuttingSpeed": 1.4 }
+      },
+      {
+        "id": "moonveil_axe",
+        "name": "Moonveil Axe",
+        "description": "A gleaming axe of ethereal metal",
+        "type": "tool",
+        "subtype": "axe",
+        "tier": 4,
+        "value": 1500,
+        "requirements": { "woodcutting": 40 },
+        "stats": { "woodcuttingSpeed": 1.7 }
+      },
+      {
+        "id": "voidstone_axe",
+        "name": "Voidstone Axe",
+        "description": "A powerful axe from the endless void",
+        "type": "tool",
+        "subtype": "axe",
+        "tier": 5,
+        "value": 5000,
+        "requirements": { "woodcutting": 60 },
+        "stats": { "woodcuttingSpeed": 2.0 }
+      },
+      {
+        "id": "eternium_axe",
+        "name": "Eternium Axe",
+        "description": "The finest axe forged from eternal metal",
+        "type": "tool",
+        "subtype": "axe",
+        "tier": 6,
+        "value": 20000,
+        "requirements": { "woodcutting": 80 },
+        "stats": { "woodcuttingSpeed": 2.4 }
+      },
+      {
+        "id": "wyrmbone_axe",
+        "name": "Wyrmbone Axe",
+        "description": "A legendary axe crafted from wyrm bone",
+        "type": "tool",
+        "subtype": "axe",
+        "tier": 7,
+        "value": 500000,
+        "requirements": { "woodcutting": 85 },
+        "stats": { "woodcuttingSpeed": 2.8 },
+        "ability": { "name": "Timber Fury", "boostWoodcutting": 3, "duration": 30, "cooldown": 180 }
+      }
+    ],
+    "fishingRods": [
+      {
+        "id": "reed_rod",
+        "name": "Reed Rod",
+        "description": "A basic fishing rod woven from reeds",
+        "type": "tool",
+        "subtype": "fishing_rod",
+        "tier": 1,
+        "value": 25,
+        "requirements": { "fishing": 1 },
+        "stats": { "fishingSpeed": 1.0 },
+        "canCatch": ["mudcrawler", "minnow", "streamperch"]
+      },
+      {
+        "id": "feather_rod",
+        "name": "Feather Rod",
+        "description": "For fly fishing in rivers",
+        "type": "tool",
+        "subtype": "fishing_rod",
+        "tier": 2,
+        "value": 100,
+        "requirements": { "fishing": 20 },
+        "stats": { "fishingSpeed": 1.3 },
+        "canCatch": ["silverscale", "crimsonfish", "rivereel"]
+      },
+      {
+        "id": "deep_harpoon",
+        "name": "Deep Harpoon",
+        "description": "For hunting large ocean creatures",
+        "type": "tool",
+        "subtype": "harpoon",
+        "tier": 3,
+        "value": 300,
+        "requirements": { "fishing": 35 },
+        "stats": { "fishingSpeed": 1.0 },
+        "canCatch": ["razorfin", "ironjaw", "seaserpent"]
+      },
+      {
+        "id": "wyrmbone_harpoon",
+        "name": "Wyrmbone Harpoon",
+        "description": "A legendary harpoon crafted from wyrm bone",
+        "type": "tool",
+        "subtype": "harpoon",
+        "tier": 7,
+        "value": 400000,
+        "requirements": { "fishing": 85 },
+        "stats": { "fishingSpeed": 1.5 },
+        "canCatch": ["razorfin", "ironjaw", "abyssfin"],
+        "ability": { "name": "Ocean's Bounty", "boostFishing": 3, "duration": 30, "cooldown": 180 }
+      },
+      {
+        "id": "claw_trap",
+        "name": "Claw Trap",
+        "description": "A cage for catching crustaceans",
+        "type": "tool",
+        "subtype": "trap",
+        "tier": 3,
+        "value": 150,
+        "requirements": { "fishing": 40 },
+        "stats": { "fishingSpeed": 1.0 },
+        "canCatch": ["stoneclaw", "deepcrab"]
+      }
+    ],
+    "other": [
+      {
+        "id": "tinderbox",
+        "name": "Tinderbox",
+        "description": "Used to light fires",
+        "type": "tool",
+        "subtype": "utility",
+        "tier": 1,
+        "value": 10,
+        "requirements": {},
+        "useWith": ["logs"]
+      },
+      {
+        "id": "smithing_hammer",
+        "name": "Smithing Hammer",
+        "description": "Essential for metalworking at an anvil",
+        "type": "tool",
+        "subtype": "utility",
+        "tier": 1,
+        "value": 15,
+        "requirements": {},
+        "useWith": ["bars", "anvil"]
+      },
+      {
+        "id": "chisel",
+        "name": "Chisel",
+        "description": "Used for gem cutting and crafting",
+        "type": "tool",
+        "subtype": "utility",
+        "tier": 1,
+        "value": 20,
+        "requirements": {},
+        "useWith": ["gems", "bones"]
+      },
+      {
+        "id": "carving_knife",
+        "name": "Carving Knife",
+        "description": "Used for bowcraft and whittling",
+        "type": "tool",
+        "subtype": "utility",
+        "tier": 1,
+        "value": 15,
+        "requirements": {},
+        "useWith": ["logs", "fish"]
+      },
+      {
+        "id": "needle",
+        "name": "Needle",
+        "description": "Used for leather and cloth crafting",
+        "type": "tool",
+        "subtype": "utility",
+        "tier": 1,
+        "value": 5,
+        "requirements": {},
+        "useWith": ["leather", "thread"]
+      },
+      {
+        "id": "thread",
+        "name": "Thread",
+        "description": "Used with needle for crafting",
+        "type": "material",
+        "subtype": "utility",
+        "stackable": true,
+        "maxStack": 100,
+        "tier": 1,
+        "value": 2
+      },
+      {
+        "id": "saw",
+        "name": "Saw",
+        "description": "Used for construction projects",
+        "type": "tool",
+        "subtype": "utility",
+        "tier": 1,
+        "value": 50,
+        "requirements": {},
+        "useWith": ["planks"]
+      },
+      {
+        "id": "mortar_pestle",
+        "name": "Mortar and Pestle",
+        "description": "Used for grinding ingredients in alchemy",
+        "type": "tool",
+        "subtype": "utility",
+        "tier": 1,
+        "value": 25,
+        "requirements": {},
+        "useWith": ["herbs", "secondary_ingredients"]
+      }
+    ]
+  },
+  "herbalism": [
+    {
+      "id": "verdantleaf",
+      "name": "Verdantleaf",
+      "description": "A common herb used in basic potions",
+      "type": "material",
+      "subtype": "herb",
+      "stackable": true,
+      "maxStack": 100,
+      "value": 10,
+      "source": { "skill": "foraging", "level": 1, "xp": 5 }
+    },
+    {
+      "id": "thornroot",
+      "name": "Thornroot",
+      "description": "A prickly herb with antipoison properties",
+      "type": "material",
+      "subtype": "herb",
+      "stackable": true,
+      "maxStack": 100,
+      "value": 20,
+      "source": { "skill": "foraging", "level": 9, "xp": 10 }
+    },
+    {
+      "id": "bittervine",
+      "name": "Bittervine",
+      "description": "A bitter herb used in strength potions",
+      "type": "material",
+      "subtype": "herb",
+      "stackable": true,
+      "maxStack": 100,
+      "value": 35,
+      "source": { "skill": "foraging", "level": 14, "xp": 15 }
+    },
+    {
+      "id": "sunpetal",
+      "name": "Sunpetal",
+      "description": "A golden herb for various potions",
+      "type": "material",
+      "subtype": "herb",
+      "stackable": true,
+      "maxStack": 100,
+      "value": 50,
+      "source": { "skill": "foraging", "level": 22, "xp": 22 }
+    },
+    {
+      "id": "moonbloom",
+      "name": "Moonbloom",
+      "description": "A valuable herb for spirit elixirs",
+      "type": "material",
+      "subtype": "herb",
+      "stackable": true,
+      "maxStack": 100,
+      "value": 500,
+      "source": { "skill": "foraging", "level": 32, "xp": 35 }
+    },
+    {
+      "id": "stormleaf",
+      "name": "Stormleaf",
+      "description": "Used in potent vigor draughts",
+      "type": "material",
+      "subtype": "herb",
+      "stackable": true,
+      "maxStack": 100,
+      "value": 200,
+      "source": { "skill": "foraging", "level": 40, "xp": 45 }
+    },
+    {
+      "id": "voidbloom",
+      "name": "Voidbloom",
+      "description": "Used in potent might draughts",
+      "type": "material",
+      "subtype": "herb",
+      "stackable": true,
+      "maxStack": 100,
+      "value": 350,
+      "source": { "skill": "foraging", "level": 54, "xp": 55 }
+    },
+    {
+      "id": "starfall_petal",
+      "name": "Starfall Petal",
+      "description": "A rare herb for powerful potions",
+      "type": "material",
+      "subtype": "herb",
+      "stackable": true,
+      "maxStack": 100,
+      "value": 800,
+      "source": { "skill": "foraging", "level": 62, "xp": 70 }
+    },
+    {
+      "id": "eternitys_bloom",
+      "name": "Eternity's Bloom",
+      "description": "The most valuable herb, used in eternity elixirs",
+      "type": "material",
+      "subtype": "herb",
+      "stackable": true,
+      "maxStack": 100,
+      "value": 5000,
+      "source": { "skill": "foraging", "level": 85, "xp": 120 }
+    }
+  ]
+}

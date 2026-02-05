@@ -1,0 +1,701 @@
+{
+  "version": "1.0.0",
+  "description": "Hunter skill system for Realm of Eternity",
+
+  "hunter_mechanics": {
+    "skill_name": "Hunter",
+    "trap_limit_by_level": {
+      "1": 1,
+      "20": 2,
+      "40": 3,
+      "60": 4,
+      "80": 5
+    },
+    "trap_decay_time_minutes": 10,
+    "catch_chance_formula": "(hunter_level - creature_level + 20) / 100",
+    "experience_multipliers": {
+      "failed_catch": 0,
+      "successful_catch": 1.0,
+      "black_chinchompa_wilderness_bonus": 1.5
+    }
+  },
+
+  "trap_types": {
+    "bird_snare": {
+      "id": "bird_snare",
+      "name": "Bird Snare",
+      "level_required": 1,
+      "item_id": "bird_snare",
+      "targets": "birds",
+      "setup_animation": "place_snare",
+      "baited": false
+    },
+    "deadfall": {
+      "id": "deadfall",
+      "name": "Deadfall Trap",
+      "level_required": 23,
+      "item_id": "logs",
+      "requires_knife": true,
+      "targets": "kebbits",
+      "setup_animation": "construct_deadfall",
+      "baited": true
+    },
+    "box_trap": {
+      "id": "box_trap",
+      "name": "Box Trap",
+      "level_required": 27,
+      "item_id": "box_trap",
+      "targets": "chinchompas_ferrets",
+      "setup_animation": "place_box",
+      "baited": false,
+      "smokeable": true
+    },
+    "net_trap": {
+      "id": "net_trap",
+      "name": "Net Trap",
+      "level_required": 29,
+      "item_id": "small_fishing_net",
+      "requires_rope": true,
+      "targets": "swamp_lizards_salamanders",
+      "setup_animation": "setup_net",
+      "baited": false
+    },
+    "pitfall": {
+      "id": "pitfall",
+      "name": "Pitfall Trap",
+      "level_required": 31,
+      "item_id": "teasing_stick",
+      "requires_logs_and_knife": true,
+      "targets": "large_creatures",
+      "setup_animation": "dig_pitfall",
+      "baited": false,
+      "lure_required": true
+    },
+    "magic_box": {
+      "id": "magic_box",
+      "name": "Magic Box Trap",
+      "level_required": 71,
+      "item_id": "magic_box",
+      "targets": "implings",
+      "setup_animation": "none",
+      "handheld": true
+    },
+    "butterfly_net": {
+      "id": "butterfly_net",
+      "name": "Butterfly Net",
+      "level_required": 15,
+      "item_id": "butterfly_net",
+      "targets": "butterflies_implings",
+      "setup_animation": "none",
+      "handheld": true,
+      "active_catching": true
+    },
+    "noose_wand": {
+      "id": "noose_wand",
+      "name": "Noose Wand",
+      "level_required": 1,
+      "item_id": "noose_wand",
+      "targets": "tracking_kebbits",
+      "setup_animation": "none",
+      "handheld": true,
+      "tracking_required": true
+    },
+    "falcon": {
+      "id": "falcon",
+      "name": "Falconry",
+      "level_required": 43,
+      "rental_cost": 500,
+      "targets": "kebbits",
+      "location": "piscatoris_falconry",
+      "cannot_wear_weapons_shields": true
+    }
+  },
+
+  "creatures": {
+    "birds": [
+      {
+        "id": "crimson_swift",
+        "name": "Crimson Swift",
+        "level": 1,
+        "xp": 34,
+        "trap": "bird_snare",
+        "locations": ["feldip_hills"],
+        "drops": ["bones", "raw_bird_meat", "red_feather"]
+      },
+      {
+        "id": "golden_warbler",
+        "name": "Golden Warbler",
+        "level": 5,
+        "xp": 47,
+        "trap": "bird_snare",
+        "locations": ["desert_hunting_area"],
+        "drops": ["bones", "raw_bird_meat", "yellow_feather"]
+      },
+      {
+        "id": "copper_longtail",
+        "name": "Copper Longtail",
+        "level": 9,
+        "xp": 61,
+        "trap": "bird_snare",
+        "locations": ["piscatoris"],
+        "drops": ["bones", "raw_bird_meat", "orange_feather"]
+      },
+      {
+        "id": "cerulean_twitch",
+        "name": "Cerulean Twitch",
+        "level": 11,
+        "xp": 64.5,
+        "trap": "bird_snare",
+        "locations": ["rellekka_hunter_area"],
+        "drops": ["bones", "raw_bird_meat", "blue_feather"]
+      },
+      {
+        "id": "tropical_wagtail",
+        "name": "Tropical Wagtail",
+        "level": 19,
+        "xp": 95,
+        "trap": "bird_snare",
+        "locations": ["feldip_hills"],
+        "drops": ["bones", "raw_bird_meat", "striped_feather"]
+      }
+    ],
+
+    "chinchompas": [
+      {
+        "id": "chinchompa",
+        "name": "Chinchompa",
+        "level": 53,
+        "xp": 198.5,
+        "trap": "box_trap",
+        "locations": ["piscatoris", "feldip_hills"],
+        "stackable_weapon": true,
+        "ranged_bonus": 45
+      },
+      {
+        "id": "red_chinchompa",
+        "name": "Red Chinchompa",
+        "level": 63,
+        "xp": 265,
+        "trap": "box_trap",
+        "locations": ["feldip_hills_red_chin_area"],
+        "stackable_weapon": true,
+        "ranged_bonus": 70
+      },
+      {
+        "id": "black_chinchompa",
+        "name": "Black Chinchompa",
+        "level": 73,
+        "xp": 315,
+        "trap": "box_trap",
+        "locations": ["wilderness_33_35"],
+        "stackable_weapon": true,
+        "ranged_bonus": 80,
+        "wilderness": true,
+        "pvp_hotspot": true
+      }
+    ],
+
+    "kebbits": [
+      {
+        "id": "polar_kebbit",
+        "name": "Polar Kebbit",
+        "level": 1,
+        "xp": 30,
+        "trap": "noose_wand",
+        "method": "tracking",
+        "locations": ["rellekka_hunter_area"],
+        "drops": ["polar_kebbit_fur", "bones", "raw_beast_meat"]
+      },
+      {
+        "id": "common_kebbit",
+        "name": "Common Kebbit",
+        "level": 3,
+        "xp": 36,
+        "trap": "noose_wand",
+        "method": "tracking",
+        "locations": ["piscatoris"],
+        "drops": ["common_kebbit_fur", "bones", "raw_beast_meat"]
+      },
+      {
+        "id": "feldip_weasel",
+        "name": "Feldip Weasel",
+        "level": 7,
+        "xp": 48,
+        "trap": "noose_wand",
+        "method": "tracking",
+        "locations": ["feldip_hills"],
+        "drops": ["feldip_weasel_fur", "bones", "raw_beast_meat"]
+      },
+      {
+        "id": "wild_kebbit",
+        "name": "Wild Kebbit",
+        "level": 23,
+        "xp": 128,
+        "trap": "deadfall",
+        "locations": ["piscatoris"],
+        "drops": ["kebbit_claws", "bones", "raw_beast_meat"]
+      },
+      {
+        "id": "prickly_kebbit",
+        "name": "Prickly Kebbit",
+        "level": 37,
+        "xp": 204,
+        "trap": "deadfall",
+        "locations": ["piscatoris"],
+        "drops": ["kebbit_spike", "bones"]
+      },
+      {
+        "id": "spotted_kebbit",
+        "name": "Spotted Kebbit",
+        "level": 43,
+        "xp": 104,
+        "trap": "falcon",
+        "locations": ["piscatoris_falconry"],
+        "drops": ["spotted_kebbit_fur", "bones"]
+      },
+      {
+        "id": "dark_kebbit",
+        "name": "Dark Kebbit",
+        "level": 57,
+        "xp": 132,
+        "trap": "falcon",
+        "locations": ["piscatoris_falconry"],
+        "drops": ["dark_kebbit_fur", "bones"]
+      },
+      {
+        "id": "dashing_kebbit",
+        "name": "Dashing Kebbit",
+        "level": 69,
+        "xp": 156,
+        "trap": "falcon",
+        "locations": ["piscatoris_falconry"],
+        "drops": ["dashing_kebbit_fur", "bones"]
+      }
+    ],
+
+    "salamanders": [
+      {
+        "id": "swamp_lizard",
+        "name": "Swamp Lizard",
+        "level": 29,
+        "xp": 152,
+        "trap": "net_trap",
+        "locations": ["canifis_swamp"],
+        "weapon_type": "magic",
+        "attack_level": 30
+      },
+      {
+        "id": "orange_salamander",
+        "name": "Orange Salamander",
+        "level": 47,
+        "xp": 224,
+        "trap": "net_trap",
+        "locations": ["desert_hunting_area"],
+        "weapon_type": "ranged",
+        "attack_level": 50
+      },
+      {
+        "id": "red_salamander",
+        "name": "Red Salamander",
+        "level": 59,
+        "xp": 272,
+        "trap": "net_trap",
+        "locations": ["ourania_hunter_area"],
+        "weapon_type": "melee",
+        "attack_level": 60
+      },
+      {
+        "id": "black_salamander",
+        "name": "Black Salamander",
+        "level": 67,
+        "xp": 319,
+        "trap": "net_trap",
+        "locations": ["wilderness_hunter_area"],
+        "weapon_type": "all",
+        "attack_level": 70,
+        "wilderness": true
+      }
+    ],
+
+    "implings": [
+      {
+        "id": "baby_impling",
+        "name": "Baby Impling",
+        "level": 17,
+        "xp": 18,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 27,
+        "jar": "baby_impling_jar",
+        "loot_table": "baby_impling_loot"
+      },
+      {
+        "id": "young_impling",
+        "name": "Young Impling",
+        "level": 22,
+        "xp": 20,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 32,
+        "jar": "young_impling_jar",
+        "loot_table": "young_impling_loot"
+      },
+      {
+        "id": "gourmet_impling",
+        "name": "Gourmet Impling",
+        "level": 28,
+        "xp": 22,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 38,
+        "jar": "gourmet_impling_jar",
+        "loot_table": "gourmet_impling_loot"
+      },
+      {
+        "id": "earth_impling",
+        "name": "Earth Impling",
+        "level": 36,
+        "xp": 25,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 46,
+        "jar": "earth_impling_jar",
+        "loot_table": "earth_impling_loot"
+      },
+      {
+        "id": "essence_impling",
+        "name": "Essence Impling",
+        "level": 42,
+        "xp": 27,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 52,
+        "jar": "essence_impling_jar",
+        "loot_table": "essence_impling_loot"
+      },
+      {
+        "id": "eclectic_impling",
+        "name": "Eclectic Impling",
+        "level": 50,
+        "xp": 32,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 60,
+        "jar": "eclectic_impling_jar",
+        "loot_table": "eclectic_impling_loot",
+        "popular_for": "medium_clue_scrolls"
+      },
+      {
+        "id": "nature_impling",
+        "name": "Nature Impling",
+        "level": 58,
+        "xp": 34,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 68,
+        "jar": "nature_impling_jar",
+        "loot_table": "nature_impling_loot"
+      },
+      {
+        "id": "magpie_impling",
+        "name": "Magpie Impling",
+        "level": 65,
+        "xp": 44,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 75,
+        "jar": "magpie_impling_jar",
+        "loot_table": "magpie_impling_loot"
+      },
+      {
+        "id": "ninja_impling",
+        "name": "Ninja Impling",
+        "level": 74,
+        "xp": 52,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 84,
+        "jar": "ninja_impling_jar",
+        "loot_table": "ninja_impling_loot"
+      },
+      {
+        "id": "dragon_impling",
+        "name": "Dragon Impling",
+        "level": 83,
+        "xp": 65,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 93,
+        "jar": "dragon_impling_jar",
+        "loot_table": "dragon_impling_loot"
+      },
+      {
+        "id": "lucky_impling",
+        "name": "Lucky Impling",
+        "level": 89,
+        "xp": 80,
+        "catch_method": "butterfly_net_or_magic_box",
+        "barehanded_level": 99,
+        "jar": "lucky_impling_jar",
+        "loot_table": "lucky_impling_loot",
+        "rare_spawn": true
+      }
+    ],
+
+    "large_creatures": [
+      {
+        "id": "spined_larupia",
+        "name": "Spined Larupia",
+        "level": 31,
+        "xp": 180,
+        "trap": "pitfall",
+        "locations": ["feldip_hills"],
+        "drops": ["larupia_fur", "tatty_larupia_fur", "big_bones"],
+        "fur_outfit": "larupia_hunting_gear"
+      },
+      {
+        "id": "horned_graahk",
+        "name": "Horned Graahk",
+        "level": 41,
+        "xp": 240,
+        "trap": "pitfall",
+        "locations": ["celestine_archipelago_hunter_area"],
+        "drops": ["graahk_fur", "tatty_graahk_fur", "big_bones"],
+        "fur_outfit": "graahk_hunting_gear"
+      },
+      {
+        "id": "sabre_toothed_kyatt",
+        "name": "Sabre-toothed Kyatt",
+        "level": 55,
+        "xp": 300,
+        "trap": "pitfall",
+        "locations": ["rellekka_hunter_area"],
+        "drops": ["kyatt_fur", "tatty_kyatt_fur", "big_bones"],
+        "fur_outfit": "kyatt_hunting_gear"
+      }
+    ],
+
+    "butterflies": [
+      {
+        "id": "ruby_harvest",
+        "name": "Ruby Harvest",
+        "level": 15,
+        "xp": 24,
+        "catch_method": "butterfly_net",
+        "barehanded_level": 80,
+        "jar": "ruby_harvest_jar"
+      },
+      {
+        "id": "sapphire_glacialis",
+        "name": "Sapphire Glacialis",
+        "level": 25,
+        "xp": 34,
+        "catch_method": "butterfly_net",
+        "barehanded_level": 85,
+        "jar": "sapphire_glacialis_jar"
+      },
+      {
+        "id": "snowy_knight",
+        "name": "Snowy Knight",
+        "level": 35,
+        "xp": 44,
+        "catch_method": "butterfly_net",
+        "barehanded_level": 90,
+        "jar": "snowy_knight_jar"
+      },
+      {
+        "id": "black_warlock",
+        "name": "Black Warlock",
+        "level": 45,
+        "xp": 54,
+        "catch_method": "butterfly_net",
+        "barehanded_level": 95,
+        "jar": "black_warlock_jar"
+      }
+    ],
+
+    "herbiboars": [
+      {
+        "id": "herbiboar",
+        "name": "Herbiboar",
+        "level": 80,
+        "xp": 1950,
+        "method": "tracking",
+        "location": "fossil_island",
+        "requirements": {"herblore": 31},
+        "drops": "random_herbs_based_on_herblore",
+        "special": "No trap required, pure tracking"
+      }
+    ],
+
+    "maniacal_monkeys": [
+      {
+        "id": "maniacal_monkey",
+        "name": "Maniacal Monkey",
+        "level": 60,
+        "xp": 1000,
+        "method": "banana_on_ground",
+        "location": "kruk_dungeon",
+        "requirements": {"quest": "monkey_madness_2"},
+        "drops": ["damaged_monkey_tail", "monkey_tail"],
+        "respawn_fast": true
+      }
+    ]
+  },
+
+  "hunter_areas": [
+    {
+      "id": "piscatoris_hunter_area",
+      "name": "Piscatoris Hunter Area",
+      "coordinates": {"x": 2338, "y": 3587, "z": 0},
+      "creatures": ["copper_longtail", "common_kebbit", "wild_kebbit", "prickly_kebbit", "chinchompa"],
+      "facilities": ["falconry_nearby"]
+    },
+    {
+      "id": "feldip_hills_hunter",
+      "name": "Feldip Hills",
+      "coordinates": {"x": 2556, "y": 2912, "z": 0},
+      "creatures": ["crimson_swift", "tropical_wagtail", "spined_larupia", "chinchompa", "red_chinchompa"]
+    },
+    {
+      "id": "rellekka_hunter",
+      "name": "Rellekka Hunter Area",
+      "coordinates": {"x": 2723, "y": 3779, "z": 0},
+      "creatures": ["polar_kebbit", "cerulean_twitch", "sabre_toothed_kyatt"],
+      "snow_terrain": true
+    },
+    {
+      "id": "desert_hunter",
+      "name": "Uzer Hunter Area",
+      "coordinates": {"x": 3406, "y": 3099, "z": 0},
+      "creatures": ["golden_warbler", "orange_salamander"],
+      "desert_heat": true
+    },
+    {
+      "id": "canifis_swamp_hunter",
+      "name": "Canifis Swamp",
+      "coordinates": {"x": 3550, "y": 3450, "z": 0},
+      "creatures": ["swamp_lizard"],
+      "requirements": {"quest": "priest_in_peril"}
+    },
+    {
+      "id": "wilderness_hunter",
+      "name": "Wilderness Hunter Area",
+      "coordinates": {"x": 3140, "y": 3780, "z": 0},
+      "creatures": ["black_chinchompa", "black_salamander"],
+      "wilderness_level": 33,
+      "pvp_enabled": true
+    },
+    {
+      "id": "puro_puro",
+      "name": "Puro-Puro",
+      "access": "crop_circles_or_zanaris",
+      "creatures": "all_implings",
+      "special": "Impling-only hunting area",
+      "wheat_walls": true
+    },
+    {
+      "id": "fossil_island_hunter",
+      "name": "Fossil Island",
+      "coordinates": {"x": 3700, "y": 3820, "z": 0},
+      "creatures": ["herbiboar"],
+      "requirements": {"quest": "bone_voyage"}
+    }
+  ],
+
+  "hunter_equipment": {
+    "outfit": {
+      "name": "Hunter Outfit",
+      "pieces": [
+        {"id": "hunter_hood", "slot": "head"},
+        {"id": "hunter_top", "slot": "body"},
+        {"id": "hunter_legs", "slot": "legs"},
+        {"id": "hunter_boots", "slot": "feet"}
+      ],
+      "set_bonus": "2.5% extra hunter XP"
+    },
+    "fur_outfits": {
+      "description": "Camouflage for specific areas",
+      "sets": [
+        {"id": "polar_camo", "materials": "polar_kebbit_fur", "bonus_area": "snow"},
+        {"id": "wood_camo", "materials": "common_kebbit_fur", "bonus_area": "woodland"},
+        {"id": "jungle_camo", "materials": "feldip_weasel_fur", "bonus_area": "jungle"},
+        {"id": "desert_camo", "materials": "desert_devil_fur", "bonus_area": "desert"},
+        {"id": "larupia_gear", "materials": "larupia_fur", "bonus": "increased_catch_rate"},
+        {"id": "graahk_gear", "materials": "graahk_fur", "bonus": "increased_catch_rate"},
+        {"id": "kyatt_gear", "materials": "kyatt_fur", "bonus": "increased_catch_rate"}
+      ]
+    },
+    "tools": [
+      {"id": "noose_wand", "use": "tracking_kebbits"},
+      {"id": "butterfly_net", "use": "butterflies_implings"},
+      {"id": "magic_butterfly_net", "use": "butterflies_implings", "bonus": "+10_catch_chance"},
+      {"id": "bird_snare", "use": "birds"},
+      {"id": "box_trap", "use": "chinchompas"},
+      {"id": "small_fishing_net", "use": "net_traps"},
+      {"id": "rope", "use": "net_traps"},
+      {"id": "teasing_stick", "use": "pitfall_luring"},
+      {"id": "rabbit_snare", "use": "rabbits"},
+      {"id": "magic_box", "use": "implings"}
+    ]
+  },
+
+  "birdhouse_runs": {
+    "description": "Passive hunter training via birdhouses",
+    "locations": [
+      {"name": "Verdant Valley", "coordinates": {"x": 3763, "y": 3755, "z": 0}},
+      {"name": "Mushroom Meadow", "coordinates": {"x": 3676, "y": 3817, "z": 0}},
+      {"name": "House on the Hill", "coordinates": {"x": 3678, "y": 3882, "z": 0}},
+      {"name": "Tar Swamp", "coordinates": {"x": 3813, "y": 3869, "z": 0}}
+    ],
+    "birdhouse_tiers": [
+      {"id": "regular_birdhouse", "level": 5, "logs": "logs", "xp_setup": 15, "xp_check": 280},
+      {"id": "oak_birdhouse", "level": 14, "logs": "oak_logs", "xp_setup": 20, "xp_check": 420},
+      {"id": "willow_birdhouse", "level": 24, "logs": "willow_logs", "xp_setup": 25, "xp_check": 560},
+      {"id": "teak_birdhouse", "level": 34, "logs": "teak_logs", "xp_setup": 30, "xp_check": 700},
+      {"id": "maple_birdhouse", "level": 44, "logs": "maple_logs", "xp_setup": 35, "xp_check": 820},
+      {"id": "mahogany_birdhouse", "level": 49, "logs": "mahogany_logs", "xp_setup": 40, "xp_check": 960},
+      {"id": "yew_birdhouse", "level": 59, "logs": "yew_logs", "xp_setup": 45, "xp_check": 1020},
+      {"id": "magic_birdhouse", "level": 74, "logs": "magic_logs", "xp_setup": 50, "xp_check": 1140},
+      {"id": "redwood_birdhouse", "level": 89, "logs": "redwood_logs", "xp_setup": 55, "xp_check": 1200}
+    ],
+    "fill_time_minutes": 50,
+    "seed_requirement": 10,
+    "loot": ["nests", "bird_eggs", "ring_nests", "clue_nests"]
+  },
+
+  "aerial_fishing": {
+    "description": "Hunter/Fishing hybrid activity",
+    "location": "Lake Molch",
+    "requirements": {"hunter": 35, "fishing": 43},
+    "method": "cormorant_catches_fish",
+    "rewards": {
+      "fish_types": ["bluegill", "common_tench", "mottled_eel", "greater_siren"],
+      "special_rewards": ["golden_tench", "molch_pearl"]
+    },
+    "molch_pearl_shop": [
+      {"item": "fish_sack", "cost": 100},
+      {"item": "tackle_box", "cost": 100},
+      {"item": "pearl_fishing_rod", "cost": 100},
+      {"item": "pearl_fly_fishing_rod", "cost": 120},
+      {"item": "pearl_barbarian_rod", "cost": 150}
+    ]
+  },
+
+  "ue5_implementation": {
+    "trap_visuals": {
+      "placement_preview": true,
+      "snap_to_ground": true,
+      "decay_visual": "gradual_deterioration",
+      "triggered_animation": true,
+      "creature_approach_anticipation": true
+    },
+    "tracking_system": {
+      "footprint_decals": true,
+      "scent_particles": "NS_Tracking_Scent",
+      "trail_highlight": true,
+      "burrow_entrance_fx": true
+    },
+    "creature_behavior": {
+      "wander_radius": 10,
+      "flee_on_player_approach": true,
+      "trap_investigation_time": 5,
+      "catch_struggle_animation": true
+    },
+    "puro_puro": {
+      "wheat_wall_physics": true,
+      "impling_flight_patterns": true,
+      "crop_circle_portal_fx": true
+    }
+  }
+}

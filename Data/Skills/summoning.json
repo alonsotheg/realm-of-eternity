@@ -1,0 +1,575 @@
+{
+  "version": "1.0.0",
+  "description": "Bestiary/Summoning skill system for Realm of Eternity - Companion creatures",
+  "skill_name": "Bestiary",
+
+  "summoning_mechanics": {
+    "special_move_points": 60,
+    "points_regeneration_rate": "1 per 30 seconds",
+    "familiar_duration_minutes": 60,
+    "summoning_obelisks": true,
+    "pouch_creation": "at_obelisk_with_charms_shards_components",
+    "scroll_creation": "convert_pouches_to_scrolls",
+    "familiar_interactions": {
+      "talk_to": true,
+      "dismiss": true,
+      "attack": true,
+      "special_move": true,
+      "take_bob": true,
+      "renew": true
+    }
+  },
+
+  "charms": {
+    "types": [
+      {"id": "gold_charm", "name": "Gold Charm", "color": "#FFD700", "drop_weight": "common"},
+      {"id": "green_charm", "name": "Green Charm", "color": "#228B22", "drop_weight": "uncommon"},
+      {"id": "crimson_charm", "name": "Crimson Charm", "color": "#DC143C", "drop_weight": "rare"},
+      {"id": "blue_charm", "name": "Blue Charm", "color": "#4169E1", "drop_weight": "very_rare"},
+      {"id": "elder_charm", "name": "Elder Charm", "color": "#8B008B", "drop_weight": "extremely_rare", "source": "boss_drops"}
+    ],
+    "charm_drops": {
+      "most_combat_npcs": true,
+      "guaranteed_from_bosses": true,
+      "charm_collectors": ["charming_imp", "charm_sprite_hunter"]
+    }
+  },
+
+  "spirit_shards": {
+    "gp_value": 25,
+    "per_pouch_range": [7, 222],
+    "unlimited_stack": true,
+    "purchase_from": "pikkupstix"
+  },
+
+  "familiars": {
+    "beast_of_burden": [
+      {
+        "id": "spirit_wolf",
+        "name": "Spirit Wolf",
+        "level": 1,
+        "charm": "gold_charm",
+        "shards": 7,
+        "tertiary": "wolf_bones",
+        "pouch_xp": 4.8,
+        "combat_level": 26,
+        "duration_minutes": 6,
+        "abilities": {
+          "howl": {
+            "scroll": "howl_scroll",
+            "effect": "scares_away_low_level_creatures",
+            "points": 3
+          }
+        }
+      },
+      {
+        "id": "spirit_spider",
+        "name": "Spirit Spider",
+        "level": 10,
+        "charm": "gold_charm",
+        "shards": 8,
+        "tertiary": "spider_carcass",
+        "pouch_xp": 12.6,
+        "combat_level": 25,
+        "duration_minutes": 15,
+        "abilities": {
+          "egg_spawn": {
+            "scroll": "egg_spawn_scroll",
+            "effect": "spawns_red_spider_eggs",
+            "points": 6
+          }
+        }
+      },
+      {
+        "id": "bull_ant",
+        "name": "Bull Ant",
+        "level": 40,
+        "charm": "gold_charm",
+        "shards": 11,
+        "tertiary": "marigolds",
+        "pouch_xp": 52.8,
+        "beast_of_burden_slots": 9,
+        "duration_minutes": 30,
+        "abilities": {
+          "unburden": {
+            "scroll": "unburden_scroll",
+            "effect": "restores_run_energy",
+            "points": 12
+          }
+        }
+      },
+      {
+        "id": "spirit_terrorbird",
+        "name": "Spirit Terrorbird",
+        "level": 52,
+        "charm": "gold_charm",
+        "shards": 12,
+        "tertiary": "raw_bird_meat",
+        "pouch_xp": 68.4,
+        "beast_of_burden_slots": 12,
+        "duration_minutes": 36,
+        "abilities": {
+          "tireless_run": {
+            "scroll": "tireless_run_scroll",
+            "effect": "restores_run_energy_and_boosts",
+            "points": 8
+          }
+        }
+      },
+      {
+        "id": "war_tortoise",
+        "name": "War Tortoise",
+        "level": 67,
+        "charm": "gold_charm",
+        "shards": 1,
+        "tertiary": "tortoise_shell",
+        "pouch_xp": 58.6,
+        "beast_of_burden_slots": 18,
+        "duration_minutes": 43,
+        "abilities": {
+          "testudo": {
+            "scroll": "testudo_scroll",
+            "effect": "defensive_boost",
+            "points": 20
+          }
+        }
+      },
+      {
+        "id": "pack_yak",
+        "name": "Pack Yak",
+        "level": 96,
+        "charm": "crimson_charm",
+        "shards": 211,
+        "tertiary": "yak_hide",
+        "pouch_xp": 422.4,
+        "beast_of_burden_slots": 30,
+        "duration_minutes": 58,
+        "abilities": {
+          "winter_storage": {
+            "scroll": "winter_storage_scroll",
+            "effect": "send_items_to_bank",
+            "points": 12
+          }
+        }
+      }
+    ],
+
+    "combat": [
+      {
+        "id": "dreadfowl",
+        "name": "Dreadfowl",
+        "level": 4,
+        "charm": "gold_charm",
+        "shards": 8,
+        "tertiary": "raw_chicken",
+        "pouch_xp": 9.3,
+        "combat_level": 30,
+        "max_hit": 30,
+        "attack_style": "melee",
+        "duration_minutes": 4,
+        "abilities": {
+          "dreadfowl_strike": {
+            "scroll": "dreadfowl_strike_scroll",
+            "effect": "magic_damage_attack",
+            "max_hit": 30,
+            "points": 3
+          }
+        }
+      },
+      {
+        "id": "spirit_scorpion",
+        "name": "Spirit Scorpion",
+        "level": 19,
+        "charm": "crimson_charm",
+        "shards": 57,
+        "tertiary": "bronze_claws",
+        "pouch_xp": 83.2,
+        "combat_level": 51,
+        "max_hit": 60,
+        "attack_style": "melee",
+        "abilities": {
+          "venom_shot": {
+            "scroll": "venom_shot_scroll",
+            "effect": "ranged_poison_attack",
+            "points": 6
+          }
+        }
+      },
+      {
+        "id": "granite_lobster",
+        "name": "Granite Lobster",
+        "level": 74,
+        "charm": "crimson_charm",
+        "shards": 166,
+        "tertiary": "granite_500g",
+        "pouch_xp": 325.6,
+        "combat_level": 129,
+        "max_hit": 140,
+        "attack_style": "melee",
+        "abilities": {
+          "crushing_claw": {
+            "scroll": "crushing_claw_scroll",
+            "effect": "high_damage_single_hit",
+            "points": 6
+          }
+        },
+        "passive_effect": "invisible_fishing_boost_4"
+      },
+      {
+        "id": "iron_titan",
+        "name": "Iron Titan",
+        "level": 95,
+        "charm": "crimson_charm",
+        "shards": 198,
+        "tertiary": "iron_platebody",
+        "pouch_xp": 417.6,
+        "combat_level": 159,
+        "max_hit": 160,
+        "attack_style": "melee",
+        "abilities": {
+          "iron_within": {
+            "scroll": "iron_within_scroll",
+            "effect": "defence_boost_to_player",
+            "points": 12
+          }
+        }
+      },
+      {
+        "id": "steel_titan",
+        "name": "Steel Titan",
+        "level": 99,
+        "charm": "crimson_charm",
+        "shards": 178,
+        "tertiary": "steel_platebody",
+        "pouch_xp": 435.2,
+        "combat_level": 178,
+        "max_hit": 244,
+        "attack_style": "melee",
+        "abilities": {
+          "steel_of_legends": {
+            "scroll": "steel_of_legends_scroll",
+            "effect": "four_rapid_ranged_hits",
+            "max_hit_per_hit": 244,
+            "points": 12
+          }
+        }
+      }
+    ],
+
+    "skilling": [
+      {
+        "id": "spirit_graahk",
+        "name": "Spirit Graahk",
+        "level": 57,
+        "charm": "blue_charm",
+        "shards": 154,
+        "tertiary": "graahk_fur",
+        "pouch_xp": 501.6,
+        "duration_minutes": 49,
+        "abilities": {
+          "goad": {
+            "scroll": "goad_scroll",
+            "effect": "teleport_to_celestine_archipelago_hunting_area",
+            "points": 3
+          }
+        },
+        "passive_effect": "invisible_hunter_boost_5"
+      },
+      {
+        "id": "granite_crab",
+        "name": "Granite Crab",
+        "level": 16,
+        "charm": "gold_charm",
+        "shards": 7,
+        "tertiary": "iron_ore",
+        "pouch_xp": 21.6,
+        "duration_minutes": 18,
+        "abilities": {
+          "stony_shell": {
+            "scroll": "stony_shell_scroll",
+            "effect": "defence_boost",
+            "points": 12
+          }
+        },
+        "passive_effect": "invisible_mining_boost_1"
+      },
+      {
+        "id": "beaver",
+        "name": "Beaver",
+        "level": 33,
+        "charm": "green_charm",
+        "shards": 72,
+        "tertiary": "willow_logs",
+        "pouch_xp": 57.6,
+        "duration_minutes": 27,
+        "abilities": {
+          "multichop": {
+            "scroll": "multichop_scroll",
+            "effect": "chop_multiple_logs_at_once",
+            "points": 3
+          }
+        },
+        "passive_effect": "invisible_woodcutting_boost_2"
+      },
+      {
+        "id": "ibis",
+        "name": "Ibis",
+        "level": 56,
+        "charm": "green_charm",
+        "shards": 109,
+        "tertiary": "raw_mackerel",
+        "pouch_xp": 98.8,
+        "duration_minutes": 38,
+        "abilities": {
+          "fish_rain": {
+            "scroll": "fish_rain_scroll",
+            "effect": "spawn_random_fish",
+            "points": 12
+          }
+        },
+        "passive_effect": "invisible_fishing_boost_3"
+      },
+      {
+        "id": "lava_titan",
+        "name": "Lava Titan",
+        "level": 83,
+        "charm": "blue_charm",
+        "shards": 219,
+        "tertiary": "obsidian_charm",
+        "pouch_xp": 330.4,
+        "duration_minutes": 61,
+        "abilities": {
+          "ebon_thunder": {
+            "scroll": "ebon_thunder_scroll",
+            "effect": "magic_damage_attack",
+            "points": 4
+          }
+        },
+        "passive_effect": "invisible_mining_boost_10"
+      }
+    ],
+
+    "healing_support": [
+      {
+        "id": "bunyip",
+        "name": "Bunyip",
+        "level": 68,
+        "charm": "green_charm",
+        "shards": 110,
+        "tertiary": "raw_shark",
+        "pouch_xp": 119.2,
+        "duration_minutes": 44,
+        "abilities": {
+          "swallow_whole": {
+            "scroll": "swallow_whole_scroll",
+            "effect": "eat_raw_fish_for_healing",
+            "points": 3
+          }
+        },
+        "passive_effect": "heals_2hp_per_15_seconds"
+      },
+      {
+        "id": "unicorn_stallion",
+        "name": "Unicorn Stallion",
+        "level": 88,
+        "charm": "green_charm",
+        "shards": 140,
+        "tertiary": "unicorn_horn",
+        "pouch_xp": 154.4,
+        "duration_minutes": 54,
+        "abilities": {
+          "healing_aura": {
+            "scroll": "healing_aura_scroll",
+            "effect": "heals_15_percent_of_max_hp",
+            "points": 20
+          }
+        },
+        "passive_effect": "heals_1hp_per_10_seconds"
+      },
+      {
+        "id": "spirit_kyatt",
+        "name": "Spirit Kyatt",
+        "level": 57,
+        "charm": "blue_charm",
+        "shards": 153,
+        "tertiary": "kyatt_fur",
+        "pouch_xp": 501.2,
+        "duration_minutes": 49,
+        "combat_level": 93,
+        "max_hit": 110,
+        "abilities": {
+          "ambush": {
+            "scroll": "ambush_scroll",
+            "effect": "teleport_to_rellekka_hunter",
+            "points": 3
+          }
+        }
+      }
+    ],
+
+    "foraging": [
+      {
+        "id": "spirit_cockatrice",
+        "name": "Spirit Cockatrice",
+        "level": 43,
+        "charm": "green_charm",
+        "shards": 88,
+        "tertiary": "cockatrice_egg",
+        "pouch_xp": 75.2,
+        "duration_minutes": 36,
+        "foraging": {
+          "items": ["cockatrice_eggs", "bird_feathers"],
+          "interval_seconds": 30
+        }
+      },
+      {
+        "id": "fruit_bat",
+        "name": "Fruit Bat",
+        "level": 69,
+        "charm": "green_charm",
+        "shards": 130,
+        "tertiary": "banana",
+        "pouch_xp": 121.2,
+        "duration_minutes": 45,
+        "foraging": {
+          "items": ["papaya", "orange", "banana", "strawberry"],
+          "interval_seconds": 30
+        },
+        "abilities": {
+          "fruitfall": {
+            "scroll": "fruitfall_scroll",
+            "effect": "spawn_random_fruit",
+            "points": 6
+          }
+        }
+      },
+      {
+        "id": "giant_ent",
+        "name": "Giant Ent",
+        "level": 78,
+        "charm": "green_charm",
+        "shards": 124,
+        "tertiary": "willow_branch",
+        "pouch_xp": 136.8,
+        "duration_minutes": 49,
+        "foraging": {
+          "items": ["willow_logs", "oak_logs", "maple_logs"],
+          "interval_seconds": 45
+        },
+        "passive_effect": "invisible_woodcutting_boost_2"
+      }
+    ],
+
+    "special": [
+      {
+        "id": "phoenix",
+        "name": "Phoenix",
+        "level": 72,
+        "charm": "crimson_charm",
+        "shards": 165,
+        "tertiary": "phoenix_feather",
+        "pouch_xp": 301.0,
+        "duration_minutes": 47,
+        "abilities": {
+          "rise_from_ashes": {
+            "scroll": "rise_from_ashes_scroll",
+            "effect": "firemaking_boost_and_fire_spell",
+            "points": 12
+          }
+        },
+        "passive_effect": "invisible_firemaking_boost_4",
+        "visual": "fire_particles"
+      },
+      {
+        "id": "obsidian_golem",
+        "name": "Obsidian Golem",
+        "level": 73,
+        "charm": "blue_charm",
+        "shards": 195,
+        "tertiary": "obsidian_charm",
+        "pouch_xp": 642.4,
+        "duration_minutes": 55,
+        "abilities": {
+          "volcanic_strength": {
+            "scroll": "volcanic_strength_scroll",
+            "effect": "mining_boost_7",
+            "points": 12
+          }
+        },
+        "passive_effect": "invisible_mining_boost_7"
+      },
+      {
+        "id": "geyser_titan",
+        "name": "Geyser Titan",
+        "level": 89,
+        "charm": "blue_charm",
+        "shards": 222,
+        "tertiary": "water_talisman",
+        "pouch_xp": 383.2,
+        "duration_minutes": 69,
+        "combat_level": 200,
+        "max_hit": 200,
+        "abilities": {
+          "boil": {
+            "scroll": "boil_scroll",
+            "effect": "cook_all_raw_fish_in_inventory",
+            "points": 6
+          }
+        },
+        "passive_effect": "invisible_fishing_boost_5"
+      }
+    ]
+  },
+
+  "summoning_obelisks": [
+    {"location": "Taverley", "coordinates": {"x": 2929, "y": 3449, "z": 0}},
+    {"location": "Gu'Tanoth", "coordinates": {"x": 2520, "y": 3052, "z": 0}},
+    {"location": "Piscatoris", "coordinates": {"x": 2329, "y": 3661, "z": 0}},
+    {"location": "Tree Gnome Stronghold", "coordinates": {"x": 2461, "y": 3444, "z": 0}},
+    {"location": "Fremennik Province", "coordinates": {"x": 2717, "y": 3627, "z": 0}},
+    {"location": "Wilderness", "coordinates": {"x": 3092, "y": 3951, "z": 0}},
+    {"location": "Prifddinas", "coordinates": {"x": 2234, "y": 3296, "z": 1}}
+  ],
+
+  "pet_system": {
+    "description": "Cosmetic pet companions from boss drops and skilling",
+    "max_pets_following": 1,
+    "pet_insurance": {
+      "cost": 500000,
+      "claim_cost": 1000000,
+      "npc": "Probita",
+      "location": "Thornhaven"
+    },
+    "pet_sources": {
+      "boss_drops": "rare_drop_table_addition",
+      "skilling": "chance_based_on_action",
+      "minigames": "point_shop_or_rng",
+      "achievement": "diary_completion"
+    }
+  },
+
+  "ue5_implementation": {
+    "familiar_visuals": {
+      "idle_animations": true,
+      "follow_behavior": "pathfinding_behind_player",
+      "combat_animations": true,
+      "special_move_effects": true,
+      "size_scaling": true
+    },
+    "summoning_effects": {
+      "summon_particle": "NS_Summon_Portal",
+      "dismiss_particle": "NS_Dismiss_Fade",
+      "special_move_cast": "NS_Special_Move_Glow"
+    },
+    "bob_interface": {
+      "inventory_panel": true,
+      "drag_drop": true,
+      "quick_withdraw": true
+    },
+    "pet_following": {
+      "collision_avoidance": true,
+      "teleport_if_too_far": true,
+      "cute_idle_behaviors": true
+    }
+  }
+}

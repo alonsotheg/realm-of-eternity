@@ -1,0 +1,693 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Loot tables for Realm of Eternity - defines drop pools, rare drops, and boss loot"
+  },
+  "rarityTiers": {
+    "common": { "color": "#FFFFFF", "weight": 100 },
+    "uncommon": { "color": "#1EFF00", "weight": 50 },
+    "rare": { "color": "#0070DD", "weight": 10 },
+    "epic": { "color": "#A335EE", "weight": 2 },
+    "legendary": { "color": "#FF8000", "weight": 0.5 }
+  },
+  "globalDrops": {
+    "description": "Items that can drop from any enemy with chance scaled by combat level",
+    "items": [
+      { "itemId": "gold_coins", "quantityMin": 1, "quantityMax": 100, "baseChance": 1.0, "levelScaling": true },
+      { "itemId": "mysterious_key", "quantity": 1, "baseChance": 0.001, "minLevel": 30 },
+      { "itemId": "ancient_shard", "quantity": 1, "baseChance": 0.005, "minLevel": 50 },
+      { "itemId": "clue_scroll_easy", "quantity": 1, "baseChance": 0.02, "maxLevel": 30 },
+      { "itemId": "clue_scroll_medium", "quantity": 1, "baseChance": 0.015, "minLevel": 31, "maxLevel": 70 },
+      { "itemId": "clue_scroll_hard", "quantity": 1, "baseChance": 0.01, "minLevel": 71, "maxLevel": 100 },
+      { "itemId": "clue_scroll_elite", "quantity": 1, "baseChance": 0.005, "minLevel": 101 }
+    ]
+  },
+  "sharedPools": {
+    "low_tier_herbs": {
+      "description": "Low-level herb drops",
+      "items": [
+        { "itemId": "verdantleaf", "quantity": 1, "weight": 50 },
+        { "itemId": "thornroot", "quantity": 1, "weight": 30 },
+        { "itemId": "bittervine", "quantity": 1, "weight": 20 }
+      ]
+    },
+    "mid_tier_herbs": {
+      "description": "Mid-level herb drops",
+      "items": [
+        { "itemId": "sunpetal", "quantity": 1, "weight": 40 },
+        { "itemId": "moonbloom", "quantity": 1, "weight": 30 },
+        { "itemId": "stormleaf", "quantity": 1, "weight": 20 },
+        { "itemId": "voidbloom", "quantity": 1, "weight": 10 }
+      ]
+    },
+    "high_tier_herbs": {
+      "description": "High-level herb drops",
+      "items": [
+        { "itemId": "stormleaf", "quantity": 1, "weight": 40 },
+        { "itemId": "voidbloom", "quantity": 1, "weight": 30 },
+        { "itemId": "starfall_petal", "quantity": 1, "weight": 20 },
+        { "itemId": "eternitys_bloom", "quantity": 1, "weight": 10 }
+      ]
+    },
+    "gem_drops": {
+      "description": "Uncut gem drops",
+      "items": [
+        { "itemId": "uncut_jade", "quantity": 1, "weight": 40 },
+        { "itemId": "uncut_amber", "quantity": 1, "weight": 30 },
+        { "itemId": "uncut_sapphire", "quantity": 1, "weight": 20 },
+        { "itemId": "uncut_emerald", "quantity": 1, "weight": 15 },
+        { "itemId": "uncut_ruby", "quantity": 1, "weight": 10 },
+        { "itemId": "uncut_diamond", "quantity": 1, "weight": 5 },
+        { "itemId": "uncut_onyx", "quantity": 1, "weight": 1 }
+      ]
+    },
+    "seeds_low": {
+      "description": "Low-level farming seeds",
+      "items": [
+        { "itemId": "potato_seed", "quantityMin": 1, "quantityMax": 4, "weight": 40 },
+        { "itemId": "onion_seed", "quantityMin": 1, "quantityMax": 4, "weight": 35 },
+        { "itemId": "cabbage_seed", "quantityMin": 1, "quantityMax": 4, "weight": 30 },
+        { "itemId": "tomato_seed", "quantityMin": 1, "quantityMax": 3, "weight": 25 },
+        { "itemId": "herb_seed_verdantleaf", "quantityMin": 1, "quantityMax": 2, "weight": 20 }
+      ]
+    },
+    "bones": {
+      "description": "Bone drops for Sanctity skill",
+      "items": [
+        { "itemId": "bones", "quantity": 1, "weight": 100 }
+      ]
+    },
+    "big_bones": {
+      "description": "Big bone drops",
+      "items": [
+        { "itemId": "big_bones", "quantity": 1, "weight": 100 }
+      ]
+    },
+    "wyrm_bones": {
+      "description": "Wyrm bone drops",
+      "items": [
+        { "itemId": "wyrm_bones", "quantity": 1, "weight": 100 }
+      ]
+    },
+    "copperweave_equipment": {
+      "description": "Copperweave tier equipment drops",
+      "items": [
+        { "itemId": "copperweave_sword", "quantity": 1, "weight": 15 },
+        { "itemId": "copperweave_mace", "quantity": 1, "weight": 12 },
+        { "itemId": "copperweave_axe", "quantity": 1, "weight": 10 },
+        { "itemId": "copperweave_helm", "quantity": 1, "weight": 10 },
+        { "itemId": "copperweave_platebody", "quantity": 1, "weight": 5 },
+        { "itemId": "copperweave_platelegs", "quantity": 1, "weight": 8 },
+        { "itemId": "copperweave_shield", "quantity": 1, "weight": 8 },
+        { "itemId": "copperweave_boots", "quantity": 1, "weight": 12 },
+        { "itemId": "copperweave_gauntlets", "quantity": 1, "weight": 12 }
+      ]
+    },
+    "ironbark_equipment": {
+      "description": "Ironbark tier equipment drops",
+      "items": [
+        { "itemId": "ironbark_sword", "quantity": 1, "weight": 15 },
+        { "itemId": "ironbark_mace", "quantity": 1, "weight": 12 },
+        { "itemId": "ironbark_axe", "quantity": 1, "weight": 10 },
+        { "itemId": "ironbark_helm", "quantity": 1, "weight": 10 },
+        { "itemId": "ironbark_platebody", "quantity": 1, "weight": 5 },
+        { "itemId": "ironbark_platelegs", "quantity": 1, "weight": 8 },
+        { "itemId": "ironbark_shield", "quantity": 1, "weight": 8 },
+        { "itemId": "ironbark_boots", "quantity": 1, "weight": 12 },
+        { "itemId": "ironbark_gauntlets", "quantity": 1, "weight": 12 }
+      ]
+    },
+    "stormforged_equipment": {
+      "description": "Stormforged tier equipment drops",
+      "items": [
+        { "itemId": "stormforged_sword", "quantity": 1, "weight": 15 },
+        { "itemId": "stormforged_mace", "quantity": 1, "weight": 12 },
+        { "itemId": "stormforged_battleaxe", "quantity": 1, "weight": 10 },
+        { "itemId": "stormforged_helm", "quantity": 1, "weight": 10 },
+        { "itemId": "stormforged_platebody", "quantity": 1, "weight": 5 },
+        { "itemId": "stormforged_platelegs", "quantity": 1, "weight": 8 },
+        { "itemId": "stormforged_shield", "quantity": 1, "weight": 8 }
+      ]
+    },
+    "moonveil_equipment": {
+      "description": "Moonveil tier equipment drops",
+      "items": [
+        { "itemId": "moonveil_sword", "quantity": 1, "weight": 15 },
+        { "itemId": "moonveil_scimitar", "quantity": 1, "weight": 12 },
+        { "itemId": "moonveil_battleaxe", "quantity": 1, "weight": 10 },
+        { "itemId": "moonveil_helm", "quantity": 1, "weight": 10 },
+        { "itemId": "moonveil_platebody", "quantity": 1, "weight": 5 },
+        { "itemId": "moonveil_platelegs", "quantity": 1, "weight": 8 },
+        { "itemId": "moonveil_shield", "quantity": 1, "weight": 8 }
+      ]
+    },
+    "voidstone_equipment": {
+      "description": "Voidstone tier equipment drops",
+      "items": [
+        { "itemId": "voidstone_sword", "quantity": 1, "weight": 15 },
+        { "itemId": "voidstone_scimitar", "quantity": 1, "weight": 12 },
+        { "itemId": "voidstone_battleaxe", "quantity": 1, "weight": 10 },
+        { "itemId": "voidstone_helm", "quantity": 1, "weight": 10 },
+        { "itemId": "voidstone_platebody", "quantity": 1, "weight": 5 },
+        { "itemId": "voidstone_platelegs", "quantity": 1, "weight": 8 },
+        { "itemId": "voidstone_shield", "quantity": 1, "weight": 8 }
+      ]
+    },
+    "eternium_equipment": {
+      "description": "Eternium tier equipment drops",
+      "items": [
+        { "itemId": "eternium_sword", "quantity": 1, "weight": 15 },
+        { "itemId": "eternium_scimitar", "quantity": 1, "weight": 12 },
+        { "itemId": "eternium_battleaxe", "quantity": 1, "weight": 10 },
+        { "itemId": "eternium_helm", "quantity": 1, "weight": 10 },
+        { "itemId": "eternium_platebody", "quantity": 1, "weight": 5 },
+        { "itemId": "eternium_platelegs", "quantity": 1, "weight": 8 },
+        { "itemId": "eternium_shield", "quantity": 1, "weight": 8 }
+      ]
+    },
+    "glyph_essence": {
+      "description": "Glyphcraft materials",
+      "items": [
+        { "itemId": "glyph_essence", "quantityMin": 5, "quantityMax": 15, "weight": 80 },
+        { "itemId": "pure_essence", "quantityMin": 3, "quantityMax": 10, "weight": 20 }
+      ]
+    }
+  },
+  "enemyLootTables": {
+    "goblin": {
+      "alwaysDrops": ["bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 5, "quantityMax": 25, "chance": 1.0 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "copperweave_equipment", "chance": 0.05 },
+        { "poolRef": "low_tier_herbs", "chance": 0.08 }
+      ],
+      "rareDrops": [
+        { "itemId": "goblin_mail", "quantity": 1, "chance": 0.02 },
+        { "itemId": "champion_scroll_goblin", "quantity": 1, "chance": 0.001 }
+      ]
+    },
+    "hobgoblin": {
+      "alwaysDrops": ["bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 20, "quantityMax": 75, "chance": 1.0 },
+        { "itemId": "limpwurt_root", "quantity": 1, "chance": 0.15 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "ironbark_equipment", "chance": 0.08 },
+        { "poolRef": "low_tier_herbs", "chance": 0.12 }
+      ],
+      "rareDrops": [
+        { "itemId": "champion_scroll_hobgoblin", "quantity": 1, "chance": 0.001 }
+      ]
+    },
+    "giant_spider": {
+      "alwaysDrops": [],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 20, "quantityMax": 50, "chance": 0.8 },
+        { "itemId": "spider_silk", "quantityMin": 1, "quantityMax": 3, "chance": 0.6 }
+      ],
+      "uncommonDrops": [
+        { "itemId": "spider_fang", "quantity": 1, "chance": 0.15 },
+        { "itemId": "spider_egg", "quantity": 1, "chance": 0.1 }
+      ],
+      "rareDrops": [
+        { "itemId": "spider_queen_fang", "quantity": 1, "chance": 0.005 }
+      ]
+    },
+    "cave_crawler": {
+      "alwaysDrops": [],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 30, "quantityMax": 80, "chance": 0.9 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "low_tier_herbs", "chance": 0.2 },
+        { "itemId": "cave_slime", "quantityMin": 1, "quantityMax": 3, "chance": 0.25 }
+      ],
+      "rareDrops": [
+        { "itemId": "crawler_claw", "quantity": 1, "chance": 0.08 }
+      ],
+      "beastslayerOnly": true
+    },
+    "bandit": {
+      "alwaysDrops": ["bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 50, "quantityMax": 200, "chance": 1.0 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "ironbark_equipment", "chance": 0.1 },
+        { "poolRef": "stormforged_equipment", "chance": 0.03 },
+        { "poolRef": "gem_drops", "chance": 0.08 }
+      ],
+      "rareDrops": [
+        { "itemId": "bandit_mask", "quantity": 1, "chance": 0.05 },
+        { "itemId": "bandit_camp_key", "quantity": 1, "chance": 0.01 }
+      ]
+    },
+    "moss_giant": {
+      "alwaysDrops": ["big_bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 100, "quantityMax": 350, "chance": 1.0 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "stormforged_equipment", "chance": 0.08 },
+        { "poolRef": "mid_tier_herbs", "chance": 0.15 },
+        { "poolRef": "seeds_low", "chance": 0.2 }
+      ],
+      "rareDrops": [
+        { "itemId": "mossy_key", "quantity": 1, "chance": 0.008 },
+        { "itemId": "giant_champion_scroll", "quantity": 1, "chance": 0.001 }
+      ]
+    },
+    "ice_giant": {
+      "alwaysDrops": ["big_bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 150, "quantityMax": 500, "chance": 1.0 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "moonveil_equipment", "chance": 0.06 },
+        { "itemId": "ice_shard", "quantityMin": 1, "quantityMax": 3, "chance": 0.2 }
+      ],
+      "rareDrops": [
+        { "itemId": "frozen_key_piece", "quantity": 1, "chance": 0.02 }
+      ]
+    },
+    "fire_giant": {
+      "alwaysDrops": ["big_bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 200, "quantityMax": 600, "chance": 1.0 },
+        { "itemId": "fire_rune", "quantityMin": 30, "quantityMax": 75, "chance": 0.5 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "moonveil_equipment", "chance": 0.08 },
+        { "poolRef": "voidstone_equipment", "chance": 0.02 },
+        { "poolRef": "rune_essence", "chance": 0.15 }
+      ],
+      "rareDrops": [
+        { "itemId": "obsidian_cape", "quantity": 1, "chance": 0.01 },
+        { "itemId": "giant_champion_scroll", "quantity": 1, "chance": 0.001 }
+      ]
+    },
+    "desert_scorpion": {
+      "alwaysDrops": [],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 100, "quantityMax": 300, "chance": 0.9 },
+        { "itemId": "scorpion_carapace", "quantityMin": 1, "quantityMax": 2, "chance": 0.6 }
+      ],
+      "uncommonDrops": [
+        { "itemId": "scorpion_stinger", "quantity": 1, "chance": 0.2 },
+        { "itemId": "desert_herb", "quantity": 1, "chance": 0.15 }
+      ],
+      "rareDrops": [
+        { "itemId": "scorpion_king_tail", "quantity": 1, "chance": 0.005 }
+      ]
+    },
+    "frost_troll": {
+      "alwaysDrops": ["big_bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 300, "quantityMax": 800, "chance": 1.0 },
+        { "itemId": "troll_hide", "quantityMin": 2, "quantityMax": 4, "chance": 0.7 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "moonveil_equipment", "chance": 0.1 },
+        { "poolRef": "voidstone_equipment", "chance": 0.04 },
+        { "itemId": "ice_diamond", "quantity": 1, "chance": 0.08 }
+      ],
+      "rareDrops": [
+        { "itemId": "frozen_heart", "quantity": 1, "chance": 0.03 },
+        { "itemId": "troll_bone_necklace", "quantity": 1, "chance": 0.02 }
+      ]
+    },
+    "black_knight": {
+      "alwaysDrops": ["bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 200, "quantityMax": 500, "chance": 1.0 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "stormforged_equipment", "chance": 0.12 },
+        { "poolRef": "moonveil_equipment", "chance": 0.05 }
+      ],
+      "rareDrops": [
+        { "itemId": "black_knight_helm", "quantity": 1, "chance": 0.03 },
+        { "itemId": "black_knight_tabard", "quantity": 1, "chance": 0.02 }
+      ]
+    },
+    "chaos_dwarf": {
+      "alwaysDrops": ["bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 400, "quantityMax": 1200, "chance": 1.0 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "voidstone_equipment", "chance": 0.08 },
+        { "itemId": "chaos_rune", "quantityMin": 5, "quantityMax": 15, "chance": 0.3 },
+        { "poolRef": "gem_drops", "chance": 0.15 }
+      ],
+      "rareDrops": [
+        { "itemId": "hand_cannon", "quantity": 1, "chance": 0.005 },
+        { "itemId": "dragon_pickaxe", "quantity": 1, "chance": 0.002 }
+      ]
+    },
+    "abyssal_demon": {
+      "alwaysDrops": ["ashes"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 500, "quantityMax": 1500, "chance": 1.0 },
+        { "itemId": "infernal_ashes", "quantity": 1, "chance": 1.0 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "eternium_equipment", "chance": 0.05 },
+        { "poolRef": "high_tier_herbs", "chance": 0.12 },
+        { "itemId": "abyssal_charm", "quantity": 1, "chance": 0.08 }
+      ],
+      "rareDrops": [
+        { "itemId": "abyssal_whip", "quantity": 1, "chance": 0.002 },
+        { "itemId": "abyssal_head", "quantity": 1, "chance": 0.001 }
+      ],
+      "beastslayerLevel": 85,
+      "beastslayerOnly": true
+    },
+    "dark_beast": {
+      "alwaysDrops": ["big_bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 800, "quantityMax": 2500, "chance": 1.0 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "eternium_equipment", "chance": 0.08 },
+        { "poolRef": "high_tier_herbs", "chance": 0.15 },
+        { "poolRef": "gem_drops", "chance": 0.12 }
+      ],
+      "rareDrops": [
+        { "itemId": "dark_bow", "quantity": 1, "chance": 0.002 },
+        { "itemId": "death_talisman", "quantity": 1, "chance": 0.008 }
+      ],
+      "beastslayerLevel": 90,
+      "beastslayerOnly": true
+    },
+    "wyrm": {
+      "alwaysDrops": ["wyrm_bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 400, "quantityMax": 1000, "chance": 1.0 },
+        { "itemId": "wyrm_hide", "quantityMin": 1, "quantityMax": 2, "chance": 0.8 }
+      ],
+      "uncommonDrops": [
+        { "itemId": "wyrm_scale", "quantityMin": 1, "quantityMax": 3, "chance": 0.3 },
+        { "poolRef": "voidstone_equipment", "chance": 0.06 }
+      ],
+      "rareDrops": [
+        { "itemId": "wyrm_claw", "quantity": 1, "chance": 0.05 },
+        { "itemId": "draconic_visage", "quantity": 1, "chance": 0.001 }
+      ],
+      "beastslayerOnly": true
+    },
+    "elder_wyrm": {
+      "alwaysDrops": ["wyrm_bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 2000, "quantityMax": 5000, "chance": 1.0 },
+        { "itemId": "wyrm_hide", "quantityMin": 3, "quantityMax": 6, "chance": 1.0 }
+      ],
+      "uncommonDrops": [
+        { "itemId": "wyrm_scale", "quantityMin": 2, "quantityMax": 5, "chance": 0.5 },
+        { "poolRef": "eternium_equipment", "chance": 0.1 }
+      ],
+      "rareDrops": [
+        { "itemId": "wyrm_claw", "quantity": 1, "chance": 0.15 },
+        { "itemId": "draconic_visage", "quantity": 1, "chance": 0.005 },
+        { "itemId": "elder_wyrm_head", "quantity": 1, "chance": 0.002 }
+      ]
+    },
+    "shadow_stalker": {
+      "alwaysDrops": ["ashes"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 600, "quantityMax": 1800, "chance": 1.0 },
+        { "itemId": "shadow_essence", "quantityMin": 1, "quantityMax": 3, "chance": 0.7 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "high_tier_herbs", "chance": 0.18 },
+        { "itemId": "shadow_silk", "quantity": 1, "chance": 0.12 }
+      ],
+      "rareDrops": [
+        { "itemId": "shadow_dagger", "quantity": 1, "chance": 0.003 },
+        { "itemId": "cloak_of_shadows", "quantity": 1, "chance": 0.001 }
+      ],
+      "beastslayerLevel": 75,
+      "beastslayerOnly": true
+    },
+    "skeletal_warrior": {
+      "alwaysDrops": ["bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 50, "quantityMax": 150, "chance": 0.9 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "ironbark_equipment", "chance": 0.1 },
+        { "poolRef": "stormforged_equipment", "chance": 0.03 }
+      ],
+      "rareDrops": [
+        { "itemId": "skull_sceptre_piece", "quantity": 1, "chance": 0.01 }
+      ]
+    },
+    "zombie": {
+      "alwaysDrops": ["bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 30, "quantityMax": 100, "chance": 0.8 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "copperweave_equipment", "chance": 0.08 },
+        { "poolRef": "ironbark_equipment", "chance": 0.04 }
+      ],
+      "rareDrops": [
+        { "itemId": "zombie_champion_scroll", "quantity": 1, "chance": 0.001 }
+      ]
+    },
+    "ghost": {
+      "alwaysDrops": [],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 20, "quantityMax": 80, "chance": 0.7 }
+      ],
+      "uncommonDrops": [
+        { "itemId": "ectoplasm", "quantity": 1, "chance": 0.3 }
+      ],
+      "rareDrops": [
+        { "itemId": "ghost_robe_top", "quantity": 1, "chance": 0.02 },
+        { "itemId": "ghost_robe_bottom", "quantity": 1, "chance": 0.02 }
+      ]
+    },
+    "hellhound": {
+      "alwaysDrops": ["bones"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 200, "quantityMax": 600, "chance": 0.9 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "mid_tier_herbs", "chance": 0.1 },
+        { "itemId": "ensouled_dog_head", "quantity": 1, "chance": 0.08 }
+      ],
+      "rareDrops": [
+        { "itemId": "smouldering_stone", "quantity": 1, "chance": 0.0003 }
+      ],
+      "beastslayerOnly": true
+    },
+    "gargoyle": {
+      "alwaysDrops": [],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 500, "quantityMax": 1500, "chance": 1.0 },
+        { "itemId": "granite_dust", "quantityMin": 5, "quantityMax": 15, "chance": 0.6 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "voidstone_equipment", "chance": 0.08 },
+        { "poolRef": "gem_drops", "chance": 0.15 }
+      ],
+      "rareDrops": [
+        { "itemId": "granite_maul", "quantity": 1, "chance": 0.003 },
+        { "itemId": "granite_helm", "quantity": 1, "chance": 0.008 }
+      ],
+      "beastslayerLevel": 75,
+      "beastslayerOnly": true,
+      "finisherRequired": "rock_hammer"
+    },
+    "voidfiend": {
+      "alwaysDrops": ["ashes"],
+      "mainDrops": [
+        { "itemId": "gold_coins", "quantityMin": 600, "quantityMax": 2000, "chance": 1.0 }
+      ],
+      "uncommonDrops": [
+        { "poolRef": "eternium_equipment", "chance": 0.06 },
+        { "poolRef": "high_tier_herbs", "chance": 0.2 }
+      ],
+      "rareDrops": [
+        { "itemId": "voidfiend_boots", "quantity": 1, "chance": 0.008 }
+      ],
+      "beastslayerLevel": 80,
+      "beastslayerOnly": true
+    }
+  },
+  "bossLootTables": {
+    "scorath_the_eternal": {
+      "description": "World boss in Dawnhaven - ancient wyrm awakened from slumber",
+      "killRequirement": { "minPlayers": 10 },
+      "guaranteedDrops": [
+        { "itemId": "wyrm_bones", "quantity": 1 },
+        { "itemId": "gold_coins", "quantityMin": 10000, "quantityMax": 25000 }
+      ],
+      "commonDrops": [
+        { "itemId": "wyrm_hide", "quantityMin": 10, "quantityMax": 20, "chance": 0.8 },
+        { "itemId": "wyrm_scale", "quantityMin": 5, "quantityMax": 12, "chance": 0.6 }
+      ],
+      "rareDrops": [
+        { "itemId": "scoraths_fang", "quantity": 1, "chance": 0.05 },
+        { "itemId": "eternal_flame_shard", "quantity": 1, "chance": 0.03 },
+        { "itemId": "draconic_visage", "quantity": 1, "chance": 0.02 }
+      ],
+      "ultraRareDrops": [
+        { "itemId": "scorath_pet", "quantity": 1, "chance": 0.001 },
+        { "itemId": "wyrmlord_helm", "quantity": 1, "chance": 0.002 }
+      ]
+    },
+    "chief_grukk": {
+      "description": "Goblin war chief in Ironwood Forest",
+      "killRequirement": { "minPlayers": 5 },
+      "guaranteedDrops": [
+        { "itemId": "big_bones", "quantity": 1 },
+        { "itemId": "gold_coins", "quantityMin": 5000, "quantityMax": 12000 }
+      ],
+      "commonDrops": [
+        { "itemId": "goblin_chainmail", "quantity": 1, "chance": 0.5 },
+        { "poolRef": "stormforged_equipment", "chance": 0.3 }
+      ],
+      "rareDrops": [
+        { "itemId": "grukks_waraxe", "quantity": 1, "chance": 0.08 },
+        { "itemId": "goblin_warchief_helm", "quantity": 1, "chance": 0.05 }
+      ],
+      "ultraRareDrops": [
+        { "itemId": "grukk_pet", "quantity": 1, "chance": 0.002 }
+      ]
+    },
+    "ancient_ent": {
+      "description": "Corrupted tree spirit in Verdant Highlands",
+      "killRequirement": { "minPlayers": 8 },
+      "guaranteedDrops": [
+        { "itemId": "starwood_log", "quantityMin": 50, "quantityMax": 100 },
+        { "itemId": "gold_coins", "quantityMin": 8000, "quantityMax": 18000 }
+      ],
+      "commonDrops": [
+        { "itemId": "spiritbark_log", "quantityMin": 10, "quantityMax": 25, "chance": 0.7 },
+        { "itemId": "birds_nest_seed", "quantityMin": 3, "quantityMax": 8, "chance": 0.5 }
+      ],
+      "rareDrops": [
+        { "itemId": "ents_heartwood", "quantity": 1, "chance": 0.06 },
+        { "itemId": "nature_staff", "quantity": 1, "chance": 0.04 }
+      ],
+      "ultraRareDrops": [
+        { "itemId": "ent_pet", "quantity": 1, "chance": 0.001 },
+        { "itemId": "elderwood_tree_seed", "quantity": 1, "chance": 0.003 }
+      ]
+    },
+    "shadow_lord_malachar": {
+      "description": "Boss in Shadowfen Marsh dungeon",
+      "killRequirement": { "minPlayers": 1 },
+      "guaranteedDrops": [
+        { "itemId": "ashes", "quantity": 1 },
+        { "itemId": "gold_coins", "quantityMin": 3000, "quantityMax": 8000 }
+      ],
+      "commonDrops": [
+        { "itemId": "shadow_essence", "quantityMin": 5, "quantityMax": 12, "chance": 0.8 },
+        { "poolRef": "voidstone_equipment", "chance": 0.4 }
+      ],
+      "rareDrops": [
+        { "itemId": "malachars_sceptre", "quantity": 1, "chance": 0.05 },
+        { "itemId": "shadow_cloak", "quantity": 1, "chance": 0.08 }
+      ],
+      "ultraRareDrops": [
+        { "itemId": "malachar_pet", "quantity": 1, "chance": 0.002 }
+      ]
+    },
+    "the_kraken": {
+      "description": "Sea boss summoned at Crimson Coast",
+      "killRequirement": { "questComplete": "call_of_the_deep", "beastslayerLevel": 87 },
+      "guaranteedDrops": [
+        { "itemId": "kraken_tentacle_piece", "quantity": 1 },
+        { "itemId": "gold_coins", "quantityMin": 15000, "quantityMax": 35000 }
+      ],
+      "commonDrops": [
+        { "itemId": "raw_abyssfin", "quantityMin": 20, "quantityMax": 50, "chance": 0.7 },
+        { "itemId": "seaweed", "quantityMin": 30, "quantityMax": 80, "chance": 0.9 }
+      ],
+      "rareDrops": [
+        { "itemId": "kraken_tentacle", "quantity": 1, "chance": 0.04 },
+        { "itemId": "trident_of_the_seas", "quantity": 1, "chance": 0.02 }
+      ],
+      "ultraRareDrops": [
+        { "itemId": "kraken_pet", "quantity": 1, "chance": 0.0005 },
+        { "itemId": "jar_of_brine", "quantity": 1, "chance": 0.001 }
+      ]
+    },
+    "voidborn_champion": {
+      "description": "End-game boss in Abyssal Depths raid",
+      "killRequirement": { "minPlayers": 20, "raidTier": "heroic" },
+      "guaranteedDrops": [
+        { "itemId": "void_crystal", "quantityMin": 1, "quantityMax": 3 },
+        { "itemId": "gold_coins", "quantityMin": 50000, "quantityMax": 100000 }
+      ],
+      "commonDrops": [
+        { "itemId": "void_essence", "quantityMin": 10, "quantityMax": 25, "chance": 0.9 },
+        { "itemId": "wyrmscale_bar", "quantityMin": 3, "quantityMax": 8, "chance": 0.6 }
+      ],
+      "rareDrops": [
+        { "itemId": "voidborn_blade", "quantity": 1, "chance": 0.03 },
+        { "itemId": "void_walker_boots", "quantity": 1, "chance": 0.05 },
+        { "itemId": "helm_of_the_void", "quantity": 1, "chance": 0.04 }
+      ],
+      "ultraRareDrops": [
+        { "itemId": "voidborn_pet", "quantity": 1, "chance": 0.0003 },
+        { "itemId": "title_voidslayer", "quantity": 1, "chance": 0.01 },
+        { "itemId": "void_scythe", "quantity": 1, "chance": 0.001 }
+      ]
+    },
+    "frost_queen_isara": {
+      "description": "Ice queen in Frostpeak Range ice palace",
+      "killRequirement": { "minPlayers": 5, "questComplete": "frozen_throne" },
+      "guaranteedDrops": [
+        { "itemId": "frost_crystal", "quantityMin": 2, "quantityMax": 5 },
+        { "itemId": "gold_coins", "quantityMin": 12000, "quantityMax": 28000 }
+      ],
+      "commonDrops": [
+        { "itemId": "ice_shard", "quantityMin": 15, "quantityMax": 40, "chance": 0.85 },
+        { "itemId": "frozen_key", "quantity": 1, "chance": 0.4 }
+      ],
+      "rareDrops": [
+        { "itemId": "isaras_crown", "quantity": 1, "chance": 0.04 },
+        { "itemId": "frost_sceptre", "quantity": 1, "chance": 0.06 },
+        { "itemId": "glacial_boots", "quantity": 1, "chance": 0.08 }
+      ],
+      "ultraRareDrops": [
+        { "itemId": "isara_pet", "quantity": 1, "chance": 0.001 },
+        { "itemId": "frost_queens_gown", "quantity": 1, "chance": 0.002 }
+      ]
+    }
+  },
+  "beastslayerBonuses": {
+    "description": "Extra drops when killing monsters on a beastslaying task",
+    "bonusXpMultiplier": 1.15,
+    "bonusDropChanceMultiplier": 1.1,
+    "exclusiveDrops": {
+      "imbued_heart": { "chance": 0.0002, "minBeastslayerLevel": 75 },
+      "eternal_gem": { "chance": 0.0003, "minBeastslayerLevel": 70 },
+      "slayer_ring": { "chance": 0.005, "minBeastslayerLevel": 50 }
+    },
+    "superiorMonsterChance": 0.01
+  },
+  "superiorMonsters": {
+    "description": "Stronger variants that can spawn during beastslaying tasks",
+    "multipliers": {
+      "health": 10,
+      "attack": 3,
+      "defense": 2,
+      "dropQuantity": 3,
+      "rareDropChance": 5
+    },
+    "exclusiveDrops": [
+      { "itemId": "imbued_heart", "chance": 0.01 },
+      { "itemId": "eternal_gem", "chance": 0.015 },
+      { "itemId": "dust", "chance": 0.04 },
+      { "itemId": "mist", "chance": 0.04 }
+    ]
+  }
+}

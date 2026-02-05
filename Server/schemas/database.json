@@ -1,0 +1,576 @@
+{
+  "version": "1.0.0",
+  "description": "Database schemas for Realm of Eternity MMO server",
+  "database_engine": "PostgreSQL 16+",
+  "sharding_strategy": "account_id_hash",
+
+  "schemas": {
+    "accounts": {
+      "description": "Player account authentication and metadata",
+      "table": "accounts",
+      "primary_key": "account_id",
+      "columns": {
+        "account_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "email": {"type": "VARCHAR(255)", "nullable": false, "unique": true, "encrypted": true},
+        "email_hash": {"type": "VARCHAR(64)", "nullable": false, "indexed": true, "description": "SHA256 for lookups"},
+        "password_hash": {"type": "VARCHAR(255)", "nullable": false, "algorithm": "argon2id"},
+        "created_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "last_login": {"type": "TIMESTAMPTZ", "nullable": true},
+        "login_count": {"type": "INTEGER", "nullable": false, "default": 0},
+        "account_status": {"type": "SMALLINT", "nullable": false, "default": 1, "enum": ["banned", "active", "suspended", "pending_verification"]},
+        "membership_type": {"type": "SMALLINT", "nullable": false, "default": 0, "enum": ["free", "member", "premium"]},
+        "membership_expires": {"type": "TIMESTAMPTZ", "nullable": true},
+        "two_factor_enabled": {"type": "BOOLEAN", "nullable": false, "default": false},
+        "two_factor_secret": {"type": "VARCHAR(255)", "nullable": true, "encrypted": true},
+        "recovery_email": {"type": "VARCHAR(255)", "nullable": true, "encrypted": true},
+        "country_code": {"type": "CHAR(2)", "nullable": true},
+        "preferred_language": {"type": "CHAR(5)", "nullable": false, "default": "'en-US'"},
+        "marketing_opt_in": {"type": "BOOLEAN", "nullable": false, "default": false},
+        "parental_controls": {"type": "JSONB", "nullable": true}
+      },
+      "indexes": [
+        {"name": "idx_accounts_email_hash", "columns": ["email_hash"], "unique": true},
+        {"name": "idx_accounts_status", "columns": ["account_status"]},
+        {"name": "idx_accounts_last_login", "columns": ["last_login"]}
+      ]
+    },
+
+    "characters": {
+      "description": "Player character data",
+      "table": "characters",
+      "primary_key": "character_id",
+      "columns": {
+        "character_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "account_id": {"type": "UUID", "nullable": false, "references": "accounts.account_id"},
+        "display_name": {"type": "VARCHAR(12)", "nullable": false, "unique": true},
+        "display_name_lower": {"type": "VARCHAR(12)", "nullable": false, "indexed": true, "description": "Lowercase for searches"},
+        "previous_names": {"type": "JSONB", "nullable": false, "default": "'[]'"},
+        "created_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "total_playtime_seconds": {"type": "BIGINT", "nullable": false, "default": 0},
+        "is_ironman": {"type": "SMALLINT", "nullable": false, "default": 0, "enum": ["normal", "ironman", "hardcore_ironman", "ultimate_ironman", "group_ironman"]},
+        "ironman_deaths": {"type": "INTEGER", "nullable": false, "default": 0},
+        "combat_level": {"type": "SMALLINT", "nullable": false, "default": 3},
+        "total_level": {"type": "SMALLINT", "nullable": false, "default": 32},
+        "total_xp": {"type": "BIGINT", "nullable": false, "default": 0},
+        "quest_points": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "world_id": {"type": "SMALLINT", "nullable": true, "description": "Current world if online"},
+        "is_online": {"type": "BOOLEAN", "nullable": false, "default": false},
+        "last_logout": {"type": "TIMESTAMPTZ", "nullable": true},
+        "last_position": {"type": "JSONB", "nullable": false, "default": "'{\"x\":3233,\"y\":3222,\"z\":0}'"}
+      },
+      "indexes": [
+        {"name": "idx_characters_account", "columns": ["account_id"]},
+        {"name": "idx_characters_name_lower", "columns": ["display_name_lower"]},
+        {"name": "idx_characters_online", "columns": ["is_online", "world_id"]},
+        {"name": "idx_characters_total_level", "columns": ["total_level", "total_xp"]}
+      ],
+      "constraints": [
+        {"type": "CHECK", "name": "chk_display_name", "expression": "LENGTH(display_name) >= 1"},
+        {"type": "FOREIGN_KEY", "name": "fk_characters_account", "columns": ["account_id"], "references": "accounts(account_id)", "on_delete": "CASCADE"}
+      ]
+    },
+
+    "character_skills": {
+      "description": "Skill experience per character",
+      "table": "character_skills",
+      "primary_key": ["character_id", "skill_id"],
+      "columns": {
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "skill_id": {"type": "SMALLINT", "nullable": false},
+        "experience": {"type": "BIGINT", "nullable": false, "default": 0},
+        "virtual_level": {"type": "SMALLINT", "nullable": false, "default": 1, "description": "Cached level for performance"},
+        "last_trained": {"type": "TIMESTAMPTZ", "nullable": true}
+      },
+      "indexes": [
+        {"name": "idx_skills_character", "columns": ["character_id"]},
+        {"name": "idx_skills_by_xp", "columns": ["skill_id", "experience DESC"], "description": "For hiscores"}
+      ],
+      "skill_enum": {
+        "0": "attack",
+        "1": "defence",
+        "2": "strength",
+        "3": "constitution",
+        "4": "ranged",
+        "5": "sanctity",
+        "6": "magic",
+        "7": "cooking",
+        "8": "woodcutting",
+        "9": "fleeting",
+        "10": "fishing",
+        "11": "firemaking",
+        "12": "crafting",
+        "13": "smithing",
+        "14": "mining",
+        "15": "herbcraft",
+        "16": "agility",
+        "17": "thieving",
+        "18": "slayer",
+        "19": "farming",
+        "20": "aethertap",
+        "21": "inscription",
+        "22": "hunter",
+        "23": "construction",
+        "24": "bestiary",
+        "25": "archaeology",
+        "26": "sailing",
+        "27": "invention"
+      }
+    },
+
+    "character_inventory": {
+      "description": "Character inventory and bank storage",
+      "table": "character_inventory",
+      "primary_key": "inventory_id",
+      "columns": {
+        "inventory_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "container_type": {"type": "SMALLINT", "nullable": false, "enum_values": {"0": "inventory", "1": "equipped", "2": "bank", "3": "bank_tab_1", "4": "bank_tab_2", "5": "bank_tab_3", "6": "bank_tab_4", "7": "bank_tab_5", "8": "bank_tab_6", "9": "bank_tab_7", "10": "bank_tab_8", "11": "looting_bag", "12": "seed_vault", "13": "poh_storage"}},
+        "slot_index": {"type": "SMALLINT", "nullable": false},
+        "item_id": {"type": "INTEGER", "nullable": false},
+        "quantity": {"type": "BIGINT", "nullable": false, "default": 1},
+        "item_charges": {"type": "INTEGER", "nullable": true},
+        "item_metadata": {"type": "JSONB", "nullable": true, "description": "Augments, dyes, etc."}
+      },
+      "indexes": [
+        {"name": "idx_inventory_character_container", "columns": ["character_id", "container_type"]},
+        {"name": "idx_inventory_item", "columns": ["item_id"], "description": "For economy tracking"}
+      ],
+      "constraints": [
+        {"type": "UNIQUE", "name": "unq_inventory_slot", "columns": ["character_id", "container_type", "slot_index"]},
+        {"type": "CHECK", "name": "chk_quantity_positive", "expression": "quantity > 0"}
+      ]
+    },
+
+    "character_quests": {
+      "description": "Quest progress per character",
+      "table": "character_quests",
+      "primary_key": ["character_id", "quest_id"],
+      "columns": {
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "quest_id": {"type": "SMALLINT", "nullable": false},
+        "status": {"type": "SMALLINT", "nullable": false, "default": 0, "enum": ["not_started", "in_progress", "completed"]},
+        "current_stage": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "stage_variables": {"type": "JSONB", "nullable": true, "description": "Quest-specific progress data"},
+        "started_at": {"type": "TIMESTAMPTZ", "nullable": true},
+        "completed_at": {"type": "TIMESTAMPTZ", "nullable": true}
+      },
+      "indexes": [
+        {"name": "idx_quests_character", "columns": ["character_id"]},
+        {"name": "idx_quests_completed", "columns": ["quest_id", "completed_at"], "where": "status = 2"}
+      ]
+    },
+
+    "character_appearance": {
+      "description": "Character visual customization",
+      "table": "character_appearance",
+      "primary_key": "character_id",
+      "columns": {
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "gender": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "skin_color": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "hair_style": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "hair_color": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "facial_hair": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "torso_style": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "arms_style": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "legs_style": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "feet_style": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "body_type": {"type": "SMALLINT", "nullable": false, "default": 1},
+        "eye_color": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "title_prefix": {"type": "VARCHAR(50)", "nullable": true},
+        "title_suffix": {"type": "VARCHAR(50)", "nullable": true},
+        "active_pet": {"type": "INTEGER", "nullable": true},
+        "aura_id": {"type": "INTEGER", "nullable": true}
+      }
+    },
+
+    "character_unlocks": {
+      "description": "Unlocked content (cosmetics, music, pets, etc.)",
+      "table": "character_unlocks",
+      "primary_key": ["character_id", "unlock_type", "unlock_id"],
+      "columns": {
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "unlock_type": {"type": "SMALLINT", "nullable": false, "enum": ["music", "emote", "title", "pet", "outfit", "teleport", "recipe", "achievement", "collection_log"]},
+        "unlock_id": {"type": "INTEGER", "nullable": false},
+        "unlocked_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "unlock_count": {"type": "INTEGER", "nullable": false, "default": 1, "description": "For collection log duplicates"}
+      },
+      "indexes": [
+        {"name": "idx_unlocks_character_type", "columns": ["character_id", "unlock_type"]}
+      ]
+    },
+
+    "character_achievements": {
+      "description": "Achievement diary and task progress",
+      "table": "character_achievements",
+      "primary_key": ["character_id", "achievement_id"],
+      "columns": {
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "achievement_id": {"type": "INTEGER", "nullable": false},
+        "progress": {"type": "INTEGER", "nullable": false, "default": 0},
+        "completed": {"type": "BOOLEAN", "nullable": false, "default": false},
+        "completed_at": {"type": "TIMESTAMPTZ", "nullable": true}
+      },
+      "indexes": [
+        {"name": "idx_achievements_character", "columns": ["character_id"]},
+        {"name": "idx_achievements_completed", "columns": ["achievement_id"], "where": "completed = true"}
+      ]
+    },
+
+    "character_friends": {
+      "description": "Friends and ignore lists",
+      "table": "character_friends",
+      "primary_key": ["character_id", "friend_character_id"],
+      "columns": {
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "friend_character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "list_type": {"type": "SMALLINT", "nullable": false, "enum": ["friend", "ignore"]},
+        "added_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "notes": {"type": "VARCHAR(100)", "nullable": true}
+      },
+      "indexes": [
+        {"name": "idx_friends_character", "columns": ["character_id", "list_type"]}
+      ],
+      "limits": {
+        "max_friends": 400,
+        "max_ignores": 400
+      }
+    },
+
+    "clans": {
+      "description": "Clan/guild organizations",
+      "table": "clans",
+      "primary_key": "clan_id",
+      "columns": {
+        "clan_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "clan_name": {"type": "VARCHAR(20)", "nullable": false, "unique": true},
+        "clan_tag": {"type": "VARCHAR(5)", "nullable": false},
+        "created_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "owner_character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "member_count": {"type": "INTEGER", "nullable": false, "default": 1},
+        "clan_settings": {"type": "JSONB", "nullable": false, "default": "'{}'"},
+        "motd": {"type": "TEXT", "nullable": true},
+        "clan_xp": {"type": "BIGINT", "nullable": false, "default": 0},
+        "citadel_tier": {"type": "SMALLINT", "nullable": false, "default": 1},
+        "banner_data": {"type": "JSONB", "nullable": true}
+      },
+      "indexes": [
+        {"name": "idx_clans_owner", "columns": ["owner_character_id"]},
+        {"name": "idx_clans_name", "columns": ["clan_name"]}
+      ]
+    },
+
+    "clan_members": {
+      "description": "Clan membership and ranks",
+      "table": "clan_members",
+      "primary_key": ["clan_id", "character_id"],
+      "columns": {
+        "clan_id": {"type": "UUID", "nullable": false, "references": "clans.clan_id"},
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "rank": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "joined_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "contribution_xp": {"type": "BIGINT", "nullable": false, "default": 0},
+        "capped_this_week": {"type": "BOOLEAN", "nullable": false, "default": false}
+      },
+      "indexes": [
+        {"name": "idx_clan_members_character", "columns": ["character_id"]},
+        {"name": "idx_clan_members_rank", "columns": ["clan_id", "rank"]}
+      ],
+      "rank_enum": {
+        "0": "recruit",
+        "1": "corporal",
+        "2": "sergeant",
+        "3": "lieutenant",
+        "4": "captain",
+        "5": "general",
+        "6": "admin",
+        "7": "deputy_owner",
+        "8": "owner"
+      }
+    },
+
+    "grand_exchange_offers": {
+      "description": "Active and completed GE offers",
+      "table": "grand_exchange_offers",
+      "primary_key": "offer_id",
+      "columns": {
+        "offer_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "slot_index": {"type": "SMALLINT", "nullable": false},
+        "offer_type": {"type": "SMALLINT", "nullable": false, "enum": ["buy", "sell"]},
+        "item_id": {"type": "INTEGER", "nullable": false},
+        "quantity_total": {"type": "INTEGER", "nullable": false},
+        "quantity_filled": {"type": "INTEGER", "nullable": false, "default": 0},
+        "price_per_unit": {"type": "BIGINT", "nullable": false},
+        "gp_transferred": {"type": "BIGINT", "nullable": false, "default": 0},
+        "status": {"type": "SMALLINT", "nullable": false, "default": 0, "enum": ["active", "completed", "cancelled", "aborted"]},
+        "created_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "completed_at": {"type": "TIMESTAMPTZ", "nullable": true}
+      },
+      "indexes": [
+        {"name": "idx_ge_character_active", "columns": ["character_id", "status"], "where": "status = 0"},
+        {"name": "idx_ge_item_buy", "columns": ["item_id", "price_per_unit DESC"], "where": "offer_type = 0 AND status = 0"},
+        {"name": "idx_ge_item_sell", "columns": ["item_id", "price_per_unit ASC"], "where": "offer_type = 1 AND status = 0"}
+      ],
+      "constraints": [
+        {"type": "CHECK", "name": "chk_quantity_valid", "expression": "quantity_total > 0 AND quantity_filled >= 0 AND quantity_filled <= quantity_total"}
+      ]
+    },
+
+    "grand_exchange_history": {
+      "description": "Completed GE transactions for price tracking",
+      "table": "grand_exchange_history",
+      "primary_key": "transaction_id",
+      "partitioning": {"type": "RANGE", "column": "completed_at", "interval": "1 month"},
+      "columns": {
+        "transaction_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "item_id": {"type": "INTEGER", "nullable": false},
+        "quantity": {"type": "INTEGER", "nullable": false},
+        "price_per_unit": {"type": "BIGINT", "nullable": false},
+        "buyer_character_id": {"type": "UUID", "nullable": false},
+        "seller_character_id": {"type": "UUID", "nullable": false},
+        "completed_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"}
+      },
+      "indexes": [
+        {"name": "idx_ge_history_item_time", "columns": ["item_id", "completed_at DESC"]},
+        {"name": "idx_ge_history_time", "columns": ["completed_at"]}
+      ],
+      "retention_policy": "24 months"
+    },
+
+    "player_owned_house": {
+      "description": "POH room and furniture data",
+      "table": "player_owned_house",
+      "primary_key": "poh_id",
+      "columns": {
+        "poh_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id", "unique": true},
+        "location": {"type": "SMALLINT", "nullable": false, "default": 0, "enum": ["rimmington", "taverly", "pollnivneach", "rellekka", "brimhaven", "yanille", "prifddinas", "menaphos"]},
+        "house_style": {"type": "SMALLINT", "nullable": false, "default": 0},
+        "rooms": {"type": "JSONB", "nullable": false, "default": "'[]'", "description": "Array of room positions and types"},
+        "furniture": {"type": "JSONB", "nullable": false, "default": "'[]'", "description": "Furniture in each hotspot"},
+        "butler_type": {"type": "SMALLINT", "nullable": true},
+        "stored_costumes": {"type": "JSONB", "nullable": true},
+        "stored_capes": {"type": "JSONB", "nullable": true},
+        "pet_house": {"type": "JSONB", "nullable": true},
+        "portal_nexus": {"type": "JSONB", "nullable": true}
+      },
+      "indexes": [
+        {"name": "idx_poh_character", "columns": ["character_id"]}
+      ]
+    },
+
+    "game_sessions": {
+      "description": "Player session tracking",
+      "table": "game_sessions",
+      "primary_key": "session_id",
+      "partitioning": {"type": "RANGE", "column": "started_at", "interval": "1 week"},
+      "columns": {
+        "session_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "account_id": {"type": "UUID", "nullable": false, "references": "accounts.account_id"},
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "world_id": {"type": "SMALLINT", "nullable": false},
+        "started_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "ended_at": {"type": "TIMESTAMPTZ", "nullable": true},
+        "ip_address": {"type": "INET", "nullable": false},
+        "client_version": {"type": "VARCHAR(20)", "nullable": false},
+        "platform": {"type": "SMALLINT", "nullable": false, "enum": ["pc", "mac", "linux", "ios", "android", "console"]}
+      },
+      "indexes": [
+        {"name": "idx_sessions_account", "columns": ["account_id", "started_at DESC"]},
+        {"name": "idx_sessions_ip", "columns": ["ip_address", "started_at DESC"]}
+      ],
+      "retention_policy": "90 days"
+    },
+
+    "chat_logs": {
+      "description": "Chat message storage for moderation",
+      "table": "chat_logs",
+      "primary_key": "message_id",
+      "partitioning": {"type": "RANGE", "column": "sent_at", "interval": "1 day"},
+      "columns": {
+        "message_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "sender_character_id": {"type": "UUID", "nullable": false},
+        "channel_type": {"type": "SMALLINT", "nullable": false, "enum": ["public", "private", "clan", "friends_chat", "group", "trade"]},
+        "channel_id": {"type": "VARCHAR(50)", "nullable": true, "description": "Clan ID, FC name, etc."},
+        "recipient_character_id": {"type": "UUID", "nullable": true},
+        "message_content": {"type": "TEXT", "nullable": false},
+        "sent_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "world_id": {"type": "SMALLINT", "nullable": false},
+        "flagged": {"type": "BOOLEAN", "nullable": false, "default": false}
+      },
+      "indexes": [
+        {"name": "idx_chat_sender", "columns": ["sender_character_id", "sent_at DESC"]},
+        {"name": "idx_chat_flagged", "columns": ["sent_at"], "where": "flagged = true"}
+      ],
+      "retention_policy": "30 days",
+      "compliance_note": "Extended retention for flagged messages"
+    },
+
+    "moderation_actions": {
+      "description": "Moderation history and bans",
+      "table": "moderation_actions",
+      "primary_key": "action_id",
+      "columns": {
+        "action_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "account_id": {"type": "UUID", "nullable": false, "references": "accounts.account_id"},
+        "character_id": {"type": "UUID", "nullable": true, "references": "characters.character_id"},
+        "action_type": {"type": "SMALLINT", "nullable": false, "enum": ["warning", "mute", "temp_ban", "perm_ban", "rwt_ban", "bot_ban", "appeal_accepted", "appeal_denied"]},
+        "reason": {"type": "TEXT", "nullable": false},
+        "evidence": {"type": "JSONB", "nullable": true},
+        "expires_at": {"type": "TIMESTAMPTZ", "nullable": true},
+        "issued_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "issued_by": {"type": "VARCHAR(50)", "nullable": false, "description": "Mod username or 'SYSTEM'"},
+        "active": {"type": "BOOLEAN", "nullable": false, "default": true}
+      },
+      "indexes": [
+        {"name": "idx_moderation_account", "columns": ["account_id", "issued_at DESC"]},
+        {"name": "idx_moderation_active", "columns": ["account_id"], "where": "active = true"},
+        {"name": "idx_moderation_expires", "columns": ["expires_at"], "where": "expires_at IS NOT NULL AND active = true"}
+      ]
+    },
+
+    "hiscores": {
+      "description": "Leaderboard rankings (materialized view source)",
+      "table": "hiscores",
+      "primary_key": ["category", "character_id"],
+      "refresh_interval": "5 minutes",
+      "columns": {
+        "category": {"type": "SMALLINT", "nullable": false, "description": "Skill ID or special category"},
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "rank": {"type": "INTEGER", "nullable": false},
+        "score": {"type": "BIGINT", "nullable": false},
+        "updated_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"}
+      },
+      "indexes": [
+        {"name": "idx_hiscores_rank", "columns": ["category", "rank"]},
+        {"name": "idx_hiscores_character", "columns": ["character_id"]}
+      ],
+      "categories": {
+        "0-27": "Individual skills",
+        "100": "Total level",
+        "101": "Total XP",
+        "102": "Combat level",
+        "200": "Clue scrolls (all)",
+        "201-206": "Clue scrolls by tier",
+        "300+": "Boss kill counts"
+      }
+    },
+
+    "drop_logs": {
+      "description": "Valuable drop tracking for analytics",
+      "table": "drop_logs",
+      "primary_key": "log_id",
+      "partitioning": {"type": "RANGE", "column": "dropped_at", "interval": "1 month"},
+      "columns": {
+        "log_id": {"type": "UUID", "nullable": false, "default": "gen_random_uuid()"},
+        "character_id": {"type": "UUID", "nullable": false, "references": "characters.character_id"},
+        "source_type": {"type": "SMALLINT", "nullable": false, "enum": ["monster", "boss", "clue", "minigame", "skilling"]},
+        "source_id": {"type": "INTEGER", "nullable": false},
+        "item_id": {"type": "INTEGER", "nullable": false},
+        "quantity": {"type": "INTEGER", "nullable": false},
+        "dropped_at": {"type": "TIMESTAMPTZ", "nullable": false, "default": "NOW()"},
+        "world_id": {"type": "SMALLINT", "nullable": false},
+        "location": {"type": "JSONB", "nullable": true}
+      },
+      "indexes": [
+        {"name": "idx_drops_character", "columns": ["character_id", "dropped_at DESC"]},
+        {"name": "idx_drops_item", "columns": ["item_id", "dropped_at DESC"]},
+        {"name": "idx_drops_source", "columns": ["source_type", "source_id", "dropped_at DESC"]}
+      ],
+      "value_threshold": "Log drops worth > 1M GP or on collection log"
+    }
+  },
+
+  "redis_schemas": {
+    "description": "Redis data structures for real-time data",
+
+    "session_cache": {
+      "key_pattern": "session:{character_id}",
+      "type": "HASH",
+      "fields": ["world_id", "position", "health", "prayer", "adrenaline", "last_action", "combat_target"],
+      "ttl_seconds": 3600,
+      "eviction": "volatile-lru"
+    },
+
+    "world_players": {
+      "key_pattern": "world:{world_id}:players",
+      "type": "SET",
+      "description": "Character IDs currently on this world"
+    },
+
+    "ge_prices": {
+      "key_pattern": "ge:price:{item_id}",
+      "type": "HASH",
+      "fields": ["buy_price", "sell_price", "buy_volume", "sell_volume", "last_trade", "trend"],
+      "ttl_seconds": 300
+    },
+
+    "rate_limits": {
+      "key_pattern": "ratelimit:{action}:{identifier}",
+      "type": "STRING",
+      "description": "Counter for rate limiting",
+      "ttl_seconds": "varies by action"
+    },
+
+    "friends_online": {
+      "key_pattern": "online:{character_id}",
+      "type": "STRING",
+      "value": "world_id or 0 if private",
+      "ttl_seconds": 60,
+      "refresh": "heartbeat"
+    },
+
+    "broadcast_channels": {
+      "key_pattern": "pubsub:world:{world_id}",
+      "type": "PUBSUB",
+      "description": "Real-time world event broadcasts"
+    },
+
+    "leaderboard_cache": {
+      "key_pattern": "hiscore:{category}",
+      "type": "ZSET",
+      "description": "Top 1000 cached",
+      "ttl_seconds": 300
+    }
+  },
+
+  "migrations": {
+    "strategy": "versioned_sequential",
+    "tool": "golang-migrate or Flyway",
+    "naming": "V{version}__{description}.sql",
+    "rollback_required": true,
+    "environments": ["development", "staging", "production"],
+    "deployment_notes": [
+      "Always run migrations during maintenance window",
+      "Test on staging with production data snapshot",
+      "Keep backward compatibility for 2 releases"
+    ]
+  },
+
+  "backup_and_recovery": {
+    "full_backup_schedule": "daily",
+    "incremental_backup_schedule": "hourly",
+    "wal_archiving": true,
+    "retention_days": 30,
+    "point_in_time_recovery": true,
+    "geo_replication": true,
+    "rpo_minutes": 5,
+    "rto_minutes": 30
+  },
+
+  "performance_tuning": {
+    "connection_pooling": {
+      "tool": "PgBouncer",
+      "mode": "transaction",
+      "max_connections_per_world": 50
+    },
+    "read_replicas": {
+      "count": 3,
+      "use_cases": ["hiscores", "ge_price_history", "analytics"]
+    },
+    "partitioning_strategy": "time-based for logs, hash for accounts",
+    "vacuum_schedule": "nightly during off-peak",
+    "index_maintenance": "weekly REINDEX CONCURRENTLY"
+  }
+}

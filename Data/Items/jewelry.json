@@ -1,0 +1,545 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Jewelry items for Realm of Eternity - rings, amulets, bracelets, and necklaces"
+  },
+  "rings": {
+    "description": "Rings worn on the finger slot",
+    "items": [
+      {
+        "id": "gold_ring",
+        "name": "Gold Ring",
+        "description": "A simple gold ring",
+        "slot": "ring",
+        "craftingLevel": 5,
+        "materials": [{ "id": "gold_bar", "qty": 1 }],
+        "stats": {},
+        "value": 200,
+        "enchantable": true
+      },
+      {
+        "id": "sapphire_ring",
+        "name": "Sapphire Ring",
+        "description": "A gold ring set with a sapphire",
+        "slot": "ring",
+        "craftingLevel": 20,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "sapphire", "qty": 1 }],
+        "stats": { "magic_attack": 2 },
+        "value": 1500,
+        "enchantable": true,
+        "enchantedVersion": "ring_of_recoil"
+      },
+      {
+        "id": "emerald_ring",
+        "name": "Emerald Ring",
+        "description": "A gold ring set with an emerald",
+        "slot": "ring",
+        "craftingLevel": 27,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "emerald", "qty": 1 }],
+        "stats": { "ranged_attack": 2 },
+        "value": 2500,
+        "enchantable": true,
+        "enchantedVersion": "ring_of_dueling"
+      },
+      {
+        "id": "ruby_ring",
+        "name": "Ruby Ring",
+        "description": "A gold ring set with a ruby",
+        "slot": "ring",
+        "craftingLevel": 34,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "ruby", "qty": 1 }],
+        "stats": { "melee_attack": 2 },
+        "value": 3500,
+        "enchantable": true,
+        "enchantedVersion": "ring_of_forging"
+      },
+      {
+        "id": "diamond_ring",
+        "name": "Diamond Ring",
+        "description": "A gold ring set with a diamond",
+        "slot": "ring",
+        "craftingLevel": 43,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "diamond", "qty": 1 }],
+        "stats": { "all_attack": 2 },
+        "value": 5000,
+        "enchantable": true,
+        "enchantedVersion": "ring_of_life"
+      },
+      {
+        "id": "dragonstone_ring",
+        "name": "Dragonstone Ring",
+        "description": "A gold ring set with a dragonstone",
+        "slot": "ring",
+        "craftingLevel": 55,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "dragonstone", "qty": 1 }],
+        "stats": { "all_attack": 4, "defense": 2 },
+        "value": 15000,
+        "enchantable": true,
+        "enchantedVersion": "ring_of_wealth"
+      },
+      {
+        "id": "onyx_ring",
+        "name": "Onyx Ring",
+        "description": "A gold ring set with an onyx gem",
+        "slot": "ring",
+        "craftingLevel": 67,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "onyx", "qty": 1 }],
+        "stats": { "all_attack": 6, "defense": 4, "hitpoints": 3 },
+        "value": 50000,
+        "enchantable": true,
+        "enchantedVersion": "ring_of_stone"
+      },
+      {
+        "id": "ring_of_recoil",
+        "name": "Ring of Recoil",
+        "description": "Reflects damage back to attackers",
+        "slot": "ring",
+        "charges": 40,
+        "effect": { "type": "recoil", "damage": 10, "percentOfDamageTaken": 0.1 },
+        "stats": {},
+        "value": 2000,
+        "tradeable": true
+      },
+      {
+        "id": "ring_of_dueling",
+        "name": "Ring of Dueling",
+        "description": "Teleports to combat-related locations",
+        "slot": "ring",
+        "charges": 8,
+        "teleports": ["champions_arena", "castle_wars", "clan_wars"],
+        "stats": {},
+        "value": 3000,
+        "tradeable": true
+      },
+      {
+        "id": "ring_of_wealth",
+        "name": "Ring of Wealth",
+        "description": "Increases rare drop chance",
+        "slot": "ring",
+        "effect": { "type": "loot_bonus", "rareDropBonus": 0.01, "coinPickup": true },
+        "stats": { "all_attack": 4, "defense": 2 },
+        "value": 20000,
+        "tradeable": true
+      },
+      {
+        "id": "ring_of_life",
+        "name": "Ring of Life",
+        "description": "Teleports you to safety when health is critical",
+        "slot": "ring",
+        "effect": { "type": "emergency_teleport", "healthThreshold": 0.1, "singleUse": true },
+        "stats": { "all_attack": 2 },
+        "value": 6000,
+        "tradeable": true
+      },
+      {
+        "id": "berserker_ring",
+        "name": "Berserker Ring",
+        "description": "A powerful ring favored by warriors",
+        "slot": "ring",
+        "source": "boss_drop",
+        "stats": { "melee_strength": 8, "melee_attack": 4 },
+        "value": 2500000,
+        "tradeable": true,
+        "imbueVersion": "berserker_ring_i"
+      },
+      {
+        "id": "archers_ring",
+        "name": "Archer's Ring",
+        "description": "A powerful ring favored by rangers",
+        "slot": "ring",
+        "source": "boss_drop",
+        "stats": { "ranged_strength": 8, "ranged_attack": 4 },
+        "value": 2500000,
+        "tradeable": true,
+        "imbueVersion": "archers_ring_i"
+      },
+      {
+        "id": "seers_ring",
+        "name": "Seer's Ring",
+        "description": "A powerful ring favored by mages",
+        "slot": "ring",
+        "source": "boss_drop",
+        "stats": { "magic_damage": 8, "magic_attack": 4 },
+        "value": 2500000,
+        "tradeable": true,
+        "imbueVersion": "seers_ring_i"
+      },
+      {
+        "id": "ring_of_suffering",
+        "name": "Ring of Suffering",
+        "description": "Absorbs incoming ring effects and provides defense",
+        "slot": "ring",
+        "craftingLevel": 89,
+        "materials": [{ "id": "zenyte", "qty": 1 }, { "id": "gold_bar", "qty": 1 }, { "id": "onyx_ring", "qty": 1 }],
+        "stats": { "defense": 20, "all_attack": 2 },
+        "effect": { "type": "absorb_recoil", "capacity": 100000 },
+        "value": 15000000,
+        "tradeable": true
+      },
+      {
+        "id": "eternal_ring",
+        "name": "Eternal Ring",
+        "description": "The ultimate ring, imbued with eternal power",
+        "slot": "ring",
+        "source": "raid",
+        "stats": { "all_attack": 15, "all_strength": 10, "defense": 15, "hitpoints": 5 },
+        "effect": { "type": "passive", "healthRegen": 1, "interval": 60 },
+        "value": 100000000,
+        "tradeable": true
+      }
+    ]
+  },
+  "amulets": {
+    "description": "Amulets worn on the neck slot",
+    "items": [
+      {
+        "id": "gold_amulet",
+        "name": "Gold Amulet",
+        "description": "A simple gold amulet",
+        "slot": "amulet",
+        "craftingLevel": 8,
+        "materials": [{ "id": "gold_bar", "qty": 1 }],
+        "stats": {},
+        "value": 300,
+        "stringable": true
+      },
+      {
+        "id": "sapphire_amulet",
+        "name": "Sapphire Amulet",
+        "description": "A gold amulet set with a sapphire",
+        "slot": "amulet",
+        "craftingLevel": 24,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "sapphire", "qty": 1 }],
+        "stats": { "magic_attack": 7 },
+        "value": 2000,
+        "enchantable": true,
+        "enchantedVersion": "amulet_of_magic"
+      },
+      {
+        "id": "emerald_amulet",
+        "name": "Emerald Amulet",
+        "description": "A gold amulet set with an emerald",
+        "slot": "amulet",
+        "craftingLevel": 31,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "emerald", "qty": 1 }],
+        "stats": { "ranged_attack": 7, "defense": 3 },
+        "value": 3500,
+        "enchantable": true,
+        "enchantedVersion": "amulet_of_sight"
+      },
+      {
+        "id": "ruby_amulet",
+        "name": "Ruby Amulet",
+        "description": "A gold amulet set with a ruby",
+        "slot": "amulet",
+        "craftingLevel": 40,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "ruby", "qty": 1 }],
+        "stats": { "melee_attack": 7, "melee_strength": 3 },
+        "value": 4500,
+        "enchantable": true,
+        "enchantedVersion": "amulet_of_strength"
+      },
+      {
+        "id": "diamond_amulet",
+        "name": "Diamond Amulet",
+        "description": "A gold amulet set with a diamond",
+        "slot": "amulet",
+        "craftingLevel": 52,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "diamond", "qty": 1 }],
+        "stats": { "all_attack": 6, "defense": 6 },
+        "value": 6500,
+        "enchantable": true,
+        "enchantedVersion": "amulet_of_power"
+      },
+      {
+        "id": "dragonstone_amulet",
+        "name": "Dragonstone Amulet",
+        "description": "A gold amulet set with a dragonstone",
+        "slot": "amulet",
+        "craftingLevel": 63,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "dragonstone", "qty": 1 }],
+        "stats": { "all_attack": 10, "all_strength": 3, "defense": 3 },
+        "value": 20000,
+        "enchantable": true,
+        "enchantedVersion": "amulet_of_glory"
+      },
+      {
+        "id": "onyx_amulet",
+        "name": "Onyx Amulet",
+        "description": "A gold amulet set with an onyx",
+        "slot": "amulet",
+        "craftingLevel": 82,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "onyx", "qty": 1 }],
+        "stats": { "all_attack": 15, "all_strength": 8, "defense": 8 },
+        "value": 100000,
+        "enchantable": true,
+        "enchantedVersion": "amulet_of_fury"
+      },
+      {
+        "id": "amulet_of_magic",
+        "name": "Amulet of Magic",
+        "description": "Enhances magical abilities",
+        "slot": "amulet",
+        "stats": { "magic_attack": 10, "magic_defense": 5 },
+        "value": 3000,
+        "tradeable": true
+      },
+      {
+        "id": "amulet_of_strength",
+        "name": "Amulet of Strength",
+        "description": "Enhances melee strength",
+        "slot": "amulet",
+        "stats": { "melee_strength": 10 },
+        "value": 5500,
+        "tradeable": true
+      },
+      {
+        "id": "amulet_of_power",
+        "name": "Amulet of Power",
+        "description": "A balanced amulet for all combat styles",
+        "slot": "amulet",
+        "stats": { "all_attack": 6, "all_strength": 6, "defense": 6, "sanctity": 1 },
+        "value": 8000,
+        "tradeable": true
+      },
+      {
+        "id": "amulet_of_glory",
+        "name": "Amulet of Glory",
+        "description": "A powerful amulet with teleportation",
+        "slot": "amulet",
+        "charges": 6,
+        "teleports": ["dawnhaven", "ironhold", "tidecrest", "shadowfen"],
+        "stats": { "all_attack": 10, "all_strength": 6, "defense": 3, "sanctity": 3 },
+        "value": 30000,
+        "tradeable": true,
+        "eternalVersion": "amulet_of_eternal_glory"
+      },
+      {
+        "id": "amulet_of_fury",
+        "name": "Amulet of Fury",
+        "description": "One of the most powerful amulets",
+        "slot": "amulet",
+        "stats": { "all_attack": 15, "all_strength": 8, "defense": 15, "sanctity": 5 },
+        "value": 3000000,
+        "tradeable": true,
+        "upgradeVersion": "amulet_of_fury_or"
+      },
+      {
+        "id": "amulet_of_torture",
+        "name": "Amulet of Torture",
+        "description": "The ultimate melee amulet",
+        "slot": "amulet",
+        "craftingLevel": 98,
+        "materials": [{ "id": "zenyte", "qty": 1 }, { "id": "gold_bar", "qty": 1 }, { "id": "onyx_amulet", "qty": 1 }],
+        "stats": { "melee_attack": 15, "melee_strength": 10, "melee_accuracy": 5 },
+        "value": 12000000,
+        "tradeable": true
+      },
+      {
+        "id": "necklace_of_anguish",
+        "name": "Necklace of Anguish",
+        "description": "The ultimate ranged amulet",
+        "slot": "amulet",
+        "craftingLevel": 98,
+        "materials": [{ "id": "zenyte", "qty": 1 }, { "id": "gold_bar", "qty": 1 }, { "id": "onyx_amulet", "qty": 1 }],
+        "stats": { "ranged_attack": 15, "ranged_strength": 5 },
+        "value": 12000000,
+        "tradeable": true
+      },
+      {
+        "id": "occult_necklace",
+        "name": "Occult Necklace",
+        "description": "The ultimate magic amulet",
+        "slot": "amulet",
+        "source": "boss_drop",
+        "stats": { "magic_attack": 12, "magic_damage_percent": 10 },
+        "value": 15000000,
+        "tradeable": true
+      },
+      {
+        "id": "blood_necklace",
+        "name": "Blood Necklace",
+        "description": "Drains life from enemies",
+        "slot": "amulet",
+        "source": "raid",
+        "stats": { "all_attack": 12, "all_strength": 5 },
+        "effect": { "type": "lifesteal", "percent": 0.05, "procChance": 0.15 },
+        "value": 50000000,
+        "tradeable": true,
+        "degradeable": true,
+        "charges": 10000
+      }
+    ]
+  },
+  "bracelets": {
+    "description": "Bracelets worn on the wrist slot",
+    "items": [
+      {
+        "id": "gold_bracelet",
+        "name": "Gold Bracelet",
+        "description": "A simple gold bracelet",
+        "slot": "bracelet",
+        "craftingLevel": 7,
+        "materials": [{ "id": "gold_bar", "qty": 1 }],
+        "stats": {},
+        "value": 250,
+        "enchantable": false
+      },
+      {
+        "id": "sapphire_bracelet",
+        "name": "Sapphire Bracelet",
+        "description": "A gold bracelet set with a sapphire",
+        "slot": "bracelet",
+        "craftingLevel": 23,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "sapphire", "qty": 1 }],
+        "stats": { "magic_defense": 3 },
+        "value": 1800,
+        "enchantable": true,
+        "enchantedVersion": "bracelet_of_clay"
+      },
+      {
+        "id": "emerald_bracelet",
+        "name": "Emerald Bracelet",
+        "description": "A gold bracelet set with an emerald",
+        "slot": "bracelet",
+        "craftingLevel": 30,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "emerald", "qty": 1 }],
+        "stats": { "ranged_defense": 3 },
+        "value": 3200,
+        "enchantable": true,
+        "enchantedVersion": "castlewars_bracelet"
+      },
+      {
+        "id": "ruby_bracelet",
+        "name": "Ruby Bracelet",
+        "description": "A gold bracelet set with a ruby",
+        "slot": "bracelet",
+        "craftingLevel": 42,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "ruby", "qty": 1 }],
+        "stats": { "melee_defense": 3 },
+        "value": 4200,
+        "enchantable": true,
+        "enchantedVersion": "inoculation_bracelet"
+      },
+      {
+        "id": "diamond_bracelet",
+        "name": "Diamond Bracelet",
+        "description": "A gold bracelet set with a diamond",
+        "slot": "bracelet",
+        "craftingLevel": 58,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "diamond", "qty": 1 }],
+        "stats": { "all_defense": 4 },
+        "value": 6000,
+        "enchantable": true,
+        "enchantedVersion": "forinthry_bracelet"
+      },
+      {
+        "id": "dragonstone_bracelet",
+        "name": "Dragonstone Bracelet",
+        "description": "A gold bracelet set with a dragonstone",
+        "slot": "bracelet",
+        "craftingLevel": 74,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "dragonstone", "qty": 1 }],
+        "stats": { "all_defense": 6, "hitpoints": 2 },
+        "value": 18000,
+        "enchantable": true,
+        "enchantedVersion": "combat_bracelet"
+      },
+      {
+        "id": "onyx_bracelet",
+        "name": "Onyx Bracelet",
+        "description": "A gold bracelet set with an onyx",
+        "slot": "bracelet",
+        "craftingLevel": 84,
+        "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "onyx", "qty": 1 }],
+        "stats": { "all_defense": 12, "hitpoints": 5 },
+        "value": 90000,
+        "enchantable": true,
+        "enchantedVersion": "regen_bracelet"
+      },
+      {
+        "id": "bracelet_of_clay",
+        "name": "Bracelet of Clay",
+        "description": "Softens clay while mining",
+        "slot": "bracelet",
+        "effect": { "type": "soft_clay", "description": "Clay mined is automatically softened" },
+        "stats": {},
+        "value": 2500,
+        "tradeable": true
+      },
+      {
+        "id": "combat_bracelet",
+        "name": "Combat Bracelet",
+        "description": "Provides combat bonuses and teleports",
+        "slot": "bracelet",
+        "charges": 6,
+        "teleports": ["warriors_guild", "champion_guild", "ranging_guild", "monastery"],
+        "stats": { "all_attack": 6, "all_defense": 6 },
+        "value": 25000,
+        "tradeable": true
+      },
+      {
+        "id": "regen_bracelet",
+        "name": "Regen Bracelet",
+        "description": "Doubles natural health regeneration",
+        "slot": "bracelet",
+        "effect": { "type": "health_regen", "multiplier": 2 },
+        "stats": { "all_defense": 12, "hitpoints": 5 },
+        "value": 150000,
+        "tradeable": true
+      },
+      {
+        "id": "bracelet_of_ethereum",
+        "name": "Bracelet of Ethereum",
+        "description": "Protects against revenant attacks",
+        "slot": "bracelet",
+        "charges": 16000,
+        "effect": { "type": "revenant_protection", "absorb": true },
+        "stats": {},
+        "value": 100000,
+        "tradeable": true
+      },
+      {
+        "id": "tormented_bracelet",
+        "name": "Tormented Bracelet",
+        "description": "The ultimate magic bracelet",
+        "slot": "bracelet",
+        "craftingLevel": 95,
+        "materials": [{ "id": "zenyte", "qty": 1 }, { "id": "gold_bar", "qty": 1 }, { "id": "onyx_bracelet", "qty": 1 }],
+        "stats": { "magic_attack": 10, "magic_damage_percent": 5 },
+        "value": 10000000,
+        "tradeable": true
+      }
+    ]
+  },
+  "gems": {
+    "description": "Gems used in jewelry crafting",
+    "items": [
+      { "id": "sapphire", "name": "Sapphire", "tier": 1, "cutLevel": 20, "value": 500 },
+      { "id": "emerald", "name": "Emerald", "tier": 2, "cutLevel": 27, "value": 1000 },
+      { "id": "ruby", "name": "Ruby", "tier": 3, "cutLevel": 34, "value": 1500 },
+      { "id": "diamond", "name": "Diamond", "tier": 4, "cutLevel": 43, "value": 2500 },
+      { "id": "dragonstone", "name": "Dragonstone", "tier": 5, "cutLevel": 55, "value": 10000 },
+      { "id": "onyx", "name": "Onyx", "tier": 6, "cutLevel": 67, "value": 50000 },
+      { "id": "zenyte", "name": "Zenyte", "tier": 7, "cutLevel": 89, "value": 5000000 },
+      { "id": "hydrix", "name": "Hydrix", "tier": 8, "cutLevel": 95, "value": 25000000 }
+    ],
+    "uncutVariants": true,
+    "gemBag": {
+      "capacity": 60,
+      "craftingLevel": 25
+    }
+  },
+  "enchanting": {
+    "description": "Jewelry enchantment system",
+    "levels": [
+      { "tier": 1, "magicLevel": 7, "glyphs": ["thought_glyph"], "glyphQty": 1 },
+      { "tier": 2, "magicLevel": 27, "glyphs": ["thought_glyph", "astral_glyph"], "glyphQty": [1, 1] },
+      { "tier": 3, "magicLevel": 49, "glyphs": ["ember_glyph", "astral_glyph"], "glyphQty": [5, 1] },
+      { "tier": 4, "magicLevel": 57, "glyphs": ["terra_glyph", "astral_glyph"], "glyphQty": [10, 1] },
+      { "tier": 5, "magicLevel": 68, "glyphs": ["tide_glyph", "astral_glyph"], "glyphQty": [15, 1] },
+      { "tier": 6, "magicLevel": 87, "glyphs": ["ember_glyph", "astral_glyph", "spirit_glyph"], "glyphQty": [20, 1, 1] },
+      { "tier": 7, "magicLevel": 93, "glyphs": ["spirit_glyph", "astral_glyph", "crimson_glyph"], "glyphQty": [50, 20, 20] }
+    ]
+  }
+}

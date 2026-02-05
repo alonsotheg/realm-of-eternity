@@ -1,0 +1,1119 @@
+{
+  "documentInfo": {
+    "title": "Realm of Eternity - UE5 Terrain & Environment Specification",
+    "version": "1.0.0",
+    "game": "Realm of Eternity",
+    "engine": "Unreal Engine 5",
+    "lastUpdated": "2026-01-07"
+  },
+
+  "worldComposition": {
+    "overview": "Large-scale open world using World Partition and Level Streaming",
+
+    "worldPartition": {
+      "enabled": true,
+      "cellSize": 25600,
+      "loadingRange": 3,
+      "dataLayers": [
+        {
+          "name": "Base_Terrain",
+          "alwaysLoaded": true,
+          "description": "Base landscape and major landmarks"
+        },
+        {
+          "name": "Settlements",
+          "streamingDistance": 50000,
+          "description": "Cities, towns, and villages"
+        },
+        {
+          "name": "Dungeons",
+          "streamingDistance": 20000,
+          "description": "Dungeon entrances and underground areas"
+        },
+        {
+          "name": "Resources",
+          "streamingDistance": 30000,
+          "description": "Mining nodes, trees, fishing spots"
+        },
+        {
+          "name": "Wildlife",
+          "streamingDistance": 40000,
+          "description": "NPCs, enemies, and ambient creatures"
+        },
+        {
+          "name": "VFX_Ambient",
+          "streamingDistance": 25000,
+          "description": "Ambient particles, fog, and effects"
+        }
+      ]
+    },
+
+    "levelInstances": {
+      "description": "Reusable level instances for repeated structures",
+      "types": [
+        {
+          "type": "Building_Small",
+          "examples": ["house", "shop", "stable"],
+          "maxInstances": 500
+        },
+        {
+          "type": "Building_Medium",
+          "examples": ["inn", "guild_hall", "temple_small"],
+          "maxInstances": 200
+        },
+        {
+          "type": "Building_Large",
+          "examples": ["castle", "fortress", "cathedral"],
+          "maxInstances": 50
+        },
+        {
+          "type": "Dungeon_Module",
+          "examples": ["corridor", "room_small", "room_large", "boss_arena"],
+          "maxInstances": 1000
+        }
+      ]
+    },
+
+    "hlod": {
+      "enabled": true,
+      "settings": {
+        "minDrawDistance": 10000,
+        "transitionRegion": 2000,
+        "simplificationTarget": 0.1,
+        "generateMesh": true,
+        "generateCollision": false
+      }
+    }
+  },
+
+  "landscapeSystem": {
+    "overview": "UE5 Landscape system configuration for diverse terrain types",
+
+    "landscapeSpecs": {
+      "componentSize": 127,
+      "sectionsPerComponent": 2,
+      "quadsPerSection": 63,
+      "resolution": 8129,
+      "scale": {
+        "x": 100,
+        "y": 100,
+        "z": 100
+      },
+      "collisionMipLevel": 0
+    },
+
+    "heightmapRegions": [
+      {
+        "region": "central_plains",
+        "zones": ["Kingshold", "Whiteguard", "Ardent Fields"],
+        "elevation": { "min": 0, "max": 500 },
+        "characteristics": "Rolling hills, farmland, roads"
+      },
+      {
+        "region": "mountain_ranges",
+        "zones": ["Ironpeak Mountains", "Frostspire Summit", "Ashridge Peaks"],
+        "elevation": { "min": 2000, "max": 8000 },
+        "characteristics": "Steep cliffs, snow caps, caves"
+      },
+      {
+        "region": "forests",
+        "zones": ["Eldergrove", "Sylvan Haven", "Shadowwood"],
+        "elevation": { "min": 100, "max": 800 },
+        "characteristics": "Dense canopy, uneven ground, clearings"
+      },
+      {
+        "region": "swamps",
+        "zones": ["Shadowfen", "Murkmire"],
+        "elevation": { "min": -50, "max": 100 },
+        "characteristics": "Waterlogged, mud flats, dead trees"
+      },
+      {
+        "region": "desert",
+        "zones": ["Scorchlands", "Sunspire Village"],
+        "elevation": { "min": 200, "max": 1500 },
+        "characteristics": "Dunes, rock formations, oases"
+      },
+      {
+        "region": "volcanic",
+        "zones": ["Ashridge Peaks", "Emberfall Caverns"],
+        "elevation": { "min": 500, "max": 4000 },
+        "characteristics": "Lava flows, obsidian formations, ash fields"
+      },
+      {
+        "region": "coastal",
+        "zones": ["Tidecrest", "Portside", "Frostharbor"],
+        "elevation": { "min": -10, "max": 200 },
+        "characteristics": "Beaches, cliffs, harbors"
+      },
+      {
+        "region": "tundra",
+        "zones": ["Frostharbor", "Glacial Wastes"],
+        "elevation": { "min": 0, "max": 1000 },
+        "characteristics": "Permafrost, ice sheets, frozen lakes"
+      }
+    ],
+
+    "landscapeLayers": [
+      {
+        "name": "LM_Grass_Base",
+        "blendMode": "height",
+        "tiling": 4,
+        "material": "M_Landscape_Grass",
+        "physicalMaterial": "PM_Grass"
+      },
+      {
+        "name": "LM_Dirt_Path",
+        "blendMode": "height",
+        "tiling": 2,
+        "material": "M_Landscape_Dirt",
+        "physicalMaterial": "PM_Dirt"
+      },
+      {
+        "name": "LM_Rock_Cliff",
+        "blendMode": "height",
+        "tiling": 1,
+        "material": "M_Landscape_Rock",
+        "physicalMaterial": "PM_Rock"
+      },
+      {
+        "name": "LM_Sand_Desert",
+        "blendMode": "height",
+        "tiling": 3,
+        "material": "M_Landscape_Sand",
+        "physicalMaterial": "PM_Sand"
+      },
+      {
+        "name": "LM_Snow_Tundra",
+        "blendMode": "height",
+        "tiling": 2,
+        "material": "M_Landscape_Snow",
+        "physicalMaterial": "PM_Snow"
+      },
+      {
+        "name": "LM_Mud_Swamp",
+        "blendMode": "height",
+        "tiling": 2,
+        "material": "M_Landscape_Mud",
+        "physicalMaterial": "PM_Mud"
+      },
+      {
+        "name": "LM_Volcanic_Ash",
+        "blendMode": "height",
+        "tiling": 2,
+        "material": "M_Landscape_Ash",
+        "physicalMaterial": "PM_Ash"
+      },
+      {
+        "name": "LM_Cobblestone_Road",
+        "blendMode": "alpha",
+        "tiling": 1,
+        "material": "M_Landscape_Cobblestone",
+        "physicalMaterial": "PM_Stone"
+      }
+    ],
+
+    "virtualTexturing": {
+      "enabled": true,
+      "tileSize": 128,
+      "poolSize": 512,
+      "streaming": {
+        "budgetMB": 256,
+        "numMips": 8
+      }
+    }
+  },
+
+  "foliageSystem": {
+    "overview": "Procedural and hand-painted foliage using UE5 PCG and Nanite",
+
+    "foliageTypes": {
+      "trees": [
+        {
+          "id": "tree_oak",
+          "mesh": "SM_Tree_Oak",
+          "naniteEnabled": true,
+          "density": { "min": 0.001, "max": 0.005 },
+          "scale": { "min": 0.8, "max": 1.2 },
+          "biomes": ["forest", "plains"],
+          "harvestable": true,
+          "skill": "woodcutting",
+          "resource": "oakwood_log"
+        },
+        {
+          "id": "tree_willow",
+          "mesh": "SM_Tree_Willow",
+          "naniteEnabled": true,
+          "density": { "min": 0.002, "max": 0.008 },
+          "scale": { "min": 0.9, "max": 1.1 },
+          "biomes": ["swamp", "riverside"],
+          "harvestable": true,
+          "skill": "woodcutting",
+          "resource": "willowwood_log"
+        },
+        {
+          "id": "tree_maple",
+          "mesh": "SM_Tree_Maple",
+          "naniteEnabled": true,
+          "density": { "min": 0.001, "max": 0.004 },
+          "scale": { "min": 0.9, "max": 1.3 },
+          "biomes": ["forest", "mountain_base"],
+          "harvestable": true,
+          "skill": "woodcutting",
+          "resource": "maplewood_log"
+        },
+        {
+          "id": "tree_yew",
+          "mesh": "SM_Tree_Yew",
+          "naniteEnabled": true,
+          "density": { "min": 0.0005, "max": 0.002 },
+          "scale": { "min": 0.7, "max": 1.0 },
+          "biomes": ["ancient_forest", "graveyard"],
+          "harvestable": true,
+          "skill": "woodcutting",
+          "resource": "yewwood_log"
+        },
+        {
+          "id": "tree_magic",
+          "mesh": "SM_Tree_Magic",
+          "naniteEnabled": true,
+          "density": { "min": 0.0001, "max": 0.0005 },
+          "scale": { "min": 0.8, "max": 1.1 },
+          "biomes": ["enchanted_forest"],
+          "harvestable": true,
+          "skill": "woodcutting",
+          "resource": "spiritwood_log",
+          "glowEffect": true
+        },
+        {
+          "id": "tree_elder",
+          "mesh": "SM_Tree_Elder",
+          "naniteEnabled": true,
+          "density": { "min": 0.00005, "max": 0.0002 },
+          "scale": { "min": 1.2, "max": 1.5 },
+          "biomes": ["ancient_grove"],
+          "harvestable": true,
+          "skill": "woodcutting",
+          "resource": "elderwood_log",
+          "glowEffect": true,
+          "levelRequired": 90
+        },
+        {
+          "id": "tree_pine",
+          "mesh": "SM_Tree_Pine",
+          "naniteEnabled": true,
+          "density": { "min": 0.003, "max": 0.01 },
+          "scale": { "min": 0.8, "max": 1.4 },
+          "biomes": ["mountain", "tundra_edge"],
+          "harvestable": false
+        },
+        {
+          "id": "tree_palm",
+          "mesh": "SM_Tree_Palm",
+          "naniteEnabled": true,
+          "density": { "min": 0.002, "max": 0.006 },
+          "scale": { "min": 0.9, "max": 1.2 },
+          "biomes": ["tropical", "coastal_warm"],
+          "harvestable": false
+        },
+        {
+          "id": "tree_dead",
+          "mesh": "SM_Tree_Dead",
+          "naniteEnabled": true,
+          "density": { "min": 0.001, "max": 0.004 },
+          "scale": { "min": 0.7, "max": 1.0 },
+          "biomes": ["swamp", "volcanic", "cursed"],
+          "harvestable": false
+        }
+      ],
+
+      "rocks": [
+        {
+          "id": "rock_copper",
+          "mesh": "SM_Rock_Copper",
+          "naniteEnabled": true,
+          "density": { "min": 0.0001, "max": 0.0003 },
+          "biomes": ["plains", "hills", "mountain_base"],
+          "harvestable": true,
+          "skill": "mining",
+          "resource": "copper_ore"
+        },
+        {
+          "id": "rock_iron",
+          "mesh": "SM_Rock_Iron",
+          "naniteEnabled": true,
+          "density": { "min": 0.00008, "max": 0.0002 },
+          "biomes": ["mountain", "caves"],
+          "harvestable": true,
+          "skill": "mining",
+          "resource": "iron_ore"
+        },
+        {
+          "id": "rock_mithril",
+          "mesh": "SM_Rock_Mithril",
+          "naniteEnabled": true,
+          "density": { "min": 0.00002, "max": 0.00008 },
+          "biomes": ["deep_mountain", "mines"],
+          "harvestable": true,
+          "skill": "mining",
+          "resource": "mithril_ore",
+          "glowEffect": true
+        },
+        {
+          "id": "rock_runite",
+          "mesh": "SM_Rock_Runite",
+          "naniteEnabled": true,
+          "density": { "min": 0.000005, "max": 0.00002 },
+          "biomes": ["volcanic", "deep_caves"],
+          "harvestable": true,
+          "skill": "mining",
+          "resource": "runite_ore",
+          "glowEffect": true
+        },
+        {
+          "id": "rock_decorative",
+          "mesh": "SM_Rock_Generic",
+          "naniteEnabled": true,
+          "density": { "min": 0.001, "max": 0.005 },
+          "biomes": ["all"],
+          "harvestable": false,
+          "variants": 8
+        }
+      ],
+
+      "vegetation": [
+        {
+          "id": "grass_wild",
+          "mesh": "SM_Grass_Wild",
+          "naniteEnabled": false,
+          "density": { "min": 0.05, "max": 0.2 },
+          "biomes": ["plains", "forest"],
+          "windResponse": true,
+          "cullDistance": 5000
+        },
+        {
+          "id": "fern",
+          "mesh": "SM_Fern",
+          "naniteEnabled": false,
+          "density": { "min": 0.01, "max": 0.05 },
+          "biomes": ["forest", "swamp"],
+          "windResponse": true,
+          "cullDistance": 4000
+        },
+        {
+          "id": "flowers_mixed",
+          "mesh": "SM_Flowers",
+          "naniteEnabled": false,
+          "density": { "min": 0.005, "max": 0.02 },
+          "biomes": ["plains", "garden"],
+          "windResponse": true,
+          "cullDistance": 3000,
+          "variants": 6
+        },
+        {
+          "id": "mushroom_common",
+          "mesh": "SM_Mushroom",
+          "naniteEnabled": false,
+          "density": { "min": 0.002, "max": 0.008 },
+          "biomes": ["forest", "swamp", "cave_entrance"],
+          "harvestable": true,
+          "skill": "farming",
+          "resource": "common_mushroom"
+        },
+        {
+          "id": "herb_guam",
+          "mesh": "SM_Herb_Guam",
+          "naniteEnabled": false,
+          "density": { "min": 0.0005, "max": 0.002 },
+          "biomes": ["plains", "forest"],
+          "harvestable": true,
+          "skill": "farming",
+          "resource": "guam_leaf"
+        },
+        {
+          "id": "reed_water",
+          "mesh": "SM_Reed",
+          "naniteEnabled": false,
+          "density": { "min": 0.02, "max": 0.08 },
+          "biomes": ["swamp", "riverside", "lake_edge"],
+          "windResponse": true,
+          "cullDistance": 3000
+        }
+      ],
+
+      "props": [
+        {
+          "id": "log_fallen",
+          "mesh": "SM_Log_Fallen",
+          "naniteEnabled": true,
+          "density": { "min": 0.0001, "max": 0.0005 },
+          "biomes": ["forest", "swamp"]
+        },
+        {
+          "id": "boulder_mossy",
+          "mesh": "SM_Boulder_Mossy",
+          "naniteEnabled": true,
+          "density": { "min": 0.0002, "max": 0.001 },
+          "biomes": ["forest", "riverside"]
+        },
+        {
+          "id": "stump",
+          "mesh": "SM_Stump",
+          "naniteEnabled": true,
+          "density": { "min": 0.0001, "max": 0.0003 },
+          "biomes": ["forest", "logging_camp"]
+        }
+      ]
+    },
+
+    "pcgSettings": {
+      "enabled": true,
+      "biomeBlending": true,
+      "heightmapDriven": true,
+      "slopeFiltering": {
+        "trees": { "maxSlope": 30 },
+        "rocks": { "maxSlope": 60 },
+        "grass": { "maxSlope": 45 }
+      },
+      "exclusionVolumes": true,
+      "roadAvoidance": true
+    },
+
+    "naniteSettings": {
+      "enabledForTrees": true,
+      "enabledForRocks": true,
+      "enabledForGrass": false,
+      "fallbackLOD": 2,
+      "targetPixelsPerTriangle": 1
+    }
+  },
+
+  "waterSystem": {
+    "overview": "UE5 Water system for oceans, rivers, lakes, and waterfalls",
+
+    "oceanSettings": {
+      "plugin": "Water",
+      "waveSettings": {
+        "numOctaves": 4,
+        "amplitude": { "min": 20, "max": 150 },
+        "wavelength": { "min": 100, "max": 2000 },
+        "steepness": 0.5,
+        "direction": { "primary": 45, "secondary": 135 }
+      },
+      "material": "M_Ocean_Master",
+      "underwaterPostProcess": "PP_Underwater",
+      "foamSettings": {
+        "shorelineFoam": true,
+        "waveCrestFoam": true,
+        "foamTexture": "T_Foam_Tileable"
+      },
+      "caustics": {
+        "enabled": true,
+        "intensity": 0.3,
+        "depth": 500
+      }
+    },
+
+    "riverSettings": {
+      "plugin": "Water",
+      "splineControlled": true,
+      "flowSettings": {
+        "baseSpeed": 100,
+        "turbulence": 0.3,
+        "foam": true
+      },
+      "material": "M_River_Master",
+      "bankBlending": true,
+      "fishingSpots": {
+        "enabled": true,
+        "markerMesh": "SM_FishingSpot",
+        "particleEffect": "NS_FishRipple"
+      }
+    },
+
+    "lakeSettings": {
+      "plugin": "Water",
+      "waveAmplitude": 5,
+      "material": "M_Lake_Master",
+      "reflection": {
+        "enabled": true,
+        "quality": "high",
+        "updateRate": 30
+      }
+    },
+
+    "waterfallSettings": {
+      "meshBased": true,
+      "particleSystem": "NS_Waterfall",
+      "mistEffect": "NS_WaterfallMist",
+      "soundEmitter": "A_Waterfall_Loop",
+      "splashZone": {
+        "enabled": true,
+        "radius": 300,
+        "particleEffect": "NS_WaterfallSplash"
+      }
+    },
+
+    "swimmingMechanics": {
+      "surfaceSwim": {
+        "speed": 400,
+        "staminaDrain": 0.5,
+        "animation": "A_Swim_Surface"
+      },
+      "divingSwim": {
+        "speed": 300,
+        "breathDuration": 60,
+        "animation": "A_Swim_Underwater"
+      },
+      "transitionDepth": 200
+    }
+  },
+
+  "weatherSystem": {
+    "overview": "Dynamic weather system with zone-specific variations",
+
+    "weatherTypes": [
+      {
+        "id": "clear",
+        "skyAtmosphere": {
+          "sunIntensity": 10,
+          "fogDensity": 0.001,
+          "cloudCoverage": 0.1
+        },
+        "postProcess": "PP_Weather_Clear",
+        "ambientSound": "A_Amb_Clear_Day"
+      },
+      {
+        "id": "cloudy",
+        "skyAtmosphere": {
+          "sunIntensity": 5,
+          "fogDensity": 0.005,
+          "cloudCoverage": 0.6
+        },
+        "postProcess": "PP_Weather_Cloudy",
+        "ambientSound": "A_Amb_Wind_Light"
+      },
+      {
+        "id": "rain_light",
+        "skyAtmosphere": {
+          "sunIntensity": 3,
+          "fogDensity": 0.01,
+          "cloudCoverage": 0.8
+        },
+        "postProcess": "PP_Weather_Rain",
+        "particleSystem": "NS_Rain_Light",
+        "ambientSound": "A_Amb_Rain_Light",
+        "wetness": 0.5,
+        "puddleFormation": true
+      },
+      {
+        "id": "rain_heavy",
+        "skyAtmosphere": {
+          "sunIntensity": 1,
+          "fogDensity": 0.03,
+          "cloudCoverage": 1.0
+        },
+        "postProcess": "PP_Weather_Storm",
+        "particleSystem": "NS_Rain_Heavy",
+        "ambientSound": "A_Amb_Rain_Heavy",
+        "wetness": 1.0,
+        "puddleFormation": true,
+        "lightning": true
+      },
+      {
+        "id": "storm",
+        "skyAtmosphere": {
+          "sunIntensity": 0.5,
+          "fogDensity": 0.05,
+          "cloudCoverage": 1.0
+        },
+        "postProcess": "PP_Weather_Storm",
+        "particleSystem": "NS_Storm",
+        "ambientSound": "A_Amb_Storm",
+        "wetness": 1.0,
+        "lightning": true,
+        "lightningFrequency": { "min": 3, "max": 10 },
+        "windIntensity": 2.0
+      },
+      {
+        "id": "snow_light",
+        "skyAtmosphere": {
+          "sunIntensity": 4,
+          "fogDensity": 0.008,
+          "cloudCoverage": 0.7
+        },
+        "postProcess": "PP_Weather_Snow",
+        "particleSystem": "NS_Snow_Light",
+        "ambientSound": "A_Amb_Wind_Cold",
+        "snowAccumulation": 0.3
+      },
+      {
+        "id": "blizzard",
+        "skyAtmosphere": {
+          "sunIntensity": 1,
+          "fogDensity": 0.1,
+          "cloudCoverage": 1.0
+        },
+        "postProcess": "PP_Weather_Blizzard",
+        "particleSystem": "NS_Blizzard",
+        "ambientSound": "A_Amb_Blizzard",
+        "snowAccumulation": 1.0,
+        "windIntensity": 3.0,
+        "movementPenalty": 0.7
+      },
+      {
+        "id": "fog",
+        "skyAtmosphere": {
+          "sunIntensity": 2,
+          "fogDensity": 0.15,
+          "cloudCoverage": 0.3
+        },
+        "postProcess": "PP_Weather_Fog",
+        "particleSystem": "NS_Fog_Ground",
+        "ambientSound": "A_Amb_Fog",
+        "visibilityRange": 500
+      },
+      {
+        "id": "sandstorm",
+        "skyAtmosphere": {
+          "sunIntensity": 3,
+          "fogDensity": 0.2,
+          "cloudCoverage": 0.2
+        },
+        "postProcess": "PP_Weather_Sandstorm",
+        "particleSystem": "NS_Sandstorm",
+        "ambientSound": "A_Amb_Sandstorm",
+        "visibilityRange": 300,
+        "windIntensity": 2.5,
+        "movementPenalty": 0.8
+      },
+      {
+        "id": "ashfall",
+        "skyAtmosphere": {
+          "sunIntensity": 2,
+          "fogDensity": 0.08,
+          "cloudCoverage": 0.5
+        },
+        "postProcess": "PP_Weather_Ashfall",
+        "particleSystem": "NS_Ashfall",
+        "ambientSound": "A_Amb_Volcanic",
+        "damageOverTime": true
+      }
+    ],
+
+    "zoneWeatherProfiles": {
+      "description": "Zone-specific weather availability and probabilities",
+      "profiles": [
+        {
+          "zones": ["Kingshold", "Whiteguard", "Ardent Fields"],
+          "availableWeather": ["clear", "cloudy", "rain_light", "rain_heavy", "storm", "fog"],
+          "probabilities": { "clear": 0.4, "cloudy": 0.3, "rain_light": 0.15, "rain_heavy": 0.08, "storm": 0.02, "fog": 0.05 }
+        },
+        {
+          "zones": ["Frostharbor", "Glacial Wastes", "Frostspire Summit"],
+          "availableWeather": ["clear", "cloudy", "snow_light", "blizzard", "fog"],
+          "probabilities": { "clear": 0.2, "cloudy": 0.3, "snow_light": 0.3, "blizzard": 0.1, "fog": 0.1 }
+        },
+        {
+          "zones": ["Scorchlands", "Sunspire Village"],
+          "availableWeather": ["clear", "cloudy", "sandstorm"],
+          "probabilities": { "clear": 0.6, "cloudy": 0.25, "sandstorm": 0.15 }
+        },
+        {
+          "zones": ["Ashridge Peaks", "Emberfall Caverns"],
+          "availableWeather": ["clear", "cloudy", "ashfall"],
+          "probabilities": { "clear": 0.3, "cloudy": 0.4, "ashfall": 0.3 }
+        },
+        {
+          "zones": ["Shadowfen", "Murkmire"],
+          "availableWeather": ["cloudy", "rain_light", "rain_heavy", "fog"],
+          "probabilities": { "cloudy": 0.3, "rain_light": 0.3, "rain_heavy": 0.2, "fog": 0.2 }
+        }
+      ]
+    },
+
+    "weatherTransitions": {
+      "transitionDuration": 120,
+      "interpolation": "smoothstep",
+      "minimumDuration": { "min": 300, "max": 1800 }
+    }
+  },
+
+  "dayNightCycle": {
+    "overview": "24-hour day/night cycle with dynamic lighting",
+
+    "cycleSettings": {
+      "realTimeMinutesPerGameHour": 5,
+      "totalCycleDuration": 120,
+      "sunPath": {
+        "azimuthOffset": 0,
+        "maxElevation": 75,
+        "seasonalVariation": true
+      }
+    },
+
+    "timeOfDayPresets": [
+      {
+        "name": "Dawn",
+        "gameHour": 5,
+        "sunIntensity": 2,
+        "sunColor": { "r": 1.0, "g": 0.6, "b": 0.4 },
+        "skyColor": { "r": 0.8, "g": 0.5, "b": 0.6 },
+        "fogColor": { "r": 0.7, "g": 0.5, "b": 0.5 },
+        "ambientIntensity": 0.3
+      },
+      {
+        "name": "Morning",
+        "gameHour": 8,
+        "sunIntensity": 8,
+        "sunColor": { "r": 1.0, "g": 0.95, "b": 0.8 },
+        "skyColor": { "r": 0.4, "g": 0.6, "b": 1.0 },
+        "fogColor": { "r": 0.6, "g": 0.7, "b": 0.8 },
+        "ambientIntensity": 0.8
+      },
+      {
+        "name": "Noon",
+        "gameHour": 12,
+        "sunIntensity": 10,
+        "sunColor": { "r": 1.0, "g": 1.0, "b": 1.0 },
+        "skyColor": { "r": 0.3, "g": 0.5, "b": 1.0 },
+        "fogColor": { "r": 0.7, "g": 0.8, "b": 0.9 },
+        "ambientIntensity": 1.0
+      },
+      {
+        "name": "Afternoon",
+        "gameHour": 16,
+        "sunIntensity": 7,
+        "sunColor": { "r": 1.0, "g": 0.9, "b": 0.7 },
+        "skyColor": { "r": 0.4, "g": 0.55, "b": 0.9 },
+        "fogColor": { "r": 0.65, "g": 0.7, "b": 0.8 },
+        "ambientIntensity": 0.85
+      },
+      {
+        "name": "Dusk",
+        "gameHour": 19,
+        "sunIntensity": 3,
+        "sunColor": { "r": 1.0, "g": 0.4, "b": 0.2 },
+        "skyColor": { "r": 0.9, "g": 0.4, "b": 0.3 },
+        "fogColor": { "r": 0.6, "g": 0.4, "b": 0.4 },
+        "ambientIntensity": 0.4
+      },
+      {
+        "name": "Night",
+        "gameHour": 22,
+        "sunIntensity": 0,
+        "moonIntensity": 0.3,
+        "moonColor": { "r": 0.7, "g": 0.8, "b": 1.0 },
+        "skyColor": { "r": 0.05, "g": 0.05, "b": 0.15 },
+        "fogColor": { "r": 0.1, "g": 0.1, "b": 0.2 },
+        "ambientIntensity": 0.15,
+        "starsVisible": true,
+        "starIntensity": 0.8
+      },
+      {
+        "name": "Midnight",
+        "gameHour": 0,
+        "sunIntensity": 0,
+        "moonIntensity": 0.4,
+        "moonColor": { "r": 0.8, "g": 0.9, "b": 1.0 },
+        "skyColor": { "r": 0.02, "g": 0.02, "b": 0.08 },
+        "fogColor": { "r": 0.05, "g": 0.05, "b": 0.1 },
+        "ambientIntensity": 0.1,
+        "starsVisible": true,
+        "starIntensity": 1.0
+      }
+    ],
+
+    "lightingComponents": {
+      "directionalLight": {
+        "name": "Sun_DirectionalLight",
+        "mobilityType": "Movable",
+        "atmosphericFog": true,
+        "rayTracedShadows": true,
+        "cascadedShadowMaps": {
+          "numCascades": 4,
+          "maxDistance": 20000
+        }
+      },
+      "skyLight": {
+        "name": "SkyLight_Main",
+        "mobilityType": "Movable",
+        "realTimeCapture": true,
+        "recaptureRate": 10
+      },
+      "skyAtmosphere": {
+        "name": "SkyAtmosphere_Main",
+        "multiScattering": true,
+        "rayMarchSteps": 4
+      },
+      "volumetricClouds": {
+        "enabled": true,
+        "layerBottomAltitude": 5000,
+        "layerHeight": 10000,
+        "shadowsEnabled": true
+      },
+      "exponentialHeightFog": {
+        "name": "HeightFog_Main",
+        "fogDensity": 0.002,
+        "fogHeightFalloff": 0.2,
+        "volumetricFog": true
+      }
+    },
+
+    "npcSchedules": {
+      "description": "NPCs have different behaviors based on time of day",
+      "scheduleTypes": [
+        {
+          "type": "merchant",
+          "activeHours": { "start": 7, "end": 19 },
+          "nightBehavior": "sleep_indoors"
+        },
+        {
+          "type": "guard",
+          "activeHours": { "start": 0, "end": 24 },
+          "shiftChange": [6, 18],
+          "nightBehavior": "patrol_with_torch"
+        },
+        {
+          "type": "farmer",
+          "activeHours": { "start": 5, "end": 20 },
+          "nightBehavior": "sleep_indoors"
+        },
+        {
+          "type": "innkeeper",
+          "activeHours": { "start": 10, "end": 2 },
+          "nightBehavior": "tend_bar"
+        },
+        {
+          "type": "nocturnal_creature",
+          "activeHours": { "start": 20, "end": 6 },
+          "dayBehavior": "hidden"
+        }
+      ]
+    }
+  },
+
+  "dungeonSystem": {
+    "overview": "Underground and instanced dungeon specifications",
+
+    "dungeonTypes": [
+      {
+        "type": "cave",
+        "lighting": "torch_and_ambient",
+        "atmosphere": "damp",
+        "soundscape": "A_Amb_Cave",
+        "features": ["stalactites", "underground_rivers", "crystal_formations"]
+      },
+      {
+        "type": "mine",
+        "lighting": "torch_sparse",
+        "atmosphere": "dusty",
+        "soundscape": "A_Amb_Mine",
+        "features": ["support_beams", "mine_carts", "ore_veins"]
+      },
+      {
+        "type": "crypt",
+        "lighting": "torches_eerie",
+        "atmosphere": "cold",
+        "soundscape": "A_Amb_Crypt",
+        "features": ["coffins", "altars", "bone_piles"]
+      },
+      {
+        "type": "temple",
+        "lighting": "mystical",
+        "atmosphere": "sacred",
+        "soundscape": "A_Amb_Temple",
+        "features": ["statues", "ritual_circles", "ancient_texts"]
+      },
+      {
+        "type": "fortress",
+        "lighting": "braziers",
+        "atmosphere": "military",
+        "soundscape": "A_Amb_Fortress",
+        "features": ["weapon_racks", "barracks", "throne_room"]
+      },
+      {
+        "type": "volcanic",
+        "lighting": "lava_glow",
+        "atmosphere": "hot",
+        "soundscape": "A_Amb_Volcanic",
+        "features": ["lava_flows", "obsidian", "heat_vents"]
+      }
+    ],
+
+    "modularPieces": {
+      "corridors": ["straight", "corner_90", "t_junction", "crossroad", "stairs_up", "stairs_down"],
+      "rooms": ["small_square", "small_round", "medium_rectangular", "large_hall", "boss_arena", "treasure_room"],
+      "transitions": ["door_wooden", "door_iron", "gate_portcullis", "archway", "collapsed_wall"],
+      "decorations": ["torch_holder", "banner", "cobweb", "debris", "chest", "altar", "statue"]
+    },
+
+    "proceduralGeneration": {
+      "algorithm": "BSP_hybrid",
+      "minRooms": 8,
+      "maxRooms": 25,
+      "connectivity": 0.3,
+      "loopProbability": 0.2,
+      "secretRoomChance": 0.15
+    }
+  },
+
+  "settlementSystem": {
+    "overview": "City, town, and village building specifications",
+
+    "settlementTypes": [
+      {
+        "type": "capital_city",
+        "examples": ["Kingshold"],
+        "buildings": {
+          "required": ["castle", "cathedral", "guild_halls", "bank", "grand_exchange", "barracks"],
+          "optional": ["arena", "museum", "university", "theater"]
+        },
+        "population": { "min": 200, "max": 500 },
+        "wallType": "stone_fortified",
+        "districts": ["noble", "market", "crafting", "residential", "slums"]
+      },
+      {
+        "type": "major_city",
+        "examples": ["Whiteguard", "Frostharbor"],
+        "buildings": {
+          "required": ["keep", "temple", "bank", "market_square", "inn"],
+          "optional": ["guild_hall", "arena", "library"]
+        },
+        "population": { "min": 100, "max": 200 },
+        "wallType": "stone",
+        "districts": ["market", "residential", "docks"]
+      },
+      {
+        "type": "town",
+        "examples": ["Tidecrest", "Sunspire Village"],
+        "buildings": {
+          "required": ["town_hall", "general_store", "inn", "smithy"],
+          "optional": ["temple", "bank_branch", "stables"]
+        },
+        "population": { "min": 30, "max": 100 },
+        "wallType": "wooden_palisade"
+      },
+      {
+        "type": "village",
+        "examples": ["Various"],
+        "buildings": {
+          "required": ["village_center", "general_store"],
+          "optional": ["inn", "temple_small", "mill"]
+        },
+        "population": { "min": 10, "max": 30 },
+        "wallType": "none"
+      },
+      {
+        "type": "outpost",
+        "examples": ["Mining camps", "Border forts"],
+        "buildings": {
+          "required": ["barracks", "storage"],
+          "optional": ["forge", "stable"]
+        },
+        "population": { "min": 5, "max": 20 },
+        "wallType": "wooden_palisade"
+      }
+    ],
+
+    "buildingSpecs": {
+      "interiors": {
+        "seamlessTransition": false,
+        "loadingScreen": "brief_fade",
+        "interiorLighting": "baked_with_dynamic_accent"
+      },
+      "props": {
+        "furniture": ["table", "chair", "bed", "shelf", "cabinet", "chest"],
+        "lighting": ["candle", "torch_sconce", "chandelier", "fireplace"],
+        "decoration": ["rug", "painting", "tapestry", "plant_pot", "books"]
+      }
+    }
+  },
+
+  "performanceOptimization": {
+    "nanite": {
+      "enabled": true,
+      "fallbackThreshold": 10000,
+      "maxTrianglesPerFrame": 100000000
+    },
+    "lumen": {
+      "enabled": true,
+      "rayTracingMode": "software",
+      "finalGatherQuality": 1,
+      "reflectionQuality": 1
+    },
+    "virtualShadowMaps": {
+      "enabled": true,
+      "resolution": 2048,
+      "clipmapLevels": 15
+    },
+    "levelStreaming": {
+      "poolSize": 8,
+      "asyncLoadingTimeLimit": 5,
+      "priorityLoading": true
+    },
+    "occlusion": {
+      "softwareOcclusion": true,
+      "hardwareOcclusion": true,
+      "distanceCulling": true,
+      "cullingDistance": 50000
+    }
+  },
+
+  "implementationPhases": {
+    "phase1_Foundation": {
+      "description": "Core terrain and world setup",
+      "tasks": [
+        "Configure World Partition settings",
+        "Create base landscape with heightmap",
+        "Setup landscape material layers",
+        "Implement basic water system",
+        "Create day/night cycle blueprint"
+      ]
+    },
+    "phase2_Environment": {
+      "description": "Environmental systems and atmosphere",
+      "tasks": [
+        "Implement weather system",
+        "Setup volumetric fog and clouds",
+        "Create lighting presets for time of day",
+        "Configure sky atmosphere"
+      ]
+    },
+    "phase3_Foliage": {
+      "description": "Vegetation and natural props",
+      "tasks": [
+        "Import tree and plant assets",
+        "Configure PCG for procedural placement",
+        "Setup Nanite for high-density foliage",
+        "Create harvestable resource actors"
+      ]
+    },
+    "phase4_Settlements": {
+      "description": "Cities, towns, and structures",
+      "tasks": [
+        "Create modular building system",
+        "Build major settlements",
+        "Setup NPC spawn points and paths",
+        "Implement interior loading"
+      ]
+    },
+    "phase5_Dungeons": {
+      "description": "Underground content",
+      "tasks": [
+        "Create dungeon modular kit",
+        "Build key dungeons",
+        "Setup dungeon lighting",
+        "Implement procedural dungeon generation"
+      ]
+    },
+    "phase6_Polish": {
+      "description": "Optimization and polish",
+      "tasks": [
+        "Configure HLOD for distant rendering",
+        "Optimize streaming and loading",
+        "Add ambient sounds and effects",
+        "Performance testing and tuning"
+      ]
+    }
+  }
+}

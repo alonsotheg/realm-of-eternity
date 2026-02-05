@@ -1,0 +1,599 @@
+{
+  "armor": {
+    "head": [
+      {
+        "id": "copperweave_helm",
+        "name": "Copperweave Full Helm",
+        "description": "A basic helmet forged from warm copperweave alloy",
+        "type": "armor",
+        "slot": "head",
+        "tier": 1,
+        "value": 100,
+        "requirements": { "defense": 1 },
+        "stats": { "defenseBonus": 4, "healthBonus": 5 }
+      },
+      {
+        "id": "ironbark_helm",
+        "name": "Ironbark Full Helm",
+        "description": "A sturdy helmet infused with ancient wood essence",
+        "type": "armor",
+        "slot": "head",
+        "tier": 2,
+        "value": 350,
+        "requirements": { "defense": 10 },
+        "stats": { "defenseBonus": 9, "healthBonus": 10 }
+      },
+      {
+        "id": "stormforged_helm",
+        "name": "Stormforged Full Helm",
+        "description": "A helmet tempered by lightning storms",
+        "type": "armor",
+        "slot": "head",
+        "tier": 3,
+        "value": 800,
+        "requirements": { "defense": 20 },
+        "stats": { "defenseBonus": 16, "healthBonus": 15 }
+      },
+      {
+        "id": "moonveil_helm",
+        "name": "Moonveil Full Helm",
+        "description": "A lightweight helmet with an ethereal silver glow",
+        "type": "armor",
+        "slot": "head",
+        "tier": 4,
+        "value": 3000,
+        "requirements": { "defense": 40 },
+        "stats": { "defenseBonus": 28, "healthBonus": 25 }
+      },
+      {
+        "id": "voidstone_helm",
+        "name": "Voidstone Full Helm",
+        "description": "A helmet forged from dark metal of the endless void",
+        "type": "armor",
+        "slot": "head",
+        "tier": 5,
+        "value": 8000,
+        "requirements": { "defense": 60 },
+        "stats": { "defenseBonus": 42, "healthBonus": 35 }
+      },
+      {
+        "id": "eternium_helm",
+        "name": "Eternium Full Helm",
+        "description": "A powerful helmet made from the eternal metal",
+        "type": "armor",
+        "slot": "head",
+        "tier": 6,
+        "value": 25000,
+        "requirements": { "defense": 80 },
+        "stats": { "defenseBonus": 58, "healthBonus": 50 }
+      },
+      {
+        "id": "leather_coif",
+        "name": "Leather Coif",
+        "description": "A light leather hood for marksmen",
+        "type": "armor",
+        "slot": "head",
+        "tier": 1,
+        "value": 80,
+        "requirements": { "ranged": 1, "defense": 1 },
+        "stats": { "defenseBonus": 2, "rangedBonus": 3 }
+      },
+      {
+        "id": "arcanist_hat",
+        "name": "Arcanist Hat",
+        "description": "A pointed hat that channels arcane energies",
+        "type": "armor",
+        "slot": "head",
+        "tier": 1,
+        "value": 150,
+        "requirements": { "magic": 5 },
+        "stats": { "defenseBonus": 1, "magicBonus": 5, "manaBonus": 10 }
+      }
+    ],
+    "body": [
+      {
+        "id": "copperweave_platebody",
+        "name": "Copperweave Platebody",
+        "description": "Basic chest armor of warm copperweave",
+        "type": "armor",
+        "slot": "body",
+        "tier": 1,
+        "value": 200,
+        "requirements": { "defense": 1 },
+        "stats": { "defenseBonus": 8, "healthBonus": 10 }
+      },
+      {
+        "id": "ironbark_platebody",
+        "name": "Ironbark Platebody",
+        "description": "Sturdy chest armor with nature's strength",
+        "type": "armor",
+        "slot": "body",
+        "tier": 2,
+        "value": 700,
+        "requirements": { "defense": 10 },
+        "stats": { "defenseBonus": 18, "healthBonus": 20 }
+      },
+      {
+        "id": "stormforged_platebody",
+        "name": "Stormforged Platebody",
+        "description": "Chest armor crackling with residual storm energy",
+        "type": "armor",
+        "slot": "body",
+        "tier": 3,
+        "value": 1600,
+        "requirements": { "defense": 20 },
+        "stats": { "defenseBonus": 32, "healthBonus": 30 }
+      },
+      {
+        "id": "moonveil_platebody",
+        "name": "Moonveil Platebody",
+        "description": "Lightweight armor that shimmers like moonlight",
+        "type": "armor",
+        "slot": "body",
+        "tier": 4,
+        "value": 6000,
+        "requirements": { "defense": 40 },
+        "stats": { "defenseBonus": 56, "healthBonus": 50 }
+      },
+      {
+        "id": "voidstone_platebody",
+        "name": "Voidstone Platebody",
+        "description": "Heavy chest armor pulsing with dark energy",
+        "type": "armor",
+        "slot": "body",
+        "tier": 5,
+        "value": 16000,
+        "requirements": { "defense": 60 },
+        "stats": { "defenseBonus": 84, "healthBonus": 70 }
+      },
+      {
+        "id": "eternium_platebody",
+        "name": "Eternium Platebody",
+        "description": "The finest non-magical chest armor in existence",
+        "type": "armor",
+        "slot": "body",
+        "tier": 6,
+        "value": 50000,
+        "requirements": { "defense": 80 },
+        "stats": { "defenseBonus": 116, "healthBonus": 100 }
+      },
+      {
+        "id": "leather_body",
+        "name": "Leather Tunic",
+        "description": "Flexible leather armor for agile fighters",
+        "type": "armor",
+        "slot": "body",
+        "tier": 1,
+        "value": 150,
+        "requirements": { "defense": 1 },
+        "stats": { "defenseBonus": 4, "rangedBonus": 6 }
+      },
+      {
+        "id": "studded_body",
+        "name": "Riveted Leather Tunic",
+        "description": "Reinforced leather with metal rivets",
+        "type": "armor",
+        "slot": "body",
+        "tier": 2,
+        "value": 500,
+        "requirements": { "defense": 20, "ranged": 20 },
+        "stats": { "defenseBonus": 12, "rangedBonus": 14 }
+      },
+      {
+        "id": "wyrmhide_body",
+        "name": "Verdant Wyrmhide Tunic",
+        "description": "Armor crafted from wyrm scales",
+        "type": "armor",
+        "slot": "body",
+        "tier": 4,
+        "value": 8000,
+        "requirements": { "defense": 40, "ranged": 40 },
+        "stats": { "defenseBonus": 40, "rangedBonus": 35, "magicBonus": -10 }
+      },
+      {
+        "id": "arcanist_robe_top",
+        "name": "Arcanist Robe",
+        "description": "Enchanted robes that amplify magical power",
+        "type": "armor",
+        "slot": "body",
+        "tier": 1,
+        "value": 300,
+        "requirements": { "magic": 10 },
+        "stats": { "defenseBonus": 2, "magicBonus": 12, "manaBonus": 25 }
+      },
+      {
+        "id": "mystic_vestment",
+        "name": "Mystic Vestment",
+        "description": "Powerful robes woven with arcane threads",
+        "type": "armor",
+        "slot": "body",
+        "tier": 3,
+        "value": 5000,
+        "requirements": { "magic": 40 },
+        "stats": { "defenseBonus": 8, "magicBonus": 30, "manaBonus": 50 }
+      }
+    ],
+    "legs": [
+      {
+        "id": "copperweave_platelegs",
+        "name": "Copperweave Platelegs",
+        "description": "Basic leg armor of warm copperweave",
+        "type": "armor",
+        "slot": "legs",
+        "tier": 1,
+        "value": 150,
+        "requirements": { "defense": 1 },
+        "stats": { "defenseBonus": 6, "healthBonus": 5 }
+      },
+      {
+        "id": "ironbark_platelegs",
+        "name": "Ironbark Platelegs",
+        "description": "Sturdy leg armor infused with wood essence",
+        "type": "armor",
+        "slot": "legs",
+        "tier": 2,
+        "value": 500,
+        "requirements": { "defense": 10 },
+        "stats": { "defenseBonus": 13, "healthBonus": 10 }
+      },
+      {
+        "id": "stormforged_platelegs",
+        "name": "Stormforged Platelegs",
+        "description": "Leg armor tempered by lightning",
+        "type": "armor",
+        "slot": "legs",
+        "tier": 3,
+        "value": 1200,
+        "requirements": { "defense": 20 },
+        "stats": { "defenseBonus": 24, "healthBonus": 15 }
+      },
+      {
+        "id": "moonveil_platelegs",
+        "name": "Moonveil Platelegs",
+        "description": "Lightweight leg armor with ethereal glow",
+        "type": "armor",
+        "slot": "legs",
+        "tier": 4,
+        "value": 4500,
+        "requirements": { "defense": 40 },
+        "stats": { "defenseBonus": 42, "healthBonus": 25 }
+      },
+      {
+        "id": "voidstone_platelegs",
+        "name": "Voidstone Platelegs",
+        "description": "Heavy leg armor from the endless void",
+        "type": "armor",
+        "slot": "legs",
+        "tier": 5,
+        "value": 12000,
+        "requirements": { "defense": 60 },
+        "stats": { "defenseBonus": 63, "healthBonus": 35 }
+      },
+      {
+        "id": "eternium_platelegs",
+        "name": "Eternium Platelegs",
+        "description": "Exceptional leg armor of the eternal metal",
+        "type": "armor",
+        "slot": "legs",
+        "tier": 6,
+        "value": 38000,
+        "requirements": { "defense": 80 },
+        "stats": { "defenseBonus": 87, "healthBonus": 50 }
+      }
+    ],
+    "hands": [
+      {
+        "id": "leather_gloves",
+        "name": "Leather Gloves",
+        "description": "Simple leather gloves",
+        "type": "armor",
+        "slot": "hands",
+        "tier": 1,
+        "value": 50,
+        "requirements": {},
+        "stats": { "defenseBonus": 1 }
+      },
+      {
+        "id": "copperweave_gauntlets",
+        "name": "Copperweave Gauntlets",
+        "description": "Basic metal gauntlets",
+        "type": "armor",
+        "slot": "hands",
+        "tier": 1,
+        "value": 80,
+        "requirements": { "defense": 1 },
+        "stats": { "defenseBonus": 2, "attackBonus": 1 }
+      },
+      {
+        "id": "moonveil_gauntlets",
+        "name": "Moonveil Gauntlets",
+        "description": "Lightweight but strong gauntlets",
+        "type": "armor",
+        "slot": "hands",
+        "tier": 4,
+        "value": 2000,
+        "requirements": { "defense": 40 },
+        "stats": { "defenseBonus": 8, "attackBonus": 5 }
+      }
+    ],
+    "feet": [
+      {
+        "id": "leather_boots",
+        "name": "Leather Boots",
+        "description": "Simple leather boots",
+        "type": "armor",
+        "slot": "feet",
+        "tier": 1,
+        "value": 60,
+        "requirements": {},
+        "stats": { "defenseBonus": 1 }
+      },
+      {
+        "id": "copperweave_boots",
+        "name": "Copperweave Boots",
+        "description": "Basic metal boots",
+        "type": "armor",
+        "slot": "feet",
+        "tier": 1,
+        "value": 100,
+        "requirements": { "defense": 1 },
+        "stats": { "defenseBonus": 3 }
+      },
+      {
+        "id": "ironbark_boots",
+        "name": "Ironbark Boots",
+        "description": "Sturdy boots with natural reinforcement",
+        "type": "armor",
+        "slot": "feet",
+        "tier": 2,
+        "value": 300,
+        "requirements": { "defense": 10 },
+        "stats": { "defenseBonus": 6 }
+      },
+      {
+        "id": "moonveil_boots",
+        "name": "Moonveil Boots",
+        "description": "Light and durable boots",
+        "type": "armor",
+        "slot": "feet",
+        "tier": 4,
+        "value": 2500,
+        "requirements": { "defense": 40 },
+        "stats": { "defenseBonus": 12 }
+      }
+    ],
+    "cape": [
+      {
+        "id": "basic_cloak",
+        "name": "Traveler's Cloak",
+        "description": "A simple cloth cloak",
+        "type": "armor",
+        "slot": "cape",
+        "tier": 1,
+        "value": 25,
+        "requirements": {},
+        "stats": {}
+      },
+      {
+        "id": "inferno_cloak",
+        "name": "Inferno Cloak",
+        "description": "A legendary cloak imbued with the power of flame",
+        "type": "armor",
+        "slot": "cape",
+        "tier": 6,
+        "value": 0,
+        "tradeable": false,
+        "requirements": {},
+        "stats": { "defenseBonus": 11, "attackBonus": 4, "magicBonus": 1 }
+      },
+      {
+        "id": "masters_cloak_mining",
+        "name": "Stonewarden's Cloak",
+        "description": "A cloak awarded to master miners",
+        "type": "armor",
+        "slot": "cape",
+        "tier": 6,
+        "value": 99000,
+        "requirements": { "mining": 99 },
+        "stats": { "defenseBonus": 9 },
+        "perks": ["invisible_rock_golem", "extra_ore_chance"]
+      }
+    ],
+    "neck": [
+      {
+        "id": "gold_pendant",
+        "name": "Gold Pendant",
+        "description": "A simple gold pendant",
+        "type": "armor",
+        "slot": "neck",
+        "tier": 1,
+        "value": 200,
+        "requirements": {},
+        "stats": {}
+      },
+      {
+        "id": "pendant_of_might",
+        "name": "Pendant of Might",
+        "description": "Increases physical damage",
+        "type": "armor",
+        "slot": "neck",
+        "tier": 2,
+        "value": 1500,
+        "requirements": {},
+        "stats": { "attackBonus": 10 }
+      },
+      {
+        "id": "pendant_of_arcana",
+        "name": "Pendant of Arcana",
+        "description": "Enhances magical ability",
+        "type": "armor",
+        "slot": "neck",
+        "tier": 2,
+        "value": 1500,
+        "requirements": {},
+        "stats": { "magicBonus": 10 }
+      },
+      {
+        "id": "medallion_of_valor",
+        "name": "Medallion of Valor",
+        "description": "A versatile enchanted medallion",
+        "type": "armor",
+        "slot": "neck",
+        "tier": 4,
+        "value": 15000,
+        "requirements": {},
+        "stats": { "attackBonus": 10, "defenseBonus": 3, "magicBonus": 6 },
+        "perks": ["teleport_charges"]
+      },
+      {
+        "id": "talisman_of_wrath",
+        "name": "Talisman of Wrath",
+        "description": "One of the most powerful talismans",
+        "type": "armor",
+        "slot": "neck",
+        "tier": 6,
+        "value": 150000,
+        "requirements": {},
+        "stats": { "attackBonus": 15, "defenseBonus": 15, "magicBonus": 10, "rangedBonus": 10 }
+      }
+    ],
+    "ring": [
+      {
+        "id": "gold_band",
+        "name": "Gold Band",
+        "description": "A simple gold ring",
+        "type": "armor",
+        "slot": "ring",
+        "tier": 1,
+        "value": 100,
+        "requirements": {},
+        "stats": {}
+      },
+      {
+        "id": "ring_of_escape",
+        "name": "Ring of Escape",
+        "description": "Teleports you to safety when near death",
+        "type": "armor",
+        "slot": "ring",
+        "tier": 3,
+        "value": 5000,
+        "requirements": {},
+        "stats": {},
+        "perks": ["emergency_teleport"]
+      },
+      {
+        "id": "ring_of_fortune",
+        "name": "Ring of Fortune",
+        "description": "Improves rare drop chances",
+        "type": "armor",
+        "slot": "ring",
+        "tier": 4,
+        "value": 20000,
+        "requirements": {},
+        "stats": {},
+        "perks": ["improved_drops"]
+      },
+      {
+        "id": "bloodrage_ring",
+        "name": "Bloodrage Ring",
+        "description": "Increases melee damage",
+        "type": "armor",
+        "slot": "ring",
+        "tier": 5,
+        "value": 100000,
+        "requirements": {},
+        "stats": { "attackBonus": 8 }
+      },
+      {
+        "id": "hawkeye_ring",
+        "name": "Hawkeye Ring",
+        "description": "Increases ranged accuracy",
+        "type": "armor",
+        "slot": "ring",
+        "tier": 5,
+        "value": 100000,
+        "requirements": {},
+        "stats": { "rangedBonus": 8 }
+      },
+      {
+        "id": "oracle_ring",
+        "name": "Oracle's Ring",
+        "description": "Increases magic damage",
+        "type": "armor",
+        "slot": "ring",
+        "tier": 5,
+        "value": 100000,
+        "requirements": {},
+        "stats": { "magicBonus": 8 }
+      }
+    ],
+    "shield": [
+      {
+        "id": "wooden_buckler",
+        "name": "Wooden Buckler",
+        "description": "A basic wooden shield",
+        "type": "armor",
+        "slot": "offHand",
+        "tier": 1,
+        "value": 30,
+        "requirements": {},
+        "stats": { "defenseBonus": 3 }
+      },
+      {
+        "id": "copperweave_warshield",
+        "name": "Copperweave Warshield",
+        "description": "A sturdy copperweave shield",
+        "type": "armor",
+        "slot": "offHand",
+        "tier": 1,
+        "value": 120,
+        "requirements": { "defense": 1 },
+        "stats": { "defenseBonus": 6, "healthBonus": 5 }
+      },
+      {
+        "id": "ironbark_warshield",
+        "name": "Ironbark Warshield",
+        "description": "A nature-reinforced shield",
+        "type": "armor",
+        "slot": "offHand",
+        "tier": 2,
+        "value": 400,
+        "requirements": { "defense": 10 },
+        "stats": { "defenseBonus": 12, "healthBonus": 10 }
+      },
+      {
+        "id": "stormforged_warshield",
+        "name": "Stormforged Warshield",
+        "description": "A shield crackling with storm energy",
+        "type": "armor",
+        "slot": "offHand",
+        "tier": 3,
+        "value": 1000,
+        "requirements": { "defense": 20 },
+        "stats": { "defenseBonus": 22, "healthBonus": 15 }
+      },
+      {
+        "id": "moonveil_warshield",
+        "name": "Moonveil Warshield",
+        "description": "A light but strong ethereal shield",
+        "type": "armor",
+        "slot": "offHand",
+        "tier": 4,
+        "value": 3500,
+        "requirements": { "defense": 40 },
+        "stats": { "defenseBonus": 38, "healthBonus": 25 }
+      },
+      {
+        "id": "wyrmscale_warshield",
+        "name": "Wyrmscale Warshield",
+        "description": "A legendary shield forged from wyrm scales",
+        "type": "armor",
+        "slot": "offHand",
+        "tier": 6,
+        "value": 500000,
+        "requirements": { "defense": 60 },
+        "stats": { "defenseBonus": 72, "healthBonus": 50 }
+      }
+    ]
+  }
+}

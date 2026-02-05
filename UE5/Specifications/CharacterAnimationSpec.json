@@ -1,0 +1,846 @@
+{
+  "documentInfo": {
+    "title": "Realm of Eternity - UE5 Character & Animation Specification",
+    "version": "1.0.0",
+    "game": "Realm of Eternity",
+    "engine": "Unreal Engine 5",
+    "lastUpdated": "2026-01-07"
+  },
+
+  "characterSystem": {
+    "overview": "Complete character system specification for MMO with support for player characters, NPCs, enemies, and familiars",
+
+    "playerCharacter": {
+      "skeletalMesh": {
+        "name": "SK_PlayerCharacter",
+        "boneCount": 120,
+        "lodLevels": 4,
+        "polyCount": {
+          "lod0": 65000,
+          "lod1": 32000,
+          "lod2": 16000,
+          "lod3": 8000
+        },
+        "skeleton": "SKL_Humanoid_Base"
+      },
+
+      "characterBlueprint": {
+        "name": "BP_PlayerCharacter",
+        "parentClass": "ACharacter",
+        "components": [
+          {
+            "name": "SkeletalMeshComponent",
+            "type": "USkeletalMeshComponent",
+            "purpose": "Main character mesh"
+          },
+          {
+            "name": "CameraArm",
+            "type": "USpringArmComponent",
+            "settings": {
+              "targetArmLength": 400,
+              "socketOffset": { "x": 0, "y": 0, "z": 80 },
+              "cameraLag": true,
+              "lagSpeed": 10
+            }
+          },
+          {
+            "name": "FollowCamera",
+            "type": "UCameraComponent",
+            "settings": {
+              "fieldOfView": 90,
+              "autoActivate": true
+            }
+          },
+          {
+            "name": "EquipmentMeshSlots",
+            "type": "USkeletalMeshComponent[]",
+            "slots": [
+              "helmet", "cape", "amulet", "body", "legs", "gloves", "boots",
+              "weapon_main", "weapon_off", "ring_left", "ring_right", "quiver"
+            ]
+          },
+          {
+            "name": "InteractionSphere",
+            "type": "USphereComponent",
+            "radius": 200,
+            "purpose": "NPC and object interaction detection"
+          }
+        ]
+      },
+
+      "characterStats": {
+        "baseMovementSpeed": 600,
+        "sprintMultiplier": 1.5,
+        "jumpHeight": 420,
+        "turnRate": 150,
+        "capsuleRadius": 42,
+        "capsuleHalfHeight": 96
+      }
+    },
+
+    "npcCharacters": {
+      "categories": [
+        {
+          "type": "humanoid",
+          "skeleton": "SKL_Humanoid_Base",
+          "examples": ["merchants", "quest_givers", "guards", "citizens"]
+        },
+        {
+          "type": "beast",
+          "skeleton": "SKL_Quadruped_Base",
+          "examples": ["wolves", "bears", "cats", "horses"]
+        },
+        {
+          "type": "monster",
+          "skeleton": "SKL_Monster_Variable",
+          "examples": ["dragons", "demons", "giants", "elementals"]
+        },
+        {
+          "type": "spirit",
+          "skeleton": "SKL_Spirit_Float",
+          "examples": ["ghosts", "wisps", "aether_motes", "phantoms"]
+        }
+      ],
+
+      "blueprintNaming": "BP_NPC_{Category}_{Name}",
+      "meshNaming": "SK_{Category}_{Name}"
+    },
+
+    "enemyCharacters": {
+      "combatLevels": {
+        "minion": { "healthMultiplier": 0.5, "damageMultiplier": 0.5 },
+        "standard": { "healthMultiplier": 1.0, "damageMultiplier": 1.0 },
+        "elite": { "healthMultiplier": 2.5, "damageMultiplier": 1.5 },
+        "champion": { "healthMultiplier": 5.0, "damageMultiplier": 2.0 },
+        "boss": { "healthMultiplier": 20.0, "damageMultiplier": 3.0 },
+        "worldBoss": { "healthMultiplier": 100.0, "damageMultiplier": 5.0 }
+      },
+
+      "aiControllerBase": "BP_EnemyAIController",
+      "behaviorTreeBase": "BT_EnemyBase"
+    },
+
+    "familiarSystem": {
+      "description": "Bonding skill companions that follow and assist players",
+      "baseBlueprintClass": "BP_Familiar_Base",
+      "components": [
+        {
+          "name": "FollowComponent",
+          "type": "UAIPerceptionComponent",
+          "purpose": "Track and follow owner"
+        },
+        {
+          "name": "CombatAssistComponent",
+          "type": "Custom",
+          "purpose": "Handle familiar combat abilities"
+        },
+        {
+          "name": "InventoryComponent",
+          "type": "Custom",
+          "purpose": "Beast of burden storage"
+        }
+      ]
+    }
+  },
+
+  "animationSystem": {
+    "overview": "Comprehensive animation system using UE5 Animation Blueprints, Blend Spaces, and Control Rig",
+
+    "animationBlueprints": {
+      "player": {
+        "name": "ABP_PlayerCharacter",
+        "linkedSkeleton": "SKL_Humanoid_Base",
+        "stateMachines": [
+          "Locomotion",
+          "Combat",
+          "Skills",
+          "Interactions",
+          "Emotes"
+        ]
+      },
+
+      "naming": {
+        "convention": "ABP_{CharacterType}_{Variant}",
+        "examples": [
+          "ABP_PlayerCharacter",
+          "ABP_NPC_Humanoid",
+          "ABP_Enemy_Quadruped",
+          "ABP_Boss_Dragon"
+        ]
+      }
+    },
+
+    "stateMachines": {
+      "locomotion": {
+        "name": "SM_Locomotion",
+        "states": [
+          {
+            "name": "Idle",
+            "animation": "A_Idle",
+            "transitions": ["Walk", "Run", "Jump"]
+          },
+          {
+            "name": "Walk",
+            "blendSpace": "BS_Walk",
+            "transitions": ["Idle", "Run", "Jump"]
+          },
+          {
+            "name": "Run",
+            "blendSpace": "BS_Run",
+            "transitions": ["Idle", "Walk", "Jump", "Sprint"]
+          },
+          {
+            "name": "Sprint",
+            "animation": "A_Sprint",
+            "transitions": ["Run", "Jump"]
+          },
+          {
+            "name": "Jump",
+            "animation": "A_Jump_Start",
+            "subStates": ["JumpLoop", "JumpLand"],
+            "transitions": ["Idle", "Walk", "Run"]
+          },
+          {
+            "name": "Swim",
+            "blendSpace": "BS_Swim",
+            "transitions": ["SwimIdle", "Dive"]
+          },
+          {
+            "name": "Climb",
+            "animation": "A_Climb_Loop",
+            "transitions": ["ClimbUp", "ClimbDown", "Idle"]
+          }
+        ]
+      },
+
+      "combat": {
+        "name": "SM_Combat",
+        "states": [
+          {
+            "name": "CombatIdle",
+            "animation": "A_Combat_Idle",
+            "weaponVariants": true
+          },
+          {
+            "name": "Attack_Melee",
+            "montageSlot": "UpperBody",
+            "comboSystem": true,
+            "maxCombo": 4
+          },
+          {
+            "name": "Attack_Ranged",
+            "montageSlot": "UpperBody",
+            "aimOffset": "AO_RangedAim"
+          },
+          {
+            "name": "Attack_Magic",
+            "montageSlot": "FullBody",
+            "castingVariants": ["instant", "channeled", "charged"]
+          },
+          {
+            "name": "Block",
+            "animation": "A_Block_Hold",
+            "additiveLayer": true
+          },
+          {
+            "name": "Dodge",
+            "animation": "A_Dodge_Roll",
+            "rootMotion": true
+          },
+          {
+            "name": "Hit_React",
+            "montageSlot": "FullBody",
+            "variants": ["light", "heavy", "stagger", "knockdown"]
+          },
+          {
+            "name": "Death",
+            "animation": "A_Death",
+            "variants": 3
+          }
+        ]
+      },
+
+      "skills": {
+        "name": "SM_Skills",
+        "categories": [
+          {
+            "skill": "mining",
+            "animations": ["A_Mine_Start", "A_Mine_Loop", "A_Mine_End", "A_Mine_Success"]
+          },
+          {
+            "skill": "woodcutting",
+            "animations": ["A_Chop_Start", "A_Chop_Loop", "A_Chop_End", "A_Tree_Fall"]
+          },
+          {
+            "skill": "fishing",
+            "animations": ["A_Fish_Cast", "A_Fish_Wait", "A_Fish_Reel", "A_Fish_Catch"]
+          },
+          {
+            "skill": "smithing",
+            "animations": ["A_Smith_Heat", "A_Smith_Hammer_Loop", "A_Smith_Cool"]
+          },
+          {
+            "skill": "alchemy",
+            "animations": ["A_Alchemy_Mix", "A_Alchemy_Stir", "A_Alchemy_Pour"]
+          },
+          {
+            "skill": "cooking",
+            "animations": ["A_Cook_Prepare", "A_Cook_Stir", "A_Cook_Taste"]
+          },
+          {
+            "skill": "crafting",
+            "animations": ["A_Craft_Generic", "A_Craft_Sew", "A_Craft_Carve"]
+          },
+          {
+            "skill": "bowcraft",
+            "animations": ["A_Bowcraft_Whittle", "A_Bowcraft_String", "A_Bowcraft_Fletch"]
+          },
+          {
+            "skill": "glyphcraft",
+            "animations": ["A_Glyphcraft_Channel", "A_Glyphcraft_Inscribe", "A_Glyphcraft_Charge"]
+          },
+          {
+            "skill": "subterfuge",
+            "animations": ["A_Pickpocket", "A_Lockpick", "A_Sneak_Idle", "A_Sneak_Walk"]
+          },
+          {
+            "skill": "aethertap",
+            "animations": ["A_Aethertap_Harvest", "A_Aethertap_Convert", "A_Aethertap_Infuse"]
+          },
+          {
+            "skill": "delving",
+            "animations": ["A_Delve_Enter", "A_Delve_Search", "A_Delve_Discover"]
+          },
+          {
+            "skill": "farming",
+            "animations": ["A_Farm_Plant", "A_Farm_Water", "A_Farm_Harvest"]
+          },
+          {
+            "skill": "hunter",
+            "animations": ["A_Trap_Set", "A_Trap_Check", "A_Track_Examine"]
+          }
+        ]
+      },
+
+      "interactions": {
+        "name": "SM_Interactions",
+        "states": [
+          {
+            "name": "Talk",
+            "animation": "A_Talk_Gesture",
+            "lipSync": true
+          },
+          {
+            "name": "Trade",
+            "animation": "A_Trade_Open"
+          },
+          {
+            "name": "PickupItem",
+            "animation": "A_Pickup",
+            "variants": ["ground", "table", "container"]
+          },
+          {
+            "name": "UseBank",
+            "animation": "A_Bank_Access"
+          },
+          {
+            "name": "Pray",
+            "animation": "A_Sanctity_Pray"
+          },
+          {
+            "name": "Rest",
+            "animation": "A_Rest_Sit",
+            "variants": ["ground", "chair", "throne", "bed"]
+          }
+        ]
+      }
+    },
+
+    "blendSpaces": {
+      "locomotion": [
+        {
+          "name": "BS_Walk",
+          "type": "2D",
+          "axisX": { "name": "Direction", "min": -180, "max": 180 },
+          "axisY": { "name": "Speed", "min": 0, "max": 300 },
+          "animations": ["A_Walk_F", "A_Walk_B", "A_Walk_L", "A_Walk_R", "A_Walk_FL", "A_Walk_FR", "A_Walk_BL", "A_Walk_BR"]
+        },
+        {
+          "name": "BS_Run",
+          "type": "2D",
+          "axisX": { "name": "Direction", "min": -180, "max": 180 },
+          "axisY": { "name": "Speed", "min": 300, "max": 600 },
+          "animations": ["A_Run_F", "A_Run_B", "A_Run_L", "A_Run_R", "A_Run_FL", "A_Run_FR", "A_Run_BL", "A_Run_BR"]
+        },
+        {
+          "name": "BS_Swim",
+          "type": "2D",
+          "axisX": { "name": "Direction", "min": -180, "max": 180 },
+          "axisY": { "name": "Depth", "min": 0, "max": 1 },
+          "animations": ["A_Swim_Surface", "A_Swim_Underwater", "A_Swim_Dive"]
+        }
+      ],
+
+      "combat": [
+        {
+          "name": "BS_CombatIdle",
+          "type": "1D",
+          "axis": { "name": "WeaponType", "min": 0, "max": 5 },
+          "animations": ["A_Idle_Unarmed", "A_Idle_Sword", "A_Idle_2H", "A_Idle_Bow", "A_Idle_Staff", "A_Idle_DualWield"]
+        }
+      ]
+    },
+
+    "aimOffsets": [
+      {
+        "name": "AO_RangedAim",
+        "type": "2D",
+        "axisX": { "name": "Yaw", "min": -90, "max": 90 },
+        "axisY": { "name": "Pitch", "min": -90, "max": 90 },
+        "animations": ["A_Aim_Center", "A_Aim_Up", "A_Aim_Down", "A_Aim_Left", "A_Aim_Right"]
+      },
+      {
+        "name": "AO_MagicAim",
+        "type": "2D",
+        "axisX": { "name": "Yaw", "min": -90, "max": 90 },
+        "axisY": { "name": "Pitch", "min": -90, "max": 90 },
+        "animations": ["A_Cast_Center", "A_Cast_Up", "A_Cast_Down", "A_Cast_Left", "A_Cast_Right"]
+      }
+    ],
+
+    "animMontages": {
+      "naming": "AM_{Category}_{Action}_{Variant}",
+      "slots": {
+        "fullBody": "DefaultSlot",
+        "upperBody": "UpperBodySlot",
+        "lowerBody": "LowerBodySlot",
+        "face": "FaceSlot"
+      },
+      "categories": [
+        {
+          "category": "Combat_Melee",
+          "montages": [
+            "AM_Combat_Slash_1", "AM_Combat_Slash_2", "AM_Combat_Slash_3", "AM_Combat_Slash_4",
+            "AM_Combat_Thrust_1", "AM_Combat_Thrust_2",
+            "AM_Combat_Overhead_1", "AM_Combat_Spin_1",
+            "AM_Combat_2H_Swing_1", "AM_Combat_2H_Swing_2", "AM_Combat_2H_Cleave"
+          ]
+        },
+        {
+          "category": "Combat_Ranged",
+          "montages": [
+            "AM_Combat_Bow_Draw", "AM_Combat_Bow_Release",
+            "AM_Combat_Crossbow_Load", "AM_Combat_Crossbow_Fire",
+            "AM_Combat_Throw"
+          ]
+        },
+        {
+          "category": "Combat_Magic",
+          "montages": [
+            "AM_Combat_Cast_Instant", "AM_Combat_Cast_Channel_Start",
+            "AM_Combat_Cast_Channel_Loop", "AM_Combat_Cast_Channel_End",
+            "AM_Combat_Cast_Charged", "AM_Combat_Cast_AOE"
+          ]
+        },
+        {
+          "category": "Abilities",
+          "montages": [
+            "AM_Ability_DeadeyeZone", "AM_Ability_SolarRadiance",
+            "AM_Ability_Sever", "AM_Ability_Berserk",
+            "AM_Ability_WildMagic", "AM_Ability_Metamorphosis"
+          ]
+        },
+        {
+          "category": "Emotes",
+          "montages": [
+            "AM_Emote_Wave", "AM_Emote_Bow", "AM_Emote_Dance",
+            "AM_Emote_Cheer", "AM_Emote_Cry", "AM_Emote_Angry",
+            "AM_Emote_Laugh", "AM_Emote_ThumbsUp", "AM_Emote_Salute"
+          ]
+        }
+      ]
+    },
+
+    "ikSystems": {
+      "footIK": {
+        "name": "IK_Foot_Ground",
+        "purpose": "Ground alignment for uneven terrain",
+        "bones": ["foot_l", "foot_r", "calf_l", "calf_r"],
+        "traceDistance": 50,
+        "interpolationSpeed": 15
+      },
+      "handIK": {
+        "name": "IK_Hand_Weapon",
+        "purpose": "Weapon grip alignment",
+        "bones": ["hand_l", "hand_r"],
+        "targetSockets": ["weapon_grip_main", "weapon_grip_off"]
+      },
+      "lookAt": {
+        "name": "IK_LookAt",
+        "purpose": "Head/eye tracking for interactions",
+        "bones": ["head", "neck_01"],
+        "maxRotation": 60,
+        "interpolationSpeed": 8
+      }
+    },
+
+    "controlRig": {
+      "name": "CR_PlayerCharacter",
+      "features": [
+        "FK/IK switching for limbs",
+        "Spine procedural bending",
+        "Clavicle auto-rotation",
+        "Finger poses for grip types",
+        "Facial rig controls"
+      ],
+      "boneGroups": [
+        { "name": "Spine", "bones": ["pelvis", "spine_01", "spine_02", "spine_03", "neck_01", "head"] },
+        { "name": "LeftArm", "bones": ["clavicle_l", "upperarm_l", "lowerarm_l", "hand_l"] },
+        { "name": "RightArm", "bones": ["clavicle_r", "upperarm_r", "lowerarm_r", "hand_r"] },
+        { "name": "LeftLeg", "bones": ["thigh_l", "calf_l", "foot_l", "ball_l"] },
+        { "name": "RightLeg", "bones": ["thigh_r", "calf_r", "foot_r", "ball_r"] },
+        { "name": "LeftHand", "bones": ["thumb_01_l", "thumb_02_l", "thumb_03_l", "index_01_l", "index_02_l", "index_03_l", "middle_01_l", "middle_02_l", "middle_03_l", "ring_01_l", "ring_02_l", "ring_03_l", "pinky_01_l", "pinky_02_l", "pinky_03_l"] },
+        { "name": "RightHand", "bones": ["thumb_01_r", "thumb_02_r", "thumb_03_r", "index_01_r", "index_02_r", "index_03_r", "middle_01_r", "middle_02_r", "middle_03_r", "ring_01_r", "ring_02_r", "ring_03_r", "pinky_01_r", "pinky_02_r", "pinky_03_r"] },
+        { "name": "Face", "bones": ["jaw", "eyelid_l", "eyelid_r", "eyebrow_l", "eyebrow_r"] }
+      ]
+    }
+  },
+
+  "equipmentVisualization": {
+    "overview": "System for displaying equipped items on character mesh",
+
+    "equipmentSlots": [
+      {
+        "slot": "helmet",
+        "socket": "head_socket",
+        "hiddenBones": ["hair"],
+        "showHairVariant": true
+      },
+      {
+        "slot": "cape",
+        "socket": "cape_socket",
+        "physicsEnabled": true,
+        "clothSimulation": true
+      },
+      {
+        "slot": "amulet",
+        "socket": "neck_socket",
+        "physicsEnabled": false
+      },
+      {
+        "slot": "body",
+        "type": "skeletal_mesh_swap",
+        "morphTargets": ["muscular", "slim", "bulky"]
+      },
+      {
+        "slot": "legs",
+        "type": "skeletal_mesh_swap",
+        "morphTargets": ["muscular", "slim", "bulky"]
+      },
+      {
+        "slot": "gloves",
+        "type": "skeletal_mesh_swap"
+      },
+      {
+        "slot": "boots",
+        "type": "skeletal_mesh_swap"
+      },
+      {
+        "slot": "weapon_main",
+        "socket": "hand_r_weapon",
+        "sheathSocket": "spine_weapon_r",
+        "drawAnimation": "AM_Draw_Weapon_Main"
+      },
+      {
+        "slot": "weapon_off",
+        "socket": "hand_l_weapon",
+        "sheathSocket": "spine_weapon_l",
+        "drawAnimation": "AM_Draw_Weapon_Off"
+      },
+      {
+        "slot": "quiver",
+        "socket": "back_quiver",
+        "showArrowCount": true
+      },
+      {
+        "slot": "ring_left",
+        "socket": "ring_finger_l_socket",
+        "visible": false
+      },
+      {
+        "slot": "ring_right",
+        "socket": "ring_finger_r_socket",
+        "visible": false
+      }
+    ],
+
+    "weaponTypes": [
+      {
+        "type": "sword_1h",
+        "gripType": "one_handed",
+        "idleAnimation": "A_Idle_Sword",
+        "combatStance": "sword_shield"
+      },
+      {
+        "type": "sword_2h",
+        "gripType": "two_handed",
+        "idleAnimation": "A_Idle_2H",
+        "combatStance": "greatsword"
+      },
+      {
+        "type": "axe_1h",
+        "gripType": "one_handed",
+        "idleAnimation": "A_Idle_Axe",
+        "combatStance": "axe"
+      },
+      {
+        "type": "axe_2h",
+        "gripType": "two_handed",
+        "idleAnimation": "A_Idle_2H",
+        "combatStance": "greataxe"
+      },
+      {
+        "type": "mace_1h",
+        "gripType": "one_handed",
+        "idleAnimation": "A_Idle_Mace",
+        "combatStance": "mace"
+      },
+      {
+        "type": "bow",
+        "gripType": "two_handed_ranged",
+        "idleAnimation": "A_Idle_Bow",
+        "combatStance": "archery"
+      },
+      {
+        "type": "crossbow",
+        "gripType": "two_handed_ranged",
+        "idleAnimation": "A_Idle_Crossbow",
+        "combatStance": "crossbow"
+      },
+      {
+        "type": "staff",
+        "gripType": "two_handed",
+        "idleAnimation": "A_Idle_Staff",
+        "combatStance": "magic_staff"
+      },
+      {
+        "type": "wand",
+        "gripType": "one_handed",
+        "idleAnimation": "A_Idle_Wand",
+        "combatStance": "magic_wand"
+      },
+      {
+        "type": "orb",
+        "gripType": "off_hand",
+        "idleAnimation": "A_Idle_Orb",
+        "combatStance": "magic_focus"
+      },
+      {
+        "type": "shield",
+        "gripType": "off_hand",
+        "idleAnimation": "A_Idle_Shield",
+        "blockAnimation": "A_Block_Shield"
+      },
+      {
+        "type": "dual_wield",
+        "gripType": "dual",
+        "idleAnimation": "A_Idle_DualWield",
+        "combatStance": "dual_swords"
+      }
+    ],
+
+    "armorTiers": [
+      {
+        "tier": 1,
+        "materials": ["copperweave", "leather"],
+        "levelRange": "1-10"
+      },
+      {
+        "tier": 2,
+        "materials": ["ironhide", "hardleather"],
+        "levelRange": "10-20"
+      },
+      {
+        "tier": 3,
+        "materials": ["steelplate", "wyrmhide_green"],
+        "levelRange": "20-40"
+      },
+      {
+        "tier": 4,
+        "materials": ["mithrilweave", "wyrmhide_blue"],
+        "levelRange": "40-60"
+      },
+      {
+        "tier": 5,
+        "materials": ["runeforged", "wyrmhide_red"],
+        "levelRange": "60-70"
+      },
+      {
+        "tier": 6,
+        "materials": ["dreadplate", "wyrmhide_black"],
+        "levelRange": "70-80"
+      },
+      {
+        "tier": 7,
+        "materials": ["voidforge", "seaweave", "primordial"],
+        "levelRange": "80-99"
+      }
+    ]
+  },
+
+  "characterCustomization": {
+    "races": [
+      {
+        "id": "human",
+        "name": "Human",
+        "baseMesh": "SK_Human_Base",
+        "heightRange": { "min": 0.9, "max": 1.1 },
+        "bodyTypes": ["slim", "athletic", "muscular", "heavy"]
+      },
+      {
+        "id": "elf",
+        "name": "Elf",
+        "baseMesh": "SK_Elf_Base",
+        "heightRange": { "min": 0.95, "max": 1.15 },
+        "bodyTypes": ["slim", "athletic", "graceful"]
+      },
+      {
+        "id": "dwarf",
+        "name": "Dwarf",
+        "baseMesh": "SK_Dwarf_Base",
+        "heightRange": { "min": 0.7, "max": 0.85 },
+        "bodyTypes": ["stocky", "muscular", "stout"]
+      },
+      {
+        "id": "orc",
+        "name": "Orc",
+        "baseMesh": "SK_Orc_Base",
+        "heightRange": { "min": 1.0, "max": 1.25 },
+        "bodyTypes": ["muscular", "massive", "lean"]
+      }
+    ],
+
+    "customizationOptions": {
+      "face": {
+        "presets": 20,
+        "morphTargets": [
+          "jaw_width", "jaw_height", "chin_length", "chin_width",
+          "cheek_height", "cheek_width", "cheek_depth",
+          "nose_length", "nose_width", "nose_bridge", "nose_tip",
+          "brow_height", "brow_depth", "brow_width",
+          "eye_size", "eye_spacing", "eye_depth", "eye_tilt",
+          "mouth_width", "mouth_height", "lip_thickness",
+          "ear_size", "ear_angle"
+        ]
+      },
+      "hair": {
+        "styles": 50,
+        "colors": "full_rgb",
+        "highlights": true,
+        "physicsEnabled": true
+      },
+      "skin": {
+        "tones": 24,
+        "customRGB": true,
+        "tattoos": 30,
+        "scars": 15,
+        "warPaint": 20
+      },
+      "eyes": {
+        "colors": 20,
+        "customRGB": true,
+        "heterochromia": true,
+        "glowEffect": true
+      },
+      "voice": {
+        "pitchRange": { "min": 0.7, "max": 1.3 },
+        "presets": 8
+      },
+      "body": {
+        "muscleDefinition": { "min": 0, "max": 1 },
+        "bodyFat": { "min": 0, "max": 1 },
+        "height": { "min": 0.85, "max": 1.15 }
+      }
+    }
+  },
+
+  "implementationGuide": {
+    "phase1_Core": {
+      "description": "Basic character movement and display",
+      "tasks": [
+        "Import SKL_Humanoid_Base skeleton",
+        "Create SK_PlayerCharacter mesh with LODs",
+        "Setup BP_PlayerCharacter with movement component",
+        "Implement basic locomotion state machine",
+        "Add camera system with spring arm"
+      ]
+    },
+    "phase2_Combat": {
+      "description": "Combat animations and systems",
+      "tasks": [
+        "Create combat state machine",
+        "Implement weapon type blend spaces",
+        "Setup animation montages for attacks",
+        "Add hit reactions and death animations",
+        "Implement aim offsets for ranged combat"
+      ]
+    },
+    "phase3_Skills": {
+      "description": "Skill-related animations",
+      "tasks": [
+        "Create skill animation state machine",
+        "Implement gathering skill animations",
+        "Add crafting animations",
+        "Setup skill-specific props and effects"
+      ]
+    },
+    "phase4_Equipment": {
+      "description": "Equipment visualization system",
+      "tasks": [
+        "Setup equipment socket system",
+        "Implement skeletal mesh swapping for armor",
+        "Add weapon attachment and sheathing",
+        "Setup cloth physics for capes",
+        "Implement equipment material system"
+      ]
+    },
+    "phase5_Polish": {
+      "description": "IK, procedural animation, and polish",
+      "tasks": [
+        "Implement foot IK for terrain",
+        "Add hand IK for weapon grips",
+        "Setup look-at system for NPCs",
+        "Implement control rig for procedural adjustments",
+        "Add facial animations and lip sync"
+      ]
+    }
+  },
+
+  "performanceGuidelines": {
+    "targetFramerate": 60,
+    "characterBudget": {
+      "onScreen": 50,
+      "fullyAnimated": 20,
+      "lodDistances": {
+        "lod0": 0,
+        "lod1": 1500,
+        "lod2": 3000,
+        "lod3": 6000
+      }
+    },
+    "animationBudget": {
+      "maxActiveMontages": 3,
+      "maxBlendSpaceEvaluations": 4,
+      "updateRate": {
+        "near": 60,
+        "medium": 30,
+        "far": 15,
+        "veryFar": 0
+      }
+    },
+    "clothSimulation": {
+      "maxSimulatedCapes": 5,
+      "disableDistance": 2000
+    }
+  }
+}

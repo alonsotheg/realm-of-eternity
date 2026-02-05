@@ -1,0 +1,644 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Resource nodes for gathering skills in Realm of Eternity"
+  },
+  "miningRocks": {
+    "description": "Ore deposits for Mining skill",
+    "rocks": [
+      {
+        "id": "copper_rock",
+        "name": "Copper Rock",
+        "ore": "copper_ore",
+        "level": 1,
+        "xp": 17.5,
+        "hardness": 10,
+        "respawnTime": 4,
+        "depletionChance": 1.0,
+        "zones": ["dawnhaven_mines", "goblin_village"],
+        "examine": "A rock containing copper ore."
+      },
+      {
+        "id": "tin_rock",
+        "name": "Tin Rock",
+        "ore": "tin_ore",
+        "level": 1,
+        "xp": 17.5,
+        "hardness": 10,
+        "respawnTime": 4,
+        "depletionChance": 1.0,
+        "zones": ["dawnhaven_mines", "ironwood_caves"],
+        "examine": "A rock containing tin ore."
+      },
+      {
+        "id": "clay_deposit",
+        "name": "Clay Deposit",
+        "ore": "clay",
+        "level": 1,
+        "xp": 5,
+        "hardness": 5,
+        "respawnTime": 2,
+        "depletionChance": 1.0,
+        "zones": ["dawnhaven_farms", "riverbanks"],
+        "examine": "Soft clay for crafting."
+      },
+      {
+        "id": "iron_rock",
+        "name": "Iron Rock",
+        "ore": "iron_ore",
+        "level": 15,
+        "xp": 35,
+        "hardness": 20,
+        "respawnTime": 9,
+        "depletionChance": 1.0,
+        "zones": ["ironhold_mines", "abandoned_mines"],
+        "examine": "A rock containing iron ore."
+      },
+      {
+        "id": "silver_rock",
+        "name": "Silver Rock",
+        "ore": "silver_ore",
+        "level": 20,
+        "xp": 40,
+        "hardness": 25,
+        "respawnTime": 60,
+        "depletionChance": 1.0,
+        "zones": ["crafting_guild_mine", "desert_mines"],
+        "examine": "A rock containing silver ore."
+      },
+      {
+        "id": "coal_rock",
+        "name": "Coal Rock",
+        "ore": "coal",
+        "level": 30,
+        "xp": 50,
+        "hardness": 30,
+        "respawnTime": 30,
+        "depletionChance": 1.0,
+        "zones": ["mining_guild", "coal_mines", "abandoned_mines"],
+        "examine": "A rock containing coal."
+      },
+      {
+        "id": "gold_rock",
+        "name": "Gold Rock",
+        "ore": "gold_ore",
+        "level": 40,
+        "xp": 65,
+        "hardness": 35,
+        "respawnTime": 60,
+        "depletionChance": 1.0,
+        "zones": ["crafting_guild_mine", "desert_mines", "goldvein_mines"],
+        "examine": "A rock containing gold ore."
+      },
+      {
+        "id": "gem_rock",
+        "name": "Gem Rock",
+        "ore": "uncut_gem",
+        "level": 40,
+        "xp": 65,
+        "hardness": 40,
+        "respawnTime": 60,
+        "depletionChance": 1.0,
+        "lootTable": "gem_drops",
+        "zones": ["underground_pass", "sunspire_village"],
+        "examine": "A rock that may contain precious gems."
+      },
+      {
+        "id": "moonveil_rock",
+        "name": "Moonveil Rock",
+        "ore": "moonveil_ore",
+        "level": 55,
+        "xp": 80,
+        "hardness": 50,
+        "respawnTime": 120,
+        "depletionChance": 1.0,
+        "zones": ["moonveil_caverns", "hero_guild_mine"],
+        "examine": "A rock glowing with moonveil ore."
+      },
+      {
+        "id": "voidstone_rock",
+        "name": "Voidstone Rock",
+        "ore": "voidstone_ore",
+        "level": 70,
+        "xp": 95,
+        "hardness": 65,
+        "respawnTime": 180,
+        "depletionChance": 1.0,
+        "zones": ["abyssal_mines", "wilderness_mines"],
+        "examine": "A rock pulsing with void energy."
+      },
+      {
+        "id": "eternium_rock",
+        "name": "Eternium Rock",
+        "ore": "eternium_ore",
+        "level": 85,
+        "xp": 125,
+        "hardness": 80,
+        "respawnTime": 0,
+        "depletionChance": 0,
+        "rockHealth": 1000,
+        "progressPerSwing": 10,
+        "zones": ["eternium_mine", "deep_wilderness"],
+        "examine": "The legendary eternium ore. Never depletes."
+      },
+      {
+        "id": "animica_rock",
+        "name": "Animica Rock",
+        "ore": "animica_ore",
+        "level": 90,
+        "xp": 150,
+        "hardness": 90,
+        "respawnTime": 0,
+        "depletionChance": 0,
+        "rockHealth": 1500,
+        "progressPerSwing": 8,
+        "zones": ["animica_depths"],
+        "examine": "Living rock infused with anima."
+      }
+    ],
+    "rockSprites": {
+      "empty": "rock_empty",
+      "copper": "rock_copper",
+      "iron": "rock_iron",
+      "coal": "rock_coal",
+      "moonveil": "rock_moonveil",
+      "voidstone": "rock_voidstone",
+      "eternium": "rock_eternium"
+    }
+  },
+  "trees": {
+    "description": "Trees for Woodcutting skill",
+    "treeTypes": [
+      {
+        "id": "normal_tree",
+        "name": "Tree",
+        "log": "logs",
+        "level": 1,
+        "xp": 25,
+        "hardness": 10,
+        "respawnTime": 10,
+        "depletionChance": 1.0,
+        "zones": ["dawnhaven", "everywhere"],
+        "examine": "A commonly found tree."
+      },
+      {
+        "id": "dead_tree",
+        "name": "Dead Tree",
+        "log": "logs",
+        "level": 1,
+        "xp": 25,
+        "hardness": 8,
+        "respawnTime": 8,
+        "depletionChance": 1.0,
+        "zones": ["wilderness", "haunted_woods"],
+        "examine": "A dead tree, easier to cut."
+      },
+      {
+        "id": "goldleaf_tree",
+        "name": "Goldleaf Tree",
+        "log": "goldleaf_log",
+        "level": 15,
+        "xp": 37.5,
+        "hardness": 20,
+        "respawnTime": 15,
+        "depletionChance": 0.125,
+        "zones": ["dawnhaven_forest", "ironwood_forest"],
+        "examine": "A tree with shimmering golden leaves."
+      },
+      {
+        "id": "whisperwood_tree",
+        "name": "Whisperwood Tree",
+        "log": "whisperwood_log",
+        "level": 30,
+        "xp": 67.5,
+        "hardness": 30,
+        "respawnTime": 20,
+        "depletionChance": 0.125,
+        "zones": ["riverbank", "whispervale"],
+        "examine": "A graceful tree whose leaves whisper in the wind."
+      },
+      {
+        "id": "ironwood_tree",
+        "name": "Ironwood Tree",
+        "log": "ironwood_log",
+        "level": 45,
+        "xp": 100,
+        "hardness": 40,
+        "respawnTime": 30,
+        "depletionChance": 0.125,
+        "zones": ["oraclestead", "tempest_isle"],
+        "examine": "A tree with bark as strong as iron."
+      },
+      {
+        "id": "spiritbark_tree",
+        "name": "Spiritbark Tree",
+        "log": "spiritbark_log",
+        "level": 60,
+        "xp": 175,
+        "hardness": 60,
+        "respawnTime": 60,
+        "depletionChance": 0.125,
+        "zones": ["spirit_grove", "borderton"],
+        "examine": "An ethereal tree with glowing bark."
+      },
+      {
+        "id": "starwood_tree",
+        "name": "Starwood Tree",
+        "log": "starwood_log",
+        "level": 75,
+        "xp": 250,
+        "hardness": 80,
+        "respawnTime": 120,
+        "depletionChance": 0.125,
+        "zones": ["arcane_academy", "champion_hall"],
+        "examine": "A mystical tree that glows with starlight."
+      },
+      {
+        "id": "elderwood_tree",
+        "name": "Elderwood Tree",
+        "log": "elderwood_log",
+        "level": 83,
+        "xp": 325,
+        "hardness": 90,
+        "respawnTime": 300,
+        "depletionChance": 0.125,
+        "zones": ["prismatic_forest", "verdant_highlands"],
+        "examine": "An ancient elderwood tree of immense age."
+      },
+      {
+        "id": "crystal_tree",
+        "name": "Crystal Tree",
+        "log": null,
+        "level": 90,
+        "xp": 434.3,
+        "hardness": 100,
+        "respawnTime": 0,
+        "depletionChance": 0,
+        "specialMechanic": "harmonic_dust",
+        "zones": ["prismatic_city"],
+        "examine": "A beautiful crystalline tree."
+      }
+    ],
+    "birdNests": {
+      "baseChance": 0.003,
+      "types": [
+        { "id": "seed_nest", "weight": 65, "contents": "seed_loot_table" },
+        { "id": "ring_nest", "weight": 32, "contents": "ring_loot_table" },
+        { "id": "egg_nest", "weight": 3, "contents": "egg_loot_table" }
+      ]
+    }
+  },
+  "fishingSpots": {
+    "description": "Fishing spots for Fishing skill",
+    "spotTypes": [
+      {
+        "id": "net_spot",
+        "name": "Net/Bait Fishing Spot",
+        "options": [
+          { "action": "small_net", "tool": "small_fishing_net", "catches": ["mudcrawler", "anchovies"] },
+          { "action": "bait", "tool": "fishing_rod", "bait": "fishing_bait", "catches": ["sardine", "herring"] }
+        ],
+        "moveChance": 0.3,
+        "zones": ["dawnhaven_coast", "tidecrest_beach"]
+      },
+      {
+        "id": "lure_spot",
+        "name": "Lure/Bait Fishing Spot",
+        "options": [
+          { "action": "lure", "tool": "fly_fishing_rod", "bait": "feathers", "catches": ["silverscale", "pike"] },
+          { "action": "bait", "tool": "fishing_rod", "bait": "fishing_bait", "catches": ["pike", "cave_eel"] }
+        ],
+        "moveChance": 0.3,
+        "zones": ["northwatch_village", "sunspire_village"]
+      },
+      {
+        "id": "cage_spot",
+        "name": "Cage/Harpoon Fishing Spot",
+        "options": [
+          { "action": "cage", "tool": "lobster_pot", "catches": ["stoneclaw"] },
+          { "action": "harpoon", "tool": "harpoon", "catches": ["tuna", "razorfin"] }
+        ],
+        "moveChance": 0.4,
+        "zones": ["tidecrest", "fishing_guild", "corsair_cove"]
+      },
+      {
+        "id": "big_net_spot",
+        "name": "Big Net/Harpoon Fishing Spot",
+        "options": [
+          { "action": "big_net", "tool": "big_fishing_net", "catches": ["mackerel", "cod", "bass"] },
+          { "action": "harpoon", "tool": "harpoon", "catches": ["ironjaw"] }
+        ],
+        "moveChance": 0.4,
+        "zones": ["fishing_guild", "frostharbor_docks"]
+      },
+      {
+        "id": "monkfish_spot",
+        "name": "Small Net Fishing Spot",
+        "options": [
+          { "action": "small_net", "tool": "small_fishing_net", "catches": ["monkfish"] }
+        ],
+        "moveChance": 0.5,
+        "zones": ["fisher_haven"],
+        "requirements": { "quest": "swan_song" }
+      },
+      {
+        "id": "rocktail_spot",
+        "name": "Rocktail Spot",
+        "options": [
+          { "action": "bait", "tool": "fishing_rod", "bait": "living_minerals", "catches": ["abyssfin"] }
+        ],
+        "moveChance": 0,
+        "zones": ["living_rock_caverns"]
+      }
+    ],
+    "fishData": [
+      { "id": "mudcrawler", "name": "Raw Mudcrawler", "level": 1, "xp": 10, "healAmount": 30 },
+      { "id": "sardine", "name": "Raw Sardine", "level": 5, "xp": 20, "healAmount": 40 },
+      { "id": "anchovies", "name": "Raw Anchovies", "level": 15, "xp": 40, "healAmount": 10 },
+      { "id": "silverscale", "name": "Raw Silverscale", "level": 20, "xp": 50, "healAmount": 70 },
+      { "id": "pike", "name": "Raw Pike", "level": 25, "xp": 60, "healAmount": 80 },
+      { "id": "crimsonfish", "name": "Raw Crimsonfish", "level": 30, "xp": 70, "healAmount": 90 },
+      { "id": "tuna", "name": "Raw Tuna", "level": 35, "xp": 80, "healAmount": 100 },
+      { "id": "stoneclaw", "name": "Raw Stoneclaw", "level": 40, "xp": 90, "healAmount": 120 },
+      { "id": "razorfin", "name": "Raw Razorfin", "level": 50, "xp": 100, "healAmount": 140 },
+      { "id": "monkfish", "name": "Raw Monkfish", "level": 62, "xp": 120, "healAmount": 160 },
+      { "id": "ironjaw", "name": "Raw Ironjaw", "level": 76, "xp": 110, "healAmount": 200 },
+      { "id": "abyssfin", "name": "Raw Abyssfin", "level": 90, "xp": 380, "healAmount": 230 }
+    ]
+  },
+  "aethertapMotes": {
+    "description": "Motes and memories for Aethertap skill",
+    "wispTypes": [
+      {
+        "id": "pale_wisp",
+        "name": "Pale Wisp",
+        "level": 1,
+        "xp": 1,
+        "enrichedXp": 2,
+        "energy": "pale_energy",
+        "duration": 30,
+        "zones": ["pale_crater"]
+      },
+      {
+        "id": "flickering_wisp",
+        "name": "Flickering Wisp",
+        "level": 10,
+        "xp": 3,
+        "enrichedXp": 6,
+        "energy": "flickering_energy",
+        "duration": 30,
+        "zones": ["whiteguard_farms"]
+      },
+      {
+        "id": "bright_wisp",
+        "name": "Bright Wisp",
+        "level": 20,
+        "xp": 6,
+        "enrichedXp": 12,
+        "energy": "bright_energy",
+        "duration": 30,
+        "zones": ["kingshold_dig_site"]
+      },
+      {
+        "id": "glowing_wisp",
+        "name": "Glowing Wisp",
+        "level": 30,
+        "xp": 9,
+        "enrichedXp": 18,
+        "energy": "glowing_energy",
+        "duration": 30,
+        "zones": ["oraclestead"]
+      },
+      {
+        "id": "sparkling_wisp",
+        "name": "Sparkling Wisp",
+        "level": 40,
+        "xp": 12,
+        "enrichedXp": 24,
+        "energy": "sparkling_energy",
+        "duration": 30,
+        "zones": ["frostharbor"]
+      },
+      {
+        "id": "gleaming_wisp",
+        "name": "Gleaming Wisp",
+        "level": 50,
+        "xp": 15,
+        "enrichedXp": 30,
+        "energy": "gleaming_energy",
+        "duration": 30,
+        "zones": ["tropicana_isle"]
+      },
+      {
+        "id": "vibrant_wisp",
+        "name": "Vibrant Wisp",
+        "level": 60,
+        "xp": 18,
+        "enrichedXp": 36,
+        "energy": "vibrant_energy",
+        "duration": 30,
+        "zones": ["duskhollow"]
+      },
+      {
+        "id": "lustrous_wisp",
+        "name": "Lustrous Wisp",
+        "level": 70,
+        "xp": 22,
+        "enrichedXp": 44,
+        "energy": "lustrous_energy",
+        "duration": 30,
+        "zones": ["moonhowl"]
+      },
+      {
+        "id": "brilliant_wisp",
+        "name": "Brilliant Wisp",
+        "level": 75,
+        "xp": 26,
+        "enrichedXp": 52,
+        "energy": "brilliant_energy",
+        "duration": 30,
+        "zones": ["sunstone"]
+      },
+      {
+        "id": "radiant_wisp",
+        "name": "Radiant Wisp",
+        "level": 80,
+        "xp": 30,
+        "enrichedXp": 60,
+        "energy": "radiant_energy",
+        "duration": 30,
+        "zones": ["dragontooth_island"]
+      },
+      {
+        "id": "luminous_wisp",
+        "name": "Luminous Wisp",
+        "level": 85,
+        "xp": 35,
+        "enrichedXp": 70,
+        "energy": "luminous_energy",
+        "duration": 30,
+        "zones": ["prismatic_outskirts"]
+      },
+      {
+        "id": "incandescent_wisp",
+        "name": "Incandescent Wisp",
+        "level": 90,
+        "xp": 42,
+        "enrichedXp": 84,
+        "energy": "incandescent_energy",
+        "duration": 30,
+        "zones": ["blighted_marsh"]
+      },
+      {
+        "id": "elder_wisp",
+        "name": "Elder Wisp",
+        "level": 95,
+        "xp": 50,
+        "enrichedXp": 100,
+        "energy": "elder_energy",
+        "duration": 30,
+        "zones": ["elder_halls"]
+      }
+    ]
+  },
+  "farmingPatches": {
+    "description": "Farming patch types and locations",
+    "patchTypes": [
+      {
+        "id": "allotment",
+        "name": "Allotment Patch",
+        "size": "3x3",
+        "produces": ["potato", "onion", "cabbage", "tomato", "corn", "strawberry", "watermelon", "snape_grass"],
+        "locations": [
+          { "zone": "dawnhaven", "count": 2 },
+          { "zone": "tidecrest", "count": 2 },
+          { "zone": "shadowfen", "count": 2 },
+          { "zone": "prismatic_city", "count": 2 }
+        ]
+      },
+      {
+        "id": "herb",
+        "name": "Herb Patch",
+        "size": "1x1",
+        "produces": ["verdantleaf", "thornroot", "bittervine", "sunpetal", "moonbloom", "stormleaf", "voidbloom", "starfall_petal", "eternitys_bloom"],
+        "locations": [
+          { "zone": "dawnhaven", "count": 1 },
+          { "zone": "tidecrest", "count": 1 },
+          { "zone": "shadowfen", "count": 1 },
+          { "zone": "frostpeak_stronghold", "count": 1 },
+          { "zone": "prismatic_city", "count": 1 }
+        ]
+      },
+      {
+        "id": "flower",
+        "name": "Flower Patch",
+        "size": "1x1",
+        "produces": ["marigold", "rosemary", "nasturtium", "woad", "limpwurt"],
+        "protectsAllotments": true,
+        "locations": [
+          { "zone": "dawnhaven", "count": 1 },
+          { "zone": "tidecrest", "count": 1 }
+        ]
+      },
+      {
+        "id": "tree",
+        "name": "Tree Patch",
+        "size": "3x3",
+        "produces": ["goldleaf_tree", "whisperwood_tree", "ironwood_tree", "spiritbark_tree", "starwood_tree", "elderwood_tree"],
+        "locations": [
+          { "zone": "dawnhaven", "count": 1 },
+          { "zone": "ironhold", "count": 1 },
+          { "zone": "whiteguard", "count": 1 },
+          { "zone": "sylvan_haven", "count": 1 }
+        ]
+      },
+      {
+        "id": "fruit_tree",
+        "name": "Fruit Tree Patch",
+        "size": "3x3",
+        "produces": ["apple_tree", "banana_tree", "orange_tree", "curry_tree", "pineapple_tree", "papaya_tree", "palm_tree"],
+        "locations": [
+          { "zone": "sylvan_haven", "count": 1 },
+          { "zone": "tropicport", "count": 1 },
+          { "zone": "elvenhallow", "count": 1 }
+        ]
+      },
+      {
+        "id": "bush",
+        "name": "Bush Patch",
+        "size": "1x1",
+        "produces": ["redberry_bush", "cadavaberry_bush", "dwellberry_bush", "jangerberry_bush", "whiteberry_bush", "poison_ivy_bush"],
+        "locations": [
+          { "zone": "champion_guild", "count": 1 },
+          { "zone": "coastwatch", "count": 1 },
+          { "zone": "tempest_isle", "count": 1 }
+        ]
+      },
+      {
+        "id": "special",
+        "name": "Special Patch",
+        "size": "varies",
+        "produces": ["crystal_tree", "spirit_tree", "celastrus_tree", "redwood_tree"],
+        "locations": [
+          { "zone": "prismatic_city", "type": "crystal_tree", "count": 1 },
+          { "zone": "sylvan_haven", "type": "spirit_tree", "count": 1 },
+          { "zone": "farming_guild", "type": "celastrus", "count": 1 }
+        ]
+      }
+    ],
+    "growthMechanics": {
+      "cycleTime": 5,
+      "diseaseCheckPerCycle": true,
+      "compostEffects": {
+        "regular": { "diseaseReduction": 0.5, "yieldBonus": 1 },
+        "supercompost": { "diseaseReduction": 0.75, "yieldBonus": 2 },
+        "ultracompost": { "diseaseReduction": 0.9, "yieldBonus": 3 }
+      }
+    }
+  },
+  "subterfugeTargets": {
+    "description": "Targets for Subterfuge skill",
+    "npcs": [
+      { "id": "man", "name": "Man", "level": 1, "xp": 8, "stunDamage": 10, "loot": "coins_3" },
+      { "id": "woman", "name": "Woman", "level": 1, "xp": 8, "stunDamage": 10, "loot": "coins_3" },
+      { "id": "farmer", "name": "Farmer", "level": 10, "xp": 14.5, "stunDamage": 10, "loot": "seeds" },
+      { "id": "guard", "name": "Guard", "level": 15, "xp": 26.5, "stunDamage": 20, "loot": "coins_30" },
+      { "id": "knight", "name": "Knight", "level": 55, "xp": 84.3, "stunDamage": 30, "loot": "coins_50" },
+      { "id": "master_farmer", "name": "Master Farmer", "level": 38, "xp": 43, "stunDamage": 30, "loot": "herb_seeds" },
+      { "id": "vyre", "name": "Vyre", "level": 75, "xp": 306.9, "stunDamage": 50, "loot": "vyre_loot" },
+      { "id": "elf", "name": "Elf", "level": 85, "xp": 353.3, "stunDamage": 50, "loot": "elf_loot" }
+    ],
+    "stalls": [
+      { "id": "vegetable_stall", "name": "Vegetable Stall", "level": 2, "xp": 10, "respawn": 2, "loot": "vegetables" },
+      { "id": "cake_stall", "name": "Cake Stall", "level": 5, "xp": 16, "respawn": 3, "loot": "cakes" },
+      { "id": "silk_stall", "name": "Silk Stall", "level": 20, "xp": 24, "respawn": 5, "loot": "silk" },
+      { "id": "fur_stall", "name": "Fur Stall", "level": 35, "xp": 36, "respawn": 10, "loot": "furs" },
+      { "id": "gem_stall", "name": "Gem Stall", "level": 75, "xp": 160, "respawn": 120, "loot": "gems" }
+    ]
+  },
+  "glyphcraftSanctums": {
+    "description": "Glyph sanctums for Glyphcraft skill",
+    "sanctums": [
+      { "id": "breeze_sanctum", "glyph": "breeze_glyph", "level": 1, "xp": 5, "multiplierAt": [11, 22, 33, 44, 55, 66, 77, 88, 99] },
+      { "id": "thought_sanctum", "glyph": "thought_glyph", "level": 5, "xp": 5.5, "multiplierAt": [14, 28, 42, 56, 70, 84, 98] },
+      { "id": "tide_sanctum", "glyph": "tide_glyph", "level": 9, "xp": 6, "multiplierAt": [19, 38, 57, 76, 95] },
+      { "id": "terra_sanctum", "glyph": "terra_glyph", "level": 14, "xp": 6.5, "multiplierAt": [26, 52, 78] },
+      { "id": "ember_sanctum", "glyph": "ember_glyph", "level": 20, "xp": 7, "multiplierAt": [35, 70] },
+      { "id": "form_sanctum", "glyph": "form_glyph", "level": 25, "xp": 7.5, "multiplierAt": [46, 92] },
+      { "id": "astral_sanctum", "glyph": "astral_glyph", "level": 27, "xp": 8, "multiplierAt": [59] },
+      { "id": "havoc_sanctum", "glyph": "havoc_glyph", "level": 35, "xp": 8.5, "multiplierAt": [74] },
+      { "id": "growth_sanctum", "glyph": "growth_glyph", "level": 44, "xp": 9, "multiplierAt": [91] },
+      { "id": "order_sanctum", "glyph": "order_glyph", "level": 54, "xp": 9.5, "multiplierAt": [] },
+      { "id": "void_sanctum", "glyph": "void_glyph", "level": 65, "xp": 10, "multiplierAt": [] },
+      { "id": "crimson_sanctum", "glyph": "crimson_glyph", "level": 77, "xp": 23.8, "multiplierAt": [], "special": "crimson_essence" },
+      { "id": "spirit_sanctum", "glyph": "spirit_glyph", "level": 90, "xp": 29.7, "multiplierAt": [], "special": "spirit_obelisk" }
+    ],
+    "pouches": [
+      { "id": "small_pouch", "capacity": 3, "level": 1 },
+      { "id": "medium_pouch", "capacity": 6, "level": 25 },
+      { "id": "large_pouch", "capacity": 9, "level": 50 },
+      { "id": "giant_pouch", "capacity": 12, "level": 75 },
+      { "id": "massive_pouch", "capacity": 18, "level": 90 }
+    ]
+  }
+}

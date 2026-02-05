@@ -1,0 +1,1222 @@
+{
+  "documentInfo": {
+    "title": "Realm of Eternity - UE5 AI & Behavior Specification",
+    "version": "1.0.0",
+    "game": "Realm of Eternity",
+    "engine": "Unreal Engine 5",
+    "aiFramework": "Behavior Trees + EQS + StateTree",
+    "lastUpdated": "2026-01-07"
+  },
+
+  "aiArchitecture": {
+    "overview": "Comprehensive AI system using UE5 Behavior Trees, Environment Query System (EQS), and StateTree for complex NPC behaviors",
+
+    "coreComponents": {
+      "aiController": {
+        "base": "AAIController",
+        "customClass": "AROEAIController",
+        "features": [
+          "Behavior Tree execution",
+          "Blackboard management",
+          "Perception component",
+          "Navigation integration",
+          "Combat state management"
+        ]
+      },
+      "behaviorTree": {
+        "description": "Decision-making structure for AI agents",
+        "namingConvention": "BT_{AgentType}_{Behavior}"
+      },
+      "blackboard": {
+        "description": "Shared memory for AI decision data",
+        "namingConvention": "BB_{AgentType}"
+      },
+      "eqs": {
+        "description": "Environmental queries for spatial reasoning",
+        "namingConvention": "EQS_{Purpose}_{Context}"
+      },
+      "stateTree": {
+        "description": "High-level state management for complex NPCs",
+        "namingConvention": "ST_{NPCType}"
+      }
+    },
+
+    "namingConventions": {
+      "aiControllers": "AIC_{AgentType}",
+      "behaviorTrees": "BT_{AgentType}_{Behavior}",
+      "blackboards": "BB_{AgentType}",
+      "eqsQueries": "EQS_{Purpose}",
+      "btTasks": "BTT_{Action}",
+      "btServices": "BTS_{Service}",
+      "btDecorators": "BTD_{Condition}",
+      "examples": [
+        "AIC_Enemy_Melee",
+        "BT_Enemy_Combat",
+        "BB_Enemy_Base",
+        "EQS_FindCover",
+        "BTT_AttackTarget",
+        "BTS_UpdateTargetDistance",
+        "BTD_HasLineOfSight"
+      ]
+    }
+  },
+
+  "perceptionSystem": {
+    "overview": "AI sensory system for detecting players, threats, and points of interest",
+
+    "senses": {
+      "sight": {
+        "enabled": true,
+        "sightRadius": 2000,
+        "loseSightRadius": 2500,
+        "peripheralVisionAngle": 60,
+        "autoSuccessRange": 200,
+        "affectedByDarkness": true,
+        "darknessMultiplier": 0.5
+      },
+      "hearing": {
+        "enabled": true,
+        "hearingRange": 1500,
+        "loudnessThreshold": 0.1,
+        "soundTypes": {
+          "footstep_walk": { "loudness": 0.3, "range": 500 },
+          "footstep_run": { "loudness": 0.6, "range": 1000 },
+          "footstep_sprint": { "loudness": 0.9, "range": 1500 },
+          "combat": { "loudness": 1.0, "range": 2000 },
+          "skill_action": { "loudness": 0.5, "range": 800 },
+          "voice": { "loudness": 0.7, "range": 1200 }
+        }
+      },
+      "damage": {
+        "enabled": true,
+        "instantDetection": true,
+        "alertNearby": true,
+        "alertRadius": 1000
+      }
+    },
+
+    "detectionStates": {
+      "unaware": {
+        "description": "No knowledge of threats",
+        "behavior": "idle_or_patrol",
+        "transitionTo": ["suspicious", "alert"]
+      },
+      "suspicious": {
+        "description": "Something caught attention",
+        "investigationTime": 10,
+        "behavior": "investigate",
+        "transitionTo": ["unaware", "alert"]
+      },
+      "alert": {
+        "description": "Confirmed threat detected",
+        "behavior": "engage_or_flee",
+        "persistDuration": 30,
+        "transitionTo": ["searching", "combat"]
+      },
+      "searching": {
+        "description": "Lost sight of threat, actively looking",
+        "searchDuration": 20,
+        "behavior": "search_pattern",
+        "transitionTo": ["unaware", "alert"]
+      },
+      "combat": {
+        "description": "Actively engaged in combat",
+        "behavior": "combat_behavior",
+        "transitionTo": ["searching", "fleeing", "dead"]
+      },
+      "fleeing": {
+        "description": "Running from threat",
+        "behavior": "flee_behavior",
+        "transitionTo": ["unaware", "dead"]
+      }
+    },
+
+    "stealthInteraction": {
+      "subterfugeSkillEffect": {
+        "description": "Player's Subterfuge skill reduces detection",
+        "detectionModifier": "1.0 - (subterfugeLevel * 0.005)",
+        "minimumDetection": 0.3,
+        "stealthModeBonus": 0.5
+      },
+      "environmentFactors": {
+        "shadow": { "detectionMultiplier": 0.6 },
+        "foliage": { "detectionMultiplier": 0.7 },
+        "crowd": { "detectionMultiplier": 0.5 },
+        "elevated": { "detectionMultiplier": 0.8 }
+      }
+    }
+  },
+
+  "blackboardKeys": {
+    "common": {
+      "selfActor": { "type": "Object", "description": "Reference to self" },
+      "homeLocation": { "type": "Vector", "description": "Spawn/home position" },
+      "targetActor": { "type": "Object", "description": "Current target" },
+      "targetLocation": { "type": "Vector", "description": "Last known target position" },
+      "targetDistance": { "type": "Float", "description": "Distance to target" },
+      "hasLineOfSight": { "type": "Bool", "description": "Can see target" },
+      "currentState": { "type": "Enum", "description": "AI state enum" },
+      "healthPercent": { "type": "Float", "description": "Current health percentage" },
+      "isInCombat": { "type": "Bool", "description": "Currently in combat" },
+      "lastDamageTime": { "type": "Float", "description": "Time since last damage taken" },
+      "combatStyle": { "type": "Enum", "description": "Preferred combat approach" }
+    },
+
+    "enemy": {
+      "aggroList": { "type": "Array", "description": "List of hostile targets" },
+      "primaryThreat": { "type": "Object", "description": "Highest threat target" },
+      "threatLevel": { "type": "Float", "description": "Current threat amount" },
+      "patrolPath": { "type": "Object", "description": "Patrol spline reference" },
+      "patrolIndex": { "type": "Int", "description": "Current patrol point" },
+      "leashDistance": { "type": "Float", "description": "Max chase distance" },
+      "canCallForHelp": { "type": "Bool", "description": "Can alert allies" },
+      "specialAbilityCooldown": { "type": "Float", "description": "Time until ability ready" },
+      "fleeHealthThreshold": { "type": "Float", "description": "Health % to trigger flee" }
+    },
+
+    "npc": {
+      "currentScheduleState": { "type": "Enum", "description": "Current schedule activity" },
+      "workLocation": { "type": "Vector", "description": "Work position" },
+      "homeBuilding": { "type": "Object", "description": "Home building reference" },
+      "conversationPartner": { "type": "Object", "description": "Current conversation NPC" },
+      "isInteractable": { "type": "Bool", "description": "Can player interact" },
+      "currentDialogueState": { "type": "String", "description": "Dialogue tree position" }
+    },
+
+    "familiar": {
+      "ownerActor": { "type": "Object", "description": "Bonded player" },
+      "followDistance": { "type": "Float", "description": "Distance to maintain" },
+      "combatMode": { "type": "Enum", "description": "Attack/Passive/Defensive" },
+      "specialAbilityReady": { "type": "Bool", "description": "Can use special" },
+      "inventoryFull": { "type": "Bool", "description": "Beast of burden full" }
+    }
+  },
+
+  "enemyAI": {
+    "overview": "Combat AI for hostile creatures and NPCs",
+
+    "archetypes": {
+      "melee_basic": {
+        "name": "Basic Melee",
+        "behaviorTree": "BT_Enemy_MeleeBasic",
+        "description": "Simple melee attacker, charges and swings",
+        "preferredRange": 150,
+        "abilities": ["basic_attack"],
+        "tactics": {
+          "approach": "direct_charge",
+          "combat": "attack_until_dead",
+          "lowHealth": "continue_fighting"
+        },
+        "examples": ["goblin", "skeleton_warrior", "bandit"]
+      },
+
+      "melee_defensive": {
+        "name": "Defensive Melee",
+        "behaviorTree": "BT_Enemy_MeleeDefensive",
+        "description": "Uses shield, blocks attacks, counter-attacks",
+        "preferredRange": 150,
+        "abilities": ["basic_attack", "shield_block", "counter_attack"],
+        "tactics": {
+          "approach": "cautious_advance",
+          "combat": "block_then_strike",
+          "lowHealth": "turtle_defense"
+        },
+        "examples": ["guard", "knight", "armored_skeleton"]
+      },
+
+      "melee_aggressive": {
+        "name": "Aggressive Melee",
+        "behaviorTree": "BT_Enemy_MeleeAggressive",
+        "description": "Fast, relentless attacker with combos",
+        "preferredRange": 100,
+        "abilities": ["basic_attack", "lunge", "combo_attack", "berserk"],
+        "tactics": {
+          "approach": "sprint_charge",
+          "combat": "combo_chains",
+          "lowHealth": "berserk_frenzy"
+        },
+        "examples": ["berserker", "wolf", "demon_imp"]
+      },
+
+      "ranged_stationary": {
+        "name": "Stationary Ranged",
+        "behaviorTree": "BT_Enemy_RangedStationary",
+        "description": "Stays in place, attacks from range",
+        "preferredRange": 1500,
+        "abilities": ["ranged_attack"],
+        "tactics": {
+          "approach": "hold_position",
+          "combat": "continuous_fire",
+          "lowHealth": "desperate_shots",
+          "ifApproached": "melee_backup"
+        },
+        "examples": ["tower_archer", "turret", "stationary_mage"]
+      },
+
+      "ranged_mobile": {
+        "name": "Mobile Ranged",
+        "behaviorTree": "BT_Enemy_RangedMobile",
+        "description": "Maintains distance, kites melee attackers",
+        "preferredRange": 1200,
+        "minRange": 500,
+        "abilities": ["ranged_attack", "retreat_shot", "trap_placement"],
+        "tactics": {
+          "approach": "maintain_distance",
+          "combat": "kite_and_shoot",
+          "lowHealth": "flee_while_shooting",
+          "ifCornered": "melee_backup"
+        },
+        "examples": ["archer", "hunter", "dark_ranger"]
+      },
+
+      "mage_offensive": {
+        "name": "Offensive Mage",
+        "behaviorTree": "BT_Enemy_MageOffensive",
+        "description": "Casts damaging spells, glass cannon",
+        "preferredRange": 1500,
+        "abilities": ["spell_projectile", "spell_aoe", "spell_channel"],
+        "tactics": {
+          "approach": "maintain_distance",
+          "combat": "spell_rotation",
+          "lowHealth": "desperate_channel",
+          "manageMana": true
+        },
+        "examples": ["dark_mage", "fire_elemental", "necromancer"]
+      },
+
+      "mage_support": {
+        "name": "Support Mage",
+        "behaviorTree": "BT_Enemy_MageSupport",
+        "description": "Buffs allies, heals, debuffs enemies",
+        "preferredRange": 1000,
+        "abilities": ["heal_ally", "buff_ally", "debuff_enemy", "spell_projectile"],
+        "tactics": {
+          "approach": "stay_behind_allies",
+          "combat": "prioritize_healing",
+          "lowHealth": "self_heal_or_flee",
+          "targetPriority": "lowest_health_ally"
+        },
+        "examples": ["shaman", "priest", "druid"]
+      },
+
+      "assassin": {
+        "name": "Assassin",
+        "behaviorTree": "BT_Enemy_Assassin",
+        "description": "Stealthy, high burst damage, hit-and-run",
+        "preferredRange": 0,
+        "abilities": ["stealth", "backstab", "smoke_bomb", "escape"],
+        "tactics": {
+          "approach": "stealth_flank",
+          "combat": "burst_then_disengage",
+          "lowHealth": "smoke_and_flee",
+          "targetPriority": "lowest_armor"
+        },
+        "examples": ["shadow_assassin", "rogue", "phantom"]
+      },
+
+      "tank": {
+        "name": "Tank",
+        "behaviorTree": "BT_Enemy_Tank",
+        "description": "High health, protects allies, taunts",
+        "preferredRange": 150,
+        "abilities": ["basic_attack", "taunt", "shield_wall", "charge"],
+        "tactics": {
+          "approach": "lead_charge",
+          "combat": "protect_allies",
+          "lowHealth": "last_stand",
+          "positioning": "between_allies_and_threat"
+        },
+        "examples": ["ogre", "iron_golem", "champion"]
+      },
+
+      "swarm": {
+        "name": "Swarm",
+        "behaviorTree": "BT_Enemy_Swarm",
+        "description": "Weak individually, dangerous in groups",
+        "preferredRange": 100,
+        "abilities": ["basic_attack", "swarm_bonus"],
+        "tactics": {
+          "approach": "group_rush",
+          "combat": "surround_target",
+          "lowHealth": "scatter",
+          "groupBehavior": true
+        },
+        "examples": ["rat", "spider", "scarab", "bogling"]
+      },
+
+      "beast_predator": {
+        "name": "Predator Beast",
+        "behaviorTree": "BT_Enemy_BeastPredator",
+        "description": "Animal AI with hunting instincts",
+        "preferredRange": 100,
+        "abilities": ["bite", "claw", "pounce", "howl"],
+        "tactics": {
+          "approach": "stalk_then_pounce",
+          "combat": "savage_attacks",
+          "lowHealth": "fight_or_flight",
+          "packBehavior": true
+        },
+        "examples": ["wolf", "lion", "bear", "wyvern"]
+      }
+    },
+
+    "threatSystem": {
+      "description": "Determines which target the enemy prioritizes",
+      "baseThreat": 100,
+      "threatModifiers": {
+        "damageDealt": { "multiplier": 1.0, "description": "1 threat per damage" },
+        "healing": { "multiplier": 0.5, "description": "0.5 threat per heal" },
+        "taunt": { "flat": 5000, "duration": 5 },
+        "proximity": { "multiplier": 1.2, "range": 300 },
+        "lowHealth": { "multiplier": 0.8, "description": "Reduced when target low" }
+      },
+      "threatDecay": {
+        "rate": 10,
+        "interval": 1,
+        "outOfCombatReset": 30
+      },
+      "targetSwitching": {
+        "threshold": 1.3,
+        "description": "Switch if new target has 30% more threat"
+      }
+    },
+
+    "leashSystem": {
+      "description": "Prevents enemies from chasing too far from spawn",
+      "defaultLeashDistance": 3000,
+      "leashBehavior": {
+        "softLeash": {
+          "distance": 2500,
+          "effect": "reduced_chase_speed",
+          "speedMultiplier": 0.7
+        },
+        "hardLeash": {
+          "distance": 3000,
+          "effect": "return_to_spawn",
+          "resetAggro": true,
+          "healOnReturn": true
+        }
+      },
+      "leashExceptions": {
+        "boss": { "leashDistance": 5000 },
+        "world_boss": { "leashDistance": 10000 },
+        "guard": { "leashDistance": 1500 },
+        "patrol": { "leashToPath": true, "pathDeviation": 500 }
+      }
+    },
+
+    "combatBehaviors": {
+      "circleStrafe": {
+        "description": "Move in circle around target",
+        "useCase": "melee_vs_melee",
+        "parameters": {
+          "radius": 200,
+          "speed": 0.7,
+          "directionChangeInterval": 3
+        }
+      },
+      "kiting": {
+        "description": "Maintain distance while attacking",
+        "useCase": "ranged_vs_melee",
+        "parameters": {
+          "minDistance": 800,
+          "maxDistance": 1500,
+          "retreatSpeed": 0.9
+        }
+      },
+      "flanking": {
+        "description": "Move to target's side or rear",
+        "useCase": "group_combat",
+        "parameters": {
+          "preferredAngle": 120,
+          "coordinateWithAllies": true
+        }
+      },
+      "coverUsage": {
+        "description": "Use environment for protection",
+        "useCase": "ranged_combat",
+        "eqsQuery": "EQS_FindCover",
+        "parameters": {
+          "maxCoverDistance": 500,
+          "peekAndShoot": true
+        }
+      },
+      "groupFormation": {
+        "description": "Maintain formation with allies",
+        "useCase": "organized_enemies",
+        "formations": ["line", "wedge", "circle", "scatter"]
+      }
+    },
+
+    "specialMechanics": {
+      "callForHelp": {
+        "radius": 1500,
+        "cooldown": 10,
+        "maxResponders": 3,
+        "requirements": ["hasAlliesNearby", "healthBelow50"]
+      },
+      "flee": {
+        "healthThreshold": 0.15,
+        "fleeDistance": 2000,
+        "fleeDuration": 10,
+        "enemyTypes": ["cowardly", "beast_prey"]
+      },
+      "enrage": {
+        "healthThreshold": 0.25,
+        "effects": {
+          "damageMultiplier": 1.5,
+          "speedMultiplier": 1.3,
+          "defenseMultiplier": 0.8
+        },
+        "duration": "until_death"
+      },
+      "phaseTransition": {
+        "description": "Boss phase changes",
+        "triggers": ["health_threshold", "time_elapsed", "adds_killed"],
+        "effects": ["new_abilities", "stat_changes", "arena_changes"]
+      }
+    }
+  },
+
+  "bossAI": {
+    "overview": "Complex AI for boss encounters with phases, mechanics, and special abilities",
+
+    "bossFramework": {
+      "baseClass": "BP_Boss_Base",
+      "components": [
+        "BossHealthComponent",
+        "PhaseManagerComponent",
+        "MechanicSchedulerComponent",
+        "AddSpawnerComponent",
+        "ArenaControllerComponent"
+      ]
+    },
+
+    "phaseSystem": {
+      "description": "Bosses transition through phases based on health or time",
+      "phaseTransition": {
+        "animation": "phase_transition_anim",
+        "invulnerableDuration": 3,
+        "healAmount": 0,
+        "clearDebuffs": true,
+        "announcePhase": true
+      }
+    },
+
+    "bossExamples": {
+      "scorath_the_eternal": {
+        "name": "Scorath the Eternal",
+        "type": "dragon",
+        "location": "Cinderpeak Volcano",
+        "phases": [
+          {
+            "phase": 1,
+            "healthRange": [1.0, 0.7],
+            "abilities": [
+              { "id": "fire_breath", "cooldown": 15, "damage": "high", "type": "cone_aoe" },
+              { "id": "tail_swipe", "cooldown": 8, "damage": "medium", "type": "rear_aoe" },
+              { "id": "claw_attack", "cooldown": 3, "damage": "medium", "type": "melee" }
+            ],
+            "behavior": "ground_combat",
+            "mechanics": []
+          },
+          {
+            "phase": 2,
+            "healthRange": [0.7, 0.3],
+            "transition": {
+              "dialogue": "You dare challenge the Eternal?!",
+              "animation": "take_flight"
+            },
+            "abilities": [
+              { "id": "fire_breath", "cooldown": 12, "damage": "high", "type": "cone_aoe" },
+              { "id": "meteor_strike", "cooldown": 20, "damage": "very_high", "type": "targeted_aoe" },
+              { "id": "wing_buffet", "cooldown": 10, "damage": "low", "type": "knockback" },
+              { "id": "summon_dragonkin", "cooldown": 45, "count": 3 }
+            ],
+            "behavior": "aerial_combat",
+            "mechanics": [
+              { "id": "lava_pools", "spawnRate": 15, "duration": 30 },
+              { "id": "falling_rocks", "interval": 8 }
+            ]
+          },
+          {
+            "phase": 3,
+            "healthRange": [0.3, 0.0],
+            "transition": {
+              "dialogue": "Burn in eternal flame!",
+              "animation": "enrage_roar",
+              "arenaChange": "lava_rising"
+            },
+            "abilities": [
+              { "id": "inferno_breath", "cooldown": 10, "damage": "extreme", "type": "wide_cone" },
+              { "id": "apocalypse", "cooldown": 60, "damage": "raid_wipe", "type": "full_arena", "interruptable": true },
+              { "id": "meteor_barrage", "cooldown": 25, "damage": "high", "type": "multi_targeted" }
+            ],
+            "behavior": "berserk",
+            "mechanics": [
+              { "id": "shrinking_arena", "rate": "slow" },
+              { "id": "constant_fire_damage", "tickRate": 2 }
+            ],
+            "enrage": {
+              "timer": 180,
+              "effect": "instant_kill_aura"
+            }
+          }
+        ]
+      },
+
+      "voidfiend_lord": {
+        "name": "Voidfiend Lord",
+        "type": "demon",
+        "location": "Abyssal Rift",
+        "phases": [
+          {
+            "phase": 1,
+            "healthRange": [1.0, 0.5],
+            "abilities": [
+              { "id": "shadow_bolt", "cooldown": 4, "damage": "medium", "type": "projectile" },
+              { "id": "void_zone", "cooldown": 20, "damage": "dot", "type": "ground_aoe" },
+              { "id": "soul_drain", "cooldown": 15, "damage": "medium", "type": "channel", "heal": true }
+            ],
+            "behavior": "caster",
+            "mechanics": [
+              { "id": "corruption_stacks", "application": "on_hit", "maxStacks": 10 }
+            ]
+          },
+          {
+            "phase": 2,
+            "healthRange": [0.5, 0.0],
+            "transition": {
+              "dialogue": "The void consumes all!",
+              "animation": "void_transformation"
+            },
+            "abilities": [
+              { "id": "void_eruption", "cooldown": 30, "damage": "very_high", "type": "room_wide" },
+              { "id": "summon_voidlings", "cooldown": 25, "count": 5 },
+              { "id": "dimensional_rift", "cooldown": 40, "type": "teleport_random" },
+              { "id": "mind_shatter", "cooldown": 20, "type": "fear", "duration": 5 }
+            ],
+            "behavior": "chaotic",
+            "mechanics": [
+              { "id": "void_portals", "spawnRate": 30, "spawnAdds": true },
+              { "id": "sanity_meter", "depletionRate": 1, "effectWhenEmpty": "mind_control" }
+            ]
+          }
+        ]
+      },
+
+      "frost_queen_crystallia": {
+        "name": "Frost Queen Crystallia",
+        "type": "elemental_humanoid",
+        "location": "Frozen Throne",
+        "phases": [
+          {
+            "phase": 1,
+            "healthRange": [1.0, 0.6],
+            "abilities": [
+              { "id": "ice_lance", "cooldown": 5, "damage": "medium", "type": "projectile" },
+              { "id": "frozen_ground", "cooldown": 18, "type": "slow_zone" },
+              { "id": "ice_barrier", "cooldown": 30, "type": "shield", "absorb": "20%" }
+            ],
+            "behavior": "defensive_caster"
+          },
+          {
+            "phase": 2,
+            "healthRange": [0.6, 0.3],
+            "abilities": [
+              { "id": "blizzard", "cooldown": 25, "damage": "high", "type": "room_aoe" },
+              { "id": "summon_ice_elementals", "cooldown": 40, "count": 2 },
+              { "id": "flash_freeze", "cooldown": 35, "type": "stun", "duration": 4 }
+            ],
+            "mechanics": [
+              { "id": "icicle_fall", "interval": 10, "warning": 2 }
+            ]
+          },
+          {
+            "phase": 3,
+            "healthRange": [0.3, 0.0],
+            "abilities": [
+              { "id": "absolute_zero", "cooldown": 45, "type": "instant_kill_if_moving" },
+              { "id": "ice_tomb", "cooldown": 30, "type": "cc", "breakable": true },
+              { "id": "glacial_wrath", "cooldown": 20, "damage": "extreme", "type": "frontal_cone" }
+            ],
+            "mechanics": [
+              { "id": "hypothermia", "stackRate": 5, "effectAt10": "frozen_solid" },
+              { "id": "warmth_braziers", "removes": "hypothermia" }
+            ]
+          }
+        ]
+      }
+    },
+
+    "mechanicTypes": {
+      "avoidance": {
+        "description": "Players must move to avoid damage",
+        "examples": ["ground_aoe", "frontal_cone", "meteor_strike"],
+        "telegraphTime": { "min": 1.5, "max": 3.0 },
+        "visualIndicator": "red_circle_or_cone"
+      },
+      "stack": {
+        "description": "Players must group together",
+        "examples": ["shared_damage", "heal_split"],
+        "visualIndicator": "yellow_circle"
+      },
+      "spread": {
+        "description": "Players must separate",
+        "examples": ["chain_lightning", "explosion_spread"],
+        "minimumDistance": 500,
+        "visualIndicator": "blue_circle"
+      },
+      "interrupt": {
+        "description": "Must interrupt cast or wipe",
+        "examples": ["raid_wipe_cast", "mass_heal"],
+        "visualIndicator": "cast_bar_special"
+      },
+      "adds": {
+        "description": "Additional enemies spawn",
+        "examples": ["summon_minions", "split_boss"],
+        "priority": "kill_before_boss"
+      },
+      "positioning": {
+        "description": "Players must be in specific positions",
+        "examples": ["tank_swap", "move_to_marker"],
+        "visualIndicator": "waypoint_markers"
+      }
+    }
+  },
+
+  "npcAI": {
+    "overview": "Non-hostile NPC behavior including schedules, interactions, and daily routines",
+
+    "scheduleSystem": {
+      "description": "NPCs follow daily routines based on time of day",
+      "timeSlots": {
+        "earlyMorning": { "start": 5, "end": 7 },
+        "morning": { "start": 7, "end": 12 },
+        "afternoon": { "start": 12, "end": 17 },
+        "evening": { "start": 17, "end": 21 },
+        "night": { "start": 21, "end": 5 }
+      },
+
+      "scheduleTemplates": {
+        "merchant": {
+          "earlyMorning": { "activity": "wake_up", "location": "home" },
+          "morning": { "activity": "open_shop", "location": "shop", "interactable": true },
+          "afternoon": { "activity": "tend_shop", "location": "shop", "interactable": true },
+          "evening": { "activity": "close_shop", "location": "shop", "interactable": true },
+          "night": { "activity": "sleep", "location": "home", "interactable": false }
+        },
+        "guard": {
+          "dayShift": {
+            "morning": { "activity": "patrol", "location": "patrol_route_day" },
+            "afternoon": { "activity": "patrol", "location": "patrol_route_day" },
+            "evening": { "activity": "rest", "location": "barracks" }
+          },
+          "nightShift": {
+            "evening": { "activity": "patrol", "location": "patrol_route_night" },
+            "night": { "activity": "patrol", "location": "patrol_route_night" },
+            "morning": { "activity": "rest", "location": "barracks" }
+          }
+        },
+        "farmer": {
+          "earlyMorning": { "activity": "wake_up", "location": "farmhouse" },
+          "morning": { "activity": "tend_crops", "location": "farm_field" },
+          "afternoon": { "activity": "tend_animals", "location": "barn" },
+          "evening": { "activity": "rest", "location": "tavern" },
+          "night": { "activity": "sleep", "location": "farmhouse" }
+        },
+        "innkeeper": {
+          "morning": { "activity": "clean_inn", "location": "inn" },
+          "afternoon": { "activity": "prep_food", "location": "inn_kitchen" },
+          "evening": { "activity": "serve_guests", "location": "inn_bar", "interactable": true },
+          "night": { "activity": "serve_guests", "location": "inn_bar", "interactable": true },
+          "earlyMorning": { "activity": "sleep", "location": "inn_quarters" }
+        },
+        "priest": {
+          "earlyMorning": { "activity": "morning_prayer", "location": "temple_altar" },
+          "morning": { "activity": "counsel_visitors", "location": "temple", "interactable": true },
+          "afternoon": { "activity": "study", "location": "temple_library" },
+          "evening": { "activity": "evening_service", "location": "temple", "interactable": true },
+          "night": { "activity": "meditation", "location": "temple_quarters" }
+        }
+      }
+    },
+
+    "activities": {
+      "idle": {
+        "description": "Standing in place with idle animations",
+        "animations": ["idle_look_around", "idle_stretch", "idle_scratch"],
+        "duration": { "min": 5, "max": 15 }
+      },
+      "sit": {
+        "description": "Sitting at designated spots",
+        "findSeat": "EQS_FindNearestSeat",
+        "animations": ["sit_idle", "sit_drink", "sit_eat"]
+      },
+      "walk": {
+        "description": "Walking to destination",
+        "speed": 150,
+        "animations": ["walk_casual"]
+      },
+      "work": {
+        "description": "Performing work actions",
+        "animations": {
+          "blacksmith": ["hammer_anvil", "pump_bellows"],
+          "farmer": ["hoe_ground", "water_plants"],
+          "cook": ["stir_pot", "chop_vegetables"],
+          "merchant": ["arrange_goods", "count_coins"]
+        }
+      },
+      "patrol": {
+        "description": "Following patrol route",
+        "speed": 200,
+        "stopAtPoints": true,
+        "lookAroundDuration": 3
+      },
+      "conversation": {
+        "description": "Talking with another NPC",
+        "findPartner": "EQS_FindConversationPartner",
+        "duration": { "min": 30, "max": 120 },
+        "animations": ["talk_gesture", "talk_listen", "talk_laugh"]
+      },
+      "eat": {
+        "description": "Eating at table or bench",
+        "duration": { "min": 60, "max": 180 },
+        "animations": ["eat_sitting", "drink_sitting"]
+      },
+      "sleep": {
+        "description": "Sleeping in bed",
+        "animations": ["lie_down", "sleep_loop", "wake_up"],
+        "notInteractable": true
+      }
+    },
+
+    "interactionBehavior": {
+      "playerApproach": {
+        "detectionRadius": 300,
+        "turnToFace": true,
+        "greetingChance": 0.3,
+        "greetingCooldown": 60
+      },
+      "playerInteract": {
+        "stopCurrentActivity": true,
+        "facePlayer": true,
+        "playGreetingVO": true,
+        "openDialogue": true
+      },
+      "playerLeave": {
+        "farewellChance": 0.5,
+        "resumeActivityDelay": 2
+      }
+    },
+
+    "reactionBehavior": {
+      "combatNearby": {
+        "civilianResponse": "flee_to_safety",
+        "guardResponse": "engage_threat",
+        "fleeDistance": 1500,
+        "safeLocations": ["buildings", "guard_posts"]
+      },
+      "weatherChange": {
+        "rainResponse": "seek_shelter",
+        "shelterLocations": ["buildings", "covered_areas"]
+      },
+      "crimeWitnessed": {
+        "guardResponse": "engage_criminal",
+        "civilianResponse": "alert_guards",
+        "alertRadius": 500
+      }
+    }
+  },
+
+  "familiarAI": {
+    "overview": "AI for Bonding skill familiars (summoned companions)",
+
+    "behaviorModes": {
+      "follow": {
+        "description": "Default mode, follows owner",
+        "followDistance": 300,
+        "maxDistance": 1000,
+        "teleportThreshold": 2000,
+        "avoidCombat": false
+      },
+      "passive": {
+        "description": "Will not engage in combat",
+        "followDistance": 400,
+        "avoidCombat": true,
+        "fleeOnDamage": true
+      },
+      "defensive": {
+        "description": "Only attacks if owner is attacked",
+        "followDistance": 250,
+        "defendOwner": true,
+        "defendRadius": 500
+      },
+      "aggressive": {
+        "description": "Attacks any hostile in range",
+        "followDistance": 200,
+        "attackRange": 800,
+        "prioritizeOwnerTarget": true
+      }
+    },
+
+    "familiarTypes": {
+      "combat": {
+        "examples": ["spirit_wolf", "fire_imp", "shadow_panther"],
+        "primaryRole": "damage_support",
+        "abilities": ["basic_attack", "special_attack"],
+        "preferredMode": "aggressive"
+      },
+      "tank": {
+        "examples": ["war_tortoise", "iron_minotaur", "stone_golem"],
+        "primaryRole": "damage_soak",
+        "abilities": ["taunt", "shield_bash", "fortify"],
+        "preferredMode": "defensive"
+      },
+      "healer": {
+        "examples": ["unicorn", "healing_sprite", "phoenix_chick"],
+        "primaryRole": "heal_owner",
+        "abilities": ["heal_owner", "cleanse", "regeneration_aura"],
+        "preferredMode": "follow"
+      },
+      "utility": {
+        "examples": ["pack_yak", "spirit_terrorbird", "war_tortoise"],
+        "primaryRole": "inventory_expansion",
+        "inventorySlots": { "pack_yak": 30, "spirit_terrorbird": 12, "war_tortoise": 18 },
+        "preferredMode": "follow"
+      },
+      "forager": {
+        "examples": ["fruit_bat", "scavenging_rodent", "herb_sprite"],
+        "primaryRole": "resource_gathering",
+        "abilities": ["auto_pickup", "find_resources"],
+        "preferredMode": "follow"
+      }
+    },
+
+    "specialBehaviors": {
+      "autoPickup": {
+        "description": "Automatically picks up loot",
+        "range": 500,
+        "filterByRarity": true,
+        "minimumRarity": "uncommon"
+      },
+      "combatAssist": {
+        "description": "Uses abilities in combat",
+        "abilityUsage": "when_off_cooldown",
+        "targetSelection": "owner_target"
+      },
+      "outOfCombatHeal": {
+        "description": "Heals owner when out of combat",
+        "healThreshold": 0.8,
+        "cooldown": 30
+      },
+      "warningAlert": {
+        "description": "Alerts owner to nearby enemies",
+        "detectionRadius": 1500,
+        "alertAnimation": "familiar_alert"
+      }
+    }
+  },
+
+  "navigationSystem": {
+    "overview": "Pathfinding and navigation configuration",
+
+    "navMesh": {
+      "agentRadius": 42,
+      "agentHeight": 180,
+      "agentMaxSlope": 45,
+      "agentMaxStepHeight": 50,
+      "cellSize": 10,
+      "cellHeight": 5,
+      "tileSize": 128
+    },
+
+    "navAgentProfiles": {
+      "humanoid": {
+        "radius": 42,
+        "height": 180,
+        "maxSlope": 45,
+        "stepHeight": 50
+      },
+      "large_creature": {
+        "radius": 100,
+        "height": 300,
+        "maxSlope": 35,
+        "stepHeight": 75
+      },
+      "small_creature": {
+        "radius": 20,
+        "height": 60,
+        "maxSlope": 60,
+        "stepHeight": 30
+      },
+      "flying": {
+        "radius": 50,
+        "height": 100,
+        "maxSlope": 90,
+        "flying": true
+      },
+      "swimming": {
+        "radius": 42,
+        "height": 180,
+        "waterNavigation": true
+      }
+    },
+
+    "navAreas": {
+      "default": { "cost": 1.0 },
+      "road": { "cost": 0.5, "preferred": true },
+      "rough_terrain": { "cost": 2.0 },
+      "water_shallow": { "cost": 1.5 },
+      "water_deep": { "cost": 10.0, "requiresSwimming": true },
+      "restricted": { "cost": 100.0, "description": "Areas NPCs avoid" },
+      "player_only": { "cost": "infinite", "description": "NPCs cannot traverse" }
+    },
+
+    "dynamicObstacles": {
+      "enabled": true,
+      "updateFrequency": 0.5,
+      "obstacleTypes": ["doors", "gates", "moving_platforms", "destructibles"]
+    },
+
+    "crowdAvoidance": {
+      "enabled": true,
+      "avoidanceGroup": "same_faction",
+      "separationRadius": 50,
+      "maxNeighbors": 8
+    }
+  },
+
+  "eqsQueries": {
+    "overview": "Environment Query System queries for spatial decision making",
+
+    "queries": {
+      "EQS_FindCover": {
+        "description": "Find cover positions from target",
+        "generator": "grid_around_querier",
+        "parameters": {
+          "gridSize": 1000,
+          "spacing": 100
+        },
+        "tests": [
+          { "test": "trace_to_target", "filter": "blocked", "weight": 1.0 },
+          { "test": "distance_to_target", "prefer": "range_800_1200", "weight": 0.5 },
+          { "test": "pathfinding", "filter": "reachable", "weight": 1.0 }
+        ]
+      },
+
+      "EQS_FindFlankPosition": {
+        "description": "Find position to flank target",
+        "generator": "circle_around_target",
+        "parameters": {
+          "radius": 300,
+          "arcAngle": 180,
+          "arcDirection": "behind_target"
+        },
+        "tests": [
+          { "test": "distance_to_allies", "prefer": "far", "weight": 0.3 },
+          { "test": "line_of_sight", "filter": "has_los", "weight": 0.5 },
+          { "test": "pathfinding", "filter": "reachable", "weight": 1.0 }
+        ]
+      },
+
+      "EQS_FindRetreatPosition": {
+        "description": "Find safe position away from threat",
+        "generator": "grid_around_querier",
+        "parameters": {
+          "gridSize": 2000,
+          "spacing": 200
+        },
+        "tests": [
+          { "test": "distance_to_target", "prefer": "far", "weight": 1.0 },
+          { "test": "trace_to_target", "prefer": "blocked", "weight": 0.5 },
+          { "test": "pathfinding", "filter": "reachable", "weight": 1.0 },
+          { "test": "distance_to_home", "prefer": "close", "weight": 0.3 }
+        ]
+      },
+
+      "EQS_FindPatrolPoint": {
+        "description": "Find next patrol position",
+        "generator": "points_on_spline",
+        "parameters": {
+          "spline": "patrol_path",
+          "spacing": 500
+        },
+        "tests": [
+          { "test": "distance_to_current", "prefer": "next_point", "weight": 1.0 },
+          { "test": "visibility", "prefer": "good_sightlines", "weight": 0.5 }
+        ]
+      },
+
+      "EQS_FindSafeSpot": {
+        "description": "Find safe location for civilian NPCs",
+        "generator": "grid_around_querier",
+        "parameters": {
+          "gridSize": 1500,
+          "spacing": 150
+        },
+        "tests": [
+          { "test": "distance_to_threat", "prefer": "far", "weight": 1.0 },
+          { "test": "near_building", "prefer": "close", "weight": 0.7 },
+          { "test": "pathfinding", "filter": "reachable", "weight": 1.0 }
+        ]
+      },
+
+      "EQS_FindGroupPosition": {
+        "description": "Find position maintaining group formation",
+        "generator": "formation_points",
+        "parameters": {
+          "formationType": "wedge",
+          "spacing": 150,
+          "leader": "squad_leader"
+        },
+        "tests": [
+          { "test": "assigned_slot", "weight": 1.0 },
+          { "test": "pathfinding", "filter": "reachable", "weight": 1.0 }
+        ]
+      },
+
+      "EQS_FindAmbushSpot": {
+        "description": "Find concealed position for ambush",
+        "generator": "grid_around_target_path",
+        "parameters": {
+          "gridSize": 500,
+          "spacing": 100
+        },
+        "tests": [
+          { "test": "visibility_from_path", "filter": "hidden", "weight": 1.0 },
+          { "test": "distance_to_path", "prefer": "range_100_200", "weight": 0.7 },
+          { "test": "cover_available", "prefer": "has_cover", "weight": 0.5 }
+        ]
+      }
+    }
+  },
+
+  "performanceOptimization": {
+    "lodSystem": {
+      "description": "AI complexity scales with distance",
+      "levels": {
+        "full": {
+          "distance": 2000,
+          "tickRate": 60,
+          "perceptionEnabled": true,
+          "fullBehaviorTree": true,
+          "animationQuality": "full"
+        },
+        "medium": {
+          "distance": 5000,
+          "tickRate": 20,
+          "perceptionEnabled": true,
+          "simplifiedBehavior": true,
+          "animationQuality": "reduced"
+        },
+        "low": {
+          "distance": 10000,
+          "tickRate": 5,
+          "perceptionEnabled": false,
+          "minimalBehavior": true,
+          "animationQuality": "minimal"
+        },
+        "dormant": {
+          "distance": "beyond_10000",
+          "tickRate": 0,
+          "perceptionEnabled": false,
+          "behaviorPaused": true,
+          "animationPaused": true
+        }
+      }
+    },
+
+    "aiManager": {
+      "maxActiveAI": 50,
+      "maxFullBehaviorAI": 20,
+      "maxPerceptionQueries": 100,
+      "tickBudgetMs": 4,
+      "spreadUpdates": true
+    },
+
+    "perceptionOptimization": {
+      "sightCheckInterval": 0.2,
+      "hearingCheckInterval": 0.1,
+      "maxSightTargets": 10,
+      "useOcclusionCulling": true
+    },
+
+    "pathfindingOptimization": {
+      "maxPathRequests": 20,
+      "pathCaching": true,
+      "cacheDuration": 5,
+      "hierarchicalPathfinding": true,
+      "asyncPathfinding": true
+    },
+
+    "behaviorTreeOptimization": {
+      "useParallelNodes": true,
+      "conditionalCaching": true,
+      "serviceTickIntervals": {
+        "critical": 0.1,
+        "normal": 0.5,
+        "background": 1.0
+      }
+    }
+  },
+
+  "implementationPhases": {
+    "phase1_Foundation": {
+      "description": "Core AI systems",
+      "tasks": [
+        "Create base AI controller class",
+        "Setup perception component",
+        "Implement basic blackboard",
+        "Create navigation profiles",
+        "Build basic enemy behavior trees"
+      ]
+    },
+    "phase2_Combat": {
+      "description": "Combat AI",
+      "tasks": [
+        "Implement threat system",
+        "Create all enemy archetypes",
+        "Build EQS queries for combat",
+        "Add special combat mechanics",
+        "Implement leash system"
+      ]
+    },
+    "phase3_Boss": {
+      "description": "Boss encounters",
+      "tasks": [
+        "Create boss framework",
+        "Implement phase system",
+        "Build boss-specific mechanics",
+        "Add arena control systems"
+      ]
+    },
+    "phase4_NPC": {
+      "description": "Friendly NPC AI",
+      "tasks": [
+        "Implement schedule system",
+        "Create activity behaviors",
+        "Build interaction system",
+        "Add reaction behaviors"
+      ]
+    },
+    "phase5_Familiar": {
+      "description": "Bonding familiar AI",
+      "tasks": [
+        "Create familiar base class",
+        "Implement follow behavior",
+        "Add combat modes",
+        "Build special abilities"
+      ]
+    },
+    "phase6_Polish": {
+      "description": "Optimization and polish",
+      "tasks": [
+        "Implement AI LOD system",
+        "Optimize perception",
+        "Fine-tune pathfinding",
+        "Performance profiling"
+      ]
+    }
+  }
+}

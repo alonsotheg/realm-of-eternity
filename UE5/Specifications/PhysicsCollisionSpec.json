@@ -1,0 +1,570 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Physics and collision specification for Realm of Eternity UE5",
+    "unrealVersion": "5.3"
+  },
+  "collisionChannels": {
+    "description": "Custom collision channels for the game",
+    "channels": [
+      {
+        "name": "ECC_Player",
+        "type": "object",
+        "defaultResponse": "block",
+        "description": "Player character collision"
+      },
+      {
+        "name": "ECC_NPC",
+        "type": "object",
+        "defaultResponse": "block",
+        "description": "Non-player characters (friendly)"
+      },
+      {
+        "name": "ECC_Enemy",
+        "type": "object",
+        "defaultResponse": "block",
+        "description": "Enemy characters"
+      },
+      {
+        "name": "ECC_Projectile",
+        "type": "object",
+        "defaultResponse": "overlap",
+        "description": "Ranged attacks and spells"
+      },
+      {
+        "name": "ECC_Interactable",
+        "type": "object",
+        "defaultResponse": "overlap",
+        "description": "Interactive objects (chests, doors, resources)"
+      },
+      {
+        "name": "ECC_Trigger",
+        "type": "object",
+        "defaultResponse": "overlap",
+        "description": "Trigger volumes (quest, zone transitions)"
+      },
+      {
+        "name": "ECC_Weapon",
+        "type": "trace",
+        "defaultResponse": "ignore",
+        "description": "Melee weapon hitboxes"
+      },
+      {
+        "name": "ECC_Camera",
+        "type": "trace",
+        "defaultResponse": "block",
+        "description": "Camera collision traces"
+      },
+      {
+        "name": "ECC_Visibility",
+        "type": "trace",
+        "defaultResponse": "block",
+        "description": "Line of sight checks"
+      }
+    ]
+  },
+  "collisionProfiles": {
+    "description": "Preset collision profiles for common object types",
+    "profiles": [
+      {
+        "name": "PlayerCharacter",
+        "objectType": "ECC_Player",
+        "responses": {
+          "worldStatic": "block",
+          "worldDynamic": "block",
+          "ECC_Player": "overlap",
+          "ECC_NPC": "block",
+          "ECC_Enemy": "block",
+          "ECC_Projectile": "overlap",
+          "ECC_Interactable": "overlap",
+          "ECC_Trigger": "overlap",
+          "ECC_Weapon": "block"
+        },
+        "capsule": {
+          "radius": 42,
+          "halfHeight": 96
+        }
+      },
+      {
+        "name": "EnemyCharacter",
+        "objectType": "ECC_Enemy",
+        "responses": {
+          "worldStatic": "block",
+          "worldDynamic": "block",
+          "ECC_Player": "block",
+          "ECC_NPC": "overlap",
+          "ECC_Enemy": "overlap",
+          "ECC_Projectile": "overlap",
+          "ECC_Interactable": "ignore",
+          "ECC_Trigger": "overlap",
+          "ECC_Weapon": "block"
+        },
+        "capsule": {
+          "radiusRange": [30, 200],
+          "halfHeightRange": [60, 400]
+        }
+      },
+      {
+        "name": "FriendlyNPC",
+        "objectType": "ECC_NPC",
+        "responses": {
+          "worldStatic": "block",
+          "worldDynamic": "block",
+          "ECC_Player": "block",
+          "ECC_NPC": "block",
+          "ECC_Enemy": "ignore",
+          "ECC_Projectile": "ignore",
+          "ECC_Interactable": "ignore",
+          "ECC_Trigger": "ignore"
+        },
+        "capsule": {
+          "radius": 42,
+          "halfHeight": 96
+        }
+      },
+      {
+        "name": "Projectile",
+        "objectType": "ECC_Projectile",
+        "responses": {
+          "worldStatic": "block",
+          "worldDynamic": "block",
+          "ECC_Player": "overlap",
+          "ECC_NPC": "ignore",
+          "ECC_Enemy": "overlap",
+          "ECC_Projectile": "ignore",
+          "ECC_Interactable": "ignore",
+          "ECC_Trigger": "ignore"
+        },
+        "sphere": {
+          "radiusRange": [5, 50]
+        }
+      },
+      {
+        "name": "InteractableObject",
+        "objectType": "ECC_Interactable",
+        "responses": {
+          "worldStatic": "ignore",
+          "worldDynamic": "ignore",
+          "ECC_Player": "overlap",
+          "ECC_NPC": "ignore",
+          "ECC_Enemy": "ignore",
+          "ECC_Projectile": "ignore",
+          "ECC_Camera": "block"
+        }
+      },
+      {
+        "name": "ResourceNode",
+        "objectType": "ECC_Interactable",
+        "responses": {
+          "worldStatic": "ignore",
+          "worldDynamic": "ignore",
+          "ECC_Player": "overlap",
+          "ECC_Camera": "block",
+          "ECC_Visibility": "block"
+        },
+        "box": {
+          "defaultExtent": [50, 50, 100]
+        }
+      },
+      {
+        "name": "TriggerVolume",
+        "objectType": "ECC_Trigger",
+        "responses": {
+          "ECC_Player": "overlap",
+          "ECC_NPC": "ignore",
+          "ECC_Enemy": "overlap"
+        },
+        "collision": "queryOnly"
+      },
+      {
+        "name": "WeaponHitbox",
+        "objectType": "ECC_Weapon",
+        "responses": {
+          "ECC_Player": "overlap",
+          "ECC_NPC": "ignore",
+          "ECC_Enemy": "overlap"
+        },
+        "collision": "queryOnly"
+      }
+    ]
+  },
+  "physicsSettings": {
+    "global": {
+      "gravity": -980,
+      "defaultLinearDamping": 0.01,
+      "defaultAngularDamping": 0.05,
+      "maxAngularVelocity": 3600,
+      "bounceThreshold": 200,
+      "frictionCombineMode": "average",
+      "restitutionCombineMode": "average"
+    },
+    "substepping": {
+      "enabled": true,
+      "maxSubsteps": 6,
+      "maxSubstepDeltaTime": 0.016667
+    },
+    "async": {
+      "enabled": true,
+      "interpolationEnabled": true
+    }
+  },
+  "physicsMaterials": {
+    "description": "Physical materials for surface interactions",
+    "materials": [
+      {
+        "name": "PM_Default",
+        "friction": 0.7,
+        "restitution": 0.3,
+        "density": 1.0,
+        "surfaceType": "default"
+      },
+      {
+        "name": "PM_Stone",
+        "friction": 0.8,
+        "restitution": 0.2,
+        "density": 2.5,
+        "surfaceType": "stone",
+        "footstepSound": "footstep_stone",
+        "impactSound": "impact_stone",
+        "impactParticle": "VFX_StoneImpact"
+      },
+      {
+        "name": "PM_Wood",
+        "friction": 0.6,
+        "restitution": 0.4,
+        "density": 0.8,
+        "surfaceType": "wood",
+        "footstepSound": "footstep_wood",
+        "impactSound": "impact_wood",
+        "impactParticle": "VFX_WoodImpact"
+      },
+      {
+        "name": "PM_Metal",
+        "friction": 0.5,
+        "restitution": 0.3,
+        "density": 7.8,
+        "surfaceType": "metal",
+        "footstepSound": "footstep_metal",
+        "impactSound": "impact_metal",
+        "impactParticle": "VFX_MetalSparks"
+      },
+      {
+        "name": "PM_Grass",
+        "friction": 0.7,
+        "restitution": 0.1,
+        "density": 0.3,
+        "surfaceType": "grass",
+        "footstepSound": "footstep_grass",
+        "impactSound": "impact_soft",
+        "impactParticle": "VFX_GrassDust"
+      },
+      {
+        "name": "PM_Sand",
+        "friction": 0.9,
+        "restitution": 0.05,
+        "density": 1.6,
+        "surfaceType": "sand",
+        "footstepSound": "footstep_sand",
+        "impactSound": "impact_sand",
+        "impactParticle": "VFX_SandPuff"
+      },
+      {
+        "name": "PM_Water",
+        "friction": 0.1,
+        "restitution": 0.0,
+        "density": 1.0,
+        "surfaceType": "water",
+        "footstepSound": "footstep_water",
+        "impactSound": "splash_water",
+        "impactParticle": "VFX_WaterSplash"
+      },
+      {
+        "name": "PM_Snow",
+        "friction": 0.4,
+        "restitution": 0.1,
+        "density": 0.3,
+        "surfaceType": "snow",
+        "footstepSound": "footstep_snow",
+        "impactSound": "impact_snow",
+        "impactParticle": "VFX_SnowPuff"
+      },
+      {
+        "name": "PM_Mud",
+        "friction": 0.9,
+        "restitution": 0.05,
+        "density": 1.8,
+        "surfaceType": "mud",
+        "footstepSound": "footstep_mud",
+        "impactSound": "impact_mud",
+        "impactParticle": "VFX_MudSplat",
+        "movementPenalty": 0.7
+      },
+      {
+        "name": "PM_Ice",
+        "friction": 0.1,
+        "restitution": 0.2,
+        "density": 0.92,
+        "surfaceType": "ice",
+        "footstepSound": "footstep_ice",
+        "impactSound": "impact_ice",
+        "impactParticle": "VFX_IceShards",
+        "movementPenalty": 1.3
+      },
+      {
+        "name": "PM_Flesh",
+        "friction": 0.8,
+        "restitution": 0.2,
+        "density": 1.05,
+        "surfaceType": "flesh",
+        "impactSound": "impact_flesh",
+        "impactParticle": "VFX_BloodSplat"
+      },
+      {
+        "name": "PM_Cloth",
+        "friction": 0.7,
+        "restitution": 0.1,
+        "density": 0.2,
+        "surfaceType": "cloth",
+        "impactSound": "impact_cloth",
+        "impactParticle": "VFX_ClothDust"
+      }
+    ]
+  },
+  "characterMovement": {
+    "description": "Character movement physics settings",
+    "player": {
+      "walkSpeed": 300,
+      "runSpeed": 600,
+      "sprintSpeed": 800,
+      "crouchSpeed": 150,
+      "swimSpeed": 400,
+      "jumpHeight": 420,
+      "airControl": 0.35,
+      "groundFriction": 8.0,
+      "brakingDecelerationWalking": 2048,
+      "brakingDecelerationFalling": 0,
+      "maxAcceleration": 2048,
+      "rotationRate": 540,
+      "canCrouch": true,
+      "canJump": true,
+      "canSwim": true,
+      "canFly": false
+    },
+    "stamina": {
+      "enabled": true,
+      "maxStamina": 100,
+      "sprintDrain": 10,
+      "regenRate": 5,
+      "regenDelay": 2.0
+    },
+    "swimming": {
+      "buoyancy": 1.0,
+      "waterLineFraction": 0.65,
+      "immersionDepthFraction": 0.3,
+      "maxUnderwaterTime": 60,
+      "drowningDamageRate": 10
+    }
+  },
+  "ragdoll": {
+    "description": "Ragdoll physics configuration",
+    "enabled": true,
+    "blendTime": 0.15,
+    "settleTime": 3.0,
+    "constraints": {
+      "maxAngularLimit": 45,
+      "minAngularLimit": -45,
+      "swingLimit": 30,
+      "twistLimit": 15
+    },
+    "bodies": [
+      { "bone": "pelvis", "shape": "capsule", "mass": 15 },
+      { "bone": "spine_01", "shape": "capsule", "mass": 10 },
+      { "bone": "spine_02", "shape": "capsule", "mass": 10 },
+      { "bone": "spine_03", "shape": "capsule", "mass": 8 },
+      { "bone": "head", "shape": "sphere", "mass": 5 },
+      { "bone": "upperarm_l", "shape": "capsule", "mass": 3 },
+      { "bone": "upperarm_r", "shape": "capsule", "mass": 3 },
+      { "bone": "lowerarm_l", "shape": "capsule", "mass": 2 },
+      { "bone": "lowerarm_r", "shape": "capsule", "mass": 2 },
+      { "bone": "hand_l", "shape": "box", "mass": 1 },
+      { "bone": "hand_r", "shape": "box", "mass": 1 },
+      { "bone": "thigh_l", "shape": "capsule", "mass": 8 },
+      { "bone": "thigh_r", "shape": "capsule", "mass": 8 },
+      { "bone": "calf_l", "shape": "capsule", "mass": 4 },
+      { "bone": "calf_r", "shape": "capsule", "mass": 4 },
+      { "bone": "foot_l", "shape": "box", "mass": 2 },
+      { "bone": "foot_r", "shape": "box", "mass": 2 }
+    ],
+    "deathImpulse": {
+      "baseStrength": 500,
+      "directionFromDamageSource": true,
+      "maxStrength": 2000
+    }
+  },
+  "hitDetection": {
+    "description": "Combat hit detection configuration",
+    "melee": {
+      "method": "sphereSweep",
+      "traceChannel": "ECC_Weapon",
+      "tickRate": 60,
+      "interpolation": true,
+      "hitboxes": [
+        { "name": "light_attack", "radius": 30, "length": 150, "activeFrames": [8, 12] },
+        { "name": "heavy_attack", "radius": 45, "length": 200, "activeFrames": [15, 22] },
+        { "name": "cleave", "radius": 60, "length": 180, "arc": 120, "activeFrames": [10, 18] }
+      ]
+    },
+    "ranged": {
+      "method": "projectile",
+      "traceChannel": "ECC_Projectile",
+      "projectiles": [
+        { "name": "arrow", "radius": 5, "speed": 5000, "gravity": 0.5, "lifetime": 10 },
+        { "name": "bolt", "radius": 3, "speed": 7000, "gravity": 0.3, "lifetime": 8 },
+        { "name": "thrown", "radius": 8, "speed": 3000, "gravity": 0.8, "lifetime": 10 }
+      ]
+    },
+    "magic": {
+      "method": "varies",
+      "spellTypes": [
+        { "name": "bolt", "radius": 15, "speed": 4000, "gravity": 0, "lifetime": 5 },
+        { "name": "aoe", "radius": 200, "duration": 2.0, "tickRate": 0.5 },
+        { "name": "beam", "width": 20, "range": 1000, "duration": 0.5 },
+        { "name": "homing", "radius": 20, "speed": 2000, "turnRate": 180, "lifetime": 8 }
+      ]
+    },
+    "hitValidation": {
+      "serverAuthoritative": true,
+      "maxLatencyCompensation": 200,
+      "rewindTime": 100
+    }
+  },
+  "destructibles": {
+    "description": "Destructible object physics",
+    "enabled": true,
+    "categories": [
+      {
+        "name": "light",
+        "health": 50,
+        "fractureChunks": 5,
+        "debrisLifetime": 5,
+        "examples": ["crates", "barrels", "pottery"]
+      },
+      {
+        "name": "medium",
+        "health": 200,
+        "fractureChunks": 12,
+        "debrisLifetime": 10,
+        "examples": ["furniture", "doors", "fences"]
+      },
+      {
+        "name": "heavy",
+        "health": 1000,
+        "fractureChunks": 25,
+        "debrisLifetime": 15,
+        "examples": ["walls", "pillars", "statues"]
+      }
+    ],
+    "fractureSettings": {
+      "minChunkSize": 10,
+      "maxChunkSize": 100,
+      "chunkPhysicsTimeout": 3.0,
+      "fadeOutTime": 2.0
+    }
+  },
+  "cloth": {
+    "description": "Cloth simulation settings",
+    "enabled": true,
+    "simulation": {
+      "solver": "pbdCloth",
+      "iterations": 5,
+      "substeps": 1,
+      "maxDistance": 100,
+      "backstopDistance": 0.5
+    },
+    "categories": [
+      {
+        "name": "cape",
+        "stiffness": 0.3,
+        "damping": 0.2,
+        "gravityScale": 1.0,
+        "windResponse": 0.8
+      },
+      {
+        "name": "robe",
+        "stiffness": 0.5,
+        "damping": 0.3,
+        "gravityScale": 1.0,
+        "windResponse": 0.5
+      },
+      {
+        "name": "banner",
+        "stiffness": 0.2,
+        "damping": 0.1,
+        "gravityScale": 1.0,
+        "windResponse": 1.0
+      },
+      {
+        "name": "hair",
+        "stiffness": 0.8,
+        "damping": 0.5,
+        "gravityScale": 0.5,
+        "windResponse": 0.3
+      }
+    ],
+    "collisions": {
+      "selfCollision": false,
+      "worldCollision": true,
+      "characterCollision": true
+    }
+  },
+  "fluids": {
+    "description": "Fluid interaction settings",
+    "water": {
+      "surfaceInteraction": true,
+      "rippleRadius": 50,
+      "rippleAmplitude": 10,
+      "rippleDuration": 2.0,
+      "splashParticle": "VFX_WaterSplash",
+      "swimParticle": "VFX_WaterRipple"
+    },
+    "lava": {
+      "damage": 50,
+      "damageInterval": 0.5,
+      "surfaceInteraction": true,
+      "splashParticle": "VFX_LavaSplash"
+    },
+    "swamp": {
+      "movementPenalty": 0.5,
+      "splashParticle": "VFX_SwampSplash",
+      "poisonDamage": 5,
+      "poisonInterval": 2.0
+    }
+  },
+  "optimization": {
+    "description": "Physics optimization settings",
+    "lodPhysics": {
+      "enabled": true,
+      "distances": [
+        { "lod": 0, "distance": 0, "tickRate": 60, "fullSimulation": true },
+        { "lod": 1, "distance": 2000, "tickRate": 30, "fullSimulation": true },
+        { "lod": 2, "distance": 5000, "tickRate": 15, "fullSimulation": false },
+        { "lod": 3, "distance": 10000, "tickRate": 5, "fullSimulation": false }
+      ]
+    },
+    "sleeping": {
+      "linearThreshold": 2.0,
+      "angularThreshold": 1.0,
+      "sleepDelay": 0.4
+    },
+    "ccd": {
+      "enabled": true,
+      "minVelocity": 1000,
+      "maxObjects": 64
+    },
+    "broadphase": {
+      "algorithm": "MBP",
+      "gridSize": 1000,
+      "maxObjects": 10000
+    }
+  }
+}

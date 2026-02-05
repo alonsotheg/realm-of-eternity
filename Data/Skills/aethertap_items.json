@@ -1,0 +1,549 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Aethertap skill items - portents, signs, transmutation, and aetherial products"
+  },
+  "energyTypes": {
+    "description": "Aetherial energy tiers from wisps",
+    "tiers": [
+      { "id": "pale_energy", "level": 1, "value": 1 },
+      { "id": "flickering_energy", "level": 10, "value": 2 },
+      { "id": "bright_energy", "level": 20, "value": 4 },
+      { "id": "glowing_energy", "level": 30, "value": 6 },
+      { "id": "sparkling_energy", "level": 40, "value": 9 },
+      { "id": "gleaming_energy", "level": 50, "value": 12 },
+      { "id": "vibrant_energy", "level": 60, "value": 16 },
+      { "id": "lustrous_energy", "level": 70, "value": 20 },
+      { "id": "brilliant_energy", "level": 75, "value": 25 },
+      { "id": "radiant_energy", "level": 80, "value": 30 },
+      { "id": "luminous_energy", "level": 85, "value": 36 },
+      { "id": "incandescent_energy", "level": 90, "value": 42 },
+      { "id": "elder_energy", "level": 95, "value": 50 }
+    ]
+  },
+  "portents": {
+    "description": "Passive items that activate automatically in specific situations",
+    "items": [
+      {
+        "id": "portent_of_restoration_i",
+        "name": "Portent of Restoration I",
+        "level": 29,
+        "xp": 4.5,
+        "materials": [{ "id": "glowing_energy", "qty": 20 }, { "id": "mudcrawler", "qty": 1 }],
+        "effect": { "type": "auto_heal", "trigger": "health_below_50", "healAmount": 200 },
+        "stackable": true,
+        "maxStack": 100
+      },
+      {
+        "id": "portent_of_restoration_ii",
+        "name": "Portent of Restoration II",
+        "level": 46,
+        "xp": 7.5,
+        "materials": [{ "id": "gleaming_energy", "qty": 30 }, { "id": "silverscale", "qty": 1 }],
+        "effect": { "type": "auto_heal", "trigger": "health_below_50", "healAmount": 400 },
+        "stackable": true,
+        "maxStack": 100
+      },
+      {
+        "id": "portent_of_restoration_iii",
+        "name": "Portent of Restoration III",
+        "level": 62,
+        "xp": 11.5,
+        "materials": [{ "id": "vibrant_energy", "qty": 40 }, { "id": "razorfin", "qty": 1 }],
+        "effect": { "type": "auto_heal", "trigger": "health_below_50", "healAmount": 600 },
+        "stackable": true,
+        "maxStack": 100
+      },
+      {
+        "id": "portent_of_restoration_iv",
+        "name": "Portent of Restoration IV",
+        "level": 78,
+        "xp": 16.5,
+        "materials": [{ "id": "lustrous_energy", "qty": 50 }, { "id": "ironjaw", "qty": 1 }],
+        "effect": { "type": "auto_heal", "trigger": "health_below_50", "healAmount": 1000 },
+        "stackable": true,
+        "maxStack": 100
+      },
+      {
+        "id": "portent_of_restoration_v",
+        "name": "Portent of Restoration V",
+        "level": 92,
+        "xp": 24.5,
+        "materials": [{ "id": "incandescent_energy", "qty": 60 }, { "id": "abyssfin", "qty": 1 }],
+        "effect": { "type": "auto_heal", "trigger": "health_below_50", "healAmount": 1500 },
+        "stackable": true,
+        "maxStack": 100
+      },
+      {
+        "id": "portent_of_life",
+        "name": "Portent of Life",
+        "level": 99,
+        "xp": 35,
+        "materials": [{ "id": "elder_energy", "qty": 100 }, { "id": "phoenix_quill", "qty": 1 }],
+        "effect": { "type": "prevent_death", "trigger": "would_die", "cooldown": 3600, "healPercent": 25 },
+        "stackable": false
+      },
+      {
+        "id": "portent_of_item_protection",
+        "name": "Portent of Item Protection",
+        "level": 92,
+        "xp": 28,
+        "materials": [{ "id": "incandescent_energy", "qty": 80 }, { "id": "onyx", "qty": 1 }],
+        "effect": { "type": "protect_item", "trigger": "death", "protectedItems": 1 },
+        "stackable": true,
+        "maxStack": 10
+      },
+      {
+        "id": "portent_of_degradation",
+        "name": "Portent of Degradation",
+        "level": 87,
+        "xp": 18,
+        "materials": [{ "id": "luminous_energy", "qty": 50 }, { "id": "divine_charge", "qty": 1 }],
+        "effect": { "type": "prevent_degradation", "trigger": "item_degrade", "charges": 5 },
+        "stackable": true,
+        "maxStack": 100
+      }
+    ]
+  },
+  "signs": {
+    "description": "Pocket slot items with passive effects",
+    "items": [
+      {
+        "id": "sign_of_the_porter_i",
+        "name": "Sign of the Porter I",
+        "level": 6,
+        "xp": 2.4,
+        "materials": [{ "id": "flickering_energy", "qty": 15 }, { "id": "emerald_necklace", "qty": 1 }],
+        "effect": { "type": "auto_bank", "itemCount": 5 },
+        "slot": "pocket"
+      },
+      {
+        "id": "sign_of_the_porter_ii",
+        "name": "Sign of the Porter II",
+        "level": 28,
+        "xp": 5.2,
+        "materials": [{ "id": "glowing_energy", "qty": 25 }, { "id": "ruby_necklace", "qty": 1 }],
+        "effect": { "type": "auto_bank", "itemCount": 10 },
+        "slot": "pocket"
+      },
+      {
+        "id": "sign_of_the_porter_iii",
+        "name": "Sign of the Porter III",
+        "level": 48,
+        "xp": 8.6,
+        "materials": [{ "id": "sparkling_energy", "qty": 35 }, { "id": "diamond_necklace", "qty": 1 }],
+        "effect": { "type": "auto_bank", "itemCount": 15 },
+        "slot": "pocket"
+      },
+      {
+        "id": "sign_of_the_porter_iv",
+        "name": "Sign of the Porter IV",
+        "level": 68,
+        "xp": 13.5,
+        "materials": [{ "id": "vibrant_energy", "qty": 45 }, { "id": "dragonstone_necklace", "qty": 1 }],
+        "effect": { "type": "auto_bank", "itemCount": 20 },
+        "slot": "pocket"
+      },
+      {
+        "id": "sign_of_the_porter_v",
+        "name": "Sign of the Porter V",
+        "level": 84,
+        "xp": 19,
+        "materials": [{ "id": "radiant_energy", "qty": 55 }, { "id": "onyx_necklace", "qty": 1 }],
+        "effect": { "type": "auto_bank", "itemCount": 25 },
+        "slot": "pocket"
+      },
+      {
+        "id": "sign_of_the_porter_vi",
+        "name": "Sign of the Porter VI",
+        "level": 96,
+        "xp": 27,
+        "materials": [{ "id": "elder_energy", "qty": 65 }, { "id": "hydrix_necklace", "qty": 1 }],
+        "effect": { "type": "auto_bank", "itemCount": 30 },
+        "slot": "pocket"
+      },
+      {
+        "id": "sign_of_life",
+        "name": "Sign of Life",
+        "level": 78,
+        "xp": 16.5,
+        "materials": [{ "id": "lustrous_energy", "qty": 100 }, { "id": "diamond", "qty": 3 }],
+        "effect": { "type": "prevent_death", "cooldown": 3600, "healPercent": 25 },
+        "slot": "pocket",
+        "charges": 1
+      },
+      {
+        "id": "sign_of_death",
+        "name": "Sign of Death",
+        "level": 85,
+        "xp": 22,
+        "materials": [{ "id": "luminous_energy", "qty": 100 }, { "id": "onyx", "qty": 1 }],
+        "effect": { "type": "death_damage", "trigger": "kill_enemy", "bonusDamage": 1000 },
+        "slot": "pocket",
+        "charges": 5
+      },
+      {
+        "id": "sign_of_respite_i",
+        "name": "Sign of Respite I",
+        "level": 52,
+        "xp": 10,
+        "materials": [{ "id": "gleaming_energy", "qty": 30 }],
+        "effect": { "type": "extend_familiar", "extension": 600 },
+        "slot": "pocket"
+      },
+      {
+        "id": "sign_of_respite_ii",
+        "name": "Sign of Respite II",
+        "level": 72,
+        "xp": 15,
+        "materials": [{ "id": "lustrous_energy", "qty": 40 }],
+        "effect": { "type": "extend_familiar", "extension": 900 },
+        "slot": "pocket"
+      },
+      {
+        "id": "sign_of_respite_iii",
+        "name": "Sign of Respite III",
+        "level": 92,
+        "xp": 25,
+        "materials": [{ "id": "incandescent_energy", "qty": 50 }],
+        "effect": { "type": "extend_familiar", "extension": 1200 },
+        "slot": "pocket"
+      }
+    ]
+  },
+  "transmutation": {
+    "description": "Convert items into other items using divine energy",
+    "recipes": [
+      {
+        "id": "transmute_iron_to_gold",
+        "name": "Iron to Gold",
+        "level": 43,
+        "xp": 6,
+        "input": [{ "id": "iron_ore", "qty": 1 }, { "id": "gleaming_energy", "qty": 2 }],
+        "output": { "id": "gold_ore", "qty": 1 }
+      },
+      {
+        "id": "transmute_goldleaf_logs",
+        "name": "Goldleaf Log Transmutation",
+        "level": 38,
+        "xp": 4,
+        "input": [{ "id": "ashwood_log", "qty": 3 }, { "id": "sparkling_energy", "qty": 2 }],
+        "output": { "id": "goldleaf_log", "qty": 1 }
+      },
+      {
+        "id": "transmute_whisperwood_logs",
+        "name": "Whisperwood Log Transmutation",
+        "level": 53,
+        "xp": 7,
+        "input": [{ "id": "goldleaf_log", "qty": 3 }, { "id": "gleaming_energy", "qty": 3 }],
+        "output": { "id": "whisperwood_log", "qty": 1 }
+      },
+      {
+        "id": "transmute_ironwood_logs",
+        "name": "Ironwood Log Transmutation",
+        "level": 68,
+        "xp": 10,
+        "input": [{ "id": "whisperwood_log", "qty": 3 }, { "id": "vibrant_energy", "qty": 4 }],
+        "output": { "id": "ironwood_log", "qty": 1 }
+      },
+      {
+        "id": "transmute_spiritbark_logs",
+        "name": "Spiritbark Log Transmutation",
+        "level": 83,
+        "xp": 15,
+        "input": [{ "id": "ironwood_log", "qty": 3 }, { "id": "radiant_energy", "qty": 5 }],
+        "output": { "id": "spiritbark_log", "qty": 1 }
+      },
+      {
+        "id": "transmute_sapphire_emerald",
+        "name": "Sapphire to Emerald",
+        "level": 36,
+        "xp": 5,
+        "input": [{ "id": "sapphire", "qty": 2 }, { "id": "sparkling_energy", "qty": 5 }],
+        "output": { "id": "emerald", "qty": 1 }
+      },
+      {
+        "id": "transmute_emerald_ruby",
+        "name": "Emerald to Ruby",
+        "level": 49,
+        "xp": 8,
+        "input": [{ "id": "emerald", "qty": 2 }, { "id": "gleaming_energy", "qty": 8 }],
+        "output": { "id": "ruby", "qty": 1 }
+      },
+      {
+        "id": "transmute_ruby_diamond",
+        "name": "Ruby to Diamond",
+        "level": 63,
+        "xp": 12,
+        "input": [{ "id": "ruby", "qty": 2 }, { "id": "vibrant_energy", "qty": 12 }],
+        "output": { "id": "diamond", "qty": 1 }
+      },
+      {
+        "id": "transmute_herb_upgrade",
+        "name": "Herb Transmutation",
+        "level": 40,
+        "xp": 6,
+        "input": [{ "id": "verdantleaf", "qty": 5 }, { "id": "sparkling_energy", "qty": 3 }],
+        "output": { "id": "thornroot", "qty": 1 }
+      }
+    ]
+  },
+  "divineFocus": {
+    "description": "Equipment that enhances Aethertap gathering",
+    "items": [
+      {
+        "id": "elder_divination_outfit",
+        "name": "Elder Aethertap Outfit",
+        "pieces": [
+          { "id": "elder_divination_head", "slot": "head", "bonus": 0.01 },
+          { "id": "elder_divination_body", "slot": "body", "bonus": 0.01 },
+          { "id": "elder_divination_legs", "slot": "legs", "bonus": 0.01 },
+          { "id": "elder_divination_hands", "slot": "hands", "bonus": 0.01 },
+          { "id": "elder_divination_feet", "slot": "feet", "bonus": 0.01 }
+        ],
+        "setBonus": 0.01,
+        "totalBonus": 0.06,
+        "description": "6% bonus Aethertap XP when full set worn"
+      },
+      {
+        "id": "ethereal_accumulator",
+        "name": "Ethereal Accumulator",
+        "level": 65,
+        "slot": "pocket",
+        "effect": { "type": "store_energy", "capacity": 1000 },
+        "description": "Stores excess aetherial energy automatically"
+      },
+      {
+        "id": "aetherial_staff",
+        "name": "Aetherial Staff",
+        "level": 80,
+        "slot": "weapon",
+        "effect": { "type": "increased_yield", "bonus": 0.1 },
+        "description": "10% increased energy yield from wisps"
+      }
+    ]
+  },
+  "memories": {
+    "description": "Memory items from wisps that can be converted to XP",
+    "types": [
+      {
+        "id": "pale_memory",
+        "name": "Pale Memory",
+        "energy": "pale_energy",
+        "level": 1,
+        "xpBase": 1,
+        "xpEnriched": 2
+      },
+      {
+        "id": "flickering_memory",
+        "name": "Flickering Memory",
+        "energy": "flickering_energy",
+        "level": 10,
+        "xpBase": 3,
+        "xpEnriched": 6
+      },
+      {
+        "id": "bright_memory",
+        "name": "Bright Memory",
+        "energy": "bright_energy",
+        "level": 20,
+        "xpBase": 6,
+        "xpEnriched": 12
+      },
+      {
+        "id": "glowing_memory",
+        "name": "Glowing Memory",
+        "energy": "glowing_energy",
+        "level": 30,
+        "xpBase": 9,
+        "xpEnriched": 18
+      },
+      {
+        "id": "sparkling_memory",
+        "name": "Sparkling Memory",
+        "energy": "sparkling_energy",
+        "level": 40,
+        "xpBase": 12,
+        "xpEnriched": 24
+      },
+      {
+        "id": "gleaming_memory",
+        "name": "Gleaming Memory",
+        "energy": "gleaming_energy",
+        "level": 50,
+        "xpBase": 15,
+        "xpEnriched": 30
+      },
+      {
+        "id": "vibrant_memory",
+        "name": "Vibrant Memory",
+        "energy": "vibrant_energy",
+        "level": 60,
+        "xpBase": 18,
+        "xpEnriched": 36
+      },
+      {
+        "id": "lustrous_memory",
+        "name": "Lustrous Memory",
+        "energy": "lustrous_energy",
+        "level": 70,
+        "xpBase": 22,
+        "xpEnriched": 44
+      },
+      {
+        "id": "brilliant_memory",
+        "name": "Brilliant Memory",
+        "energy": "brilliant_energy",
+        "level": 75,
+        "xpBase": 26,
+        "xpEnriched": 52
+      },
+      {
+        "id": "radiant_memory",
+        "name": "Radiant Memory",
+        "energy": "radiant_energy",
+        "level": 80,
+        "xpBase": 30,
+        "xpEnriched": 60
+      },
+      {
+        "id": "luminous_memory",
+        "name": "Luminous Memory",
+        "energy": "luminous_energy",
+        "level": 85,
+        "xpBase": 35,
+        "xpEnriched": 70
+      },
+      {
+        "id": "incandescent_memory",
+        "name": "Incandescent Memory",
+        "energy": "incandescent_energy",
+        "level": 90,
+        "xpBase": 42,
+        "xpEnriched": 84
+      },
+      {
+        "id": "elder_memory",
+        "name": "Elder Memory",
+        "energy": "elder_energy",
+        "level": 95,
+        "xpBase": 50,
+        "xpEnriched": 100
+      }
+    ],
+    "conversionMethods": [
+      {
+        "id": "rift",
+        "name": "Energy Rift",
+        "description": "Convert memories to energy at the rift",
+        "xpMultiplier": 1.0,
+        "energyYield": 1.0
+      },
+      {
+        "id": "crater",
+        "name": "Divination Crater",
+        "description": "Community conversion for bonus XP",
+        "xpMultiplier": 1.2,
+        "energyYield": 0.8,
+        "requiresMultiplePlayers": true
+      }
+    ]
+  },
+  "boons": {
+    "description": "Permanent unlocks purchased with aetherial energy",
+    "items": [
+      {
+        "id": "boon_of_flickering_energy",
+        "name": "Boon of Flickering Energy",
+        "level": 10,
+        "cost": { "id": "pale_energy", "qty": 300 },
+        "effect": "Convert pale to flickering at 3:2 ratio"
+      },
+      {
+        "id": "boon_of_bright_energy",
+        "name": "Boon of Bright Energy",
+        "level": 20,
+        "cost": { "id": "flickering_energy", "qty": 350 },
+        "effect": "Convert flickering to bright at 3:2 ratio"
+      },
+      {
+        "id": "boon_of_glowing_energy",
+        "name": "Boon of Glowing Energy",
+        "level": 30,
+        "cost": { "id": "bright_energy", "qty": 400 },
+        "effect": "Convert bright to glowing at 3:2 ratio"
+      },
+      {
+        "id": "boon_of_sparkling_energy",
+        "name": "Boon of Sparkling Energy",
+        "level": 40,
+        "cost": { "id": "glowing_energy", "qty": 450 },
+        "effect": "Convert glowing to sparkling at 3:2 ratio"
+      },
+      {
+        "id": "boon_of_gleaming_energy",
+        "name": "Boon of Gleaming Energy",
+        "level": 50,
+        "cost": { "id": "sparkling_energy", "qty": 500 },
+        "effect": "Convert sparkling to gleaming at 3:2 ratio"
+      },
+      {
+        "id": "boon_of_vibrant_energy",
+        "name": "Boon of Vibrant Energy",
+        "level": 60,
+        "cost": { "id": "gleaming_energy", "qty": 600 },
+        "effect": "Convert gleaming to vibrant at 3:2 ratio"
+      },
+      {
+        "id": "boon_of_lustrous_energy",
+        "name": "Boon of Lustrous Energy",
+        "level": 70,
+        "cost": { "id": "vibrant_energy", "qty": 700 },
+        "effect": "Convert vibrant to lustrous at 3:2 ratio"
+      },
+      {
+        "id": "boon_of_radiant_energy",
+        "name": "Boon of Radiant Energy",
+        "level": 80,
+        "cost": { "id": "lustrous_energy", "qty": 800 },
+        "effect": "Convert lustrous to radiant at 3:2 ratio"
+      },
+      {
+        "id": "boon_of_luminous_energy",
+        "name": "Boon of Luminous Energy",
+        "level": 85,
+        "cost": { "id": "radiant_energy", "qty": 900 },
+        "effect": "Convert radiant to luminous at 3:2 ratio"
+      },
+      {
+        "id": "boon_of_incandescent_energy",
+        "name": "Boon of Incandescent Energy",
+        "level": 90,
+        "cost": { "id": "luminous_energy", "qty": 1000 },
+        "effect": "Convert luminous to incandescent at 3:2 ratio"
+      },
+      {
+        "id": "boon_of_elder_energy",
+        "name": "Boon of Elder Energy",
+        "level": 95,
+        "cost": { "id": "incandescent_energy", "qty": 1200 },
+        "effect": "Convert incandescent to elder at 3:2 ratio"
+      }
+    ]
+  },
+  "chronicleFragments": {
+    "description": "Rare items found while training Aethertap",
+    "dropRate": 0.001,
+    "item": {
+      "id": "chronicle_fragment",
+      "name": "Chronicle Fragment",
+      "description": "A piece of ancient history",
+      "handInNpc": "may_historian",
+      "handInLocation": "oraclestead",
+      "rewards": {
+        "xp": 1500,
+        "currency": { "id": "gold_coins", "qty": 500 }
+      }
+    }
+  }
+}

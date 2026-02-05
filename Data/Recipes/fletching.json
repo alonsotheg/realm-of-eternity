@@ -1,0 +1,350 @@
+{
+  "bows": [
+    {
+      "id": "fletch_swiftbow_u",
+      "name": "Ashwood Swiftbow (u)",
+      "skill": "bowcraft",
+      "level": 5,
+      "xp": 5,
+      "duration": 2,
+      "inputs": [{ "itemId": "ashwood_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "ashwood_swiftbow_u", "quantity": 1 }],
+      "tool": "carving_knife"
+    },
+    {
+      "id": "fletch_warbow_u",
+      "name": "Ashwood Warbow (u)",
+      "skill": "bowcraft",
+      "level": 10,
+      "xp": 10,
+      "duration": 2,
+      "inputs": [{ "itemId": "ashwood_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "ashwood_warbow_u", "quantity": 1 }],
+      "tool": "carving_knife"
+    },
+    {
+      "id": "fletch_goldleaf_swiftbow_u",
+      "name": "Goldleaf Swiftbow (u)",
+      "skill": "bowcraft",
+      "level": 20,
+      "xp": 16,
+      "duration": 2,
+      "inputs": [{ "itemId": "goldleaf_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "goldleaf_swiftbow_u", "quantity": 1 }],
+      "tool": "carving_knife"
+    },
+    {
+      "id": "fletch_goldleaf_warbow_u",
+      "name": "Goldleaf Warbow (u)",
+      "skill": "bowcraft",
+      "level": 25,
+      "xp": 25,
+      "duration": 2,
+      "inputs": [{ "itemId": "goldleaf_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "goldleaf_warbow_u", "quantity": 1 }],
+      "tool": "carving_knife"
+    },
+    {
+      "id": "fletch_whisperwood_swiftbow_u",
+      "name": "Whisperwood Swiftbow (u)",
+      "skill": "bowcraft",
+      "level": 35,
+      "xp": 33,
+      "duration": 2,
+      "inputs": [{ "itemId": "whisperwood_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "whisperwood_swiftbow_u", "quantity": 1 }],
+      "tool": "carving_knife"
+    },
+    {
+      "id": "fletch_whisperwood_warbow_u",
+      "name": "Whisperwood Warbow (u)",
+      "skill": "bowcraft",
+      "level": 40,
+      "xp": 41,
+      "duration": 2,
+      "inputs": [{ "itemId": "whisperwood_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "whisperwood_warbow_u", "quantity": 1 }],
+      "tool": "carving_knife"
+    },
+    {
+      "id": "fletch_ironwood_swiftbow_u",
+      "name": "Ironwood Swiftbow (u)",
+      "skill": "bowcraft",
+      "level": 65,
+      "xp": 67,
+      "duration": 2,
+      "inputs": [{ "itemId": "ironwood_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "ironwood_swiftbow_u", "quantity": 1 }],
+      "tool": "carving_knife"
+    },
+    {
+      "id": "fletch_ironwood_warbow_u",
+      "name": "Ironwood Warbow (u)",
+      "skill": "bowcraft",
+      "level": 70,
+      "xp": 75,
+      "duration": 2,
+      "inputs": [{ "itemId": "ironwood_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "ironwood_warbow_u", "quantity": 1 }],
+      "tool": "carving_knife"
+    },
+    {
+      "id": "fletch_spiritbark_swiftbow_u",
+      "name": "Spiritbark Swiftbow (u)",
+      "skill": "bowcraft",
+      "level": 80,
+      "xp": 83,
+      "duration": 2,
+      "inputs": [{ "itemId": "spiritbark_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "spiritbark_swiftbow_u", "quantity": 1 }],
+      "tool": "carving_knife"
+    },
+    {
+      "id": "fletch_spiritbark_warbow_u",
+      "name": "Spiritbark Warbow (u)",
+      "skill": "bowcraft",
+      "level": 85,
+      "xp": 91,
+      "duration": 2,
+      "inputs": [{ "itemId": "spiritbark_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "spiritbark_warbow_u", "quantity": 1 }],
+      "tool": "carving_knife"
+    }
+  ],
+  "stringing": [
+    {
+      "id": "string_ashwood_swiftbow",
+      "name": "String Ashwood Swiftbow",
+      "skill": "bowcraft",
+      "level": 5,
+      "xp": 5,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "ashwood_swiftbow_u", "quantity": 1 },
+        { "itemId": "bowstring", "quantity": 1 }
+      ],
+      "outputs": [{ "itemId": "ashwood_swiftbow", "quantity": 1 }]
+    },
+    {
+      "id": "string_ashwood_warbow",
+      "name": "String Ashwood Warbow",
+      "skill": "bowcraft",
+      "level": 10,
+      "xp": 10,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "ashwood_warbow_u", "quantity": 1 },
+        { "itemId": "bowstring", "quantity": 1 }
+      ],
+      "outputs": [{ "itemId": "ashwood_warbow", "quantity": 1 }]
+    },
+    {
+      "id": "string_goldleaf_swiftbow",
+      "name": "String Goldleaf Swiftbow",
+      "skill": "bowcraft",
+      "level": 20,
+      "xp": 16,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "goldleaf_swiftbow_u", "quantity": 1 },
+        { "itemId": "bowstring", "quantity": 1 }
+      ],
+      "outputs": [{ "itemId": "goldleaf_swiftbow", "quantity": 1 }]
+    },
+    {
+      "id": "string_ironwood_warbow",
+      "name": "String Ironwood Warbow",
+      "skill": "bowcraft",
+      "level": 70,
+      "xp": 75,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "ironwood_warbow_u", "quantity": 1 },
+        { "itemId": "bowstring", "quantity": 1 }
+      ],
+      "outputs": [{ "itemId": "ironwood_warbow", "quantity": 1 }]
+    },
+    {
+      "id": "string_spiritbark_warbow",
+      "name": "String Spiritbark Warbow",
+      "skill": "bowcraft",
+      "level": 85,
+      "xp": 91,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "spiritbark_warbow_u", "quantity": 1 },
+        { "itemId": "bowstring", "quantity": 1 }
+      ],
+      "outputs": [{ "itemId": "spiritbark_warbow", "quantity": 1 }]
+    }
+  ],
+  "arrows": [
+    {
+      "id": "fletch_arrow_shafts",
+      "name": "Arrow Shafts",
+      "skill": "bowcraft",
+      "level": 1,
+      "xp": 5,
+      "duration": 2,
+      "inputs": [{ "itemId": "ashwood_log", "quantity": 1 }],
+      "outputs": [{ "itemId": "arrow_shaft", "quantity": 15 }],
+      "tool": "carving_knife"
+    },
+    {
+      "id": "fletch_headless_arrows",
+      "name": "Headless Arrows",
+      "skill": "bowcraft",
+      "level": 1,
+      "xp": 1,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "arrow_shaft", "quantity": 15 },
+        { "itemId": "feather", "quantity": 15 }
+      ],
+      "outputs": [{ "itemId": "headless_arrow", "quantity": 15 }]
+    },
+    {
+      "id": "fletch_copperweave_arrows",
+      "name": "Copperweave Arrows",
+      "skill": "bowcraft",
+      "level": 1,
+      "xp": 1,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "headless_arrow", "quantity": 15 },
+        { "itemId": "copperweave_arrowhead", "quantity": 15 }
+      ],
+      "outputs": [{ "itemId": "copperweave_arrow", "quantity": 15 }]
+    },
+    {
+      "id": "fletch_ironbark_arrows",
+      "name": "Ironbark Arrows",
+      "skill": "bowcraft",
+      "level": 15,
+      "xp": 2,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "headless_arrow", "quantity": 15 },
+        { "itemId": "ironbark_arrowhead", "quantity": 15 }
+      ],
+      "outputs": [{ "itemId": "ironbark_arrow", "quantity": 15 }]
+    },
+    {
+      "id": "fletch_stormforged_arrows",
+      "name": "Stormforged Arrows",
+      "skill": "bowcraft",
+      "level": 30,
+      "xp": 5,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "headless_arrow", "quantity": 15 },
+        { "itemId": "stormforged_arrowhead", "quantity": 15 }
+      ],
+      "outputs": [{ "itemId": "stormforged_arrow", "quantity": 15 }]
+    },
+    {
+      "id": "fletch_moonveil_arrows",
+      "name": "Moonveil Arrows",
+      "skill": "bowcraft",
+      "level": 45,
+      "xp": 7,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "headless_arrow", "quantity": 15 },
+        { "itemId": "moonveil_arrowhead", "quantity": 15 }
+      ],
+      "outputs": [{ "itemId": "moonveil_arrow", "quantity": 15 }]
+    },
+    {
+      "id": "fletch_voidstone_arrows",
+      "name": "Voidstone Arrows",
+      "skill": "bowcraft",
+      "level": 60,
+      "xp": 10,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "headless_arrow", "quantity": 15 },
+        { "itemId": "voidstone_arrowhead", "quantity": 15 }
+      ],
+      "outputs": [{ "itemId": "voidstone_arrow", "quantity": 15 }]
+    },
+    {
+      "id": "fletch_eternium_arrows",
+      "name": "Eternium Arrows",
+      "skill": "bowcraft",
+      "level": 75,
+      "xp": 12,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "headless_arrow", "quantity": 15 },
+        { "itemId": "eternium_arrowhead", "quantity": 15 }
+      ],
+      "outputs": [{ "itemId": "eternium_arrow", "quantity": 15 }]
+    },
+    {
+      "id": "fletch_wyrmscale_arrows",
+      "name": "Wyrmscale Arrows",
+      "skill": "bowcraft",
+      "level": 90,
+      "xp": 15,
+      "duration": 1,
+      "inputs": [
+        { "itemId": "headless_arrow", "quantity": 15 },
+        { "itemId": "wyrmscale_arrowhead", "quantity": 15 }
+      ],
+      "outputs": [{ "itemId": "wyrmscale_arrow", "quantity": 15 }]
+    }
+  ],
+  "bolts": [
+    {
+      "id": "fletch_copperweave_bolts",
+      "name": "Copperweave Bolts",
+      "skill": "bowcraft",
+      "level": 9,
+      "xp": 0.5,
+      "duration": 1,
+      "inputs": [{ "itemId": "copperweave_bolts_unf", "quantity": 10 }],
+      "outputs": [{ "itemId": "copperweave_bolts", "quantity": 10 }]
+    },
+    {
+      "id": "fletch_moonveil_bolts",
+      "name": "Moonveil Bolts",
+      "skill": "bowcraft",
+      "level": 54,
+      "xp": 5,
+      "duration": 1,
+      "inputs": [{ "itemId": "moonveil_bolts_unf", "quantity": 10 }],
+      "outputs": [{ "itemId": "moonveil_bolts", "quantity": 10 }]
+    },
+    {
+      "id": "fletch_voidstone_bolts",
+      "name": "Voidstone Bolts",
+      "skill": "bowcraft",
+      "level": 61,
+      "xp": 7,
+      "duration": 1,
+      "inputs": [{ "itemId": "voidstone_bolts_unf", "quantity": 10 }],
+      "outputs": [{ "itemId": "voidstone_bolts", "quantity": 10 }]
+    },
+    {
+      "id": "fletch_eternium_bolts",
+      "name": "Eternium Bolts",
+      "skill": "bowcraft",
+      "level": 69,
+      "xp": 10,
+      "duration": 1,
+      "inputs": [{ "itemId": "eternium_bolts_unf", "quantity": 10 }],
+      "outputs": [{ "itemId": "eternium_bolts", "quantity": 10 }]
+    },
+    {
+      "id": "fletch_wyrmscale_bolts",
+      "name": "Wyrmscale Bolts",
+      "skill": "bowcraft",
+      "level": 84,
+      "xp": 12,
+      "duration": 1,
+      "inputs": [{ "itemId": "wyrmscale_bolts_unf", "quantity": 10 }],
+      "outputs": [{ "itemId": "wyrmscale_bolts", "quantity": 10 }]
+    }
+  ]
+}

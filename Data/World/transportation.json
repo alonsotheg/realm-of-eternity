@@ -1,0 +1,307 @@
+{
+  "version": "1.0.0",
+  "description": "Transportation and teleportation systems for Realm of Eternity - Aethermoor",
+
+  "teleport_networks": {
+    "waystones": {
+      "description": "Network of attuned ancient waystones across Aethermoor",
+      "unlock_method": "Visit and activate each waystone",
+      "cooldown_seconds": 0,
+      "cost": "free",
+      "animation_time_seconds": 3.5,
+      "locations": [
+        {
+          "id": "waystone_millbrook",
+          "name": "Millbrook Waystone",
+          "region": "misthollow_vale",
+          "coordinates": {"x": 1000, "y": 1000, "z": 0},
+          "unlocked_by_default": true
+        },
+        {
+          "id": "waystone_thornhaven",
+          "name": "Thornhaven Waystone",
+          "region": "misthollow_vale",
+          "coordinates": {"x": 1500, "y": 1500, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_silverstream",
+          "name": "Silverstream Waystone",
+          "region": "misthollow_vale",
+          "coordinates": {"x": 1200, "y": 1800, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_borderwatch",
+          "name": "Borderwatch Waystone",
+          "region": "misthollow_vale",
+          "coordinates": {"x": 1600, "y": 2000, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_forgecrest",
+          "name": "Forgecrest Waystone",
+          "region": "ironhold_dominion",
+          "coordinates": {"x": 3000, "y": 2000, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_hammerfall",
+          "name": "Hammerfall Waystone",
+          "region": "ironhold_dominion",
+          "coordinates": {"x": 3200, "y": 1800, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_stoneguard",
+          "name": "Stoneguard Waystone",
+          "region": "ironhold_dominion",
+          "coordinates": {"x": 2800, "y": 1600, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_sylvanheart",
+          "name": "Sylvanheart Waystone",
+          "region": "verdant_wilds",
+          "coordinates": {"x": 500, "y": 2500, "z": 100},
+          "unlocked_by_default": false,
+          "requirements": {"quests": ["verdant_treaty"]}
+        },
+        {
+          "id": "waystone_moonpetal",
+          "name": "Moonpetal Waystone",
+          "region": "verdant_wilds",
+          "coordinates": {"x": 400, "y": 2800, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_grimhallow",
+          "name": "Grimhallow Waystone",
+          "region": "dreadmire_marshes",
+          "coordinates": {"x": 4000, "y": 3000, "z": 0},
+          "unlocked_by_default": false,
+          "requirements": {"quests": ["border_peril"]}
+        },
+        {
+          "id": "waystone_blightfen",
+          "name": "Blightfen Waystone",
+          "region": "dreadmire_marshes",
+          "coordinates": {"x": 3800, "y": 2800, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_alkazar",
+          "name": "Al'Kazar Waystone",
+          "region": "sunscorch_wastes",
+          "coordinates": {"x": 2500, "y": 4000, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_sandspire",
+          "name": "Sandspire Waystone",
+          "region": "sunscorch_wastes",
+          "coordinates": {"x": 2700, "y": 4200, "z": 100},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_winterhold",
+          "name": "Winterhold Waystone",
+          "region": "frostpeak_reaches",
+          "coordinates": {"x": 2000, "y": 5000, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_glacierheim",
+          "name": "Glacierheim Waystone",
+          "region": "frostpeak_reaches",
+          "coordinates": {"x": 1800, "y": 5300, "z": 50},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_freeport",
+          "name": "Freeport Waystone",
+          "region": "celestine_archipelago",
+          "coordinates": {"x": 5000, "y": 2000, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_aetherpoint",
+          "name": "Aetherpoint Waystone",
+          "region": "crystalvale_highlands",
+          "coordinates": {"x": 3500, "y": 500, "z": 500},
+          "unlocked_by_default": false,
+          "requirements": {"quests": ["ascension"]}
+        },
+        {
+          "id": "waystone_embers_edge",
+          "name": "Ember's Edge Waystone",
+          "region": "ashfall_badlands",
+          "coordinates": {"x": 4500, "y": 4500, "z": 0},
+          "unlocked_by_default": false
+        },
+        {
+          "id": "waystone_last_bastion",
+          "name": "Last Bastion Waystone",
+          "region": "eternal_rift",
+          "coordinates": {"x": 6000, "y": 6000, "z": 0},
+          "unlocked_by_default": false,
+          "requirements": {"quests": ["path_to_eternity"]}
+        }
+      ]
+    },
+
+    "portal_stones": {
+      "description": "Network of magical portal stones for regional travel",
+      "unlock_method": "Complete regional quests",
+      "locations": [
+        {
+          "id": "portal_misthollow",
+          "name": "Misthollow Portal",
+          "region": "misthollow_vale",
+          "connects_to": ["thornhaven", "silverstream", "ravenswood"]
+        },
+        {
+          "id": "portal_ironhold",
+          "name": "Ironhold Portal",
+          "region": "ironhold_dominion",
+          "connects_to": ["forgecrest", "hammerfall", "cinderpeak"]
+        },
+        {
+          "id": "portal_verdant",
+          "name": "Verdant Portal",
+          "region": "verdant_wilds",
+          "connects_to": ["sylvanheart", "moonpetal_grove", "whisperwind"]
+        }
+      ]
+    },
+
+    "house_portals": {
+      "description": "Teleport rooms in player estates",
+      "construction_skill_required": 50,
+      "destinations": [
+        {"id": "thornhaven", "construction_level": 50, "cost_gp": 100},
+        {"id": "forgecrest", "construction_level": 55, "cost_gp": 150},
+        {"id": "sylvanheart", "construction_level": 60, "cost_gp": 200},
+        {"id": "alkazar", "construction_level": 65, "cost_gp": 250},
+        {"id": "winterhold", "construction_level": 70, "cost_gp": 300}
+      ]
+    }
+  },
+
+  "physical_transport": {
+    "ships": {
+      "description": "Sea travel between coastal locations",
+      "routes": [
+        {
+          "id": "thornhaven_freeport",
+          "name": "Thornhaven to Freeport",
+          "start": "Thornhaven Docks",
+          "end": "Freeport Harbor",
+          "cost_gp": 30,
+          "travel_time_seconds": 60
+        },
+        {
+          "id": "freeport_palmshade",
+          "name": "Freeport to Palmshade Isle",
+          "start": "Freeport Harbor",
+          "end": "Palmshade Docks",
+          "cost_gp": 20,
+          "travel_time_seconds": 45
+        },
+        {
+          "id": "silverstream_coral",
+          "name": "Silverstream to Coral Reach",
+          "start": "Silverstream River Port",
+          "end": "Coral Reach Surface Platform",
+          "cost_gp": 40,
+          "travel_time_seconds": 90
+        }
+      ]
+    },
+
+    "caravans": {
+      "description": "Desert caravan routes",
+      "routes": [
+        {"id": "alkazar_sandspire", "name": "Al'Kazar to Sandspire", "cost_gp": 50},
+        {"id": "alkazar_oasis", "name": "Al'Kazar to Oasis Solara", "cost_gp": 30},
+        {"id": "sandspire_buried", "name": "Sandspire to Buried Kingdom", "cost_gp": 75}
+      ]
+    },
+
+    "lava_channels": {
+      "description": "Ironhold Dominion's underground lava transport system",
+      "routes": [
+        {"id": "forge_hammer", "name": "Forgecrest to Hammerfall"},
+        {"id": "hammer_deep", "name": "Hammerfall to Deepforge Caverns"},
+        {"id": "forge_cinder", "name": "Forgecrest to Cinderpeak"}
+      ]
+    }
+  },
+
+  "agility_shortcuts": {
+    "description": "Skill-based shortcuts requiring agility levels",
+    "shortcuts": [
+      {"id": "thornhaven_wall", "location": "Thornhaven South Wall", "level": 21, "type": "climbing"},
+      {"id": "forgecrest_ledge", "location": "Forgecrest Cliff Ledge", "level": 35, "type": "climbing"},
+      {"id": "sylvanheart_vines", "location": "Sylvanheart Vine Bridge", "level": 45, "type": "balance"},
+      {"id": "grimhallow_gaps", "location": "Grimhallow Rooftop Path", "level": 55, "type": "jumping"},
+      {"id": "winterhold_ice", "location": "Winterhold Ice Climb", "level": 65, "type": "climbing"},
+      {"id": "aetherpoint_float", "location": "Aetherpoint Floating Stones", "level": 75, "type": "jumping"}
+    ]
+  },
+
+  "teleport_items": {
+    "jewelry": [
+      {
+        "item": "amulet_of_travel",
+        "charges": 6,
+        "destinations": ["borderwatch", "freeport", "willowmere", "alkazar"]
+      },
+      {
+        "item": "ring_of_fortune",
+        "charges": 5,
+        "destinations": ["eternal_exchange", "forgecrest_market", "sylvanheart_bazaar"]
+      }
+    ],
+    "scrolls": [
+      {"type": "thornhaven_scroll", "single_use": true, "destination": "thornhaven"},
+      {"type": "forgecrest_scroll", "single_use": true, "destination": "forgecrest"}
+    ],
+    "spellbook_teleports": {
+      "standard": ["thornhaven", "millbrook", "forgecrest", "sylvanheart", "alkazar", "winterhold", "estate"],
+      "solar_magicks": ["oasis_solara", "buried_kingdom", "sun_temple"],
+      "void_magicks": ["last_bastion", "void_prison", "shattered_realm"]
+    }
+  },
+
+  "diary_unlocks": {
+    "description": "Transportation perks from completing regional diaries",
+    "unlocks": [
+      {"diary": "misthollow_hard", "unlock": "portal_stone_in_ravenswood"},
+      {"diary": "ironhold_elite", "unlock": "unlimited_lava_channel_access"},
+      {"diary": "verdant_elite", "unlock": "sylvanheart_full_teleport"},
+      {"diary": "dreadmire_elite", "unlock": "ghostharbor_ferry_access"},
+      {"diary": "celestine_hard", "unlock": "free_ship_travel"}
+    ]
+  },
+
+  "ue5_implementation": {
+    "teleport_effects": {
+      "waystone_activation": {
+        "particle_system": "NS_WaystoneActivation",
+        "sound_cue": "SFX_WaystoneTeleport",
+        "camera_fade": true,
+        "fade_duration": 0.5
+      },
+      "portal_stone_effect": {
+        "particle_system": "NS_PortalStoneSwirl",
+        "color_by_region": true
+      }
+    },
+    "ship_travel": {
+      "cinematic_mode": true,
+      "skippable": true,
+      "show_route_on_map": true
+    }
+  }
+}

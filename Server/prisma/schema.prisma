@@ -1,0 +1,472 @@
+// Realm of Eternity - Database Schema
+// PostgreSQL database with Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// ACCOUNTS & AUTHENTICATION
+// ============================================
+
+model Account {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  username      String    @unique
+  passwordHash  String
+  createdAt     DateTime  @default(now())
+  lastLogin     DateTime?
+  status        AccountStatus @default(ACTIVE)
+  role          AccountRole   @default(PLAYER)
+
+  // Relations
+  characters    Character[]
+  sessions      Session[]
+  bans          Ban[]
+
+  @@index([email])
+  @@index([username])
+}
+
+model Session {
+  id          String   @id @default(uuid())
+  accountId   String
+  token       String   @unique
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime
+
+  account     Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([accountId])
+}
+
+model Ban {
+  id          String    @id @default(uuid())
+  accountId   String
+  reason      String
+  bannedBy    String
+  createdAt   DateTime  @default(now())
+  expiresAt   DateTime?
+  isPermanent Boolean   @default(false)
+
+  account     Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+  PENDING_VERIFICATION
+}
+
+enum AccountRole {
+  PLAYER
+  MODERATOR
+  ADMIN
+  DEVELOPER
+}
+
+// ============================================
+// CHARACTERS
+// ============================================
+
+model Character {
+  id            String   @id @default(uuid())
+  accountId     String
+  name          String   @unique
+  race          Race
+  createdAt     DateTime @default(now())
+  lastPlayed    DateTime @default(now())
+  playTime      Int      @default(0) // seconds
+  isDeleted     Boolean  @default(false)
+
+  // Position
+  positionX     Float    @default(0)
+  positionY     Float    @default(0)
+  positionZ     Float    @default(0)
+  rotation      Float    @default(0)
+  zoneId        Int      @default(1)
+
+  // Stats
+  health        Int      @default(100)
+  maxHealth     Int      @default(100)
+  mana          Int      @default(50)
+  maxMana       Int      @default(50)
+
+  // Appearance (stored as JSON)
+  appearance    Json
+
+  // Relations
+  account       Account           @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  skills        CharacterSkill[]
+  inventory     InventoryItem[]
+  bank          BankItem[]
+  equipment     Equipment?
+  questProgress QuestProgress[]
+  friendsOf     Friendship[]      @relation("FriendOf")
+  friends       Friendship[]      @relation("FriendTo")
+  guildMember   GuildMember?
+  mailSent      Mail[]            @relation("MailSender")
+  mailReceived  Mail[]            @relation("MailRecipient")
+
+  @@index([accountId])
+  @@index([name])
+  @@index([zoneId])
+}
+
+enum Race {
+  HUMAN
+  ELF
+  DWARF
+  ORC
+  FELINE
+  SCALED
+}
+
+// ============================================
+// SKILLS & PROGRESSION
+// ============================================
+
+model CharacterSkill {
+  id           String    @id @default(uuid())
+  characterId  String
+  skillId      String    // References skill from game data
+  level        Int       @default(1)
+  experience   BigInt    @default(0)
+
+  character    Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+
+  @@unique([characterId, skillId])
+  @@index([characterId])
+}
+
+// ============================================
+// INVENTORY & ITEMS
+// ============================================
+
+model InventoryItem {
+  id           String    @id @default(uuid())
+  characterId  String
+  itemId       String    // References item from game data
+  quantity     Int       @default(1)
+  slot         Int       // 0-27 for main inventory
+  metadata     Json?     // For unique items (enchants, durability, etc.)
+
+  character    Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+
+  @@unique([characterId, slot])
+  @@index([characterId])
+}
+
+model BankItem {
+  id           String    @id @default(uuid())
+  characterId  String
+  itemId       String
+  quantity     Int       @default(1)
+  tab          Int       @default(0) // Bank tabs 0-9
+  slot         Int
+  metadata     Json?
+
+  character    Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+
+  @@unique([characterId, tab, slot])
+  @@index([characterId])
+}
+
+model Equipment {
+  id           String    @id @default(uuid())
+  characterId  String    @unique
+
+  // Equipment slots (store item IDs, null if empty)
+  head         String?
+  cape         String?
+  neck         String?
+  mainHand     String?
+  offHand      String?
+  body         String?
+  legs         String?
+  hands        String?
+  feet         String?
+  ring1        String?
+  ring2        String?
+  ammo         String?
+
+  // Metadata for each slot (enchants, durability)
+  headMeta     Json?
+  capeMeta     Json?
+  neckMeta     Json?
+  mainHandMeta Json?
+  offHandMeta  Json?
+  bodyMeta     Json?
+  legsMeta     Json?
+  handsMeta    Json?
+  feetMeta     Json?
+  ring1Meta    Json?
+  ring2Meta    Json?
+  ammoMeta     Json?
+
+  character    Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+}
+
+// ============================================
+// QUESTS
+// ============================================
+
+model QuestProgress {
+  id           String      @id @default(uuid())
+  characterId  String
+  questId      String      // References quest from game data
+  status       QuestStatus @default(NOT_STARTED)
+  currentStep  Int         @default(0)
+  progress     Json?       // Step-specific progress data
+  startedAt    DateTime?
+  completedAt  DateTime?
+
+  character    Character   @relation(fields: [characterId], references: [id], onDelete: Cascade)
+
+  @@unique([characterId, questId])
+  @@index([characterId])
+}
+
+enum QuestStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+// ============================================
+// SOCIAL SYSTEMS
+// ============================================
+
+model Friendship {
+  id          String   @id @default(uuid())
+  characterId String
+  friendId    String
+  createdAt   DateTime @default(now())
+
+  character   Character @relation("FriendOf", fields: [characterId], references: [id], onDelete: Cascade)
+  friend      Character @relation("FriendTo", fields: [friendId], references: [id], onDelete: Cascade)
+
+  @@unique([characterId, friendId])
+  @@index([characterId])
+  @@index([friendId])
+}
+
+model Mail {
+  id          String    @id @default(uuid())
+  senderId    String?   // Null for system mail
+  recipientId String
+  subject     String
+  body        String
+  gold        Int       @default(0)
+  itemId      String?
+  itemQty     Int       @default(0)
+  itemMeta    Json?
+  isRead      Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  expiresAt   DateTime
+
+  sender      Character? @relation("MailSender", fields: [senderId], references: [id], onDelete: SetNull)
+  recipient   Character  @relation("MailRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  @@index([recipientId])
+  @@index([senderId])
+}
+
+// ============================================
+// GUILDS
+// ============================================
+
+model Guild {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  tag         String        @unique // 3-4 char tag
+  description String?
+  motd        String?       // Message of the day
+  createdAt   DateTime      @default(now())
+  level       Int           @default(1)
+  experience  BigInt        @default(0)
+  bankGold    BigInt        @default(0)
+
+  members     GuildMember[]
+  bankItems   GuildBankItem[]
+  ranks       GuildRank[]
+  logs        GuildLog[]
+
+  @@index([name])
+  @@index([tag])
+}
+
+model GuildMember {
+  id          String    @id @default(uuid())
+  guildId     String
+  characterId String    @unique
+  rankId      String
+  joinedAt    DateTime  @default(now())
+
+  guild       Guild       @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  character   Character   @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  rank        GuildRank   @relation(fields: [rankId], references: [id])
+
+  @@index([guildId])
+}
+
+model GuildRank {
+  id           String   @id @default(uuid())
+  guildId      String
+  name         String
+  priority     Int      // Lower = higher rank
+  permissions  Json     // Permission flags
+
+  guild        Guild         @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  members      GuildMember[]
+
+  @@unique([guildId, name])
+  @@index([guildId])
+}
+
+model GuildBankItem {
+  id       String @id @default(uuid())
+  guildId  String
+  itemId   String
+  quantity Int    @default(1)
+  tab      Int    @default(0)
+  slot     Int
+  metadata Json?
+
+  guild    Guild  @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@unique([guildId, tab, slot])
+  @@index([guildId])
+}
+
+model GuildLog {
+  id        String   @id @default(uuid())
+  guildId   String
+  action    String
+  actorName String
+  details   String?
+  createdAt DateTime @default(now())
+
+  guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@index([guildId])
+  @@index([createdAt])
+}
+
+// ============================================
+// ECONOMY & TRADING
+// ============================================
+
+model GrandExchangeOffer {
+  id           String    @id @default(uuid())
+  characterId  String
+  characterName String
+  itemId       String
+  type         OfferType
+  quantity     Int
+  quantityFilled Int     @default(0)
+  pricePerUnit Int
+  createdAt    DateTime  @default(now())
+  expiresAt    DateTime
+  status       OfferStatus @default(ACTIVE)
+
+  @@index([itemId, type, pricePerUnit])
+  @@index([characterId])
+  @@index([status])
+}
+
+enum OfferType {
+  BUY
+  SELL
+}
+
+enum OfferStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+  EXPIRED
+}
+
+model Transaction {
+  id           String   @id @default(uuid())
+  buyerId      String
+  sellerId     String
+  itemId       String
+  quantity     Int
+  pricePerUnit Int
+  totalPrice   Int
+  createdAt    DateTime @default(now())
+
+  @@index([buyerId])
+  @@index([sellerId])
+  @@index([createdAt])
+}
+
+// ============================================
+// WORLD STATE
+// ============================================
+
+model WorldBoss {
+  id           String    @id @default(uuid())
+  bossId       String    @unique // References NPC data
+  zoneId       Int
+  lastKilled   DateTime?
+  nextSpawn    DateTime?
+  killCount    Int       @default(0)
+
+  @@index([zoneId])
+  @@index([nextSpawn])
+}
+
+model ResourceNode {
+  id           String    @id @default(uuid())
+  nodeId       String    @unique // Unique world node identifier
+  resourceType String
+  zoneId       Int
+  positionX    Float
+  positionY    Float
+  positionZ    Float
+  depletedAt   DateTime?
+  respawnAt    DateTime?
+
+  @@index([zoneId])
+  @@index([respawnAt])
+}
+
+// ============================================
+// ANALYTICS & LOGGING
+// ============================================
+
+model PlayerAction {
+  id          String   @id @default(uuid())
+  characterId String
+  action      String
+  details     Json?
+  zoneId      Int?
+  createdAt   DateTime @default(now())
+
+  @@index([characterId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+model ServerEvent {
+  id        String   @id @default(uuid())
+  type      String
+  details   Json?
+  createdAt DateTime @default(now())
+
+  @@index([type])
+  @@index([createdAt])
+}

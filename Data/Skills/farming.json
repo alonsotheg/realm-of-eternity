@@ -1,0 +1,363 @@
+{
+  "version": "1.0.0",
+  "description": "Farming skill system for Realm of Eternity",
+
+  "farming_mechanics": {
+    "skill_name": "Farming",
+    "growth_system": "real_time",
+    "growth_tick_minutes": 5,
+    "disease_system": true,
+    "disease_check_per_growth_cycle": true,
+    "compost_reduces_disease": true,
+    "watering_prevents_disease_for_cycle": true,
+    "patch_protection": {
+      "method": "payment_to_gardener",
+      "prevents_disease": true,
+      "payment_varies_by_crop": true
+    },
+    "yield_system": {
+      "min_yield": 3,
+      "base_max_yield": 6,
+      "farming_level_bonus": true,
+      "magic_secateurs_bonus": 10,
+      "compost_bonus": {
+        "regular": 1,
+        "supercompost": 2,
+        "ultracompost": 3
+      }
+    }
+  },
+
+  "patch_types": {
+    "allotment": {
+      "patches_per_location": 2,
+      "requires_seed_dibber": true,
+      "can_water": true,
+      "grow_time_category": "vegetables"
+    },
+    "flower": {
+      "patches_per_location": 1,
+      "requires_seed_dibber": true,
+      "can_water": true,
+      "special": "Protects adjacent allotments from disease"
+    },
+    "herb": {
+      "patches_per_location": 1,
+      "requires_seed_dibber": true,
+      "can_water": false,
+      "high_disease_rate": true
+    },
+    "tree": {
+      "patches_per_location": 1,
+      "requires_spade_for_removal": true,
+      "uses_plant_pot_sapling": true
+    },
+    "fruit_tree": {
+      "patches_per_location": 1,
+      "requires_spade_for_removal": true,
+      "uses_plant_pot_sapling": true,
+      "produces_multiple_harvests": true
+    },
+    "bush": {
+      "patches_per_location": 1,
+      "produces_multiple_harvests": true
+    },
+    "hops": {
+      "patches_per_location": 1,
+      "requires_seed_dibber": true,
+      "can_water": true
+    },
+    "cactus": {
+      "patches_per_location": 1,
+      "produces_multiple_harvests": true,
+      "regrow_time_minutes": 20
+    },
+    "belladonna": {
+      "patches_per_location": 1,
+      "single_harvest": true
+    },
+    "mushroom": {
+      "patches_per_location": 1,
+      "produces_multiple_harvests": true
+    },
+    "spirit_tree": {
+      "max_planted": 5,
+      "transportation_network": true
+    },
+    "calquat": {
+      "patches_per_location": 1,
+      "produces_multiple_harvests": true
+    },
+    "hardwood": {
+      "patches_per_location": 3,
+      "location": "fossil_island",
+      "uses_plant_pot_sapling": true
+    },
+    "redwood": {
+      "patches_per_location": 1,
+      "location": "farming_guild",
+      "uses_plant_pot_sapling": true
+    },
+    "celastrus": {
+      "patches_per_location": 1,
+      "produces_bark": true
+    },
+    "hespori": {
+      "patches_per_location": 1,
+      "grows_into_boss": true,
+      "location": "farming_guild"
+    }
+  },
+
+  "patch_locations": {
+    "allotment": [
+      {"name": "South Stoneguard", "coordinates": {"x": 3054, "y": 3307, "z": 0}},
+      {"name": "North Ardougne", "coordinates": {"x": 2667, "y": 3374, "z": 0}},
+      {"name": "Catherby", "coordinates": {"x": 2813, "y": 3463, "z": 0}},
+      {"name": "Port Phasmatys", "coordinates": {"x": 3602, "y": 3529, "z": 0}},
+      {"name": "Harmony Island", "coordinates": {"x": 3791, "y": 2838, "z": 0}, "requirements": {"quest": "great_brain_robbery"}},
+      {"name": "Farming Guild", "coordinates": {"x": 1260, "y": 3727, "z": 0}, "requirements": {"farming": 45}},
+      {"name": "Prifddinas", "coordinates": {"x": 3293, "y": 6101, "z": 0}, "requirements": {"quest": "song_of_the_elves"}}
+    ],
+    "herb": [
+      {"name": "South Stoneguard", "coordinates": {"x": 3058, "y": 3311, "z": 0}},
+      {"name": "North Ardougne", "coordinates": {"x": 2670, "y": 3374, "z": 0}},
+      {"name": "Catherby", "coordinates": {"x": 2813, "y": 3463, "z": 0}},
+      {"name": "Port Phasmatys", "coordinates": {"x": 3605, "y": 3529, "z": 0}},
+      {"name": "Troll Stronghold", "coordinates": {"x": 2827, "y": 3696, "z": 0}, "requirements": {"quest": "my_arms_big_adventure"}},
+      {"name": "Harmony Island", "coordinates": {"x": 3791, "y": 2835, "z": 0}, "requirements": {"quest": "great_brain_robbery"}},
+      {"name": "Weiss", "coordinates": {"x": 2848, "y": 3935, "z": 0}, "requirements": {"quest": "making_friends_with_my_arm"}},
+      {"name": "Farming Guild", "coordinates": {"x": 1239, "y": 3727, "z": 0}, "requirements": {"farming": 65}}
+    ],
+    "tree": [
+      {"name": "Millbrook", "coordinates": {"x": 3193, "y": 3230, "z": 0}},
+      {"name": "Thornhaven Castle", "coordinates": {"x": 3228, "y": 3458, "z": 0}},
+      {"name": "Stoneguard Park", "coordinates": {"x": 3003, "y": 3372, "z": 0}},
+      {"name": "Taverly", "coordinates": {"x": 2936, "y": 3437, "z": 0}},
+      {"name": "Tree Gnome Stronghold", "coordinates": {"x": 2435, "y": 3415, "z": 0}},
+      {"name": "Farming Guild", "coordinates": {"x": 1232, "y": 3736, "z": 0}, "requirements": {"farming": 65}}
+    ],
+    "fruit_tree": [
+      {"name": "Brimhaven", "coordinates": {"x": 2764, "y": 3213, "z": 0}},
+      {"name": "Catherby", "coordinates": {"x": 2860, "y": 3433, "z": 0}},
+      {"name": "Tree Gnome Stronghold", "coordinates": {"x": 2475, "y": 3445, "z": 0}},
+      {"name": "Lletya", "coordinates": {"x": 2346, "y": 3162, "z": 0}, "requirements": {"quest": "regicide"}},
+      {"name": "Tree Gnome Village", "coordinates": {"x": 2490, "y": 3180, "z": 0}},
+      {"name": "Farming Guild", "coordinates": {"x": 1243, "y": 3759, "z": 0}, "requirements": {"farming": 85}}
+    ],
+    "spirit_tree": [
+      {"name": "Port Sarim", "coordinates": {"x": 3059, "y": 3258, "z": 0}},
+      {"name": "Etceteria", "coordinates": {"x": 2613, "y": 3857, "z": 0}},
+      {"name": "Brimhaven", "coordinates": {"x": 2800, "y": 3203, "z": 0}},
+      {"name": "Hosidius", "coordinates": {"x": 1692, "y": 3540, "z": 0}},
+      {"name": "Farming Guild", "coordinates": {"x": 1252, "y": 3749, "z": 0}, "requirements": {"farming": 85}}
+    ]
+  },
+
+  "crops": {
+    "allotments": [
+      {"id": "potato", "name": "Potato", "level": 1, "growth_time_minutes": 40, "xp_plant": 8, "xp_harvest": 9, "seed_per_patch": 3, "payment": "compost_2"},
+      {"id": "onion", "name": "Onion", "level": 5, "growth_time_minutes": 40, "xp_plant": 9.5, "xp_harvest": 10.5, "seed_per_patch": 3, "payment": "potatoes_10"},
+      {"id": "cabbage", "name": "Cabbage", "level": 7, "growth_time_minutes": 40, "xp_plant": 10, "xp_harvest": 11.5, "seed_per_patch": 3, "payment": "onions_10"},
+      {"id": "tomato", "name": "Tomato", "level": 12, "growth_time_minutes": 40, "xp_plant": 12.5, "xp_harvest": 14, "seed_per_patch": 3, "payment": "cabbages_10"},
+      {"id": "sweetcorn", "name": "Sweetcorn", "level": 20, "growth_time_minutes": 60, "xp_plant": 17, "xp_harvest": 19, "seed_per_patch": 3, "payment": "jute_fibre_10"},
+      {"id": "strawberry", "name": "Strawberry", "level": 31, "growth_time_minutes": 60, "xp_plant": 26, "xp_harvest": 29, "seed_per_patch": 3, "payment": "apples_5"},
+      {"id": "watermelon", "name": "Watermelon", "level": 47, "growth_time_minutes": 80, "xp_plant": 48.5, "xp_harvest": 54.5, "seed_per_patch": 3, "payment": "curry_leaf_10"},
+      {"id": "snape_grass", "name": "Snape Grass", "level": 61, "growth_time_minutes": 70, "xp_plant": 82, "xp_harvest": 82, "seed_per_patch": 3, "payment": "jangerberries_5"}
+    ],
+
+    "herbs": [
+      {"id": "guam", "name": "Guam", "level": 9, "growth_time_minutes": 80, "xp_plant": 11, "xp_harvest": 12.5},
+      {"id": "marrentill", "name": "Marrentill", "level": 14, "growth_time_minutes": 80, "xp_plant": 13.5, "xp_harvest": 15},
+      {"id": "tarromin", "name": "Tarromin", "level": 19, "growth_time_minutes": 80, "xp_plant": 16, "xp_harvest": 18},
+      {"id": "harralander", "name": "Harralander", "level": 26, "growth_time_minutes": 80, "xp_plant": 21.5, "xp_harvest": 24},
+      {"id": "ranarr", "name": "Ranarr", "level": 32, "growth_time_minutes": 80, "xp_plant": 27, "xp_harvest": 30.5},
+      {"id": "toadflax", "name": "Toadflax", "level": 38, "growth_time_minutes": 80, "xp_plant": 34, "xp_harvest": 38.5},
+      {"id": "irit", "name": "Irit", "level": 44, "growth_time_minutes": 80, "xp_plant": 43, "xp_harvest": 48.5},
+      {"id": "avantoe", "name": "Avantoe", "level": 50, "growth_time_minutes": 80, "xp_plant": 54.5, "xp_harvest": 61.5},
+      {"id": "kwuarm", "name": "Kwuarm", "level": 56, "growth_time_minutes": 80, "xp_plant": 69, "xp_harvest": 78},
+      {"id": "snapdragon", "name": "Snapdragon", "level": 62, "growth_time_minutes": 80, "xp_plant": 87.5, "xp_harvest": 98.5},
+      {"id": "cadantine", "name": "Cadantine", "level": 67, "growth_time_minutes": 80, "xp_plant": 106.5, "xp_harvest": 120},
+      {"id": "lantadyme", "name": "Lantadyme", "level": 73, "growth_time_minutes": 80, "xp_plant": 134.5, "xp_harvest": 151.5},
+      {"id": "dwarf_weed", "name": "Dwarf Weed", "level": 79, "growth_time_minutes": 80, "xp_plant": 170.5, "xp_harvest": 192},
+      {"id": "torstol", "name": "Torstol", "level": 85, "growth_time_minutes": 80, "xp_plant": 199.5, "xp_harvest": 224.5}
+    ],
+
+    "flowers": [
+      {"id": "marigold", "name": "Marigold", "level": 2, "growth_time_minutes": 20, "xp_plant": 8.5, "xp_harvest": 47, "protects": ["potato", "onion", "tomato"]},
+      {"id": "rosemary", "name": "Rosemary", "level": 11, "growth_time_minutes": 20, "xp_plant": 12, "xp_harvest": 66.5, "protects": ["cabbage"]},
+      {"id": "nasturtium", "name": "Nasturtium", "level": 24, "growth_time_minutes": 20, "xp_plant": 19.5, "xp_harvest": 111, "protects": ["watermelon"]},
+      {"id": "woad", "name": "Woad", "level": 25, "growth_time_minutes": 20, "xp_plant": 20.5, "xp_harvest": 115.5, "produces": "woad_leaves"},
+      {"id": "limpwurt", "name": "Limpwurt", "level": 26, "growth_time_minutes": 20, "xp_plant": 21.5, "xp_harvest": 120, "produces": "limpwurt_root"},
+      {"id": "white_lily", "name": "White Lily", "level": 52, "growth_time_minutes": 20, "xp_plant": 70, "xp_harvest": 250, "protects": "all_allotments"}
+    ],
+
+    "trees": [
+      {"id": "oak_tree", "name": "Oak Tree", "level": 15, "growth_time_minutes": 200, "xp_plant": 14, "xp_check": 467.5, "payment": "tomatoes_5"},
+      {"id": "willow_tree", "name": "Willow Tree", "level": 30, "growth_time_minutes": 280, "xp_plant": 25, "xp_check": 1456.5, "payment": "apples_5"},
+      {"id": "maple_tree", "name": "Maple Tree", "level": 45, "growth_time_minutes": 320, "xp_plant": 45, "xp_check": 3403.4, "payment": "oranges_5"},
+      {"id": "yew_tree", "name": "Yew Tree", "level": 60, "growth_time_minutes": 400, "xp_plant": 81, "xp_check": 7069.9, "payment": "cactus_spine_10"},
+      {"id": "magic_tree", "name": "Magic Tree", "level": 75, "growth_time_minutes": 480, "xp_plant": 145.5, "xp_check": 13768.3, "payment": "coconuts_25"},
+      {"id": "redwood_tree", "name": "Redwood Tree", "level": 90, "growth_time_minutes": 5120, "xp_plant": 230, "xp_check": 22450, "payment": "dragonfruit_6", "location": "farming_guild_only"}
+    ],
+
+    "fruit_trees": [
+      {"id": "apple_tree", "name": "Apple Tree", "level": 27, "growth_time_minutes": 960, "xp_plant": 22, "xp_check": 1199.5, "xp_harvest": 8.5, "payment": "sweetcorn_9"},
+      {"id": "banana_tree", "name": "Banana Tree", "level": 33, "growth_time_minutes": 960, "xp_plant": 28, "xp_check": 1750.5, "xp_harvest": 10.5, "payment": "apples_4"},
+      {"id": "orange_tree", "name": "Orange Tree", "level": 39, "growth_time_minutes": 960, "xp_plant": 35.5, "xp_check": 2470.2, "xp_harvest": 13.5, "payment": "strawberries_3"},
+      {"id": "curry_tree", "name": "Curry Tree", "level": 42, "growth_time_minutes": 960, "xp_plant": 40, "xp_check": 2906.9, "xp_harvest": 15, "payment": "bananas_5"},
+      {"id": "pineapple_tree", "name": "Pineapple Tree", "level": 51, "growth_time_minutes": 960, "xp_plant": 57, "xp_check": 4605.7, "xp_harvest": 21.5, "payment": "watermelons_10"},
+      {"id": "papaya_tree", "name": "Papaya Tree", "level": 57, "growth_time_minutes": 960, "xp_plant": 72, "xp_check": 6146.4, "xp_harvest": 27, "payment": "pineapples_10"},
+      {"id": "palm_tree", "name": "Palm Tree", "level": 68, "growth_time_minutes": 960, "xp_plant": 110.5, "xp_check": 10150.1, "xp_harvest": 41.5, "payment": "papayas_15"},
+      {"id": "dragonfruit_tree", "name": "Dragonfruit Tree", "level": 81, "growth_time_minutes": 960, "xp_plant": 140, "xp_check": 17335, "xp_harvest": 70, "payment": "coconuts_15"}
+    ],
+
+    "special_trees": [
+      {"id": "spirit_tree", "name": "Spirit Tree", "level": 83, "growth_time_minutes": 3520, "xp_plant": 199.5, "xp_check": 19301.8, "payment": "monkey_nuts_5_ground_tooth_1_monkey_bar_1", "max_planted": 5, "transportation": true},
+      {"id": "calquat_tree", "name": "Calquat Tree", "level": 72, "growth_time_minutes": 1280, "xp_plant": 129.5, "xp_check": 12096, "xp_harvest": 48.5, "payment": "poison_ivy_berries_8"},
+      {"id": "teak_tree", "name": "Teak Tree", "level": 35, "growth_time_minutes": 4480, "xp_plant": 35, "xp_check": 7290, "location": "hardwood_patches"},
+      {"id": "mahogany_tree", "name": "Mahogany Tree", "level": 55, "growth_time_minutes": 5120, "xp_plant": 63, "xp_check": 15720, "location": "hardwood_patches"},
+      {"id": "celastrus_tree", "name": "Celastrus Tree", "level": 85, "growth_time_minutes": 800, "xp_plant": 204, "xp_check": 14130, "produces": "battlestaff_bark"}
+    ]
+  },
+
+  "compost": {
+    "types": [
+      {
+        "id": "compost",
+        "name": "Compost",
+        "disease_reduction_percent": 50,
+        "yield_boost": 1,
+        "creation": "compost_bin_with_weeds"
+      },
+      {
+        "id": "supercompost",
+        "name": "Supercompost",
+        "disease_reduction_percent": 75,
+        "yield_boost": 2,
+        "creation": "compost_bin_with_high_tier_produce"
+      },
+      {
+        "id": "ultracompost",
+        "name": "Ultracompost",
+        "disease_reduction_percent": 90,
+        "yield_boost": 3,
+        "creation": "supercompost_plus_volcanic_ash"
+      }
+    ],
+    "bottomless_bucket": {
+      "id": "bottomless_compost_bucket",
+      "capacity": "unlimited",
+      "uses_half_compost": true,
+      "source": "hespori_boss"
+    }
+  },
+
+  "farming_contracts": {
+    "description": "Daily farming tasks from the Farming Guild",
+    "location": "Farming Guild",
+    "npc": "Guildmaster Jane",
+    "tiers": [
+      {"tier": "easy", "farming_level": 45, "crops": "low_tier"},
+      {"tier": "medium", "farming_level": 65, "crops": "mid_tier"},
+      {"tier": "hard", "farming_level": 85, "crops": "high_tier"}
+    ],
+    "rewards": {
+      "seed_packs": true,
+      "xp_bonus": true,
+      "farming_guild_favor": true
+    }
+  },
+
+  "farming_guild": {
+    "location": "Kebos Lowlands",
+    "tiers": [
+      {"tier": 1, "level": 45, "access": "basic"},
+      {"tier": 2, "level": 65, "access": "intermediate"},
+      {"tier": 3, "level": 85, "access": "advanced"}
+    ],
+    "features": {
+      "seed_vault": {"level": 45, "capacity": "unlimited_seeds"},
+      "anima_patch": {"level": 76, "special": "grows_anima_plants"},
+      "hespori_cave": {"level": 65, "boss": "hespori"},
+      "redwood_tree_patch": {"level": 90}
+    }
+  },
+
+  "equipment": {
+    "secateurs": [
+      {"id": "secateurs", "name": "Secateurs", "bonus_yield_percent": 0},
+      {"id": "magic_secateurs", "name": "Magic Secateurs", "bonus_yield_percent": 10, "source": "fairy_tale_part_1"}
+    ],
+    "outfit": {
+      "name": "Farmer's Outfit",
+      "pieces": ["farmers_hat", "farmers_jacket", "farmers_boro_trousers", "farmers_boots"],
+      "set_bonus": "2.5% extra farming XP",
+      "source": "tithe_farm"
+    },
+    "tools": [
+      {"id": "rake", "use": "clear_weeds"},
+      {"id": "seed_dibber", "use": "plant_seeds"},
+      {"id": "spade", "use": "harvest_and_clear"},
+      {"id": "watering_can", "use": "water_crops"},
+      {"id": "plant_cure", "use": "cure_disease"},
+      {"id": "gardening_trowel", "use": "plant_saplings"}
+    ]
+  },
+
+  "tithe_farm": {
+    "description": "Farming minigame for points and rewards",
+    "location": "Hosidius",
+    "requirements": {"farming": 34, "hosidius_favour": 100},
+    "mechanics": {
+      "plant_seeds": "golovanova, bologano, logavano",
+      "water_regularly": true,
+      "harvest_at_final_stage": true,
+      "points_per_harvest": 1
+    },
+    "rewards": [
+      {"item": "farmers_outfit_piece", "cost": 400},
+      {"item": "seed_box", "cost": 250},
+      {"item": "gricollers_can", "cost": 200},
+      {"item": "herb_sack", "cost": 250},
+      {"item": "grape_seed", "cost": 2},
+      {"item": "farming_xp", "cost": 1, "xp": "farming_level * 35"}
+    ]
+  },
+
+  "ue5_implementation": {
+    "growth_visualization": {
+      "stages": 5,
+      "model_per_stage": true,
+      "growth_particles": true,
+      "disease_visual": {"color_shift": "yellow_brown", "wilting_animation": true},
+      "watered_visual": {"wet_texture": true, "duration_seconds": 300}
+    },
+
+    "patch_interaction": {
+      "highlight_on_hover": true,
+      "context_menu": ["plant", "inspect", "harvest", "clear", "compost"],
+      "tool_auto_select": true
+    },
+
+    "harvest_effects": {
+      "particle_system": "PS_Harvest_Bounty",
+      "xp_drop_animation": true,
+      "loot_spawning": true,
+      "sound_cue": "SC_Harvest_Crops"
+    },
+
+    "tree_growth": {
+      "scaling_animation": true,
+      "full_grown_model_swap": true,
+      "fruit_spawning_on_branches": true,
+      "health_check_interaction": true
+    },
+
+    "gardener_npcs": {
+      "patrol_near_patches": true,
+      "offer_protection_dialogue": true,
+      "payment_interface": true
+    }
+  }
+}

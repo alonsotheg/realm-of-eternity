@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Cosmetics, titles, pets, and emotes for Realm of Eternity"
+  },
+  "titles": {
+    "achievement": [
+      { "id": "the_eternal", "name": "the Eternal", "description": "Achieve 99 in all skills", "requirement": "all_99s", "position": "suffix", "color": "#FFD700" },
+      { "id": "master_of_all", "name": "Master of All", "description": "Achieve 120 in all skills", "requirement": "all_120s", "position": "prefix", "color": "#FF00FF" },
+      { "id": "completionist", "name": "the Completionist", "description": "Complete all achievements", "requirement": "all_achievements", "position": "suffix", "color": "#00FF00" },
+      { "id": "trimmed", "name": "Trimmed", "description": "Complete all trimmed comp requirements", "requirement": "trimmed_comp", "position": "prefix", "color": "#00FFFF" },
+      { "id": "questmaster", "name": "of the Quest", "description": "Complete all quests", "requirement": "all_quests", "position": "suffix", "color": "#4169E1" },
+      { "id": "loremaster", "name": "Loremaster", "description": "Discover all lore entries", "requirement": "all_lore", "position": "prefix", "color": "#8B4513" }
+    ],
+    "boss": [
+      { "id": "slayer_of_malachar", "name": "Slayer of Malachar", "description": "Defeat Shadow Lord Malachar 500 times", "requirement": "malachar_500", "position": "prefix", "color": "#800080" },
+      { "id": "ancient_nemesis", "name": "Ancient Nemesis", "description": "Defeat the Ancient Ent 100 times", "requirement": "ent_100", "position": "prefix", "color": "#228B22" },
+      { "id": "voidwalker", "name": "Voidwalker", "description": "Defeat the Void Empress 50 times", "requirement": "void_empress_50", "position": "prefix", "color": "#4B0082" },
+      { "id": "eternal_champion", "name": "Eternal Champion", "description": "Defeat all raid bosses on hard mode", "requirement": "all_hm_raids", "position": "prefix", "color": "#FF4500" },
+      { "id": "the_insane", "name": "the Insane", "description": "Solo defeat all bosses", "requirement": "solo_all_bosses", "position": "suffix", "color": "#DC143C" }
+    ],
+    "skill": [
+      { "id": "master_miner", "name": "Master Miner", "description": "Level 99 Mining", "requirement": "mining_99", "position": "prefix", "color": "#A0522D" },
+      { "id": "master_smith", "name": "Master Smith", "description": "Level 99 Smithing", "requirement": "smithing_99", "position": "prefix", "color": "#708090" },
+      { "id": "archmage", "name": "Archmage", "description": "Level 120 Magic", "requirement": "magic_120", "position": "prefix", "color": "#9932CC" },
+      { "id": "shadow_master", "name": "Shadow Master", "description": "Level 120 Subterfuge", "requirement": "subterfuge_120", "position": "prefix", "color": "#2F4F4F" },
+      { "id": "beastslayer_supreme", "name": "Beastslayer Supreme", "description": "Level 120 Beastslaying", "requirement": "beastslaying_120", "position": "prefix", "color": "#8B0000" },
+      { "id": "true_mastery", "name": "of True Mastery", "description": "Reach Mastery 10 in any skill", "requirement": "any_mastery_10", "position": "suffix", "color": "#FFD700" }
+    ],
+    "pvp": [
+      { "id": "gladiator", "name": "Gladiator", "description": "Win 1000 PvP matches", "requirement": "pvp_wins_1000", "position": "prefix", "color": "#B22222" },
+      { "id": "duelist", "name": "the Duelist", "description": "Reach top 100 in ranked PvP", "requirement": "ranked_top_100", "position": "suffix", "color": "#FF6347" },
+      { "id": "legend", "name": "Legend", "description": "Reach #1 in ranked PvP", "requirement": "ranked_first", "position": "prefix", "color": "#FFD700" },
+      { "id": "bounty_hunter", "name": "Bounty Hunter", "description": "Claim 500 bounties", "requirement": "bounties_500", "position": "prefix", "color": "#8B4513" }
+    ],
+    "seasonal": [
+      { "id": "winter_champion", "name": "Winter Champion", "description": "Complete Winterfest event", "requirement": "winterfest_complete", "position": "prefix", "color": "#ADD8E6" },
+      { "id": "harvest_king", "name": "Harvest King", "description": "Complete Harvest Festival event", "requirement": "harvest_complete", "position": "prefix", "color": "#DAA520" },
+      { "id": "shadow_walker", "name": "Shadow Walker", "description": "Complete Night of Shadows event", "requirement": "shadows_complete", "position": "prefix", "color": "#191970" }
+    ]
+  },
+  "pets": {
+    "boss": [
+      { "id": "mini_malachar", "name": "Mini Malachar", "source": "shadow_lord_malachar", "dropRate": 0.002, "description": "A tiny shadow lord follows you", "overrides": ["walk_anim"] },
+      { "id": "entling", "name": "Entling", "source": "ancient_ent", "dropRate": 0.001, "description": "A sprout from the ancient tree", "overrides": ["idle_anim"] },
+      { "id": "void_sprite", "name": "Void Sprite", "source": "void_empress", "dropRate": 0.0005, "description": "A fragment of the void given form", "overrides": ["teleport_effect"] },
+      { "id": "baby_wyrm", "name": "Baby Wyrm", "source": "elder_wyrm", "dropRate": 0.002, "description": "A hatchling from the elder's clutch", "overrides": [] },
+      { "id": "phoenix_chick", "name": "Phoenix Chick", "source": "wintertodt", "dropRate": 0.002, "description": "A reborn flame spirit", "overrides": ["death_anim"] }
+    ],
+    "skilling": [
+      { "id": "rocky", "name": "Rocky", "source": "mining", "dropRate": 0.00003, "description": "A living gemstone", "overrides": [] },
+      { "id": "woodpecker", "name": "Chip", "source": "woodcutting", "dropRate": 0.00003, "description": "A persistent little bird", "overrides": [] },
+      { "id": "fishing_familiar", "name": "Bubbles", "source": "fishing", "dropRate": 0.00003, "description": "A magical fish companion", "overrides": [] },
+      { "id": "tangleroot", "name": "Tangleroot", "source": "farming", "dropRate": 0.00002, "description": "A small root creature", "overrides": [] },
+      { "id": "herbi", "name": "Herbi", "source": "alchemy", "dropRate": 0.00003, "description": "An animated herb bundle", "overrides": [] },
+      { "id": "rift_guardian", "name": "Rift Guardian", "source": "glyphcraft", "dropRate": 0.00002, "description": "A guardian from the rift", "overrides": [], "variants": ["breeze", "tide", "terra", "ember", "astral", "void", "crimson"] }
+    ],
+    "achievement": [
+      { "id": "bloodhound", "name": "Bloodhound", "source": "master_clues_100", "description": "A loyal tracking companion", "overrides": [] },
+      { "id": "chompy_chick", "name": "Chompy Chick", "source": "chompy_expert", "description": "A hungry little bird", "overrides": [] },
+      { "id": "abyssal_minion", "name": "Abyssal Minion", "source": "abyssal_sire_500", "description": "A creature from the abyss", "overrides": [] }
+    ],
+    "premium": [
+      { "id": "dragon_hatchling", "name": "Dragon Hatchling", "source": "eternium_shop", "cost": 1000, "description": "A baby dragon companion", "overrides": ["fire_trail"], "variants": ["red", "blue", "green", "black", "gold"] },
+      { "id": "spectral_cat", "name": "Spectral Cat", "source": "eternium_shop", "cost": 500, "description": "A ghostly feline friend", "overrides": ["idle_anim"] },
+      { "id": "clockwork_companion", "name": "Clockwork Companion", "source": "eternium_shop", "cost": 750, "description": "A mechanical marvel", "overrides": ["walk_anim", "idle_anim"] }
+    ]
+  },
+  "outfits": {
+    "skillcape": [
+      { "id": "melee_cape", "name": "Melee Skillcape", "requirement": "melee_99", "perk": "+2% melee damage", "slots": ["back"] },
+      { "id": "ranged_cape", "name": "Ranged Skillcape", "requirement": "ranged_99", "perk": "+2% ranged damage", "slots": ["back"] },
+      { "id": "magic_cape", "name": "Magic Skillcape", "requirement": "magic_99", "perk": "+2% magic damage", "slots": ["back"] },
+      { "id": "max_cape", "name": "Max Cape", "requirement": "all_99s", "perk": "All skillcape perks", "slots": ["back"] },
+      { "id": "completionist_cape", "name": "Completionist Cape", "requirement": "completionist", "perk": "Max cape + stat boost", "slots": ["back"] }
+    ],
+    "cosmetic": [
+      { "id": "shadow_armor", "name": "Shadow Armor", "source": "eternium_shop", "cost": 2000, "slots": ["head", "body", "legs", "hands", "feet"], "description": "Ethereal dark armor" },
+      { "id": "crystal_armor", "name": "Crystal Armor", "source": "eternium_shop", "cost": 2500, "slots": ["head", "body", "legs", "hands", "feet"], "description": "Shimmering crystal plate" },
+      { "id": "void_warped", "name": "Void-Warped Set", "source": "void_empress", "slots": ["head", "body", "legs", "hands", "feet"], "description": "Armor touched by the void" },
+      { "id": "golden_warriors", "name": "Golden Warrior Set", "source": "castle_wars_1000", "slots": ["head", "body", "legs", "hands", "feet"], "description": "Gilded combat attire" },
+      { "id": "druidic", "name": "Druidic Robes", "source": "nature_mastery", "slots": ["head", "body", "legs", "hands", "feet"], "description": "Ancient druidic vestments" }
+    ],
+    "holiday": [
+      { "id": "winter_garb", "name": "Winter Garb", "source": "winterfest_2024", "slots": ["head", "body", "legs"], "description": "Festive winter clothing" },
+      { "id": "harvest_outfit", "name": "Harvest Outfit", "source": "harvest_2024", "slots": ["head", "body", "legs"], "description": "Traditional harvest attire" },
+      { "id": "shadow_cloak", "name": "Shadow Cloak", "source": "night_of_shadows_2024", "slots": ["back"], "description": "A cloak of living darkness" }
+    ]
+  },
+  "emotes": {
+    "basic": [
+      { "id": "wave", "name": "Wave", "unlockMethod": "default", "animation": "emote_wave" },
+      { "id": "bow", "name": "Bow", "unlockMethod": "default", "animation": "emote_bow" },
+      { "id": "shrug", "name": "Shrug", "unlockMethod": "default", "animation": "emote_shrug" },
+      { "id": "cheer", "name": "Cheer", "unlockMethod": "default", "animation": "emote_cheer" },
+      { "id": "think", "name": "Think", "unlockMethod": "default", "animation": "emote_think" },
+      { "id": "laugh", "name": "Laugh", "unlockMethod": "default", "animation": "emote_laugh" },
+      { "id": "cry", "name": "Cry", "unlockMethod": "default", "animation": "emote_cry" },
+      { "id": "angry", "name": "Angry", "unlockMethod": "default", "animation": "emote_angry" },
+      { "id": "dance", "name": "Dance", "unlockMethod": "default", "animation": "emote_dance" },
+      { "id": "sit", "name": "Sit", "unlockMethod": "default", "animation": "emote_sit", "looping": true }
+    ],
+    "skillUnlocks": [
+      { "id": "air_guitar", "name": "Air Guitar", "unlockMethod": "all_99s", "animation": "emote_air_guitar" },
+      { "id": "explore", "name": "Explore", "unlockMethod": "agility_99", "animation": "emote_explore" },
+      { "id": "fletch", "name": "Fletch", "unlockMethod": "bowcraft_99", "animation": "emote_fletch" },
+      { "id": "give_thanks", "name": "Give Thanks", "unlockMethod": "sanctity_99", "animation": "emote_give_thanks" },
+      { "id": "hypermobile_drinker", "name": "Hypermobile Drinker", "unlockMethod": "alchemy_99", "animation": "emote_hypermobile_drinker" }
+    ],
+    "quest": [
+      { "id": "seal_of_passage", "name": "Seal of Passage", "unlockMethod": "quest_lunar_diplomacy", "animation": "emote_seal" },
+      { "id": "zombie_walk", "name": "Zombie Walk", "unlockMethod": "quest_land_of_the_dead", "animation": "emote_zombie" },
+      { "id": "dramatic_point", "name": "Dramatic Point", "unlockMethod": "quest_grand_mystery", "animation": "emote_point" }
+    ],
+    "premium": [
+      { "id": "epic_dance", "name": "Epic Dance", "unlockMethod": "eternium_shop", "cost": 500, "animation": "emote_epic_dance", "looping": true },
+      { "id": "fireworks", "name": "Fireworks", "unlockMethod": "eternium_shop", "cost": 300, "animation": "emote_fireworks", "hasVFX": true },
+      { "id": "levitate", "name": "Levitate", "unlockMethod": "eternium_shop", "cost": 750, "animation": "emote_levitate", "looping": true },
+      { "id": "summon_throne", "name": "Summon Throne", "unlockMethod": "eternium_shop", "cost": 1000, "animation": "emote_summon_throne", "looping": true, "hasVFX": true }
+    ]
+  },
+  "transmog": {
+    "description": "Appearance override system",
+    "unlockMethods": [
+      { "method": "ownership", "description": "Own the item in bank or worn" },
+      { "method": "keepsake", "description": "Store item in keepsake box" },
+      { "method": "token", "description": "Use unlock token on item" }
+    ],
+    "restrictions": {
+      "matchSlot": true,
+      "pvpDisabled": true,
+      "minigameDisabled": false,
+      "combatStyleMatch": false
+    },
+    "keepsakeBox": {
+      "slots": 12,
+      "unlockCost": 100,
+      "destroysItem": true
+    }
+  },
+  "auras": {
+    "combat": [
+      { "id": "berserker", "name": "Berserker", "effect": "+10% melee damage, -15% defense", "duration": 3600, "cooldown": 86400, "tier": 3, "cost": 25000 },
+      { "id": "sharpshooter", "name": "Sharpshooter", "effect": "+10% ranged accuracy", "duration": 3600, "cooldown": 86400, "tier": 3, "cost": 25000 },
+      { "id": "runic_accuracy", "name": "Runic Accuracy", "effect": "+10% magic accuracy", "duration": 3600, "cooldown": 86400, "tier": 3, "cost": 25000 },
+      { "id": "vampyrism", "name": "Vampyrism", "effect": "5% lifesteal on damage", "duration": 3600, "cooldown": 86400, "tier": 4, "cost": 50000 },
+      { "id": "penance", "name": "Penance", "effect": "5% damage taken as devotion restore", "duration": 3600, "cooldown": 86400, "tier": 4, "cost": 50000 },
+      { "id": "dark_magic", "name": "Dark Magic", "effect": "Chance for damage-over-time on hit", "duration": 3600, "cooldown": 86400, "tier": 4, "cost": 50000 }
+    ],
+    "skilling": [
+      { "id": "wisdom", "name": "Wisdom", "effect": "+2.5% XP gain", "duration": 3600, "cooldown": 86400, "tier": 2, "cost": 10000 },
+      { "id": "resourceful", "name": "Resourceful", "effect": "+10% chance for bonus resources", "duration": 3600, "cooldown": 86400, "tier": 3, "cost": 25000 },
+      { "id": "five_finger_discount", "name": "Five Finger Discount", "effect": "+10% subterfuge success", "duration": 3600, "cooldown": 86400, "tier": 2, "cost": 10000 },
+      { "id": "greenfingers", "name": "Greenfingers", "effect": "+10% farming yield", "duration": 3600, "cooldown": 86400, "tier": 3, "cost": 25000 }
+    ],
+    "premium": [
+      { "id": "supreme_runic_accuracy", "name": "Supreme Runic Accuracy", "effect": "+15% magic accuracy", "duration": 7200, "cooldown": 86400, "tier": 5, "cost": 100000 },
+      { "id": "supreme_sharpshooter", "name": "Supreme Sharpshooter", "effect": "+15% ranged accuracy", "duration": 7200, "cooldown": 86400, "tier": 5, "cost": 100000 },
+      { "id": "supreme_berserker", "name": "Supreme Berserker", "effect": "+15% melee damage", "duration": 7200, "cooldown": 86400, "tier": 5, "cost": 100000 }
+    ]
+  }
+}

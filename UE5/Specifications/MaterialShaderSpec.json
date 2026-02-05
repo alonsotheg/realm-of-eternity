@@ -1,0 +1,462 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Material and shader specification for Realm of Eternity UE5",
+    "unrealVersion": "5.3",
+    "renderPipeline": "deferred"
+  },
+  "masterMaterials": {
+    "description": "Base master materials for all game assets",
+    "materials": [
+      {
+        "name": "M_Character_Master",
+        "description": "Master material for all character meshes",
+        "domain": "surface",
+        "blendMode": "opaque",
+        "shadingModel": "defaultLit",
+        "features": ["subsurfaceScattering", "clearCoat", "emissive"],
+        "parameters": [
+          { "name": "BaseColor", "type": "texture2D", "default": "T_Default_D" },
+          { "name": "Normal", "type": "texture2D", "default": "T_Default_N" },
+          { "name": "ORM", "type": "texture2D", "default": "T_Default_ORM", "description": "Occlusion/Roughness/Metallic packed" },
+          { "name": "Emissive", "type": "texture2D", "default": "T_Black" },
+          { "name": "EmissiveIntensity", "type": "scalar", "default": 1.0, "range": [0, 100] },
+          { "name": "SubsurfaceColor", "type": "vector3", "default": [0.8, 0.3, 0.2] },
+          { "name": "SubsurfaceIntensity", "type": "scalar", "default": 0.5, "range": [0, 1] },
+          { "name": "TintColor", "type": "vector3", "default": [1, 1, 1] },
+          { "name": "DyeColor1", "type": "vector3", "default": [1, 1, 1], "description": "Primary armor dye slot" },
+          { "name": "DyeColor2", "type": "vector3", "default": [1, 1, 1], "description": "Secondary armor dye slot" },
+          { "name": "DyeMask", "type": "texture2D", "default": "T_Default_DyeMask" }
+        ],
+        "switches": [
+          { "name": "UseEmissive", "default": false },
+          { "name": "UseSubsurface", "default": false },
+          { "name": "UseDyeSystem", "default": true },
+          { "name": "UseDetailNormal", "default": false }
+        ]
+      },
+      {
+        "name": "M_Weapon_Master",
+        "description": "Master material for weapons",
+        "domain": "surface",
+        "blendMode": "opaque",
+        "shadingModel": "defaultLit",
+        "features": ["emissive", "clearCoat"],
+        "parameters": [
+          { "name": "BaseColor", "type": "texture2D", "default": "T_Default_D" },
+          { "name": "Normal", "type": "texture2D", "default": "T_Default_N" },
+          { "name": "ORM", "type": "texture2D", "default": "T_Default_ORM" },
+          { "name": "Emissive", "type": "texture2D", "default": "T_Black" },
+          { "name": "EmissiveIntensity", "type": "scalar", "default": 1.0 },
+          { "name": "EnchantGlowColor", "type": "vector3", "default": [0.5, 0.8, 1.0] },
+          { "name": "EnchantGlowIntensity", "type": "scalar", "default": 0.0, "range": [0, 10] },
+          { "name": "BladeSharpness", "type": "scalar", "default": 0.8, "range": [0, 1] },
+          { "name": "WearAmount", "type": "scalar", "default": 0.0, "range": [0, 1] }
+        ],
+        "switches": [
+          { "name": "UseEnchantGlow", "default": false },
+          { "name": "UsePoisonEffect", "default": false },
+          { "name": "UseBloodEffect", "default": false }
+        ]
+      },
+      {
+        "name": "M_Environment_Master",
+        "description": "Master material for environment props",
+        "domain": "surface",
+        "blendMode": "opaque",
+        "shadingModel": "defaultLit",
+        "features": ["worldPositionOffset", "tessellation"],
+        "parameters": [
+          { "name": "BaseColor", "type": "texture2D", "default": "T_Default_D" },
+          { "name": "Normal", "type": "texture2D", "default": "T_Default_N" },
+          { "name": "ORM", "type": "texture2D", "default": "T_Default_ORM" },
+          { "name": "DetailBaseColor", "type": "texture2D", "default": "T_Default_D" },
+          { "name": "DetailNormal", "type": "texture2D", "default": "T_Default_N" },
+          { "name": "DetailTiling", "type": "scalar", "default": 4.0 },
+          { "name": "DetailBlend", "type": "scalar", "default": 0.5, "range": [0, 1] },
+          { "name": "MossAmount", "type": "scalar", "default": 0.0, "range": [0, 1] },
+          { "name": "MossColor", "type": "texture2D", "default": "T_Moss_D" },
+          { "name": "SnowAmount", "type": "scalar", "default": 0.0, "range": [0, 1] },
+          { "name": "WetnessAmount", "type": "scalar", "default": 0.0, "range": [0, 1] }
+        ],
+        "switches": [
+          { "name": "UseDetailTextures", "default": true },
+          { "name": "UseMossOverlay", "default": false },
+          { "name": "UseSnowOverlay", "default": false },
+          { "name": "UseWetness", "default": false },
+          { "name": "UseWindAnimation", "default": false }
+        ]
+      },
+      {
+        "name": "M_Terrain_Master",
+        "description": "Master landscape material with layer blending",
+        "domain": "surface",
+        "blendMode": "opaque",
+        "shadingModel": "defaultLit",
+        "features": ["tessellation", "virtualTexturing"],
+        "maxLayers": 16,
+        "parameters": [
+          { "name": "Layer_Grass", "type": "materialLayer", "textures": ["BaseColor", "Normal", "ORM"] },
+          { "name": "Layer_Dirt", "type": "materialLayer", "textures": ["BaseColor", "Normal", "ORM"] },
+          { "name": "Layer_Rock", "type": "materialLayer", "textures": ["BaseColor", "Normal", "ORM"] },
+          { "name": "Layer_Sand", "type": "materialLayer", "textures": ["BaseColor", "Normal", "ORM"] },
+          { "name": "Layer_Snow", "type": "materialLayer", "textures": ["BaseColor", "Normal", "ORM"] },
+          { "name": "Layer_Mud", "type": "materialLayer", "textures": ["BaseColor", "Normal", "ORM"] },
+          { "name": "Layer_Gravel", "type": "materialLayer", "textures": ["BaseColor", "Normal", "ORM"] },
+          { "name": "Layer_Cobblestone", "type": "materialLayer", "textures": ["BaseColor", "Normal", "ORM"] },
+          { "name": "HeightBlendSharpness", "type": "scalar", "default": 0.5 },
+          { "name": "TessellationMultiplier", "type": "scalar", "default": 1.0 },
+          { "name": "DisplacementScale", "type": "scalar", "default": 10.0 }
+        ],
+        "switches": [
+          { "name": "UseTessellation", "default": true },
+          { "name": "UseHeightBlend", "default": true },
+          { "name": "UseRVT", "default": true },
+          { "name": "UsePuddles", "default": false }
+        ]
+      },
+      {
+        "name": "M_Foliage_Master",
+        "description": "Master material for vegetation",
+        "domain": "surface",
+        "blendMode": "masked",
+        "shadingModel": "twoSidedFoliage",
+        "features": ["subsurfaceScattering", "worldPositionOffset"],
+        "parameters": [
+          { "name": "BaseColor", "type": "texture2D", "default": "T_Default_D" },
+          { "name": "Normal", "type": "texture2D", "default": "T_Default_N" },
+          { "name": "OpacityMask", "type": "texture2D", "default": "T_Default_Mask" },
+          { "name": "SubsurfaceColor", "type": "vector3", "default": [0.2, 0.6, 0.1] },
+          { "name": "SubsurfaceIntensity", "type": "scalar", "default": 0.8 },
+          { "name": "WindStrength", "type": "scalar", "default": 1.0 },
+          { "name": "WindSpeed", "type": "scalar", "default": 1.0 },
+          { "name": "WindTurbulence", "type": "scalar", "default": 0.5 },
+          { "name": "SeasonTint", "type": "vector3", "default": [1, 1, 1] },
+          { "name": "HealthTint", "type": "scalar", "default": 1.0, "description": "0=dead/brown, 1=healthy/green" }
+        ],
+        "switches": [
+          { "name": "UseWind", "default": true },
+          { "name": "UseSeasonalTint", "default": true },
+          { "name": "UseBillboard", "default": false }
+        ]
+      },
+      {
+        "name": "M_Water_Master",
+        "description": "Master material for water surfaces",
+        "domain": "surface",
+        "blendMode": "translucent",
+        "shadingModel": "defaultLit",
+        "features": ["refraction", "reflection", "sceneDepthFade"],
+        "parameters": [
+          { "name": "WaterColor", "type": "vector3", "default": [0.02, 0.08, 0.15] },
+          { "name": "WaterColorDeep", "type": "vector3", "default": [0.01, 0.03, 0.08] },
+          { "name": "DepthFade", "type": "scalar", "default": 100 },
+          { "name": "Opacity", "type": "scalar", "default": 0.8 },
+          { "name": "NormalMap1", "type": "texture2D", "default": "T_Water_N1" },
+          { "name": "NormalMap2", "type": "texture2D", "default": "T_Water_N2" },
+          { "name": "NormalScale", "type": "scalar", "default": 0.5 },
+          { "name": "WaveSpeed", "type": "scalar", "default": 0.05 },
+          { "name": "WaveScale", "type": "scalar", "default": 1.0 },
+          { "name": "RefractionStrength", "type": "scalar", "default": 0.1 },
+          { "name": "FresnelPower", "type": "scalar", "default": 5.0 },
+          { "name": "FoamTexture", "type": "texture2D", "default": "T_Foam" },
+          { "name": "FoamAmount", "type": "scalar", "default": 0.5 },
+          { "name": "FoamDepthFade", "type": "scalar", "default": 50 },
+          { "name": "CausticsTexture", "type": "texture2D", "default": "T_Caustics" },
+          { "name": "CausticsIntensity", "type": "scalar", "default": 0.3 }
+        ],
+        "switches": [
+          { "name": "UseFoam", "default": true },
+          { "name": "UseCaustics", "default": true },
+          { "name": "UseFlowMap", "default": false },
+          { "name": "UseSSR", "default": true }
+        ]
+      },
+      {
+        "name": "M_VFX_Master",
+        "description": "Master material for visual effects",
+        "domain": "surface",
+        "blendMode": "additive",
+        "shadingModel": "unlit",
+        "features": ["particleColor", "dynamicParameter"],
+        "parameters": [
+          { "name": "MainTexture", "type": "texture2D", "default": "T_Default_Particle" },
+          { "name": "ColorTint", "type": "vector3", "default": [1, 1, 1] },
+          { "name": "Intensity", "type": "scalar", "default": 1.0 },
+          { "name": "SoftParticleDepth", "type": "scalar", "default": 10 },
+          { "name": "DistortionStrength", "type": "scalar", "default": 0.0 },
+          { "name": "ErosionAmount", "type": "scalar", "default": 0.0 },
+          { "name": "NoiseTexture", "type": "texture2D", "default": "T_Noise" },
+          { "name": "NoiseScale", "type": "scalar", "default": 1.0 },
+          { "name": "PanSpeed", "type": "vector2", "default": [0, 0] }
+        ],
+        "switches": [
+          { "name": "UseSoftParticles", "default": true },
+          { "name": "UseDistortion", "default": false },
+          { "name": "UseErosion", "default": false },
+          { "name": "UseNoise", "default": false }
+        ],
+        "variants": [
+          { "name": "M_VFX_Additive", "blendMode": "additive" },
+          { "name": "M_VFX_Translucent", "blendMode": "translucent" },
+          { "name": "M_VFX_Modulate", "blendMode": "modulate" }
+        ]
+      },
+      {
+        "name": "M_UI_Master",
+        "description": "Master material for UI elements",
+        "domain": "userInterface",
+        "blendMode": "translucent",
+        "shadingModel": "unlit",
+        "parameters": [
+          { "name": "Texture", "type": "texture2D", "default": "T_White" },
+          { "name": "Color", "type": "vector4", "default": [1, 1, 1, 1] },
+          { "name": "DesaturationAmount", "type": "scalar", "default": 0.0 },
+          { "name": "GlowColor", "type": "vector3", "default": [1, 0.8, 0.2] },
+          { "name": "GlowIntensity", "type": "scalar", "default": 0.0 },
+          { "name": "OutlineColor", "type": "vector3", "default": [0, 0, 0] },
+          { "name": "OutlineWidth", "type": "scalar", "default": 0.0 }
+        ],
+        "switches": [
+          { "name": "UseGlow", "default": false },
+          { "name": "UseOutline", "default": false },
+          { "name": "UseGrayscale", "default": false }
+        ]
+      }
+    ]
+  },
+  "materialInstances": {
+    "description": "Common material instance presets",
+    "categories": [
+      {
+        "category": "Metals",
+        "instances": [
+          { "name": "MI_Copperweave", "parent": "M_Character_Master", "roughness": 0.4, "metallic": 0.9, "tint": [0.95, 0.64, 0.54] },
+          { "name": "MI_Ironbark", "parent": "M_Character_Master", "roughness": 0.5, "metallic": 0.85, "tint": [0.56, 0.57, 0.58] },
+          { "name": "MI_Stormforged", "parent": "M_Character_Master", "roughness": 0.35, "metallic": 0.95, "tint": [0.75, 0.78, 0.82] },
+          { "name": "MI_Moonveil", "parent": "M_Character_Master", "roughness": 0.3, "metallic": 0.9, "tint": [0.7, 0.75, 0.9] },
+          { "name": "MI_Voidstone", "parent": "M_Character_Master", "roughness": 0.25, "metallic": 0.95, "tint": [0.2, 0.15, 0.3] },
+          { "name": "MI_Eternium", "parent": "M_Character_Master", "roughness": 0.2, "metallic": 1.0, "tint": [0.85, 0.9, 0.95] },
+          { "name": "MI_Wyrm", "parent": "M_Character_Master", "roughness": 0.35, "metallic": 0.8, "tint": [0.4, 0.5, 0.3] },
+          { "name": "MI_Gold", "parent": "M_Character_Master", "roughness": 0.3, "metallic": 1.0, "tint": [1.0, 0.84, 0.0] }
+        ]
+      },
+      {
+        "category": "Leather",
+        "instances": [
+          { "name": "MI_Leather_Brown", "parent": "M_Character_Master", "roughness": 0.7, "metallic": 0.0, "tint": [0.4, 0.28, 0.18] },
+          { "name": "MI_Leather_Black", "parent": "M_Character_Master", "roughness": 0.65, "metallic": 0.0, "tint": [0.1, 0.1, 0.1] },
+          { "name": "MI_Wyrmhide_Emerald", "parent": "M_Character_Master", "roughness": 0.5, "metallic": 0.1, "tint": [0.2, 0.5, 0.25] },
+          { "name": "MI_Wyrmhide_Azure", "parent": "M_Character_Master", "roughness": 0.5, "metallic": 0.1, "tint": [0.2, 0.35, 0.6] },
+          { "name": "MI_Wyrmhide_Crimson", "parent": "M_Character_Master", "roughness": 0.5, "metallic": 0.1, "tint": [0.6, 0.2, 0.2] },
+          { "name": "MI_Wyrmhide_Shadow", "parent": "M_Character_Master", "roughness": 0.45, "metallic": 0.15, "tint": [0.15, 0.1, 0.2] }
+        ]
+      },
+      {
+        "category": "Cloth",
+        "instances": [
+          { "name": "MI_Cloth_Common", "parent": "M_Character_Master", "roughness": 0.9, "metallic": 0.0, "tint": [0.5, 0.45, 0.4] },
+          { "name": "MI_Cloth_Silk", "parent": "M_Character_Master", "roughness": 0.6, "metallic": 0.05, "tint": [0.9, 0.85, 0.8] },
+          { "name": "MI_Cloth_Mystic", "parent": "M_Character_Master", "roughness": 0.7, "metallic": 0.0, "emissive": true, "tint": [0.3, 0.2, 0.5] },
+          { "name": "MI_Cloth_Void", "parent": "M_Character_Master", "roughness": 0.65, "metallic": 0.1, "emissive": true, "tint": [0.1, 0.05, 0.15] }
+        ]
+      },
+      {
+        "category": "Magic",
+        "instances": [
+          { "name": "MI_Magic_Fire", "parent": "M_VFX_Master", "tint": [1.0, 0.4, 0.1], "intensity": 5.0 },
+          { "name": "MI_Magic_Water", "parent": "M_VFX_Master", "tint": [0.2, 0.5, 1.0], "intensity": 3.0 },
+          { "name": "MI_Magic_Earth", "parent": "M_VFX_Master", "tint": [0.6, 0.4, 0.2], "intensity": 2.0 },
+          { "name": "MI_Magic_Air", "parent": "M_VFX_Master", "tint": [0.8, 0.9, 1.0], "intensity": 2.5 },
+          { "name": "MI_Magic_Shadow", "parent": "M_VFX_Master", "tint": [0.3, 0.1, 0.4], "intensity": 4.0 },
+          { "name": "MI_Magic_Holy", "parent": "M_VFX_Master", "tint": [1.0, 0.95, 0.7], "intensity": 6.0 },
+          { "name": "MI_Magic_Void", "parent": "M_VFX_Master", "tint": [0.5, 0.0, 0.8], "intensity": 8.0 }
+        ]
+      }
+    ]
+  },
+  "postProcessMaterials": {
+    "description": "Post-process effect materials",
+    "effects": [
+      {
+        "name": "PP_Underwater",
+        "description": "Underwater distortion and color grading",
+        "parameters": [
+          { "name": "WarpStrength", "type": "scalar", "default": 0.02 },
+          { "name": "WarpSpeed", "type": "scalar", "default": 1.0 },
+          { "name": "TintColor", "type": "vector3", "default": [0.3, 0.5, 0.7] },
+          { "name": "FogDensity", "type": "scalar", "default": 0.01 }
+        ]
+      },
+      {
+        "name": "PP_Poison",
+        "description": "Poison screen effect",
+        "parameters": [
+          { "name": "VignetteIntensity", "type": "scalar", "default": 0.5 },
+          { "name": "VignetteColor", "type": "vector3", "default": [0.2, 0.5, 0.1] },
+          { "name": "PulseSpeed", "type": "scalar", "default": 2.0 },
+          { "name": "DesaturationAmount", "type": "scalar", "default": 0.3 }
+        ]
+      },
+      {
+        "name": "PP_LowHealth",
+        "description": "Low health warning effect",
+        "parameters": [
+          { "name": "VignetteIntensity", "type": "scalar", "default": 0.6 },
+          { "name": "VignetteColor", "type": "vector3", "default": [0.8, 0.1, 0.1] },
+          { "name": "PulseSpeed", "type": "scalar", "default": 1.5 },
+          { "name": "ChromaticAberration", "type": "scalar", "default": 0.5 }
+        ]
+      },
+      {
+        "name": "PP_Teleport",
+        "description": "Teleportation transition effect",
+        "parameters": [
+          { "name": "WarpAmount", "type": "scalar", "default": 0.0 },
+          { "name": "FadeAmount", "type": "scalar", "default": 0.0 },
+          { "name": "GlowColor", "type": "vector3", "default": [0.5, 0.8, 1.0] }
+        ]
+      },
+      {
+        "name": "PP_NightVision",
+        "description": "Night vision/enhanced visibility effect",
+        "parameters": [
+          { "name": "Brightness", "type": "scalar", "default": 2.0 },
+          { "name": "Contrast", "type": "scalar", "default": 1.2 },
+          { "name": "TintColor", "type": "vector3", "default": [0.2, 1.0, 0.3] },
+          { "name": "NoiseAmount", "type": "scalar", "default": 0.1 }
+        ]
+      },
+      {
+        "name": "PP_DrunkBlur",
+        "description": "Intoxication/confusion effect",
+        "parameters": [
+          { "name": "BlurAmount", "type": "scalar", "default": 2.0 },
+          { "name": "SwayAmount", "type": "scalar", "default": 0.02 },
+          { "name": "SwaySpeed", "type": "scalar", "default": 0.5 },
+          { "name": "ColorShift", "type": "scalar", "default": 0.1 }
+        ]
+      }
+    ]
+  },
+  "decalMaterials": {
+    "description": "Decal materials for world detail",
+    "decals": [
+      {
+        "name": "MD_Blood",
+        "blendMode": "translucent",
+        "sortPriority": 1,
+        "fadeTime": 30,
+        "variants": ["splatter_small", "splatter_medium", "splatter_large", "pool", "trail"]
+      },
+      {
+        "name": "MD_Scorch",
+        "blendMode": "translucent",
+        "sortPriority": 2,
+        "fadeTime": 60,
+        "variants": ["small", "medium", "large", "explosion"]
+      },
+      {
+        "name": "MD_Footprint",
+        "blendMode": "translucent",
+        "sortPriority": 0,
+        "fadeTime": 10,
+        "variants": ["normal", "bloody", "muddy", "wet", "sandy"]
+      },
+      {
+        "name": "MD_Crack",
+        "blendMode": "translucent",
+        "sortPriority": 3,
+        "fadeTime": 0,
+        "variants": ["impact_small", "impact_medium", "impact_large"]
+      },
+      {
+        "name": "MD_MagicCircle",
+        "blendMode": "additive",
+        "sortPriority": 5,
+        "fadeTime": 0,
+        "animated": true,
+        "variants": ["summoning", "teleport", "ward", "ritual"]
+      }
+    ]
+  },
+  "shaderComplexity": {
+    "description": "Shader complexity budgets by platform",
+    "tiers": {
+      "high": {
+        "maxInstructions": 500,
+        "maxTextureSamples": 32,
+        "maxInterpolators": 16,
+        "features": ["tessellation", "parallaxOcclusion", "subsurfaceScattering", "anisotropicSpecular"]
+      },
+      "medium": {
+        "maxInstructions": 300,
+        "maxTextureSamples": 16,
+        "maxInterpolators": 12,
+        "features": ["normalMapping", "emissive", "basicPBR"]
+      },
+      "low": {
+        "maxInstructions": 150,
+        "maxTextureSamples": 8,
+        "maxInterpolators": 8,
+        "features": ["basicLighting", "diffuseOnly"]
+      }
+    },
+    "autoLOD": {
+      "enabled": true,
+      "distanceThresholds": [0, 50, 100, 200],
+      "qualityLevels": ["high", "high", "medium", "low"]
+    }
+  },
+  "textureStreaming": {
+    "description": "Texture streaming configuration",
+    "poolSizes": {
+      "high": 4096,
+      "medium": 2048,
+      "low": 1024
+    },
+    "mipBias": {
+      "high": 0,
+      "medium": 1,
+      "low": 2
+    },
+    "virtualTexturing": {
+      "enabled": true,
+      "pageSize": 128,
+      "maxResolution": 8192
+    }
+  },
+  "colorGrading": {
+    "description": "LUT-based color grading presets",
+    "presets": [
+      { "name": "Default", "lut": "LUT_Default", "description": "Standard game look" },
+      { "name": "Desert", "lut": "LUT_Desert", "description": "Warm, sandy tones" },
+      { "name": "Swamp", "lut": "LUT_Swamp", "description": "Murky, green tones" },
+      { "name": "Arctic", "lut": "LUT_Arctic", "description": "Cold, blue tones" },
+      { "name": "Volcanic", "lut": "LUT_Volcanic", "description": "Hot, orange/red tones" },
+      { "name": "Void", "lut": "LUT_Void", "description": "Dark, purple tones" },
+      { "name": "Mystical", "lut": "LUT_Mystical", "description": "Ethereal, magical tones" },
+      { "name": "Night", "lut": "LUT_Night", "description": "Dark, desaturated" },
+      { "name": "Sunset", "lut": "LUT_Sunset", "description": "Golden hour tones" },
+      { "name": "Dungeon", "lut": "LUT_Dungeon", "description": "Dark, moody tones" }
+    ],
+    "blendTime": 2.0
+  },
+  "optimization": {
+    "materialPooling": {
+      "enabled": true,
+      "maxInstances": 1000
+    },
+    "shaderCompilation": {
+      "asyncLoading": true,
+      "psoCache": true,
+      "precompileOnLoad": true
+    },
+    "textureCompression": {
+      "diffuse": "BC7",
+      "normal": "BC5",
+      "masks": "BC4",
+      "hdr": "BC6H"
+    }
+  }
+}

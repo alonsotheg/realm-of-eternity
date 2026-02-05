@@ -1,0 +1,634 @@
+{
+  "version": "1.0.0",
+  "description": "Boss encounter definitions and mechanics for Realm of Eternity",
+
+  "boss_mechanics": {
+    "instance_system": true,
+    "respawn_timers": true,
+    "enrage_mechanics": true,
+    "loot_broadcast": {
+      "enabled": true,
+      "threshold_value": 1000000,
+      "rare_drops_always": true
+    },
+    "kill_count_tracking": true,
+    "practice_mode": {
+      "enabled": true,
+      "no_loot": true,
+      "free_deaths": true
+    }
+  },
+
+  "god_wars_dungeon": {
+    "location": "Trollheim",
+    "killcount_requirement": 40,
+    "bosses": [
+      {
+        "id": "general_graardor",
+        "name": "General Graardor",
+        "faction": "bandos",
+        "combat_level": 624,
+        "hitpoints": 255,
+        "max_hit_melee": 60,
+        "max_hit_ranged": 35,
+        "attack_speed": 6,
+        "mechanics": [
+          {"type": "melee_attack", "style": "crush"},
+          {"type": "ranged_attack", "aoe": true, "radius": 3},
+          {"type": "minion_spawn", "count": 3, "types": ["sergeant_strongstack", "sergeant_steelwill", "sergeant_grimspike"]}
+        ],
+        "drops": {
+          "unique": ["bandos_chestplate", "bandos_tassets", "bandos_boots", "bandos_hilt"],
+          "pet": "general_graardor_jr"
+        },
+        "recommended_stats": {"combat": 90, "defence": 80},
+        "solo_viable": true
+      },
+      {
+        "id": "kreearra",
+        "name": "Kree'arra",
+        "faction": "armadyl",
+        "combat_level": 580,
+        "hitpoints": 255,
+        "max_hit_magic": 21,
+        "max_hit_ranged": 71,
+        "attack_speed": 4,
+        "mechanics": [
+          {"type": "ranged_attack", "primary": true},
+          {"type": "magic_attack", "secondary": true},
+          {"type": "tornado_special", "damage": 25, "knockback": true},
+          {"type": "minion_spawn", "count": 3, "types": ["flight_kilisa", "flockleader_geerin", "wingman_skree"]}
+        ],
+        "drops": {
+          "unique": ["armadyl_helmet", "armadyl_chestplate", "armadyl_chainskirt", "armadyl_hilt"],
+          "pet": "kreearra_jr"
+        },
+        "protection_prayer": "ranged"
+      },
+      {
+        "id": "commander_zilyana",
+        "name": "Commander Zilyana",
+        "faction": "saradomin",
+        "combat_level": 596,
+        "hitpoints": 255,
+        "max_hit_melee": 31,
+        "max_hit_magic": 20,
+        "attack_speed": 2,
+        "mechanics": [
+          {"type": "melee_attack", "very_fast": true},
+          {"type": "magic_attack", "on_target_far": true},
+          {"type": "special_attack", "name": "healing_aura", "heals_minions": true},
+          {"type": "minion_spawn", "count": 3, "types": ["starlight", "growler", "bree"]}
+        ],
+        "drops": {
+          "unique": ["saradomin_sword", "armadyl_crossbow", "saradomin_hilt", "saradomins_light"],
+          "pet": "zilyana_jr"
+        },
+        "agility_shortcut": 70
+      },
+      {
+        "id": "kril_tsutsaroth",
+        "name": "K'ril Tsutsaroth",
+        "faction": "zamorak",
+        "combat_level": 650,
+        "hitpoints": 255,
+        "max_hit_melee": 49,
+        "max_hit_magic": 30,
+        "attack_speed": 6,
+        "mechanics": [
+          {"type": "melee_attack", "can_hit_through_prayer": true},
+          {"type": "magic_attack", "poison": true, "poison_damage": 16},
+          {"type": "special_attack", "name": "prayer_drain", "drain_amount": 20},
+          {"type": "minion_spawn", "count": 3, "types": ["balfrug_kreeyath", "zakln_gritch", "tstanon_karlak"]}
+        ],
+        "drops": {
+          "unique": ["staff_of_the_dead", "zamorakian_spear", "zamorak_hilt", "steam_battlestaff"],
+          "pet": "kril_tsutsaroth_jr"
+        }
+      },
+      {
+        "id": "nex",
+        "name": "Nex",
+        "faction": "zaros",
+        "combat_level": 1001,
+        "hitpoints": 3400,
+        "phases": 5,
+        "team_size_recommended": 8,
+        "mechanics": [
+          {
+            "phase": 1,
+            "name": "smoke_phase",
+            "mage": "fumus",
+            "attacks": ["smoke_rush", "choke", "drag"],
+            "special": "Smoke around arena obscures vision"
+          },
+          {
+            "phase": 2,
+            "name": "shadow_phase",
+            "mage": "umbra",
+            "attacks": ["shadow_shots", "shadow_traps"],
+            "special": "Traps deal damage if stepped on"
+          },
+          {
+            "phase": 3,
+            "name": "blood_phase",
+            "mage": "cruor",
+            "attacks": ["blood_barrage", "blood_sacrifice", "blood_siphon"],
+            "special": "Heals from damage if siphon not interrupted"
+          },
+          {
+            "phase": 4,
+            "name": "ice_phase",
+            "mage": "glacies",
+            "attacks": ["ice_prison", "contain_this", "ice_barrage"],
+            "special": "Ice prisons must be freed by team"
+          },
+          {
+            "phase": 5,
+            "name": "zaros_phase",
+            "attacks": ["soul_split_deflect", "turmoil_buff", "wrath"],
+            "special": "Damage reflection, enhanced stats"
+          }
+        ],
+        "drops": {
+          "unique": ["torva_full_helm", "torva_platebody", "torva_platelegs", "pernix_cowl", "pernix_body", "pernix_chaps", "virtus_mask", "virtus_robe_top", "virtus_robe_legs", "zaryte_bow"],
+          "pet": "nexling"
+        }
+      }
+    ]
+  },
+
+  "slayer_bosses": [
+    {
+      "id": "cerberus",
+      "name": "Cerberus",
+      "location": "Taverley Dungeon",
+      "slayer_level": 91,
+      "slayer_task": "hellhounds",
+      "combat_level": 318,
+      "hitpoints": 600,
+      "attack_styles": ["melee", "magic", "ranged"],
+      "mechanics": [
+        {"type": "triple_attack", "sequence": ["melee", "magic", "ranged"], "warning": "voice_line"},
+        {"type": "summoned_souls", "ghosts": ["soul_melee", "soul_ranged", "soul_mage"], "prayer_drain": true},
+        {"type": "lava_pools", "spawns_at_hp": [400, 200], "damage_per_tick": 10}
+      ],
+      "drops": {
+        "unique": ["primordial_crystal", "pegasian_crystal", "eternal_crystal", "smouldering_stone", "jar_of_souls"],
+        "pet": "hellpuppy"
+      }
+    },
+    {
+      "id": "alchemical_hydra",
+      "name": "Alchemical Hydra",
+      "location": "Karuulm Slayer Dungeon",
+      "slayer_level": 95,
+      "slayer_task": "hydras",
+      "combat_level": 426,
+      "hitpoints": 1100,
+      "phases": 4,
+      "mechanics": [
+        {
+          "phase": 1,
+          "name": "green_phase",
+          "weakness": "ranged",
+          "attacks": ["ranged_attack", "poison_pools"],
+          "hp_threshold": 825
+        },
+        {
+          "phase": 2,
+          "name": "blue_phase",
+          "weakness": "magic",
+          "attacks": ["magic_attack", "lightning_attack"],
+          "hp_threshold": 550
+        },
+        {
+          "phase": 3,
+          "name": "red_phase",
+          "weakness": "melee",
+          "attacks": ["fire_attack", "wall_of_fire"],
+          "hp_threshold": 275
+        },
+        {
+          "phase": 4,
+          "name": "grey_phase",
+          "enraged": true,
+          "attacks": ["all_styles", "poison_lightning_fire_combo"],
+          "hp_threshold": 0
+        }
+      ],
+      "chemical_vents": {
+        "correct_vent_bonus": "50%_damage_buff",
+        "wrong_vent_debuff": "enraged_hydra"
+      },
+      "drops": {
+        "unique": ["hydra_leather", "hydras_claw", "hydras_eye", "hydras_fang", "hydras_heart", "jar_of_chemicals"],
+        "pet": "ikkle_hydra"
+      }
+    },
+    {
+      "id": "grotesque_guardians",
+      "name": "Grotesque Guardians",
+      "location": "Slayer Tower Rooftop",
+      "slayer_level": 75,
+      "slayer_task": "gargoyles",
+      "combat_level": 328,
+      "hitpoints": {"dusk": 450, "dawn": 450},
+      "two_bosses": true,
+      "mechanics": [
+        {"type": "phase_1", "fight": "dawn_only", "attacks": ["sphere_attack", "rock_fall"]},
+        {"type": "phase_2", "fight": "dusk_only", "attacks": ["melee", "ranged"]},
+        {"type": "phase_3", "fight": "both", "dawn_healing_dusk": true, "energy_sphere": true}
+      ],
+      "drops": {
+        "unique": ["granite_gloves", "granite_ring", "granite_hammer", "black_tourmaline_core", "jar_of_stone"],
+        "pet": "noon_midnight"
+      }
+    }
+  ],
+
+  "wilderness_bosses": [
+    {
+      "id": "callisto",
+      "name": "Callisto",
+      "location": "Wilderness Level 44",
+      "combat_level": 470,
+      "hitpoints": 255,
+      "mechanics": [
+        {"type": "knockback_attack", "stuns": true, "damage": 60},
+        {"type": "heal_when_surrounded", "heal_rate": 5},
+        {"type": "shockwave", "aoe_damage": 30}
+      ],
+      "drops": {
+        "unique": ["tyrannical_ring", "dragon_pickaxe", "dragon_2h_sword"],
+        "pet": "callisto_cub"
+      },
+      "multi_combat": true,
+      "pvp_hotspot": true
+    },
+    {
+      "id": "venenatis",
+      "name": "Venenatis",
+      "location": "Wilderness Level 30",
+      "combat_level": 464,
+      "hitpoints": 255,
+      "mechanics": [
+        {"type": "magic_attack", "max_hit": 50},
+        {"type": "web_attack", "binds": true, "drains_prayer": true},
+        {"type": "spawn_spiders", "count": 4}
+      ],
+      "drops": {
+        "unique": ["treasonous_ring", "dragon_pickaxe", "dragon_2h_sword"],
+        "pet": "venenatis_spiderling"
+      }
+    },
+    {
+      "id": "vetion",
+      "name": "Vet'ion",
+      "location": "Wilderness Level 33",
+      "combat_level": 454,
+      "hitpoints": 255,
+      "phases": 2,
+      "mechanics": [
+        {"phase": 1, "immune_to": "melee", "spawns_hellhounds": true},
+        {"phase": 2, "immune_to": "magic_ranged", "enraged": true}
+      ],
+      "drops": {
+        "unique": ["ring_of_the_gods", "dragon_pickaxe", "dragon_2h_sword"],
+        "pet": "vetion_jr"
+      }
+    },
+    {
+      "id": "king_black_dragon",
+      "name": "King Black Dragon",
+      "location": "Wilderness Level 42 (Lair)",
+      "combat_level": 276,
+      "hitpoints": 255,
+      "mechanics": [
+        {"type": "dragonfire", "damage": 65, "types": ["fire", "poison", "freeze", "shock"]},
+        {"type": "melee_attack", "max_hit": 25}
+      ],
+      "protection": "antidragon_shield_or_antifire",
+      "drops": {
+        "unique": ["draconic_visage", "dragon_pickaxe", "kbd_heads"],
+        "pet": "prince_black_dragon"
+      },
+      "safe_lair": true
+    }
+  ],
+
+  "raids": {
+    "chambers_of_xeric": {
+      "id": "cox",
+      "name": "Chambers of Xeric",
+      "location": "Mount Quidamortem",
+      "team_size": {"min": 1, "recommended": 3, "max": 100},
+      "scaling": true,
+      "rooms": {
+        "combat": [
+          {"name": "Tekton", "type": "melee_boss", "anvil_mechanic": true},
+          {"name": "Vespula", "type": "flying_boss", "portal_mechanic": true},
+          {"name": "Vanguards", "type": "trio_boss", "balanced_damage_required": true},
+          {"name": "Vasa Nistirio", "type": "crystal_boss", "teleport_mechanic": true},
+          {"name": "Muttadiles", "type": "duo_boss", "meat_tree_mechanic": true},
+          {"name": "Guardians", "type": "duo_boss", "pickaxe_mechanic": true}
+        ],
+        "puzzle": [
+          {"name": "Ice Demon", "requires": "firemaking"},
+          {"name": "Thieving Room", "requires": "thieving"},
+          {"name": "Crabs", "requires": "color_matching"},
+          {"name": "Tightrope", "requires": "agility"}
+        ],
+        "final": {
+          "name": "Great Olm",
+          "phases": 3,
+          "head_and_hands": true,
+          "mechanics": [
+            {"name": "crystal_burst", "avoidable": true},
+            {"name": "lightning", "run_away": true},
+            {"name": "flame_wall", "gap_finding": true},
+            {"name": "acid_pools", "spread_out": true},
+            {"name": "teleport_swap", "awareness": true},
+            {"name": "falling_crystals", "final_phase": true}
+          ]
+        }
+      },
+      "points_system": true,
+      "drops": {
+        "unique": ["twisted_bow", "kodai_insignia", "elder_maul", "dragon_claws", "ancestral_hat", "ancestral_robe_top", "ancestral_robe_bottom", "dragon_hunter_crossbow", "dinhs_bulwark", "twisted_buckler"],
+        "pet": "olmlet"
+      }
+    },
+
+    "theatre_of_blood": {
+      "id": "tob",
+      "name": "Theatre of Blood",
+      "location": "Ver Sinhaza",
+      "team_size": {"min": 1, "recommended": 4, "max": 5},
+      "requirements": {"quest": "a_taste_of_hope"},
+      "rooms": [
+        {
+          "name": "The Maiden of Sugadinti",
+          "order": 1,
+          "hitpoints": 3500,
+          "mechanics": ["blood_spawns", "blood_splats", "tornado"]
+        },
+        {
+          "name": "Pestilent Bloat",
+          "order": 2,
+          "hitpoints": 1500,
+          "mechanics": ["falling_meat", "stomp_attack", "flies_phase"]
+        },
+        {
+          "name": "Nylocas",
+          "order": 3,
+          "wave_based": true,
+          "mechanics": ["color_matching_attack_styles", "nylocas_waves", "boss_nylocas"]
+        },
+        {
+          "name": "Sotetseg",
+          "order": 4,
+          "hitpoints": 4000,
+          "mechanics": ["maze_phase", "ball_attack", "big_red_ball_split"]
+        },
+        {
+          "name": "Xarpus",
+          "order": 5,
+          "hitpoints": 5080,
+          "mechanics": ["exhumed_healing", "poison_splats", "stare_mechanic"]
+        },
+        {
+          "name": "Verzik Vitur",
+          "order": 6,
+          "final_boss": true,
+          "phases": 3,
+          "mechanics": [
+            {"phase": 1, "dawnbringer_required": true, "bouncing_attack": true},
+            {"phase": 2, "lightning": true, "electric_bomb": true, "nylocas_spawn": true},
+            {"phase": 3, "web_attack": true, "green_ball": true, "purple_tornadoes": true, "yellows": true}
+          ]
+        }
+      ],
+      "drops": {
+        "unique": ["scythe_of_vitur", "ghrazi_rapier", "sanguinesti_staff", "justiciar_faceguard", "justiciar_chestguard", "justiciar_legguards", "avernic_defender_hilt"],
+        "pet": "lil_zik"
+      },
+      "hard_mode": {
+        "name": "Theatre of Blood: Hard Mode",
+        "extra_mechanics": true,
+        "faster_attacks": true,
+        "drops": ["holy_ornament_kit", "sanguine_ornament_kit", "holy_scythe_ornament_kit"]
+      }
+    },
+
+    "tombs_of_amascut": {
+      "id": "toa",
+      "name": "Tombs of Amascut",
+      "location": "Necropolis",
+      "team_size": {"min": 1, "recommended": 4, "max": 8},
+      "invocation_system": {
+        "description": "Customizable difficulty modifiers",
+        "raid_level_range": [0, 600],
+        "entry_mode": 150,
+        "normal_mode": 150,
+        "expert_mode": 300
+      },
+      "paths": [
+        {
+          "name": "Path of Het",
+          "puzzle": "light_puzzle",
+          "boss": "Akkha",
+          "mechanics": ["memory_attack", "detonate", "orbs", "shadow_phase"]
+        },
+        {
+          "name": "Path of Scabaras",
+          "puzzle": "matching_puzzle",
+          "boss": "Kephri",
+          "mechanics": ["swarm_attack", "dung_attack", "egg_bombing"]
+        },
+        {
+          "name": "Path of Crondis",
+          "puzzle": "water_puzzle",
+          "boss": "Zebak",
+          "mechanics": ["wave_attack", "boulder_attack", "scream_attack", "blood_mechanic"]
+        },
+        {
+          "name": "Path of Apmeken",
+          "puzzle": "agility_puzzle",
+          "boss": "Ba-Ba",
+          "mechanics": ["slam_attack", "boulder_throw", "baboons_spawn", "sarcophagus_attack"]
+        }
+      ],
+      "final_boss": {
+        "name": "Wardens",
+        "phases": 3,
+        "mechanics": [
+          {"phase": 1, "obelisk_destruction": true, "divine_projectiles": true},
+          {"phase": 2, "kiting_warden": true, "ddt_tiles": true},
+          {"phase": 3, "enrage_phase": true, "all_mechanics": true}
+        ]
+      },
+      "drops": {
+        "unique": ["tumekens_shadow", "elidinis_ward", "osmumtens_fang", "lightbearer", "masori_mask", "masori_body", "masori_chaps"],
+        "pet": "tumekens_guardian"
+      }
+    }
+  },
+
+  "solo_bosses": [
+    {
+      "id": "zulrah",
+      "name": "Zulrah",
+      "location": "Zul-Andra",
+      "combat_level": 725,
+      "hitpoints": 500,
+      "requirements": {"quest": "regicide"},
+      "forms": [
+        {"color": "green", "attack_style": "ranged", "vulnerability": "magic"},
+        {"color": "blue", "attack_style": "magic", "vulnerability": "ranged"},
+        {"color": "red", "attack_style": "melee", "invulnerable_at_range": true}
+      ],
+      "rotation_patterns": 4,
+      "mechanics": [
+        {"type": "toxic_clouds", "stackable_damage": true},
+        {"type": "snakelings", "spawn_periodically": true},
+        {"type": "jad_phase", "prayer_switching": true}
+      ],
+      "drops": {
+        "unique": ["tanzanite_fang", "magic_fang", "serpentine_visage", "uncut_onyx", "tanzanite_mutagen", "magma_mutagen"],
+        "pet": "snakeling"
+      }
+    },
+    {
+      "id": "vorkath",
+      "name": "Vorkath",
+      "location": "Ungael",
+      "combat_level": 732,
+      "hitpoints": 750,
+      "requirements": {"quest": "dragon_slayer_2"},
+      "mechanics": [
+        {"type": "dragonfire", "variants": ["regular", "venom", "prayer_disable", "pink_special"]},
+        {"type": "acid_phase", "woox_walking": true, "fireball_bombing": true},
+        {"type": "zombie_spawn", "freeze_player": true, "must_kill_fast": true},
+        {"type": "insta_kill_bomb", "warning": "vertical_launch", "must_walk_away": true}
+      ],
+      "drops": {
+        "unique": ["dragonbone_necklace", "skeletal_visage", "draconic_visage", "jar_of_decay"],
+        "pet": "vorki"
+      }
+    },
+    {
+      "id": "gauntlet",
+      "name": "The Gauntlet",
+      "location": "Prifddinas",
+      "type": "procedural_dungeon",
+      "requirements": {"quest": "song_of_the_elves"},
+      "preparation_time_minutes": {
+        "normal": 10,
+        "corrupted": 7.5
+      },
+      "gathering_phase": {
+        "resources": ["crystal_shards", "raw_fish", "herbs", "ore", "bark", "bowstring_linage"],
+        "crafting": ["armor_t1_t2_t3", "weapons", "potions", "food"]
+      },
+      "boss": {
+        "name": "Crystalline Hunllef",
+        "corrupted_name": "Corrupted Hunllef",
+        "hitpoints": {"normal": 600, "corrupted": 1000},
+        "mechanics": [
+          {"type": "prayer_switching", "attacks_before_switch": 4, "corrupted_attacks": 4},
+          {"type": "stomp", "must_not_stand_melee": true},
+          {"type": "tornado", "spawns_periodically": true, "chase_player": true},
+          {"type": "floor_tiles", "damage_zones": true}
+        ]
+      },
+      "drops": {
+        "unique": ["crystal_armour_seed", "enhanced_crystal_weapon_seed", "gauntlet_cape"],
+        "pet": "youngllef"
+      }
+    },
+    {
+      "id": "fight_caves",
+      "name": "TzHaar Fight Cave",
+      "location": "TzHaar City",
+      "type": "wave_based",
+      "waves": 63,
+      "final_boss": {
+        "name": "TzTok-Jad",
+        "combat_level": 702,
+        "hitpoints": 250,
+        "mechanics": [
+          {"type": "prayer_switching", "ranged_animation": "stand_up", "magic_animation": "stomp"},
+          {"type": "healers", "spawn_at_half_hp": true, "count": 4}
+        ]
+      },
+      "drops": {
+        "completion_reward": "fire_cape",
+        "pet": "tzrek_jad"
+      }
+    },
+    {
+      "id": "inferno",
+      "name": "The Inferno",
+      "location": "TzHaar City",
+      "type": "wave_based",
+      "waves": 69,
+      "triple_jad_wave": 68,
+      "final_boss": {
+        "name": "TzKal-Zuk",
+        "combat_level": 1400,
+        "hitpoints": 1200,
+        "mechanics": [
+          {"type": "shield_mechanic", "must_stay_behind": true},
+          {"type": "jad_spawn", "healers": true},
+          {"type": "sets", "kill_order_matters": true},
+          {"type": "enrage_phase", "no_shield": true}
+        ]
+      },
+      "drops": {
+        "completion_reward": "infernal_cape",
+        "pet": "jal_nib_rek"
+      },
+      "considered": "hardest_pvm_content"
+    }
+  ],
+
+  "ue5_implementation": {
+    "boss_arena_design": {
+      "unique_skybox": true,
+      "atmospheric_effects": true,
+      "dynamic_lighting_changes": true,
+      "destruction_effects": true
+    },
+    "boss_animations": {
+      "intro_cutscene": true,
+      "attack_telegraphing": true,
+      "phase_transition_cinematic": true,
+      "death_animation": true
+    },
+    "mechanics_visualization": {
+      "attack_indicators": {
+        "ground_markers": true,
+        "projectile_trails": true,
+        "danger_zones": true,
+        "safe_zones": true
+      },
+      "phase_change_effects": {
+        "screen_shake": true,
+        "color_grading_shift": true,
+        "particle_burst": true
+      }
+    },
+    "audio": {
+      "unique_boss_music": true,
+      "mechanic_audio_cues": true,
+      "phase_music_transitions": true,
+      "victory_fanfare": true
+    },
+    "performance": {
+      "boss_lod_levels": 3,
+      "effect_scaling": true,
+      "instance_optimization": true
+    }
+  }
+}

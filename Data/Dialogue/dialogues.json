@@ -1,0 +1,444 @@
+{
+  "dialogues": {
+    "guide_intro": {
+      "id": "guide_intro",
+      "npc": "guide",
+      "nodes": [
+        {
+          "id": "start",
+          "type": "npc",
+          "text": "Greetings, adventurer! Welcome to the Realm of Eternity. I'm here to help you learn the basics of survival.",
+          "next": "options_1"
+        },
+        {
+          "id": "options_1",
+          "type": "options",
+          "choices": [
+            { "text": "What should I do first?", "next": "first_steps" },
+            { "text": "Tell me about skills.", "next": "about_skills" },
+            { "text": "How do I get stronger?", "next": "getting_stronger" },
+            { "text": "I'm ready to begin!", "next": "begin" }
+          ]
+        },
+        {
+          "id": "first_steps",
+          "type": "npc",
+          "text": "Start by gathering resources. Try chopping ashwood trees for logs, mining rocks for ore, and fishing for food. These materials will help you craft equipment and sustain yourself.",
+          "next": "options_1"
+        },
+        {
+          "id": "about_skills",
+          "type": "npc",
+          "text": "There are over 20 skills in the realm! Combat skills help you fight. Gathering skills let you collect resources. Crafting skills allow you to create items. Support skills provide special bonuses.",
+          "next": "options_1"
+        },
+        {
+          "id": "getting_stronger",
+          "type": "npc",
+          "text": "Training skills earns experience points. Gain enough XP and your level increases! Higher levels unlock better equipment, new areas, and powerful abilities.",
+          "next": "options_1"
+        },
+        {
+          "id": "begin",
+          "type": "npc",
+          "text": "Excellent! Head over to the survival instructor to the north. They'll teach you about gathering and crafting. Good luck, adventurer!",
+          "action": "start_quest:the_awakening",
+          "next": "end"
+        },
+        {
+          "id": "end",
+          "type": "end"
+        }
+      ]
+    },
+    "aldric_chat": {
+      "id": "aldric_chat",
+      "npc": "aldric",
+      "nodes": [
+        {
+          "id": "start",
+          "type": "npc",
+          "text": "Hello there! I've been wandering this keep for as long as I can remember.",
+          "next": "options"
+        },
+        {
+          "id": "options",
+          "type": "options",
+          "choices": [
+            { "text": "How long have you been here?", "next": "time" },
+            { "text": "How long have I been playing?", "next": "player_age" },
+            { "text": "Goodbye.", "next": "end" }
+          ]
+        },
+        {
+          "id": "time",
+          "type": "npc",
+          "text": "Oh, I've lost count! Centuries, perhaps? I just enjoy the peaceful walks around Dawnhaven Keep.",
+          "next": "options"
+        },
+        {
+          "id": "player_age",
+          "type": "npc",
+          "text": "Let me check my records... {player_age}",
+          "dynamic": true,
+          "next": "options"
+        },
+        {
+          "id": "end",
+          "type": "npc",
+          "text": "Take care, adventurer! May your journeys be pleasant.",
+          "next": "close"
+        },
+        {
+          "id": "close",
+          "type": "end"
+        }
+      ]
+    },
+    "lords_feast_start": {
+      "id": "lords_feast_start",
+      "npc": "chef_brennan",
+      "questId": "lords_feast",
+      "nodes": [
+        {
+          "id": "start",
+          "type": "npc",
+          "text": "What am I to do?! Lord Aldwyn's celebration is today, and I'm supposed to make him a magnificent feast!",
+          "mood": "distressed",
+          "next": "options_1"
+        },
+        {
+          "id": "options_1",
+          "type": "options",
+          "choices": [
+            { "text": "What's the problem?", "next": "problem" },
+            { "text": "I can help!", "next": "help" },
+            { "text": "That sounds like your problem.", "next": "refuse" }
+          ]
+        },
+        {
+          "id": "problem",
+          "type": "npc",
+          "text": "I've run out of ingredients! I need an egg, a bucket of milk, and a pot of flour. Without them, I can't prepare the feast!",
+          "next": "options_2"
+        },
+        {
+          "id": "options_2",
+          "type": "options",
+          "choices": [
+            { "text": "I'll get them for you!", "next": "accept" },
+            { "text": "Where can I find these?", "next": "hints" },
+            { "text": "Sorry, I'm busy.", "next": "refuse" }
+          ]
+        },
+        {
+          "id": "help",
+          "type": "npc",
+          "text": "Really? That would be wonderful! I need an egg, a bucket of milk, and a pot of flour.",
+          "next": "accept"
+        },
+        {
+          "id": "hints",
+          "type": "npc",
+          "text": "There's a chicken coop just north of Dawnhaven for eggs. The cows are in the field northeast of the keep - use a bucket on them for milk. For flour, pick wheat from the field and mill it at the Dawnhaven windmill.",
+          "next": "options_2"
+        },
+        {
+          "id": "accept",
+          "type": "npc",
+          "text": "Thank you so much! Please hurry - Lord Aldwyn's guests arrive soon!",
+          "action": "quest_progress:lords_feast:2",
+          "next": "end"
+        },
+        {
+          "id": "refuse",
+          "type": "npc",
+          "text": "Oh... well, I suppose I'll figure something out. Maybe Lord Aldwyn won't notice a feast-less celebration...",
+          "mood": "sad",
+          "next": "end"
+        },
+        {
+          "id": "end",
+          "type": "end"
+        }
+      ]
+    },
+    "lords_feast_end": {
+      "id": "lords_feast_end",
+      "npc": "chef_brennan",
+      "questId": "lords_feast",
+      "requires": {
+        "items": ["egg", "bucket_of_milk", "pot_of_flour"]
+      },
+      "nodes": [
+        {
+          "id": "start",
+          "type": "npc",
+          "text": "Have you brought the ingredients?",
+          "next": "check"
+        },
+        {
+          "id": "check",
+          "type": "condition",
+          "condition": "has_items:egg,bucket_of_milk,pot_of_flour",
+          "true": "success",
+          "false": "not_yet"
+        },
+        {
+          "id": "not_yet",
+          "type": "npc",
+          "text": "Remember, I need an egg, a bucket of milk, and a pot of flour. Please hurry!",
+          "next": "end"
+        },
+        {
+          "id": "success",
+          "type": "npc",
+          "text": "You've got them all! Wonderful! Let me just take these...",
+          "action": "take_items:egg,bucket_of_milk,pot_of_flour",
+          "next": "thanks"
+        },
+        {
+          "id": "thanks",
+          "type": "npc",
+          "text": "The feast is going to be magnificent! Thank you so much for your help. Here, take this as a reward for your kindness.",
+          "mood": "happy",
+          "action": "complete_quest:lords_feast",
+          "next": "end"
+        },
+        {
+          "id": "end",
+          "type": "end"
+        }
+      ]
+    },
+    "banker_chat": {
+      "id": "banker_chat",
+      "npc": "banker",
+      "nodes": [
+        {
+          "id": "start",
+          "type": "npc",
+          "text": "Good day. How may I help you?",
+          "next": "options"
+        },
+        {
+          "id": "options",
+          "type": "options",
+          "choices": [
+            { "text": "I'd like to access my vault.", "next": "open_bank", "action": "open_bank" },
+            { "text": "I'd like to check my PIN settings.", "next": "pin", "action": "open_pin_settings" },
+            { "text": "I'd like to collect items.", "next": "collect", "action": "open_collection" },
+            { "text": "Never mind.", "next": "end" }
+          ]
+        },
+        {
+          "id": "open_bank",
+          "type": "action",
+          "action": "open_bank",
+          "next": "end"
+        },
+        {
+          "id": "pin",
+          "type": "action",
+          "action": "open_pin_settings",
+          "next": "end"
+        },
+        {
+          "id": "collect",
+          "type": "action",
+          "action": "open_collection",
+          "next": "end"
+        },
+        {
+          "id": "end",
+          "type": "end"
+        }
+      ]
+    },
+    "shopkeeper_chat": {
+      "id": "shopkeeper_chat",
+      "npc": "shop_keeper",
+      "nodes": [
+        {
+          "id": "start",
+          "type": "npc",
+          "text": "Welcome to my shop! Can I help you with anything?",
+          "next": "options"
+        },
+        {
+          "id": "options",
+          "type": "options",
+          "choices": [
+            { "text": "Let me see what you have.", "next": "trade", "action": "open_shop" },
+            { "text": "No thanks.", "next": "end" }
+          ]
+        },
+        {
+          "id": "trade",
+          "type": "action",
+          "action": "open_shop",
+          "next": "end"
+        },
+        {
+          "id": "end",
+          "type": "end"
+        }
+      ]
+    },
+    "beastslayer_task": {
+      "id": "beastslayer_task",
+      "npc": "beastslayer_master",
+      "nodes": [
+        {
+          "id": "start",
+          "type": "npc",
+          "text": "Looking for a beastslaying assignment?",
+          "next": "options"
+        },
+        {
+          "id": "options",
+          "type": "options",
+          "choices": [
+            { "text": "Give me a task.", "next": "assign" },
+            { "text": "What's my current task?", "next": "current_task" },
+            { "text": "Can I have a different task?", "next": "skip_task" },
+            { "text": "Show me the rewards shop.", "next": "shop" },
+            { "text": "Goodbye.", "next": "end" }
+          ]
+        },
+        {
+          "id": "assign",
+          "type": "condition",
+          "condition": "has_beastslayer_task",
+          "true": "already_has_task",
+          "false": "give_task"
+        },
+        {
+          "id": "already_has_task",
+          "type": "npc",
+          "text": "You already have a task! Come back when you've finished slaying {beastslayer_target} ({beastslayer_remaining} remaining).",
+          "dynamic": true,
+          "next": "options"
+        },
+        {
+          "id": "give_task",
+          "type": "npc",
+          "text": "Your task is to slay {beastslayer_count} {beastslayer_target}. Good hunting!",
+          "action": "assign_beastslayer_task",
+          "dynamic": true,
+          "next": "options"
+        },
+        {
+          "id": "current_task",
+          "type": "condition",
+          "condition": "has_beastslayer_task",
+          "true": "show_task",
+          "false": "no_task"
+        },
+        {
+          "id": "show_task",
+          "type": "npc",
+          "text": "You need to slay {beastslayer_remaining} more {beastslayer_target}.",
+          "dynamic": true,
+          "next": "options"
+        },
+        {
+          "id": "no_task",
+          "type": "npc",
+          "text": "You don't have a beastslaying task. Would you like one?",
+          "next": "options"
+        },
+        {
+          "id": "skip_task",
+          "type": "npc",
+          "text": "That'll cost you 30 beastslayer points. Are you sure?",
+          "next": "skip_confirm"
+        },
+        {
+          "id": "skip_confirm",
+          "type": "options",
+          "choices": [
+            { "text": "Yes, skip my task.", "next": "skip_do", "action": "skip_beastslayer_task" },
+            { "text": "No, I'll complete it.", "next": "options" }
+          ]
+        },
+        {
+          "id": "skip_do",
+          "type": "action",
+          "action": "skip_beastslayer_task",
+          "cost": { "beastslayer_points": 30 },
+          "next": "give_task"
+        },
+        {
+          "id": "shop",
+          "type": "action",
+          "action": "open_beastslayer_shop",
+          "next": "end"
+        },
+        {
+          "id": "end",
+          "type": "end"
+        }
+      ]
+    },
+    "wyrms_bane_start": {
+      "id": "wyrms_bane_start",
+      "npc": "guildmaster_veran",
+      "questId": "wyrms_bane",
+      "nodes": [
+        {
+          "id": "start",
+          "type": "npc",
+          "text": "Welcome to the Champions' Hall, adventurer. I see you have the making of a true champion.",
+          "next": "options"
+        },
+        {
+          "id": "options",
+          "type": "options",
+          "choices": [
+            { "text": "I seek a challenge worthy of a champion!", "next": "challenge" },
+            { "text": "What do champions do?", "next": "about" },
+            { "text": "Just looking around.", "next": "end" }
+          ]
+        },
+        {
+          "id": "about",
+          "type": "npc",
+          "text": "Champions prove themselves through great deeds! The greatest challenge is slaying the wyrm Scorath of Cinderpeak Isle. None have succeeded... yet.",
+          "next": "options"
+        },
+        {
+          "id": "challenge",
+          "type": "npc",
+          "text": "Then you seek to slay the wyrm Scorath! She devastated Cinderpeak Isle thirty years ago. Only the bravest dare challenge her.",
+          "next": "accept_options"
+        },
+        {
+          "id": "accept_options",
+          "type": "options",
+          "choices": [
+            { "text": "I'll slay this wyrm!", "next": "accept" },
+            { "text": "That sounds too dangerous.", "next": "refuse" }
+          ]
+        },
+        {
+          "id": "accept",
+          "type": "npc",
+          "text": "Brave words! You'll need a map to Cinderpeak, a ship to sail there, a captain bold enough to take you, and a wyrmward shield. The map was split into three pieces. Start by finding them.",
+          "action": "quest_progress:wyrms_bane:2",
+          "next": "end"
+        },
+        {
+          "id": "refuse",
+          "type": "npc",
+          "text": "Wise, perhaps. Return when you feel ready for such a challenge.",
+          "next": "end"
+        },
+        {
+          "id": "end",
+          "type": "end"
+        }
+      ]
+    }
+  }
+}

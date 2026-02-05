@@ -1,0 +1,620 @@
+{
+  "version": "1.0.0",
+  "description": "Quest definitions and structure for Realm of Eternity - Aethermoor",
+
+  "quest_mechanics": {
+    "quest_points_total": 350,
+    "quest_journal": true,
+    "quest_helper": true,
+    "quest_sorting": ["timeline", "difficulty", "requirements", "alphabetical"],
+    "quest_filters": ["completed", "started", "not_started", "subscription_only", "free_to_play"],
+    "miniquest_system": true
+  },
+
+  "difficulty_ratings": {
+    "novice": {"combat_level": 0, "color": "#00CC00"},
+    "intermediate": {"combat_level": 50, "color": "#FFFF00"},
+    "experienced": {"combat_level": 75, "color": "#FF8800"},
+    "master": {"combat_level": 100, "color": "#FF0000"},
+    "grandmaster": {"combat_level": 120, "color": "#AA00AA"}
+  },
+
+  "quests": {
+    "tutorial_and_novice": [
+      {
+        "id": "the_awakening",
+        "name": "The Awakening",
+        "difficulty": "novice",
+        "length": "short",
+        "quest_points": 1,
+        "subscription_only": false,
+        "description": "You awaken on the shores of Misthollow Vale with fragmented memories. Begin your journey to uncover who you are and why you were chosen.",
+        "start_point": "Shipwreck Beach, south of Millbrook Village",
+        "start_npc": "Mysterious Wanderer",
+        "requirements": {
+          "skills": [],
+          "quests": [],
+          "items": []
+        },
+        "rewards": {
+          "quest_points": 1,
+          "experience": [
+            {"skill": "attack", "amount": 100},
+            {"skill": "defence", "amount": 100},
+            {"skill": "strength", "amount": 100}
+          ],
+          "items": ["iron_sword", "wooden_shield", "adventurer_pack"],
+          "unlocks": ["millbrook_access", "thornhaven_access"]
+        },
+        "stages": [
+          {"id": 1, "description": "Speak to the Mysterious Wanderer on the beach"},
+          {"id": 2, "description": "Follow the path to Millbrook Village"},
+          {"id": 3, "description": "Speak with Warden Aldric at the village hall"},
+          {"id": 4, "description": "Complete basic combat training at the training grounds"},
+          {"id": 5, "description": "Return to Warden Aldric"}
+        ]
+      },
+      {
+        "id": "bakers_dilemma",
+        "name": "The Baker's Dilemma",
+        "difficulty": "novice",
+        "length": "short",
+        "quest_points": 1,
+        "subscription_only": false,
+        "description": "The baker in Thornhaven needs help gathering ingredients for the Harvest Festival celebration.",
+        "start_point": "Thornhaven Bakery",
+        "start_npc": "Baker Meredith",
+        "requirements": {
+          "skills": [],
+          "quests": ["the_awakening"],
+          "items": []
+        },
+        "rewards": {
+          "quest_points": 1,
+          "experience": [{"skill": "cooking", "amount": 300}],
+          "items": ["fresh_bread_10", "coins_100"],
+          "unlocks": ["bakery_oven_access"]
+        },
+        "stages": [
+          {"id": 1, "description": "Speak to Baker Meredith"},
+          {"id": 2, "description": "Gather eggs from the chicken coop"},
+          {"id": 3, "description": "Get a bucket of milk from Farmer Tomas"},
+          {"id": 4, "description": "Collect flour from the Millbrook mill"},
+          {"id": 5, "description": "Return all ingredients to Baker Meredith"}
+        ],
+        "items_required": ["egg", "bucket_of_milk", "pot_of_flour"]
+      },
+      {
+        "id": "restless_spirit",
+        "name": "The Restless Spirit",
+        "difficulty": "novice",
+        "length": "short",
+        "quest_points": 1,
+        "subscription_only": false,
+        "description": "A spirit haunts the Millbrook graveyard. Father Aldwin needs help putting the tormented soul to rest.",
+        "start_point": "Millbrook Chapel",
+        "start_npc": "Father Aldwin",
+        "requirements": {
+          "skills": [],
+          "quests": ["the_awakening"],
+          "items": []
+        },
+        "rewards": {
+          "quest_points": 1,
+          "experience": [{"skill": "sanctity", "amount": 1125}],
+          "items": ["spiritspeak_amulet"],
+          "unlocks": ["spirit_communication"]
+        },
+        "stages": [
+          {"id": 1, "description": "Speak to Father Aldwin about the haunting"},
+          {"id": 2, "description": "Visit Sister Elara at the hermitage for guidance"},
+          {"id": 3, "description": "Return to the graveyard with the blessed amulet"},
+          {"id": 4, "description": "Speak to the ghost to learn its unfinished business"},
+          {"id": 5, "description": "Retrieve the lost locket from Oldstone Ruins"},
+          {"id": 6, "description": "Return the locket to the spirit's grave"}
+        ]
+      },
+      {
+        "id": "shepherd_woes",
+        "name": "A Shepherd's Woes",
+        "difficulty": "novice",
+        "length": "short",
+        "quest_points": 1,
+        "subscription_only": false,
+        "description": "Shepherd Gareth needs help shearing his flock and spinning the wool for the market.",
+        "start_point": "Gareth's Farm north of Millbrook",
+        "start_npc": "Shepherd Gareth",
+        "requirements": {
+          "skills": [],
+          "quests": [],
+          "items": []
+        },
+        "rewards": {
+          "quest_points": 1,
+          "experience": [{"skill": "crafting", "amount": 150}],
+          "items": ["coins_150"],
+          "unlocks": []
+        },
+        "items_required": ["shears", "wool_20"]
+      },
+      {
+        "id": "count_ravenmoor",
+        "name": "Count Ravenmoor",
+        "difficulty": "novice",
+        "length": "medium",
+        "quest_points": 3,
+        "subscription_only": false,
+        "description": "The people of Willowmere live in fear of the vampire Count Ravenmoor who lurks in the old manor. Can you slay him?",
+        "start_point": "Willowmere tavern",
+        "start_npc": "Helena the Fearful",
+        "requirements": {
+          "skills": [],
+          "quests": ["the_awakening"],
+          "items": [],
+          "combat_level_recommended": 30
+        },
+        "enemies": [
+          {"name": "Count Ravenmoor", "combat_level": 34, "hitpoints": 40}
+        ],
+        "rewards": {
+          "quest_points": 3,
+          "experience": [{"skill": "attack", "amount": 4825}],
+          "items": ["ravenmoor_signet"],
+          "unlocks": ["ravenmoor_manor_exploration"]
+        }
+      },
+      {
+        "id": "forgemasters_request",
+        "name": "The Forgemaster's Request",
+        "difficulty": "novice",
+        "length": "short",
+        "quest_points": 1,
+        "subscription_only": false,
+        "description": "Master Smith Orin needs materials for his new forge. Help him and earn his trust.",
+        "start_point": "Thornhaven Smithy",
+        "start_npc": "Master Smith Orin",
+        "requirements": {
+          "skills": [{"skill": "mining", "level": 15}],
+          "quests": [],
+          "items": []
+        },
+        "rewards": {
+          "quest_points": 1,
+          "experience": [{"skill": "mining", "amount": 1300}],
+          "items": ["coins_180"],
+          "unlocks": ["master_anvil_access"]
+        },
+        "items_required": ["clay_6", "copper_ore_4", "iron_ore_2"]
+      }
+    ],
+
+    "intermediate": [
+      {
+        "id": "portal_to_feywild",
+        "name": "Portal to the Feywild",
+        "difficulty": "intermediate",
+        "length": "medium",
+        "quest_points": 3,
+        "subscription_only": true,
+        "description": "Legends speak of a hidden realm of the fey accessible through an ancient portal. Can you find the entrance?",
+        "start_point": "Misthollow Swamp",
+        "start_npc": "Wandering Scholars",
+        "requirements": {
+          "skills": [
+            {"skill": "crafting", "level": 31},
+            {"skill": "woodcutting", "level": 36}
+          ],
+          "quests": ["the_awakening"],
+          "items": ["axe"]
+        },
+        "enemies": [
+          {"name": "Corrupted Dryad", "combat_level": 101, "hitpoints": 95}
+        ],
+        "rewards": {
+          "quest_points": 3,
+          "experience": [],
+          "items": [],
+          "unlocks": ["feywild_access", "moonblade", "feystone_dagger"]
+        }
+      },
+      {
+        "id": "border_peril",
+        "name": "Border Peril",
+        "difficulty": "intermediate",
+        "length": "medium",
+        "quest_points": 1,
+        "subscription_only": true,
+        "description": "Warden Commander Vance has lost contact with the priest guarding the shrine on the Dreadmire border.",
+        "start_point": "Thornhaven Council Hall",
+        "start_npc": "Warden Commander Vance",
+        "requirements": {
+          "skills": [],
+          "quests": ["the_awakening"],
+          "items": [],
+          "combat_level_recommended": 50
+        },
+        "enemies": [
+          {"name": "Shrine Guardian", "combat_level": 30, "hitpoints": 30}
+        ],
+        "rewards": {
+          "quest_points": 1,
+          "experience": [{"skill": "sanctity", "amount": 1406}],
+          "items": ["spiritbane_blade"],
+          "unlocks": ["dreadmire_access"]
+        }
+      },
+      {
+        "id": "wyrm_slayer",
+        "name": "Wyrm Slayer",
+        "difficulty": "experienced",
+        "length": "long",
+        "quest_points": 2,
+        "subscription_only": false,
+        "description": "Prove yourself a true champion by slaying the wyrm Cindrath on the Scorched Isle.",
+        "start_point": "Champions' Hall, Thornhaven",
+        "start_npc": "Guildmaster Aldric",
+        "requirements": {
+          "skills": [],
+          "quests": [],
+          "items": [],
+          "quest_points_required": 32,
+          "combat_level_recommended": 50
+        },
+        "enemies": [
+          {"name": "Cindrath the Wyrm", "combat_level": 83, "hitpoints": 130, "fire_breath": true}
+        ],
+        "rewards": {
+          "quest_points": 2,
+          "experience": [
+            {"skill": "strength", "amount": 18650},
+            {"skill": "defence", "amount": 18650}
+          ],
+          "items": [],
+          "unlocks": ["obsidian_platemail", "wyrmhide_armor"]
+        }
+      },
+      {
+        "id": "primal_fury",
+        "name": "Primal Fury",
+        "difficulty": "master",
+        "length": "long",
+        "quest_points": 3,
+        "subscription_only": true,
+        "description": "The 10th Company of the Valdrosian Legion has gone missing on Palmshade Isle. Find out what happened.",
+        "start_point": "Stoneguard Fortress",
+        "start_npc": "General Ironwood",
+        "requirements": {
+          "skills": [],
+          "quests": ["verdant_treaty", "wilds_guardian"],
+          "items": [],
+          "combat_level_recommended": 70
+        },
+        "enemies": [
+          {"name": "Primal Beast Lord", "combat_level": 195, "hitpoints": 200}
+        ],
+        "rewards": {
+          "quest_points": 3,
+          "experience": [
+            {"skill": "attack", "amount": 35000},
+            {"skill": "defence", "amount": 35000},
+            {"skill": "strength", "amount": 35000},
+            {"skill": "constitution", "amount": 35000}
+          ],
+          "items": ["primal_gem"],
+          "unlocks": ["palmshade_access", "beastfang_blade"]
+        }
+      },
+      {
+        "id": "sands_of_eternity",
+        "name": "Sands of Eternity",
+        "difficulty": "master",
+        "length": "very_long",
+        "quest_points": 3,
+        "subscription_only": true,
+        "description": "Uncover the secrets of the ancient Sun Kings and unlock forbidden solar magic.",
+        "start_point": "Archaeologist Camp, Sunscorch Wastes",
+        "start_npc": "Archaeologist Zara",
+        "requirements": {
+          "skills": [
+            {"skill": "thieving", "level": 53},
+            {"skill": "magic", "level": 50},
+            {"skill": "firemaking", "level": 50},
+            {"skill": "slayer", "level": 10}
+          ],
+          "quests": ["buried_secrets", "temple_of_flame", "desert_crossing", "frozen_passage", "border_peril", "cascade_falls"],
+          "items": []
+        },
+        "enemies": [
+          {"name": "Shade of Solaris", "combat_level": 139, "hitpoints": 150},
+          {"name": "Ice Pharaoh", "combat_level": 154, "hitpoints": 175},
+          {"name": "Twin Guardians", "combat_level": 174, "hitpoints": 200, "phases": 2},
+          {"name": "Flame Sentinel", "combat_level": 167, "hitpoints": 190}
+        ],
+        "rewards": {
+          "quest_points": 3,
+          "experience": [{"skill": "magic", "amount": 20000}],
+          "items": ["sunfire_staff"],
+          "unlocks": ["solar_magicks_spellbook"]
+        }
+      }
+    ],
+
+    "grandmaster": [
+      {
+        "id": "while_terrwyn_dreams",
+        "name": "While Terrwyn Dreams",
+        "difficulty": "grandmaster",
+        "length": "very_long",
+        "quest_points": 5,
+        "subscription_only": true,
+        "description": "A secret cult threatens the balance of Aethermoor. Uncover the truth before it's too late.",
+        "start_point": "Moonpetal Grove, Verdant Wilds",
+        "start_npc": "Elder Sylvanas",
+        "requirements": {
+          "skills": [
+            {"skill": "magic", "level": 75},
+            {"skill": "mining", "level": 75},
+            {"skill": "farming", "level": 65},
+            {"skill": "hunter", "level": 55},
+            {"skill": "thieving", "level": 75},
+            {"skill": "agility", "level": 65},
+            {"skill": "crafting", "level": 65},
+            {"skill": "herbcraft", "level": 65},
+            {"skill": "summoning", "level": 23},
+            {"skill": "defence", "level": 65}
+          ],
+          "quests": ["defenders_oath", "nightmare_prophecy", "curse_unbroken", "verdant_legend"],
+          "items": [],
+          "quest_points_required": 270,
+          "combat_level_recommended": 110
+        },
+        "enemies": [
+          {"name": "Nature's Balance", "combat_level": 450, "hitpoints": 500},
+          {"name": "Corrupted Ancients", "combat_level": 450, "hitpoints": 600},
+          {"name": "The Defiler", "combat_level": 600, "hitpoints": 1000}
+        ],
+        "rewards": {
+          "quest_points": 5,
+          "experience": [
+            {"skill": "attack", "amount": 100000},
+            {"skill": "strength", "amount": 100000},
+            {"skill": "defence", "amount": 100000},
+            {"skill": "magic", "amount": 100000},
+            {"skill": "ranged", "amount": 100000},
+            {"skill": "constitution", "amount": 100000},
+            {"skill": "sanctity", "amount": 100000},
+            {"skill": "summoning", "amount": 100000}
+          ],
+          "items": ["eternium_platemail"],
+          "unlocks": ["eternium_equipment", "corrupted_ancients", "elite_shadow_realm"]
+        }
+      },
+      {
+        "id": "sylvanhearts_restoration",
+        "name": "Sylvanheart's Restoration",
+        "difficulty": "grandmaster",
+        "length": "very_long",
+        "quest_points": 2,
+        "subscription_only": true,
+        "description": "The crystal city of Sylvanheart can finally be fully restored. Complete the ancient ritual to reawaken it.",
+        "start_point": "Whisperwind Sanctuary",
+        "start_npc": "Archdruid Faelan",
+        "requirements": {
+          "skills": [
+            {"skill": "agility", "level": 75},
+            {"skill": "construction", "level": 75},
+            {"skill": "crafting", "level": 75},
+            {"skill": "dungeoneering", "level": 75},
+            {"skill": "herbcraft", "level": 75},
+            {"skill": "mining", "level": 75},
+            {"skill": "sanctity", "level": 75},
+            {"skill": "summoning", "level": 75},
+            {"skill": "woodcutting", "level": 75}
+          ],
+          "quests": ["hearts_of_light", "living_fortress", "verdant_chronicles"],
+          "items": []
+        },
+        "enemies": [
+          {"name": "Shadow of Corruption", "combat_level": 250, "hitpoints": 350}
+        ],
+        "rewards": {
+          "quest_points": 2,
+          "experience": [
+            {"skill": "agility", "amount": 50000},
+            {"skill": "construction", "amount": 50000},
+            {"skill": "crafting", "amount": 50000},
+            {"skill": "dungeoneering", "amount": 50000},
+            {"skill": "herbcraft", "amount": 50000},
+            {"skill": "mining", "amount": 50000},
+            {"skill": "sanctity", "amount": 50000},
+            {"skill": "summoning", "amount": 50000},
+            {"skill": "woodcutting", "amount": 50000}
+          ],
+          "items": [],
+          "unlocks": ["sylvanheart_full_access", "masters_guild", "crystal_equipment"]
+        }
+      },
+      {
+        "id": "voidthars_gambit",
+        "name": "Void'thar's Gambit",
+        "difficulty": "grandmaster",
+        "length": "very_long",
+        "quest_points": 3,
+        "subscription_only": true,
+        "description": "Void'thar's game reaches its conclusion. The Five Eternals gather for the final confrontation.",
+        "start_point": "Heart of Eternity entrance",
+        "start_npc": "Keeper of Secrets",
+        "requirements": {
+          "skills": [
+            {"skill": "agility", "level": 72},
+            {"skill": "crafting", "level": 76},
+            {"skill": "construction", "level": 72},
+            {"skill": "divination", "level": 76},
+            {"skill": "magic", "level": 78},
+            {"skill": "sanctity", "level": 78},
+            {"skill": "slayer", "level": 76},
+            {"skill": "thieving", "level": 76}
+          ],
+          "quests": ["children_of_void", "fallen_champions"],
+          "items": [],
+          "combat_level_recommended": 120
+        },
+        "enemies": [
+          {"name": "Void'thar's Avatar", "combat_level": 800, "hitpoints": 2000, "phases": 3}
+        ],
+        "rewards": {
+          "quest_points": 3,
+          "experience_lamps": 4,
+          "experience_lamp_size": "huge",
+          "items": ["shard_of_eternity"],
+          "unlocks": ["staff_of_eternals", "void_realm_access"]
+        }
+      },
+      {
+        "id": "the_eternal_conflict",
+        "name": "The Eternal Conflict",
+        "difficulty": "grandmaster",
+        "length": "very_long",
+        "quest_points": 5,
+        "subscription_only": true,
+        "description": "The ultimate showdown approaches. Unite the factions of Aethermoor against the rising darkness.",
+        "start_point": "The Last Bastion, Eternal Rift",
+        "start_npc": "The Five Aspects",
+        "requirements": {
+          "skills": [
+            {"skill": "attack", "level": 90},
+            {"skill": "strength", "level": 90},
+            {"skill": "defence", "level": 90},
+            {"skill": "magic", "level": 90},
+            {"skill": "ranged", "level": 90},
+            {"skill": "sanctity", "level": 90}
+          ],
+          "quests": ["voidthars_gambit", "sylvanhearts_restoration", "while_terrwyn_dreams"],
+          "items": [],
+          "combat_level_recommended": 126
+        },
+        "enemies": [
+          {"name": "The Unmaker", "combat_level": 1000, "hitpoints": 5000, "phases": 5}
+        ],
+        "rewards": {
+          "quest_points": 5,
+          "experience": [
+            {"skill": "attack", "amount": 250000},
+            {"skill": "strength", "amount": 250000},
+            {"skill": "defence", "amount": 250000},
+            {"skill": "magic", "amount": 250000},
+            {"skill": "ranged", "amount": 250000},
+            {"skill": "sanctity", "amount": 250000}
+          ],
+          "items": ["eternity_blade", "reality_crown"],
+          "unlocks": ["true_ending", "new_game_plus", "eternal_champion_title"]
+        }
+      }
+    ]
+  },
+
+  "quest_series": {
+    "verdant_quest_series": {
+      "name": "Verdant Quest Series",
+      "quests": ["wilds_guardian", "verdant_treaty", "nature_corruption", "hearts_of_light", "living_fortress", "verdant_chronicles", "sylvanhearts_restoration"],
+      "final_reward": "sylvanheart_access"
+    },
+    "eternal_quest_series": {
+      "name": "Eternal Quest Series",
+      "quests": ["shadow_cult", "arena_of_champions", "sands_of_eternity", "nightmare_prophecy", "temple_of_ancients", "ritual_of_binding", "void_awakening", "eternal_pact", "children_of_void", "voidthars_gambit"],
+      "final_reward": "eternal_storyline_complete"
+    },
+    "wyrm_quest_series": {
+      "name": "Wyrm Quest Series",
+      "quests": ["wyrm_slayer", "wyrm_legacy"],
+      "final_reward": "wyrm_bane_access"
+    },
+    "verdant_treaty_series": {
+      "name": "Verdant Treaty Series",
+      "quests": ["wilds_guardian", "verdant_treaty", "primal_fury", "feast_of_beasts"],
+      "final_reward": "nature_spirits_and_portals"
+    },
+    "dreadmire_quest_series": {
+      "name": "Dreadmire Quest Series",
+      "quests": ["search_for_survivors", "aid_the_resistance", "shadows_of_dreadmire", "blood_legacy", "branches_of_darkness", "lord_of_undeath", "river_of_souls"],
+      "final_reward": "undead_storyline_complete"
+    },
+    "corsair_quest_series": {
+      "name": "Corsair Quest Series",
+      "quests": ["treasure_of_freeport", "rum_runners", "cabin_on_fire", "the_great_heist", "clockwork_ship", "pieces_of_eight"],
+      "final_reward": "pirate_storyline_complete"
+    }
+  },
+
+  "miniquests": [
+    {
+      "id": "enter_the_void",
+      "name": "Enter the Void",
+      "description": "Learn about the Void and gain access to this dangerous magical shortcut",
+      "start_npc": "Void Touched Scholar",
+      "requirements": {"quests": ["arcane_mysteries"]},
+      "rewards": ["void_access", "small_void_pouch"]
+    },
+    {
+      "id": "lair_of_malachar",
+      "name": "Lair of Malachar",
+      "description": "Navigate the sunken crypts and defeat the lich Malachar's lieutenant",
+      "start_point": "Sunken Crypts, Dreadmire",
+      "requirements": {"quests": ["shadows_of_dreadmire"], "slayer_level": 40},
+      "rewards": ["spiritward_amulet_enchantment"]
+    },
+    {
+      "id": "tavern_crawl",
+      "name": "The Great Tavern Crawl",
+      "description": "Complete the legendary tavern crawl challenge across Aethermoor",
+      "start_npc": "Wandering Drunk",
+      "requirements": {},
+      "rewards": ["warriors_rest_access", "tavern_crawl_badge"]
+    }
+  ],
+
+  "quest_dialogue_system": {
+    "voice_acting": false,
+    "text_speed_options": ["slow", "normal", "fast", "instant"],
+    "dialogue_choices": true,
+    "branching_dialogues": true,
+    "journal_updates": true,
+    "hint_system": {
+      "enabled": true,
+      "toggle_in_settings": true,
+      "highlight_objects": true,
+      "show_path": false
+    }
+  },
+
+  "ue5_implementation": {
+    "quest_markers": {
+      "available_quest": {"icon": "exclamation_gold", "minimap": true, "world": true},
+      "in_progress": {"icon": "question_gold", "minimap": true, "world": true},
+      "completable": {"icon": "question_blue", "minimap": true, "world": true}
+    },
+
+    "quest_cutscenes": {
+      "use_sequencer": true,
+      "letterbox_mode": true,
+      "camera_blending": true,
+      "skippable": true
+    },
+
+    "quest_ui": {
+      "journal_panel": true,
+      "requirements_checklist": true,
+      "stage_tracker": true,
+      "reward_preview": true,
+      "recommended_level_warning": true
+    },
+
+    "eternal_themed_quests": {
+      "solarius_quests": {"ui_accent": "gold", "particle_effects": "light_motes"},
+      "nythara_quests": {"ui_accent": "purple", "particle_effects": "shadow_wisps"},
+      "valdros_quests": {"ui_accent": "crimson", "particle_effects": "ember_sparks"},
+      "terrwyn_quests": {"ui_accent": "green", "particle_effects": "nature_spirits"},
+      "voidthar_quests": {"ui_accent": "void_purple", "particle_effects": "reality_tears"}
+    }
+  }
+}

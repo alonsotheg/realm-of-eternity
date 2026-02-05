@@ -1,0 +1,668 @@
+{
+  "version": "1.0.0",
+  "description": "Slayer skill system for Realm of Eternity",
+
+  "slayer_mechanics": {
+    "skill_name": "Slayer",
+    "description": "Combat skill where players are assigned monsters to kill by Slayer Masters",
+    "task_system": {
+      "one_task_at_a_time": true,
+      "can_cancel": true,
+      "cancel_cost_points": 30,
+      "block_slots": 6,
+      "block_cost_points": 100,
+      "preferred_slots": 2,
+      "prefer_cost_points": 100,
+      "streak_bonuses": true,
+      "wilderness_tasks": true
+    },
+    "slayer_points_per_task": {
+      "base": 0,
+      "10th_task": 50,
+      "50th_task": 150,
+      "100th_task": 250,
+      "250th_task": 500,
+      "1000th_task": 1000
+    }
+  },
+
+  "slayer_masters": [
+    {
+      "id": "turael",
+      "name": "Turael",
+      "location": "Burthorpe",
+      "combat_requirement": 3,
+      "slayer_requirement": 1,
+      "task_range": [15, 50],
+      "points_per_task": 0,
+      "special": "Can reset task streaks, assigns easiest tasks",
+      "coordinates": {"x": 2931, "y": 3536, "z": 0}
+    },
+    {
+      "id": "mazchna",
+      "name": "Mazchna",
+      "location": "Canifis",
+      "combat_requirement": 20,
+      "slayer_requirement": 1,
+      "task_range": [40, 70],
+      "points_per_task": 2,
+      "coordinates": {"x": 3510, "y": 3507, "z": 0}
+    },
+    {
+      "id": "vannaka",
+      "name": "Vannaka",
+      "location": "Edgeville Dungeon",
+      "combat_requirement": 40,
+      "slayer_requirement": 1,
+      "task_range": [60, 120],
+      "points_per_task": 4,
+      "coordinates": {"x": 3146, "y": 9914, "z": 0}
+    },
+    {
+      "id": "chaeldar",
+      "name": "Chaeldar",
+      "location": "Zanaris",
+      "combat_requirement": 70,
+      "slayer_requirement": 1,
+      "task_range": [110, 170],
+      "points_per_task": 10,
+      "requirements": {"quest": "lost_city"},
+      "coordinates": {"x": 2445, "y": 4431, "z": 0}
+    },
+    {
+      "id": "konar",
+      "name": "Konar quo Maten",
+      "location": "Mount Karuulm",
+      "combat_requirement": 75,
+      "slayer_requirement": 1,
+      "task_range": [120, 170],
+      "points_per_task": 18,
+      "special": "Assigns specific locations, drops Brimstone Keys",
+      "coordinates": {"x": 1311, "y": 3786, "z": 0}
+    },
+    {
+      "id": "nieve",
+      "name": "Nieve",
+      "location": "Tree Gnome Stronghold",
+      "combat_requirement": 85,
+      "slayer_requirement": 1,
+      "task_range": [120, 185],
+      "points_per_task": 12,
+      "coordinates": {"x": 2432, "y": 3424, "z": 0}
+    },
+    {
+      "id": "duradel",
+      "name": "Duradel",
+      "location": "Shilo Village",
+      "combat_requirement": 100,
+      "slayer_requirement": 50,
+      "task_range": [130, 200],
+      "points_per_task": 15,
+      "requirements": {"quest": "shilo_village"},
+      "coordinates": {"x": 2869, "y": 2982, "z": 1}
+    },
+    {
+      "id": "morvran",
+      "name": "Morvran",
+      "location": "Prifddinas",
+      "combat_requirement": 120,
+      "slayer_requirement": 85,
+      "task_range": [150, 250],
+      "points_per_task": 25,
+      "requirements": {"quest": "plague_end"},
+      "special": "Highest level master, assigns elite tasks",
+      "coordinates": {"x": 2234, "y": 3318, "z": 1}
+    },
+    {
+      "id": "laniakea",
+      "name": "Laniakea",
+      "location": "Anachronia",
+      "combat_requirement": 120,
+      "slayer_requirement": 90,
+      "task_range": [180, 270],
+      "points_per_task": 28,
+      "special": "Specializes in dinosaur and ancient creatures",
+      "coordinates": {"x": 5421, "y": 2312, "z": 0}
+    }
+  ],
+
+  "slayer_monsters": {
+    "low_level": [
+      {
+        "id": "crawling_hands",
+        "name": "Crawling Hands",
+        "slayer_level": 5,
+        "combat_level": 16,
+        "hitpoints": 20,
+        "locations": ["slayer_tower"],
+        "superior_variant": "crushing_hand",
+        "xp_per_kill": 16
+      },
+      {
+        "id": "cave_bugs",
+        "name": "Cave Bugs",
+        "slayer_level": 7,
+        "combat_level": 12,
+        "hitpoints": 18,
+        "locations": ["millbrook_swamp_caves", "dorgesh_kaan"],
+        "xp_per_kill": 14
+      },
+      {
+        "id": "cave_crawlers",
+        "name": "Cave Crawlers",
+        "slayer_level": 10,
+        "combat_level": 23,
+        "hitpoints": 30,
+        "locations": ["fremennik_slayer_dungeon", "millbrook_swamp_caves"],
+        "poison": true,
+        "superior_variant": "chasm_crawler",
+        "xp_per_kill": 26
+      },
+      {
+        "id": "banshees",
+        "name": "Banshees",
+        "slayer_level": 15,
+        "combat_level": 23,
+        "hitpoints": 30,
+        "locations": ["slayer_tower"],
+        "special_equipment": "earmuffs",
+        "superior_variant": "screaming_banshee",
+        "xp_per_kill": 26
+      },
+      {
+        "id": "cave_slimes",
+        "name": "Cave Slimes",
+        "slayer_level": 17,
+        "combat_level": 23,
+        "hitpoints": 30,
+        "locations": ["millbrook_swamp_caves"],
+        "special_equipment": "spiny_helmet",
+        "xp_per_kill": 28
+      },
+      {
+        "id": "rockslugs",
+        "name": "Rockslugs",
+        "slayer_level": 20,
+        "combat_level": 29,
+        "hitpoints": 35,
+        "locations": ["fremennik_slayer_dungeon", "millbrook_swamp_caves"],
+        "finishing_method": "bag_of_salt",
+        "superior_variant": "giant_rockslug",
+        "xp_per_kill": 32
+      },
+      {
+        "id": "cockatrice",
+        "name": "Cockatrice",
+        "slayer_level": 25,
+        "combat_level": 37,
+        "hitpoints": 40,
+        "locations": ["fremennik_slayer_dungeon"],
+        "special_equipment": "mirror_shield",
+        "superior_variant": "cockathrice",
+        "xp_per_kill": 40
+      },
+      {
+        "id": "pyrefiends",
+        "name": "Pyrefiends",
+        "slayer_level": 30,
+        "combat_level": 48,
+        "hitpoints": 55,
+        "locations": ["fremennik_slayer_dungeon", "smoke_dungeon"],
+        "superior_variant": "flaming_pyrelord",
+        "xp_per_kill": 52
+      }
+    ],
+
+    "mid_level": [
+      {
+        "id": "basilisks",
+        "name": "Basilisks",
+        "slayer_level": 40,
+        "combat_level": 61,
+        "hitpoints": 75,
+        "locations": ["fremennik_slayer_dungeon", "jormungands_prison"],
+        "special_equipment": "mirror_shield",
+        "superior_variant": "monstrous_basilisk",
+        "xp_per_kill": 72
+      },
+      {
+        "id": "infernal_mages",
+        "name": "Infernal Mages",
+        "slayer_level": 45,
+        "combat_level": 66,
+        "hitpoints": 80,
+        "locations": ["slayer_tower"],
+        "attack_style": "magic",
+        "superior_variant": "malevolent_mage",
+        "xp_per_kill": 78
+      },
+      {
+        "id": "bloodveld",
+        "name": "Bloodveld",
+        "slayer_level": 50,
+        "combat_level": 81,
+        "hitpoints": 120,
+        "locations": ["slayer_tower", "god_wars_dungeon", "catacombs_of_kourend"],
+        "attack_style": "magic_melee",
+        "superior_variant": "insatiable_bloodveld",
+        "xp_per_kill": 118
+      },
+      {
+        "id": "jellies",
+        "name": "Jellies",
+        "slayer_level": 52,
+        "combat_level": 83,
+        "hitpoints": 105,
+        "locations": ["fremennik_slayer_dungeon"],
+        "superior_variant": "vitreous_jelly",
+        "xp_per_kill": 102
+      },
+      {
+        "id": "turoth",
+        "name": "Turoth",
+        "slayer_level": 55,
+        "combat_level": 89,
+        "hitpoints": 90,
+        "locations": ["fremennik_slayer_dungeon"],
+        "special_attack": "leaf_bladed_weapon",
+        "superior_variant": "spiked_turoth",
+        "xp_per_kill": 86
+      },
+      {
+        "id": "aberrant_spectres",
+        "name": "Aberrant Spectres",
+        "slayer_level": 60,
+        "combat_level": 96,
+        "hitpoints": 100,
+        "locations": ["slayer_tower", "catacombs_of_kourend"],
+        "special_equipment": "nosepeg",
+        "superior_variant": "abhorrent_spectre",
+        "xp_per_kill": 96
+      },
+      {
+        "id": "dust_devils",
+        "name": "Dust Devils",
+        "slayer_level": 65,
+        "combat_level": 110,
+        "hitpoints": 130,
+        "locations": ["smoke_dungeon", "catacombs_of_kourend"],
+        "special_equipment": "facemask",
+        "superior_variant": "choke_devil",
+        "xp_per_kill": 126
+      },
+      {
+        "id": "kurasks",
+        "name": "Kurasks",
+        "slayer_level": 70,
+        "combat_level": 106,
+        "hitpoints": 120,
+        "locations": ["fremennik_slayer_dungeon"],
+        "special_attack": "leaf_bladed_weapon",
+        "superior_variant": "king_kurask",
+        "xp_per_kill": 115
+      }
+    ],
+
+    "high_level": [
+      {
+        "id": "gargoyles",
+        "name": "Gargoyles",
+        "slayer_level": 75,
+        "combat_level": 111,
+        "hitpoints": 130,
+        "locations": ["slayer_tower"],
+        "finishing_method": "rock_hammer",
+        "superior_variant": "marble_gargoyle",
+        "xp_per_kill": 125,
+        "notable_drops": ["granite_maul"]
+      },
+      {
+        "id": "nechryael",
+        "name": "Nechryael",
+        "slayer_level": 80,
+        "combat_level": 115,
+        "hitpoints": 150,
+        "locations": ["slayer_tower", "catacombs_of_kourend"],
+        "spawns_minions": true,
+        "superior_variant": "nechryarch",
+        "xp_per_kill": 148
+      },
+      {
+        "id": "abyssal_demons",
+        "name": "Abyssal Demons",
+        "slayer_level": 85,
+        "combat_level": 124,
+        "hitpoints": 170,
+        "locations": ["slayer_tower", "abyssal_area", "catacombs_of_kourend"],
+        "teleport_ability": true,
+        "superior_variant": "greater_abyssal_demon",
+        "xp_per_kill": 168,
+        "notable_drops": ["abyssal_whip", "abyssal_dagger"]
+      },
+      {
+        "id": "cave_kraken",
+        "name": "Cave Kraken",
+        "slayer_level": 87,
+        "combat_level": 127,
+        "hitpoints": 180,
+        "locations": ["kraken_cove"],
+        "attack_style": "magic",
+        "instance_available": true,
+        "boss_variant": "kraken",
+        "xp_per_kill": 175
+      },
+      {
+        "id": "dark_beasts",
+        "name": "Dark Beasts",
+        "slayer_level": 90,
+        "combat_level": 182,
+        "hitpoints": 260,
+        "locations": ["mourner_tunnels"],
+        "requirements": {"quest": "mournings_end_part_2"},
+        "superior_variant": "night_beast",
+        "xp_per_kill": 255,
+        "notable_drops": ["dark_bow"]
+      },
+      {
+        "id": "smoke_devils",
+        "name": "Smoke Devils",
+        "slayer_level": 93,
+        "combat_level": 160,
+        "hitpoints": 220,
+        "locations": ["smoke_devil_dungeon"],
+        "special_equipment": "facemask",
+        "boss_variant": "thermonuclear_smoke_devil",
+        "xp_per_kill": 215
+      },
+      {
+        "id": "hydras",
+        "name": "Hydras",
+        "slayer_level": 95,
+        "combat_level": 194,
+        "hitpoints": 280,
+        "locations": ["mount_karuulm"],
+        "requires_boots": "boots_of_stone",
+        "boss_variant": "alchemical_hydra",
+        "xp_per_kill": 275
+      }
+    ],
+
+    "elite_monsters": [
+      {
+        "id": "revenants",
+        "name": "Revenants",
+        "slayer_level": 1,
+        "combat_level_range": [7, 135],
+        "hitpoints_range": [30, 300],
+        "locations": ["revenant_caves"],
+        "wilderness": true,
+        "special": "All combat styles, healing ability",
+        "notable_drops": ["ancient_statuettes", "revenant_weapons"]
+      },
+      {
+        "id": "demonic_gorillas",
+        "name": "Demonic Gorillas",
+        "slayer_level": 1,
+        "combat_level": 275,
+        "hitpoints": 380,
+        "locations": ["crash_site_cavern"],
+        "requirements": {"quest": "monkey_madness_2"},
+        "special": "Protection prayers, style switching",
+        "xp_per_kill": 375,
+        "notable_drops": ["zenyte_shard", "ballista_parts"]
+      },
+      {
+        "id": "rune_dragons",
+        "name": "Rune Dragons",
+        "slayer_level": 1,
+        "combat_level": 380,
+        "hitpoints": 450,
+        "locations": ["lithkren_vault"],
+        "requirements": {"quest": "dragon_slayer_2"},
+        "xp_per_kill": 445,
+        "notable_drops": ["dragon_metal_slice", "dragon_limbs"]
+      },
+      {
+        "id": "ripper_demons",
+        "name": "Ripper Demons",
+        "slayer_level": 96,
+        "combat_level": 200,
+        "hitpoints": 300,
+        "locations": ["ripper_demon_cave"],
+        "special": "Jump attack, bleed damage",
+        "xp_per_kill": 295,
+        "notable_drops": ["ripper_claw"]
+      },
+      {
+        "id": "camel_warriors",
+        "name": "Camel Warriors",
+        "slayer_level": 96,
+        "combat_level": 210,
+        "hitpoints": 350,
+        "locations": ["sophanem_slayer_dungeon"],
+        "special": "Mirages, prayer disable",
+        "xp_per_kill": 340
+      },
+      {
+        "id": "lost_souls",
+        "name": "Lost Souls",
+        "slayer_level": 98,
+        "combat_level": 220,
+        "hitpoints": 380,
+        "locations": ["empyrean_citadel"],
+        "special": "Soul absorption",
+        "xp_per_kill": 375
+      }
+    ]
+  },
+
+  "slayer_bosses": [
+    {
+      "id": "kraken",
+      "name": "Kraken",
+      "slayer_level": 87,
+      "combat_level": 291,
+      "hitpoints": 525,
+      "location": "kraken_cove",
+      "instance_cost": 25000,
+      "mechanics": ["Wake tentacles first", "Magic only"],
+      "notable_drops": ["kraken_tentacle", "trident_of_the_seas"]
+    },
+    {
+      "id": "thermonuclear_smoke_devil",
+      "name": "Thermonuclear Smoke Devil",
+      "slayer_level": 93,
+      "combat_level": 301,
+      "hitpoints": 480,
+      "location": "smoke_devil_dungeon",
+      "instance_cost": 25000,
+      "notable_drops": ["smoke_battlestaff", "occult_necklace"]
+    },
+    {
+      "id": "cerberus",
+      "name": "Cerberus",
+      "slayer_level": 91,
+      "combat_level": 318,
+      "hitpoints": 600,
+      "location": "taverly_dungeon_hellhound_area",
+      "task_required": "hellhounds",
+      "mechanics": ["Lava pools", "Summoned Souls", "Triple attack"],
+      "notable_drops": ["primordial_crystal", "pegasian_crystal", "eternal_crystal", "smouldering_stone"]
+    },
+    {
+      "id": "abyssal_sire",
+      "name": "Abyssal Sire",
+      "slayer_level": 85,
+      "combat_level": 350,
+      "hitpoints": 800,
+      "location": "abyssal_nexus",
+      "task_required": "abyssal_demons",
+      "phases": 4,
+      "mechanics": ["Respiratory systems", "Spawns", "Teleport"],
+      "notable_drops": ["unsired", "abyssal_bludgeon_pieces", "abyssal_dagger"]
+    },
+    {
+      "id": "alchemical_hydra",
+      "name": "Alchemical Hydra",
+      "slayer_level": 95,
+      "combat_level": 426,
+      "hitpoints": 1100,
+      "location": "mount_karuulm_lower",
+      "task_required": "hydras",
+      "phases": 4,
+      "mechanics": ["Phase-based attacks", "Chemical pools", "Enrage"],
+      "notable_drops": ["hydra_leather", "hydra_claw", "hydras_eye", "hydras_fang", "hydras_heart"]
+    }
+  ],
+
+  "superior_slayer_encounters": {
+    "description": "Rare, stronger versions of slayer monsters",
+    "unlock_cost": 150,
+    "spawn_chance_percent": 0.4,
+    "rewards": {
+      "guaranteed_drops": ["eternal_gem_piece", "imbued_heart_piece", "dust_piece"],
+      "xp_multiplier": 10
+    },
+    "enabled_after_unlock": true
+  },
+
+  "slayer_equipment": {
+    "helmets": [
+      {"id": "slayer_helmet", "name": "Slayer Helmet", "unlock_cost": 400, "stats": {"all_attack": 3, "all_defence": 10}, "effect": "Combines all slayer headgear protections"},
+      {"id": "slayer_helmet_i", "name": "Slayer Helmet (i)", "imbue_source": "nightmare_zone", "stats": {"all_attack": 3, "all_defence": 10}, "effect": "+15% damage and accuracy on task for all styles"},
+      {"id": "black_mask", "name": "Black Mask", "slayer_level": 1, "effect": "+16.67% melee damage and accuracy on task", "charges": 10},
+      {"id": "black_mask_i", "name": "Black Mask (i)", "imbue_source": "nightmare_zone", "effect": "+15% all styles on task"}
+    ],
+
+    "protection": [
+      {"id": "earmuffs", "name": "Earmuffs", "protects_against": "banshees"},
+      {"id": "facemask", "name": "Facemask", "protects_against": ["dust_devils", "smoke_devils"]},
+      {"id": "nosepeg", "name": "Nose Peg", "protects_against": "aberrant_spectres"},
+      {"id": "mirror_shield", "name": "Mirror Shield", "protects_against": ["cockatrice", "basilisks"]},
+      {"id": "spiny_helmet", "name": "Spiny Helmet", "protects_against": "wall_beasts"},
+      {"id": "witchwood_icon", "name": "Witchwood Icon", "protects_against": "cave_horrors"},
+      {"id": "boots_of_stone", "name": "Boots of Stone", "protects_against": "karuulm_heat"}
+    ],
+
+    "finishing_items": [
+      {"id": "rock_hammer", "name": "Rock Hammer", "uses": "gargoyles"},
+      {"id": "bag_of_salt", "name": "Bag of Salt", "uses": "rockslugs"},
+      {"id": "ice_cooler", "name": "Ice Cooler", "uses": "desert_lizards"},
+      {"id": "fungicide", "name": "Fungicide Spray", "uses": "mutated_zygomites"}
+    ],
+
+    "weapons": [
+      {"id": "leaf_bladed_sword", "name": "Leaf-bladed Sword", "effective_against": ["turoth", "kurask"], "attack_speed": 4},
+      {"id": "leaf_bladed_battleaxe", "name": "Leaf-bladed Battleaxe", "effective_against": ["turoth", "kurask"], "attack_speed": 5, "strength_bonus": 92},
+      {"id": "broad_bolts", "name": "Broad Bolts", "effective_against": ["turoth", "kurask"], "ranged_strength": 100},
+      {"id": "broad_arrows", "name": "Broad Arrows", "effective_against": ["turoth", "kurask"], "ranged_strength": 28}
+    ]
+  },
+
+  "slayer_rewards": {
+    "unlocks": [
+      {"id": "bigger_and_badder", "name": "Bigger and Badder", "cost": 150, "effect": "Superior slayer monsters can spawn"},
+      {"id": "malevolent_masquerade", "name": "Malevolent Masquerade", "cost": 400, "effect": "Craft Slayer Helmet"},
+      {"id": "ring_bling", "name": "Ring Bling", "cost": 300, "effect": "Craft Slayer Rings"},
+      {"id": "broader_fletching", "name": "Broader Fletching", "cost": 300, "effect": "Fletch Broad Bolts/Arrows"},
+      {"id": "slayer_introspection", "name": "Slayer Introspection", "cost": 60, "effect": "Choose min or max task amounts"},
+      {"id": "gargoyle_smasher", "name": "Gargoyle Smasher", "cost": 120, "effect": "Auto-smash gargoyles"},
+      {"id": "basilocked", "name": "Basilocked", "cost": 80, "effect": "Slay Basilisk Knights"},
+      {"id": "seeing_red", "name": "Seeing Red", "cost": 50, "effect": "Slay Red Dragons as task"},
+      {"id": "i_hope_you_mith_me", "name": "I Hope You Mith Me", "cost": 80, "effect": "Slay Mithril Dragons as task"},
+      {"id": "watch_the_birdie", "name": "Watch the Birdie", "cost": 80, "effect": "Slay Aviansies as task"},
+      {"id": "hot_stuff", "name": "Hot Stuff", "cost": 100, "effect": "Slay TzHaar as task"},
+      {"id": "reptile_got_ripped", "name": "Reptile Got Ripped", "cost": 75, "effect": "Slay Lizardmen as task"},
+      {"id": "like_a_boss", "name": "Like a Boss", "cost": 200, "effect": "Slay Boss variants on task"},
+      {"id": "king_black_bonnet", "name": "King Black Bonnet", "cost": 1000, "effect": "Recolor Slayer Helmet to KBD theme"},
+      {"id": "unholy_helmet", "name": "Unholy Helmet", "cost": 1000, "effect": "Recolor Slayer Helmet to Abyssal theme"}
+    ],
+
+    "extensions": [
+      {"id": "need_more_darkness", "name": "Need More Darkness", "cost": 100, "effect": "Extend Dark Beast tasks"},
+      {"id": "ankou_very_much", "name": "Ankou Very Much", "cost": 100, "effect": "Extend Ankou tasks"},
+      {"id": "greater_challenge", "name": "Greater Challenge", "cost": 100, "effect": "Extend Greater Demon tasks"},
+      {"id": "birds_of_a_feather", "name": "Birds of a Feather", "cost": 100, "effect": "Extend Aviansie tasks"},
+      {"id": "boss_killer", "name": "Boss Killer", "cost": 100, "effect": "Extend Boss tasks"},
+      {"id": "wyver_another_one", "name": "Wyver-another One", "cost": 100, "effect": "Extend Wyvern tasks"},
+      {"id": "pedal_to_the_metals", "name": "Pedal to the Metals", "cost": 100, "effect": "Extend Metal Dragon tasks"},
+      {"id": "spiritual_fervour", "name": "Spiritual Fervour", "cost": 100, "effect": "Extend Spiritual Creature tasks"},
+      {"id": "draconic_devotee", "name": "Draconic Devotee", "cost": 100, "effect": "Extend Adamant/Rune Dragon tasks"}
+    ]
+  },
+
+  "slayer_dungeons": [
+    {
+      "id": "slayer_tower",
+      "name": "Slayer Tower",
+      "location": "Dreadmire Marshes",
+      "floors": 3,
+      "monsters": ["crawling_hands", "banshees", "infernal_mages", "bloodveld", "aberrant_spectres", "gargoyles", "nechryael", "abyssal_demons"],
+      "rooftop_access": {"agility": 71}
+    },
+    {
+      "id": "fremennik_slayer_dungeon",
+      "name": "Fremennik Slayer Dungeon",
+      "location": "Rellekka",
+      "monsters": ["cave_crawlers", "cockatrice", "pyrefiends", "basilisks", "jellies", "turoth", "kurasks"],
+      "notes": "Requires partial completion of Fremennik Trials for some areas"
+    },
+    {
+      "id": "catacombs_of_kourend",
+      "name": "Catacombs of Kourend",
+      "location": "Great Kourend",
+      "monsters": ["bloodveld", "aberrant_spectres", "dust_devils", "nechryael", "abyssal_demons", "greater_demons", "black_demons", "fire_giants", "hellhounds", "ankou", "dark_beasts", "brutal_dragons"],
+      "special": "Ancient shards, Totem pieces, Multi-combat, Superior spawns",
+      "totem_assembly": true
+    },
+    {
+      "id": "smoke_dungeon",
+      "name": "Smoke Dungeon",
+      "location": "Pollnivneach",
+      "monsters": ["pyrefiends", "dust_devils", "fire_giants"],
+      "hazard": "Smoke damage without facemask"
+    },
+    {
+      "id": "stronghold_slayer_cave",
+      "name": "Stronghold Slayer Cave",
+      "location": "Tree Gnome Stronghold",
+      "monsters": ["bloodveld", "hellhounds", "fire_giants", "aberrant_spectres", "ankou", "greater_demons", "black_demons", "dagannoth"],
+      "single_combat_area": true
+    }
+  ],
+
+  "slayer_contracts": {
+    "description": "Daily challenges for bonus rewards",
+    "reset_time": "00:00 UTC",
+    "tiers": [
+      {"tier": "easy", "kills_required": 25, "reward_multiplier": 1.0},
+      {"tier": "medium", "kills_required": 50, "reward_multiplier": 1.5},
+      {"tier": "hard", "kills_required": 100, "reward_multiplier": 2.5}
+    ],
+    "rewards": {
+      "slayer_xp_bonus_percent": 25,
+      "bonus_slayer_points": true
+    }
+  },
+
+  "ue5_implementation": {
+    "slayer_helmet_overlays": {
+      "damage_boost_indicator": true,
+      "on_task_glow": {"color": {"r": 180, "g": 0, "b": 0}, "intensity": 0.5}
+    },
+
+    "superior_spawn_effects": {
+      "spawn_sound": "SC_Superior_Spawn",
+      "particle_effect": "PS_Superior_Emergence",
+      "ground_crack": true,
+      "screen_shake": {"intensity": 0.3, "duration": 0.5}
+    },
+
+    "task_completion_ui": {
+      "notification_style": "banner",
+      "xp_drop_color": {"r": 200, "g": 100, "b": 255},
+      "streak_display": true,
+      "points_animation": true
+    }
+  }
+}

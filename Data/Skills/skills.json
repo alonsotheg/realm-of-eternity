@@ -1,0 +1,768 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Skill definitions for Realm of Eternity",
+    "maxLevel": 99,
+    "maxVirtualLevel": 120,
+    "maxMasteryLevel": 10
+  },
+  "xpTable": {
+    "description": "XP required to reach each level (1-120)",
+    "formula": "floor(sum(floor(level + 300 * 2^(level/7))) / 4) for levels 1-99",
+    "levels": {
+      "1": 0, "2": 83, "3": 174, "4": 276, "5": 388,
+      "6": 512, "7": 650, "8": 801, "9": 969, "10": 1154,
+      "11": 1358, "12": 1584, "13": 1833, "14": 2107, "15": 2411,
+      "16": 2746, "17": 3115, "18": 3523, "19": 3973, "20": 4470,
+      "21": 5018, "22": 5624, "23": 6291, "24": 7028, "25": 7842,
+      "26": 8740, "27": 9730, "28": 10824, "29": 12031, "30": 13363,
+      "31": 14833, "32": 16456, "33": 18247, "34": 20224, "35": 22406,
+      "36": 24815, "37": 27473, "38": 30408, "39": 33648, "40": 37224,
+      "41": 41171, "42": 45529, "43": 50339, "44": 55649, "45": 61512,
+      "46": 67983, "47": 75127, "48": 83014, "49": 91721, "50": 101333,
+      "51": 111945, "52": 123660, "53": 136594, "54": 150872, "55": 166636,
+      "56": 184040, "57": 203254, "58": 224466, "59": 247886, "60": 273742,
+      "61": 302288, "62": 333804, "63": 368599, "64": 407015, "65": 449428,
+      "66": 496254, "67": 547953, "68": 605032, "69": 668051, "70": 737627,
+      "71": 814445, "72": 899257, "73": 992895, "74": 1096278, "75": 1210421,
+      "76": 1336443, "77": 1475581, "78": 1629200, "79": 1798808, "80": 1986068,
+      "81": 2192818, "82": 2421087, "83": 2673114, "84": 2951373, "85": 3258594,
+      "86": 3597792, "87": 3972294, "88": 4385776, "89": 4842295, "90": 5346332,
+      "91": 5902831, "92": 6517253, "93": 7195629, "94": 7944614, "95": 8771558,
+      "96": 9684577, "97": 10692629, "98": 11805606, "99": 13034431,
+      "100": 14391160, "101": 15889109, "102": 17542976, "103": 19368992,
+      "104": 21385073, "105": 23611006, "106": 26068632, "107": 28782069,
+      "108": 31777943, "109": 35085654, "110": 38737661, "111": 42769801,
+      "112": 47221641, "113": 52136869, "114": 57563718, "115": 63555443,
+      "116": 70170840, "117": 77474828, "118": 85539082, "119": 94442737,
+      "120": 104273167
+    }
+  },
+  "categories": [
+    { "id": "combat", "name": "Combat", "icon": "combat_icon", "color": "#FF4444" },
+    { "id": "gathering", "name": "Gathering", "icon": "gathering_icon", "color": "#44FF44" },
+    { "id": "artisan", "name": "Artisan", "icon": "artisan_icon", "color": "#4444FF" },
+    { "id": "support", "name": "Support", "icon": "support_icon", "color": "#FFFF44" }
+  ],
+  "skills": [
+    {
+      "id": "melee",
+      "name": "Melee",
+      "description": "Determines accuracy and damage with melee weapons",
+      "category": "combat",
+      "icon": "skill_melee",
+      "isCombat": true,
+      "combatStyle": "melee",
+      "defaultLevel": 1,
+      "mechanics": {
+        "accuracyPerLevel": 4,
+        "maxHitBonus": 0.5,
+        "weaponTypes": ["sword", "mace", "axe", "spear", "halberd", "dagger", "claws"]
+      },
+      "milestones": [
+        { "level": 1, "unlock": "copperweave_weapons", "description": "Copperweave weapons" },
+        { "level": 10, "unlock": "ironbark_weapons", "description": "Ironbark weapons" },
+        { "level": 20, "unlock": "stormforged_weapons", "description": "Stormforged weapons" },
+        { "level": 30, "unlock": "moonveil_weapons", "description": "Moonveil weapons" },
+        { "level": 40, "unlock": "voidstone_weapons", "description": "Voidstone weapons" },
+        { "level": 50, "unlock": "eternium_weapons", "description": "Eternium weapons" },
+        { "level": 60, "unlock": "wyrm_weapons", "description": "Wyrm weapons" },
+        { "level": 70, "unlock": "wyrmscale_weapons", "description": "Wyrmscale weapons" },
+        { "level": 80, "unlock": "abyssal_weapons", "description": "Abyssal weapons" },
+        { "level": 90, "unlock": "ancient_weapons", "description": "Ancient weapons" },
+        { "level": 99, "unlock": "melee_cape", "description": "Melee Skillcape" }
+      ]
+    },
+    {
+      "id": "ranged",
+      "name": "Ranged",
+      "description": "Determines accuracy and damage with ranged weapons",
+      "category": "combat",
+      "icon": "skill_ranged",
+      "isCombat": true,
+      "combatStyle": "ranged",
+      "defaultLevel": 1,
+      "mechanics": {
+        "accuracyPerLevel": 4,
+        "maxHitBonus": 0.5,
+        "weaponTypes": ["bow", "crossbow", "thrown", "javelin"],
+        "ammoConsumption": true
+      },
+      "milestones": [
+        { "level": 1, "unlock": "swiftbow", "description": "Swiftbows" },
+        { "level": 5, "unlock": "goldleaf_bow", "description": "Goldleaf bows" },
+        { "level": 10, "unlock": "crossbow", "description": "Crossbows" },
+        { "level": 20, "unlock": "whisperwood_bow", "description": "Whisperwood bows" },
+        { "level": 30, "unlock": "ironwood_bow", "description": "Ironwood bows" },
+        { "level": 40, "unlock": "spiritbark_bow", "description": "Spiritbark bows" },
+        { "level": 50, "unlock": "starwood_bow", "description": "Starwood bows" },
+        { "level": 60, "unlock": "elderwood_bow", "description": "Elderwood bows" },
+        { "level": 70, "unlock": "crystal_bow", "description": "Crystal bows" },
+        { "level": 80, "unlock": "dark_bow", "description": "Dark bows" },
+        { "level": 90, "unlock": "ascension_crossbow", "description": "Ascension crossbows" },
+        { "level": 99, "unlock": "ranged_cape", "description": "Ranged Skillcape" }
+      ]
+    },
+    {
+      "id": "magic",
+      "name": "Magic",
+      "description": "Determines magical power and spell access",
+      "category": "combat",
+      "icon": "skill_magic",
+      "isCombat": true,
+      "combatStyle": "magic",
+      "defaultLevel": 1,
+      "mechanics": {
+        "accuracyPerLevel": 4,
+        "maxHitBonus": 0.5,
+        "glyphConsumption": true,
+        "spellbooks": ["standard", "forbidden", "celestial", "arcane"]
+      },
+      "milestones": [
+        { "level": 1, "unlock": "gale_strike", "description": "Gale Strike spell" },
+        { "level": 5, "unlock": "tide_strike", "description": "Tide Strike spell" },
+        { "level": 9, "unlock": "terra_strike", "description": "Terra Strike spell" },
+        { "level": 13, "unlock": "blaze_strike", "description": "Blaze Strike spell" },
+        { "level": 17, "unlock": "gale_bolt", "description": "Gale Bolt spell" },
+        { "level": 25, "unlock": "teleport_spells", "description": "Teleportation spells" },
+        { "level": 35, "unlock": "blaze_burst", "description": "Blaze Burst spell" },
+        { "level": 50, "unlock": "forbidden_arcana", "description": "Forbidden Arcana spellbook" },
+        { "level": 65, "unlock": "celestial_magic", "description": "Celestial spellbook" },
+        { "level": 75, "unlock": "surge_spells", "description": "Surge spells" },
+        { "level": 85, "unlock": "arcane_spells", "description": "Arcane spellbook" },
+        { "level": 99, "unlock": "magic_cape", "description": "Magic Skillcape" }
+      ]
+    },
+    {
+      "id": "defense",
+      "name": "Defense",
+      "description": "Reduces damage taken and unlocks armor",
+      "category": "combat",
+      "icon": "skill_defense",
+      "isCombat": true,
+      "defaultLevel": 1,
+      "mechanics": {
+        "damageReductionPerLevel": 0.25,
+        "armorEffectivenessBonus": 1.0
+      },
+      "milestones": [
+        { "level": 1, "unlock": "copperweave_armor", "description": "Copperweave armor" },
+        { "level": 10, "unlock": "ironbark_armor", "description": "Ironbark armor" },
+        { "level": 20, "unlock": "stormforged_armor", "description": "Stormforged armor" },
+        { "level": 30, "unlock": "moonveil_armor", "description": "Moonveil armor" },
+        { "level": 40, "unlock": "voidstone_armor", "description": "Voidstone armor" },
+        { "level": 50, "unlock": "eternium_armor", "description": "Eternium armor" },
+        { "level": 60, "unlock": "wyrm_armor", "description": "Wyrm armor" },
+        { "level": 70, "unlock": "wyrmscale_armor", "description": "Wyrmscale armor" },
+        { "level": 80, "unlock": "dreadplate_armor", "description": "Dreadplate armor" },
+        { "level": 90, "unlock": "voidforge_armor", "description": "Voidforge armor" },
+        { "level": 99, "unlock": "defense_cape", "description": "Defense Skillcape" }
+      ]
+    },
+    {
+      "id": "hitpoints",
+      "name": "Hitpoints",
+      "description": "Determines maximum health",
+      "category": "combat",
+      "icon": "skill_hitpoints",
+      "isCombat": true,
+      "defaultLevel": 10,
+      "mechanics": {
+        "baseHealth": 100,
+        "healthPerLevel": 10,
+        "formula": "baseHealth + (level - 1) * healthPerLevel"
+      },
+      "milestones": [
+        { "level": 10, "unlock": "starting_health", "description": "Starting health (190 HP)" },
+        { "level": 25, "unlock": "health_250", "description": "250 HP milestone" },
+        { "level": 50, "unlock": "health_500", "description": "500 HP milestone" },
+        { "level": 75, "unlock": "health_750", "description": "750 HP milestone" },
+        { "level": 92, "unlock": "health_1000", "description": "1000 HP milestone" },
+        { "level": 99, "unlock": "hitpoints_cape", "description": "Hitpoints Skillcape" }
+      ]
+    },
+    {
+      "id": "sanctity",
+      "name": "Sanctity",
+      "description": "Channel divine blessings that provide combat bonuses",
+      "category": "combat",
+      "icon": "skill_sanctity",
+      "isCombat": true,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseDevotionPoints": 10,
+        "pointsPerLevel": 1,
+        "drainRateBase": 1.0,
+        "boneTypes": ["bones", "big_bones", "wyrm_bones", "frost_wyrm_bones", "superior_wyrm_bones"]
+      },
+      "milestones": [
+        { "level": 1, "unlock": "thick_skin", "description": "Thick Skin blessing" },
+        { "level": 4, "unlock": "burst_of_strength", "description": "Burst of Strength" },
+        { "level": 7, "unlock": "clarity_of_thought", "description": "Clarity of Thought" },
+        { "level": 10, "unlock": "rock_skin", "description": "Rock Skin blessing" },
+        { "level": 22, "unlock": "rapid_restore", "description": "Rapid Restore" },
+        { "level": 25, "unlock": "protect_item", "description": "Protect Item" },
+        { "level": 37, "unlock": "divine_shields", "description": "Divine shield blessings" },
+        { "level": 45, "unlock": "hawks_gaze", "description": "Hawk's Gaze" },
+        { "level": 52, "unlock": "soulrend", "description": "Soulrend blessing" },
+        { "level": 70, "unlock": "valor", "description": "Valor" },
+        { "level": 80, "unlock": "precision", "description": "Precision" },
+        { "level": 92, "unlock": "lifeweave", "description": "Lifeweave" },
+        { "level": 95, "unlock": "wrath", "description": "Wrath invocations" },
+        { "level": 99, "unlock": "sanctity_cape", "description": "Sanctity Skillcape" }
+      ]
+    },
+    {
+      "id": "mining",
+      "name": "Mining",
+      "description": "Extract ores and gems from rock formations",
+      "category": "gathering",
+      "icon": "skill_mining",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseGatherTime": 4.0,
+        "timeReductionPerLevel": 0.02,
+        "minGatherTime": 1.0,
+        "toolTiers": ["copperweave_pickaxe", "ironbark_pickaxe", "stormforged_pickaxe", "moonveil_pickaxe", "voidstone_pickaxe", "eternium_pickaxe", "wyrm_pickaxe", "crystal_pickaxe"],
+        "rockRespawnBase": 60,
+        "gemChanceBase": 0.01,
+        "gemChancePerLevel": 0.001
+      },
+      "milestones": [
+        { "level": 1, "unlock": "copper_ore", "description": "Mine Copper ore" },
+        { "level": 15, "unlock": "iron_ore", "description": "Mine Iron ore" },
+        { "level": 30, "unlock": "coal", "description": "Mine Coal" },
+        { "level": 40, "unlock": "gold_ore", "description": "Mine Gold ore" },
+        { "level": 55, "unlock": "moonveil_ore", "description": "Mine Moonveil ore" },
+        { "level": 70, "unlock": "voidstone_ore", "description": "Mine Voidstone ore" },
+        { "level": 85, "unlock": "eternium_ore", "description": "Mine Eternium ore" },
+        { "level": 90, "unlock": "animica_ore", "description": "Mine Animica ore" },
+        { "level": 99, "unlock": "mining_cape", "description": "Mining Skillcape" }
+      ]
+    },
+    {
+      "id": "smithing",
+      "name": "Smithing",
+      "description": "Smelt ores into bars and forge equipment",
+      "category": "artisan",
+      "icon": "skill_smithing",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseCraftTime": 3.0,
+        "progressPerAction": 20,
+        "heatMechanic": true,
+        "burialArmor": true
+      },
+      "milestones": [
+        { "level": 1, "unlock": "copperweave_items", "description": "Forge Copperweave items" },
+        { "level": 15, "unlock": "ironbark_items", "description": "Forge Ironbark items" },
+        { "level": 30, "unlock": "stormforged_items", "description": "Forge Stormforged items" },
+        { "level": 40, "unlock": "moonveil_items", "description": "Forge Moonveil items" },
+        { "level": 50, "unlock": "voidstone_items", "description": "Forge Voidstone items" },
+        { "level": 70, "unlock": "eternium_items", "description": "Forge Eternium items" },
+        { "level": 85, "unlock": "masterwork_armor", "description": "Masterwork armor" },
+        { "level": 90, "unlock": "trimmed_masterwork", "description": "Trimmed masterwork" },
+        { "level": 99, "unlock": "smithing_cape", "description": "Smithing Skillcape" }
+      ]
+    },
+    {
+      "id": "woodcutting",
+      "name": "Woodcutting",
+      "description": "Chop down trees to gather logs",
+      "category": "gathering",
+      "icon": "skill_woodcutting",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseGatherTime": 4.0,
+        "timeReductionPerLevel": 0.02,
+        "minGatherTime": 1.0,
+        "toolTiers": ["copperweave_hatchet", "ironbark_hatchet", "stormforged_hatchet", "moonveil_hatchet", "voidstone_hatchet", "eternium_hatchet", "wyrm_hatchet", "crystal_hatchet"],
+        "birdNestChance": 0.005,
+        "treeRespawnBase": 30
+      },
+      "milestones": [
+        { "level": 1, "unlock": "ashwood_tree", "description": "Chop Ashwood trees" },
+        { "level": 15, "unlock": "goldleaf_tree", "description": "Chop Goldleaf trees" },
+        { "level": 30, "unlock": "whisperwood_tree", "description": "Chop Whisperwood trees" },
+        { "level": 45, "unlock": "ironwood_tree", "description": "Chop Ironwood trees" },
+        { "level": 60, "unlock": "spiritbark_tree", "description": "Chop Spiritbark trees" },
+        { "level": 75, "unlock": "starwood_tree", "description": "Chop Starwood trees" },
+        { "level": 83, "unlock": "elderwood_tree", "description": "Chop Elderwood trees" },
+        { "level": 90, "unlock": "crystal_tree", "description": "Chop Crystal trees" },
+        { "level": 99, "unlock": "woodcutting_cape", "description": "Woodcutting Skillcape" }
+      ]
+    },
+    {
+      "id": "firemaking",
+      "name": "Firemaking",
+      "description": "Burn logs for warmth and XP",
+      "category": "artisan",
+      "icon": "skill_firemaking",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseBurnTime": 2.0,
+        "fireDuration": 60,
+        "cookingBonus": true,
+        "incenseSticks": true,
+        "bonfireBonus": 0.05
+      },
+      "milestones": [
+        { "level": 1, "unlock": "ashwood_logs", "description": "Burn Ashwood logs" },
+        { "level": 15, "unlock": "goldleaf_logs", "description": "Burn Goldleaf logs" },
+        { "level": 30, "unlock": "whisperwood_logs", "description": "Burn Whisperwood logs" },
+        { "level": 45, "unlock": "ironwood_logs", "description": "Burn Ironwood logs" },
+        { "level": 60, "unlock": "spiritbark_logs", "description": "Burn Spiritbark logs" },
+        { "level": 75, "unlock": "starwood_logs", "description": "Burn Starwood logs" },
+        { "level": 83, "unlock": "elderwood_logs", "description": "Burn Elderwood logs" },
+        { "level": 95, "unlock": "incense_sticks", "description": "Create incense sticks" },
+        { "level": 99, "unlock": "firemaking_cape", "description": "Firemaking Skillcape" }
+      ]
+    },
+    {
+      "id": "fishing",
+      "name": "Fishing",
+      "description": "Catch fish from various water sources",
+      "category": "gathering",
+      "icon": "skill_fishing",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseGatherTime": 5.0,
+        "timeReductionPerLevel": 0.02,
+        "minGatherTime": 1.5,
+        "toolTypes": ["small_net", "fishing_rod", "fly_fishing_rod", "harpoon", "lobster_pot", "big_net", "barbarian_rod"],
+        "baitTypes": ["fishing_bait", "feathers", "fish_offcuts"]
+      },
+      "milestones": [
+        { "level": 1, "unlock": "mudcrawler", "description": "Catch Mudcrawlers" },
+        { "level": 5, "unlock": "sardine", "description": "Catch Sardines" },
+        { "level": 20, "unlock": "silverscale", "description": "Catch Silverscale" },
+        { "level": 30, "unlock": "crimsonfish", "description": "Catch Crimsonfish" },
+        { "level": 40, "unlock": "stoneclaw", "description": "Catch Stoneclaws" },
+        { "level": 50, "unlock": "razorfin", "description": "Catch Razorfin" },
+        { "level": 62, "unlock": "monkfish", "description": "Catch Monkfish" },
+        { "level": 76, "unlock": "ironjaw", "description": "Catch Ironjaw" },
+        { "level": 90, "unlock": "abyssfin", "description": "Catch Abyssfin" },
+        { "level": 99, "unlock": "fishing_cape", "description": "Fishing Skillcape" }
+      ]
+    },
+    {
+      "id": "cooking",
+      "name": "Cooking",
+      "description": "Prepare food that restores health",
+      "category": "artisan",
+      "icon": "skill_cooking",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseCookTime": 3.0,
+        "burnChanceReductionPerLevel": 0.01,
+        "cookingGauntletsBonus": 0.05,
+        "rangeBonus": 0.03
+      },
+      "milestones": [
+        { "level": 1, "unlock": "mudcrawler_cooked", "description": "Cook Mudcrawlers" },
+        { "level": 5, "unlock": "sardine_cooked", "description": "Cook Sardines" },
+        { "level": 20, "unlock": "silverscale_cooked", "description": "Cook Silverscale" },
+        { "level": 30, "unlock": "crimsonfish_cooked", "description": "Cook Crimsonfish" },
+        { "level": 40, "unlock": "stoneclaw_cooked", "description": "Cook Stoneclaws" },
+        { "level": 50, "unlock": "razorfin_cooked", "description": "Cook Razorfin" },
+        { "level": 62, "unlock": "monkfish_cooked", "description": "Cook Monkfish" },
+        { "level": 80, "unlock": "ironjaw_cooked", "description": "Cook Ironjaw" },
+        { "level": 93, "unlock": "abyssfin_cooked", "description": "Cook Abyssfin" },
+        { "level": 99, "unlock": "cooking_cape", "description": "Cooking Skillcape" }
+      ]
+    },
+    {
+      "id": "farming",
+      "name": "Farming",
+      "description": "Grow crops, herbs, and trees",
+      "category": "gathering",
+      "icon": "skill_farming",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "growthCycles": true,
+        "diseaseChance": 0.1,
+        "compostTypes": ["compost", "supercompost", "ultracompost"],
+        "plotTypes": ["allotment", "herb", "flower", "tree", "fruit_tree", "bush", "special"]
+      },
+      "milestones": [
+        { "level": 1, "unlock": "potato_seed", "description": "Plant Potatoes" },
+        { "level": 9, "unlock": "verdantleaf_seed", "description": "Plant Verdantleaf" },
+        { "level": 15, "unlock": "goldleaf_sapling", "description": "Plant Goldleaf trees" },
+        { "level": 26, "unlock": "thornroot_seed", "description": "Plant Thornroot" },
+        { "level": 38, "unlock": "sunpetal_seed", "description": "Plant Sunpetal" },
+        { "level": 50, "unlock": "moonbloom_seed", "description": "Plant Moonbloom" },
+        { "level": 67, "unlock": "stormleaf_seed", "description": "Plant Stormleaf" },
+        { "level": 79, "unlock": "voidbloom_seed", "description": "Plant Voidbloom" },
+        { "level": 85, "unlock": "starfall_seed", "description": "Plant Starfall Petal" },
+        { "level": 91, "unlock": "eternitys_bloom_seed", "description": "Plant Eternity's Bloom" },
+        { "level": 99, "unlock": "farming_cape", "description": "Farming Skillcape" }
+      ]
+    },
+    {
+      "id": "alchemy",
+      "name": "Alchemy",
+      "description": "Brew potions and elixirs with various effects",
+      "category": "artisan",
+      "icon": "skill_alchemy",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseCraftTime": 2.5,
+        "dosesPerVial": 4,
+        "combinationPotions": true
+      },
+      "milestones": [
+        { "level": 1, "unlock": "vigor_draught", "description": "Vigor Draught" },
+        { "level": 12, "unlock": "might_draught", "description": "Might Draught" },
+        { "level": 22, "unlock": "energy_potion", "description": "Energy Potion" },
+        { "level": 30, "unlock": "combat_potion", "description": "Combat Potion" },
+        { "level": 38, "unlock": "sanctity_potion", "description": "Sanctity Potion" },
+        { "level": 45, "unlock": "super_potions", "description": "Super potions" },
+        { "level": 52, "unlock": "wyrmward_potion", "description": "Wyrmward Potion" },
+        { "level": 63, "unlock": "blessing_brew", "description": "Blessing Brew" },
+        { "level": 76, "unlock": "extreme_potions", "description": "Extreme potions" },
+        { "level": 88, "unlock": "overload", "description": "Overload potion" },
+        { "level": 96, "unlock": "eternity_elixir", "description": "Eternity Elixir" },
+        { "level": 99, "unlock": "alchemy_cape", "description": "Alchemy Skillcape" }
+      ]
+    },
+    {
+      "id": "bowcraft",
+      "name": "Bowcraft",
+      "description": "Create bows, crossbows, and ammunition",
+      "category": "artisan",
+      "icon": "skill_bowcraft",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseCraftTime": 1.5,
+        "batchSize": 15,
+        "itemTypes": ["arrow", "bolt", "bow", "crossbow", "javelin"]
+      },
+      "milestones": [
+        { "level": 1, "unlock": "copperweave_arrows", "description": "Copperweave arrows" },
+        { "level": 5, "unlock": "swiftbow", "description": "Swiftbows" },
+        { "level": 15, "unlock": "ironbark_arrows", "description": "Ironbark arrows" },
+        { "level": 22, "unlock": "goldleaf_swiftbow", "description": "Goldleaf bows" },
+        { "level": 35, "unlock": "stormforged_bolts", "description": "Stormforged bolts" },
+        { "level": 50, "unlock": "mystic_swiftbow", "description": "Mystic swiftbows" },
+        { "level": 65, "unlock": "voidstone_bolts", "description": "Voidstone bolts" },
+        { "level": 80, "unlock": "eternium_arrows", "description": "Eternium arrows" },
+        { "level": 92, "unlock": "celestial_bolts", "description": "Celestial bolts" },
+        { "level": 99, "unlock": "bowcraft_cape", "description": "Bowcraft Skillcape" }
+      ]
+    },
+    {
+      "id": "crafting",
+      "name": "Crafting",
+      "description": "Create jewelry, leather armor, and more",
+      "category": "artisan",
+      "icon": "skill_crafting",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseCraftTime": 3.0,
+        "itemTypes": ["leather", "dragonhide", "jewelry", "glass", "pottery", "battlestaves"]
+      },
+      "milestones": [
+        { "level": 1, "unlock": "leather_armor", "description": "Leather armor" },
+        { "level": 14, "unlock": "gold_jewelry", "description": "Gold jewelry" },
+        { "level": 20, "unlock": "hard_leather", "description": "Hard leather" },
+        { "level": 40, "unlock": "emerald_wyrmhide", "description": "Emerald wyrmhide" },
+        { "level": 57, "unlock": "azure_wyrmhide", "description": "Azure wyrmhide" },
+        { "level": 66, "unlock": "crimson_wyrmhide", "description": "Crimson wyrmhide" },
+        { "level": 77, "unlock": "shadow_wyrmhide", "description": "Shadow wyrmhide" },
+        { "level": 84, "unlock": "elder_wyrmhide", "description": "Elder wyrmhide" },
+        { "level": 93, "unlock": "seaweave_armor", "description": "Seaweave armor" },
+        { "level": 99, "unlock": "crafting_cape", "description": "Crafting Skillcape" }
+      ]
+    },
+    {
+      "id": "glyphcraft",
+      "name": "Glyphcraft",
+      "description": "Inscribe magical glyphs for spellcasting",
+      "category": "artisan",
+      "icon": "skill_glyphcraft",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "glyphMultiplierPerLevel": true,
+        "sanctumLocations": true,
+        "pouches": ["small", "medium", "large", "giant", "massive"]
+      },
+      "milestones": [
+        { "level": 1, "unlock": "breeze_glyph", "description": "Breeze glyphs" },
+        { "level": 5, "unlock": "thought_glyph", "description": "Thought glyphs" },
+        { "level": 9, "unlock": "tide_glyph", "description": "Tide glyphs" },
+        { "level": 14, "unlock": "terra_glyph", "description": "Terra glyphs" },
+        { "level": 20, "unlock": "ember_glyph", "description": "Ember glyphs" },
+        { "level": 27, "unlock": "astral_glyph", "description": "Astral glyphs" },
+        { "level": 35, "unlock": "havoc_glyph", "description": "Havoc glyphs" },
+        { "level": 44, "unlock": "growth_glyph", "description": "Growth glyphs" },
+        { "level": 54, "unlock": "order_glyph", "description": "Order glyphs" },
+        { "level": 65, "unlock": "void_glyph", "description": "Void glyphs" },
+        { "level": 77, "unlock": "crimson_glyph", "description": "Crimson glyphs" },
+        { "level": 90, "unlock": "spirit_glyph", "description": "Spirit glyphs" },
+        { "level": 99, "unlock": "glyphcraft_cape", "description": "Glyphcraft Skillcape" }
+      ]
+    },
+    {
+      "id": "construction",
+      "name": "Construction",
+      "description": "Build and furnish your player-owned house",
+      "category": "artisan",
+      "icon": "skill_construction",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseBuildTime": 5.0,
+        "roomTypes": ["parlour", "kitchen", "bedroom", "dining", "workshop", "chapel", "portal", "garden", "throne", "dungeon"],
+        "maxRooms": 30
+      },
+      "milestones": [
+        { "level": 1, "unlock": "parlour", "description": "Build Parlour" },
+        { "level": 5, "unlock": "kitchen", "description": "Build Kitchen" },
+        { "level": 10, "unlock": "dining_room", "description": "Build Dining Room" },
+        { "level": 15, "unlock": "workshop", "description": "Build Workshop" },
+        { "level": 25, "unlock": "bedroom", "description": "Build Bedroom" },
+        { "level": 45, "unlock": "chapel", "description": "Build Chapel" },
+        { "level": 50, "unlock": "portal_chamber", "description": "Build Portal Chamber" },
+        { "level": 70, "unlock": "throne_room", "description": "Build Throne Room" },
+        { "level": 99, "unlock": "construction_cape", "description": "Construction Skillcape" }
+      ]
+    },
+    {
+      "id": "agility",
+      "name": "Agility",
+      "description": "Navigate obstacle courses and shortcuts",
+      "category": "support",
+      "icon": "skill_agility",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "runEnergyRestore": 0.01,
+        "swiftstriderOutfit": true,
+        "courseTypes": ["rooftop", "wilderness", "advanced"]
+      },
+      "milestones": [
+        { "level": 1, "unlock": "dawnhaven_course", "description": "Dawnhaven Agility Course" },
+        { "level": 10, "unlock": "basic_shortcuts", "description": "Basic shortcuts" },
+        { "level": 20, "unlock": "silvervale_course", "description": "Silvervale Agility Course" },
+        { "level": 30, "unlock": "wilderness_course", "description": "Wilderness Course" },
+        { "level": 52, "unlock": "ironhold_course", "description": "Ironhold Agility Course" },
+        { "level": 60, "unlock": "advanced_shortcuts", "description": "Advanced shortcuts" },
+        { "level": 75, "unlock": "prismatic_course", "description": "Prismatic City Course" },
+        { "level": 99, "unlock": "agility_cape", "description": "Agility Skillcape" }
+      ]
+    },
+    {
+      "id": "subterfuge",
+      "name": "Subterfuge",
+      "description": "Steal from NPCs and lockpick chests",
+      "category": "support",
+      "icon": "skill_subterfuge",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "baseStealTime": 2.0,
+        "stunDuration": 5.0,
+        "stunChanceReductionPerLevel": 0.005,
+        "targetTypes": ["npc", "stall", "chest", "door"]
+      },
+      "milestones": [
+        { "level": 1, "unlock": "man_woman", "description": "Pickpocket men/women" },
+        { "level": 5, "unlock": "cake_stalls", "description": "Steal from cake stalls" },
+        { "level": 15, "unlock": "guards", "description": "Pickpocket guards" },
+        { "level": 38, "unlock": "master_farmer", "description": "Pickpocket Master Farmer" },
+        { "level": 55, "unlock": "knights", "description": "Pickpocket knights" },
+        { "level": 75, "unlock": "vyres", "description": "Pickpocket vyres" },
+        { "level": 91, "unlock": "prismatic_elves", "description": "Pickpocket Prismatic elves" },
+        { "level": 99, "unlock": "subterfuge_cape", "description": "Subterfuge Skillcape" }
+      ]
+    },
+    {
+      "id": "beastslaying",
+      "name": "Beastslaying",
+      "description": "Hunt monsters assigned by Beastslayer masters",
+      "category": "combat",
+      "icon": "skill_beastslaying",
+      "isCombat": true,
+      "defaultLevel": 1,
+      "mechanics": {
+        "taskAssignment": true,
+        "beastslayerPoints": true,
+        "superiorChance": 0.01,
+        "masterTiers": ["beginner", "intermediate", "advanced", "expert", "master"],
+        "bonusXpMultiplier": 1.15
+      },
+      "milestones": [
+        { "level": 1, "unlock": "beginner_master", "description": "Access Beginner master" },
+        { "level": 10, "unlock": "cave_crawlers", "description": "Hunt Cave crawlers" },
+        { "level": 20, "unlock": "intermediate_master", "description": "Access Intermediate master" },
+        { "level": 40, "unlock": "advanced_master", "description": "Access Advanced master" },
+        { "level": 55, "unlock": "dust_devils", "description": "Hunt Dust devils" },
+        { "level": 65, "unlock": "expert_master", "description": "Access Expert master" },
+        { "level": 75, "unlock": "gargoyles", "description": "Hunt Gargoyles" },
+        { "level": 85, "unlock": "abyssal_demons", "description": "Hunt Abyssal demons" },
+        { "level": 90, "unlock": "master_master", "description": "Access Master master" },
+        { "level": 99, "unlock": "beastslaying_cape", "description": "Beastslaying Skillcape" }
+      ]
+    },
+    {
+      "id": "bonding",
+      "name": "Bonding",
+      "description": "Forge bonds with familiars to aid in combat and skilling",
+      "category": "support",
+      "icon": "skill_bonding",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "bondingPoints": true,
+        "pointsPerLevel": 1,
+        "familiarTypes": ["combat", "skilling", "beast_of_burden", "healer"],
+        "charmCreation": true
+      },
+      "milestones": [
+        { "level": 1, "unlock": "spectral_wolf", "description": "Bond Spectral Wolf" },
+        { "level": 18, "unlock": "spectral_spider", "description": "Bond Spectral Spider" },
+        { "level": 28, "unlock": "shell_guardian", "description": "Bond Shell Guardian" },
+        { "level": 52, "unlock": "swift_runner", "description": "Bond Swift Runner" },
+        { "level": 67, "unlock": "tidecaller", "description": "Bond Tidecaller" },
+        { "level": 79, "unlock": "celestial_stallion", "description": "Bond Celestial Stallion" },
+        { "level": 88, "unlock": "burden_beast", "description": "Bond Burden Beast" },
+        { "level": 96, "unlock": "iron_colossus", "description": "Bond Iron Colossus" },
+        { "level": 99, "unlock": "bonding_cape", "description": "Bonding Skillcape" }
+      ]
+    },
+    {
+      "id": "delving",
+      "name": "Delving",
+      "description": "Explore procedurally generated depths",
+      "category": "support",
+      "icon": "skill_delving",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "floorTypes": ["frozen", "abandoned", "furnished", "occult", "warped"],
+        "complexityLevels": 6,
+        "prestigeSystem": true,
+        "depthTokens": true
+      },
+      "milestones": [
+        { "level": 1, "unlock": "frozen_floors", "description": "Frozen depths" },
+        { "level": 12, "unlock": "abandoned_floors", "description": "Abandoned depths" },
+        { "level": 30, "unlock": "furnished_floors", "description": "Furnished depths" },
+        { "level": 45, "unlock": "occult_floors", "description": "Occult depths" },
+        { "level": 59, "unlock": "warped_floors", "description": "Warped depths" },
+        { "level": 70, "unlock": "riftborn_weapons", "description": "Riftborn weapons (reward)" },
+        { "level": 90, "unlock": "elite_depths", "description": "Elite depths" },
+        { "level": 99, "unlock": "delving_cape", "description": "Delving Skillcape" }
+      ]
+    },
+    {
+      "id": "aethertap",
+      "name": "Aethertap",
+      "description": "Harvest aetherial energy and create useful items",
+      "category": "gathering",
+      "icon": "skill_aethertap",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "mechanics": {
+        "moteTypes": ["pale", "flickering", "bright", "glowing", "sparkling", "gleaming", "vibrant", "lustrous", "brilliant", "radiant", "luminous", "incandescent", "elder"],
+        "memoryTypes": ["energy", "enriched"],
+        "transmutation": true,
+        "portents": true
+      },
+      "milestones": [
+        { "level": 1, "unlock": "pale_motes", "description": "Harvest Pale motes" },
+        { "level": 10, "unlock": "flickering_motes", "description": "Harvest Flickering motes" },
+        { "level": 20, "unlock": "bright_motes", "description": "Harvest Bright motes" },
+        { "level": 30, "unlock": "portents", "description": "Create Portents" },
+        { "level": 50, "unlock": "transmutation", "description": "Transmutation" },
+        { "level": 60, "unlock": "vibrant_motes", "description": "Harvest Vibrant motes" },
+        { "level": 75, "unlock": "brilliant_motes", "description": "Harvest Brilliant motes" },
+        { "level": 95, "unlock": "elder_motes", "description": "Harvest Elder motes" },
+        { "level": 99, "unlock": "aethertap_cape", "description": "Aethertap Skillcape" }
+      ]
+    },
+    {
+      "id": "invention",
+      "name": "Invention",
+      "description": "Augment equipment and discover new technology",
+      "category": "support",
+      "icon": "skill_invention",
+      "isCombat": false,
+      "defaultLevel": 1,
+      "isElite": true,
+      "requirements": {
+        "skills": { "crafting": 80, "aethertap": 80, "smithing": 80 }
+      },
+      "mechanics": {
+        "augmentation": true,
+        "itemLevels": 20,
+        "perks": true,
+        "gizmos": true,
+        "components": true
+      },
+      "milestones": [
+        { "level": 1, "unlock": "augmentation", "description": "Augment equipment" },
+        { "level": 4, "unlock": "weapon_gizmo", "description": "Create Weapon gizmos" },
+        { "level": 8, "unlock": "armor_gizmo", "description": "Create Armor gizmos" },
+        { "level": 22, "unlock": "blueprint_discovery", "description": "Discover blueprints" },
+        { "level": 45, "unlock": "ancient_gizmos", "description": "Ancient gizmos" },
+        { "level": 60, "unlock": "machine_hotspots", "description": "Machine hotspots" },
+        { "level": 99, "unlock": "invention_cape", "description": "Invention Skillcape" },
+        { "level": 120, "unlock": "master_invention", "description": "Master Inventor" }
+      ]
+    }
+  ],
+  "skillCapes": {
+    "description": "Capes earned at level 99, with perks",
+    "perks": {
+      "melee_cape": { "effect": "+2% melee damage", "teleport": "warriors_guild" },
+      "ranged_cape": { "effect": "+2% ranged damage", "teleport": "ranging_guild" },
+      "magic_cape": { "effect": "+2% magic damage", "teleport": "mages_guild" },
+      "defense_cape": { "effect": "+2% damage reduction", "teleport": "warriors_guild" },
+      "hitpoints_cape": { "effect": "Heal 1% max HP per minute", "teleport": null },
+      "sanctity_cape": { "effect": "Sacred Vessel effect", "teleport": "sanctuary" },
+      "mining_cape": { "effect": "Invisible +2 mining level", "teleport": "mining_guild" },
+      "smithing_cape": { "effect": "Coal bag holds 60 coal", "teleport": "artisans_workshop" },
+      "woodcutting_cape": { "effect": "Invisible +2 woodcutting level", "teleport": "woodcutting_guild" },
+      "firemaking_cape": { "effect": "Acts as light source", "teleport": null },
+      "fishing_cape": { "effect": "Invisible +2 fishing level", "teleport": "fishing_guild" },
+      "cooking_cape": { "effect": "Never burn food", "teleport": "cooking_guild" },
+      "farming_cape": { "effect": "5% increased yield", "teleport": "farming_guild" },
+      "alchemy_cape": { "effect": "10% chance to save secondary", "teleport": null },
+      "bowcraft_cape": { "effect": "5% chance for bonus arrows", "teleport": null },
+      "crafting_cape": { "effect": "Unlimited teleports to crafting guild", "teleport": "crafting_guild" },
+      "glyphcraft_cape": { "effect": "5% more glyphs inscribed", "teleport": "glyphcraft_sanctum" },
+      "construction_cape": { "effect": "Unlimited POH teleports", "teleport": "poh" },
+      "agility_cape": { "effect": "Restore 50% run energy on teleport", "teleport": null },
+      "subterfuge_cape": { "effect": "10% more loot from stealing", "teleport": "shadow_guild" },
+      "beastslaying_cape": { "effect": "10% more beastslayer XP", "teleport": "beastslayer_tower" },
+      "bonding_cape": { "effect": "Restore 50% special move points", "teleport": null },
+      "delving_cape": { "effect": "+5% depth XP", "teleport": "rift_sanctum" },
+      "aethertap_cape": { "effect": "10% more aetherial energy", "teleport": null },
+      "invention_cape": { "effect": "10% more components", "teleport": "invention_guild" }
+    }
+  },
+  "mastery": {
+    "description": "Post-99 progression system",
+    "maxLevel": 10,
+    "xpPerMasteryLevel": [5000000, 10000000, 20000000, 35000000, 55000000, 80000000, 115000000, 160000000, 220000000, 300000000],
+    "masteryPerks": {
+      "level1": "+1% XP gain in skill",
+      "level2": "+1% success rate",
+      "level3": "+1% resource yield",
+      "level5": "Skill-specific unlock",
+      "level10": "True Mastery title, golden skill icon"
+    }
+  }
+}

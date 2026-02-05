@@ -1,0 +1,387 @@
+{
+  "smelting": [
+    {
+      "id": "smelt_copperweave_bar",
+      "name": "Smelt Copperweave Bar",
+      "skill": "smithing",
+      "level": 1,
+      "xp": 6,
+      "duration": 3,
+      "inputs": [
+        { "itemId": "emberite_ore", "quantity": 1 },
+        { "itemId": "tin_ore", "quantity": 1 }
+      ],
+      "outputs": [{ "itemId": "copperweave_bar", "quantity": 1 }],
+      "facility": "furnace"
+    },
+    {
+      "id": "smelt_ironbark_bar",
+      "name": "Smelt Ironbark Bar",
+      "skill": "smithing",
+      "level": 15,
+      "xp": 12,
+      "duration": 4,
+      "inputs": [{ "itemId": "ironbark_ore", "quantity": 1 }],
+      "outputs": [{ "itemId": "ironbark_bar", "quantity": 1, "chance": 0.5 }],
+      "notes": "50% success rate until level 45"
+    },
+    {
+      "id": "smelt_stormforged_bar",
+      "name": "Smelt Stormforged Bar",
+      "skill": "smithing",
+      "level": 30,
+      "xp": 18,
+      "duration": 5,
+      "inputs": [
+        { "itemId": "ironbark_ore", "quantity": 1 },
+        { "itemId": "coal", "quantity": 2 }
+      ],
+      "outputs": [{ "itemId": "stormforged_bar", "quantity": 1 }],
+      "facility": "furnace"
+    },
+    {
+      "id": "smelt_moonveil_bar",
+      "name": "Smelt Moonveil Bar",
+      "skill": "smithing",
+      "level": 50,
+      "xp": 30,
+      "duration": 6,
+      "inputs": [
+        { "itemId": "moonveil_ore", "quantity": 1 },
+        { "itemId": "coal", "quantity": 4 }
+      ],
+      "outputs": [{ "itemId": "moonveil_bar", "quantity": 1 }],
+      "facility": "furnace"
+    },
+    {
+      "id": "smelt_voidstone_bar",
+      "name": "Smelt Voidstone Bar",
+      "skill": "smithing",
+      "level": 70,
+      "xp": 40,
+      "duration": 7,
+      "inputs": [
+        { "itemId": "voidstone_ore", "quantity": 1 },
+        { "itemId": "coal", "quantity": 6 }
+      ],
+      "outputs": [{ "itemId": "voidstone_bar", "quantity": 1 }],
+      "facility": "furnace"
+    },
+    {
+      "id": "smelt_eternium_bar",
+      "name": "Smelt Eternium Bar",
+      "skill": "smithing",
+      "level": 85,
+      "xp": 50,
+      "duration": 8,
+      "inputs": [
+        { "itemId": "eternium_ore", "quantity": 1 },
+        { "itemId": "coal", "quantity": 8 }
+      ],
+      "outputs": [{ "itemId": "eternium_bar", "quantity": 1 }],
+      "facility": "furnace"
+    }
+  ],
+  "smithing": {
+    "copperweave": [
+      {
+        "id": "smith_copperweave_dagger",
+        "name": "Copperweave Dagger",
+        "level": 1,
+        "xp": 12,
+        "bars": 1,
+        "output": "copperweave_dagger"
+      },
+      {
+        "id": "smith_copperweave_sword",
+        "name": "Copperweave Sword",
+        "level": 4,
+        "xp": 12,
+        "bars": 1,
+        "output": "copperweave_sword"
+      },
+      {
+        "id": "smith_copperweave_scimitar",
+        "name": "Copperweave Scimitar",
+        "level": 5,
+        "xp": 25,
+        "bars": 2,
+        "output": "copperweave_scimitar"
+      },
+      {
+        "id": "smith_copperweave_helm",
+        "name": "Copperweave Helm",
+        "level": 7,
+        "xp": 12,
+        "bars": 1,
+        "output": "copperweave_helm"
+      },
+      {
+        "id": "smith_copperweave_platebody",
+        "name": "Copperweave Platebody",
+        "level": 18,
+        "xp": 62,
+        "bars": 5,
+        "output": "copperweave_platebody"
+      },
+      {
+        "id": "smith_copperweave_platelegs",
+        "name": "Copperweave Platelegs",
+        "level": 16,
+        "xp": 37,
+        "bars": 3,
+        "output": "copperweave_platelegs"
+      },
+      {
+        "id": "smith_copperweave_pickaxe",
+        "name": "Copperweave Pickaxe",
+        "level": 5,
+        "xp": 25,
+        "bars": 2,
+        "output": "copperweave_pickaxe"
+      }
+    ],
+    "ironbark": [
+      {
+        "id": "smith_ironbark_dagger",
+        "name": "Ironbark Dagger",
+        "level": 15,
+        "xp": 25,
+        "bars": 1,
+        "output": "ironbark_dagger"
+      },
+      {
+        "id": "smith_ironbark_sword",
+        "name": "Ironbark Sword",
+        "level": 19,
+        "xp": 25,
+        "bars": 1,
+        "output": "ironbark_sword"
+      },
+      {
+        "id": "smith_ironbark_scimitar",
+        "name": "Ironbark Scimitar",
+        "level": 20,
+        "xp": 50,
+        "bars": 2,
+        "output": "ironbark_scimitar"
+      },
+      {
+        "id": "smith_ironbark_helm",
+        "name": "Ironbark Helm",
+        "level": 22,
+        "xp": 25,
+        "bars": 1,
+        "output": "ironbark_helm"
+      },
+      {
+        "id": "smith_ironbark_platebody",
+        "name": "Ironbark Platebody",
+        "level": 33,
+        "xp": 125,
+        "bars": 5,
+        "output": "ironbark_platebody"
+      },
+      {
+        "id": "smith_ironbark_platelegs",
+        "name": "Ironbark Platelegs",
+        "level": 31,
+        "xp": 75,
+        "bars": 3,
+        "output": "ironbark_platelegs"
+      },
+      {
+        "id": "smith_ironbark_pickaxe",
+        "name": "Ironbark Pickaxe",
+        "level": 20,
+        "xp": 50,
+        "bars": 2,
+        "output": "ironbark_pickaxe"
+      }
+    ],
+    "stormforged": [
+      {
+        "id": "smith_stormforged_dagger",
+        "name": "Stormforged Dagger",
+        "level": 30,
+        "xp": 37,
+        "bars": 1,
+        "output": "stormforged_dagger"
+      },
+      {
+        "id": "smith_stormforged_sword",
+        "name": "Stormforged Sword",
+        "level": 34,
+        "xp": 37,
+        "bars": 1,
+        "output": "stormforged_sword"
+      },
+      {
+        "id": "smith_stormforged_scimitar",
+        "name": "Stormforged Scimitar",
+        "level": 35,
+        "xp": 75,
+        "bars": 2,
+        "output": "stormforged_scimitar"
+      },
+      {
+        "id": "smith_stormforged_helm",
+        "name": "Stormforged Helm",
+        "level": 37,
+        "xp": 37,
+        "bars": 1,
+        "output": "stormforged_helm"
+      },
+      {
+        "id": "smith_stormforged_platebody",
+        "name": "Stormforged Platebody",
+        "level": 48,
+        "xp": 187,
+        "bars": 5,
+        "output": "stormforged_platebody"
+      },
+      {
+        "id": "smith_stormforged_platelegs",
+        "name": "Stormforged Platelegs",
+        "level": 46,
+        "xp": 112,
+        "bars": 3,
+        "output": "stormforged_platelegs"
+      },
+      {
+        "id": "smith_stormforged_pickaxe",
+        "name": "Stormforged Pickaxe",
+        "level": 35,
+        "xp": 75,
+        "bars": 2,
+        "output": "stormforged_pickaxe"
+      }
+    ],
+    "moonveil": [
+      {
+        "id": "smith_moonveil_dagger",
+        "name": "Moonveil Dagger",
+        "level": 50,
+        "xp": 50,
+        "bars": 1,
+        "output": "moonveil_dagger"
+      },
+      {
+        "id": "smith_moonveil_sword",
+        "name": "Moonveil Sword",
+        "level": 54,
+        "xp": 50,
+        "bars": 1,
+        "output": "moonveil_sword"
+      },
+      {
+        "id": "smith_moonveil_scimitar",
+        "name": "Moonveil Scimitar",
+        "level": 55,
+        "xp": 100,
+        "bars": 2,
+        "output": "moonveil_scimitar"
+      },
+      {
+        "id": "smith_moonveil_platebody",
+        "name": "Moonveil Platebody",
+        "level": 68,
+        "xp": 250,
+        "bars": 5,
+        "output": "moonveil_platebody"
+      },
+      {
+        "id": "smith_moonveil_pickaxe",
+        "name": "Moonveil Pickaxe",
+        "level": 55,
+        "xp": 100,
+        "bars": 2,
+        "output": "moonveil_pickaxe"
+      }
+    ],
+    "voidstone": [
+      {
+        "id": "smith_voidstone_dagger",
+        "name": "Voidstone Dagger",
+        "level": 70,
+        "xp": 62,
+        "bars": 1,
+        "output": "voidstone_dagger"
+      },
+      {
+        "id": "smith_voidstone_sword",
+        "name": "Voidstone Sword",
+        "level": 74,
+        "xp": 62,
+        "bars": 1,
+        "output": "voidstone_sword"
+      },
+      {
+        "id": "smith_voidstone_scimitar",
+        "name": "Voidstone Scimitar",
+        "level": 75,
+        "xp": 125,
+        "bars": 2,
+        "output": "voidstone_scimitar"
+      },
+      {
+        "id": "smith_voidstone_platebody",
+        "name": "Voidstone Platebody",
+        "level": 88,
+        "xp": 312,
+        "bars": 5,
+        "output": "voidstone_platebody"
+      },
+      {
+        "id": "smith_voidstone_pickaxe",
+        "name": "Voidstone Pickaxe",
+        "level": 75,
+        "xp": 125,
+        "bars": 2,
+        "output": "voidstone_pickaxe"
+      }
+    ],
+    "eternium": [
+      {
+        "id": "smith_eternium_dagger",
+        "name": "Eternium Dagger",
+        "level": 85,
+        "xp": 75,
+        "bars": 1,
+        "output": "eternium_dagger"
+      },
+      {
+        "id": "smith_eternium_sword",
+        "name": "Eternium Sword",
+        "level": 89,
+        "xp": 75,
+        "bars": 1,
+        "output": "eternium_sword"
+      },
+      {
+        "id": "smith_eternium_scimitar",
+        "name": "Eternium Scimitar",
+        "level": 90,
+        "xp": 150,
+        "bars": 2,
+        "output": "eternium_scimitar"
+      },
+      {
+        "id": "smith_eternium_platebody",
+        "name": "Eternium Platebody",
+        "level": 99,
+        "xp": 375,
+        "bars": 5,
+        "output": "eternium_platebody"
+      },
+      {
+        "id": "smith_eternium_pickaxe",
+        "name": "Eternium Pickaxe",
+        "level": 90,
+        "xp": 150,
+        "bars": 2,
+        "output": "eternium_pickaxe"
+      }
+    ]
+  }
+}

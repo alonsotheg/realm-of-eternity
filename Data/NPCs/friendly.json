@@ -1,0 +1,205 @@
+{
+  "npcs": [
+    {
+      "id": "guide",
+      "name": "Guide Elara",
+      "type": "tutorial",
+      "location": { "zone": "awakening_isle", "x": 100, "y": 100 },
+      "dialogue": "guide_intro",
+      "examine": "A helpful guide for newly awakened adventurers"
+    },
+    {
+      "id": "aldric",
+      "name": "Aldric the Wanderer",
+      "type": "wandering",
+      "location": { "zone": "dawnhaven", "x": 3222, "y": 3218 },
+      "wanderRadius": 20,
+      "dialogue": "aldric_chat",
+      "examine": "He wanders around Dawnhaven Keep",
+      "actions": ["chat", "age"]
+    },
+    {
+      "id": "chef_brennan",
+      "name": "Chef Brennan",
+      "type": "quest",
+      "location": { "zone": "dawnhaven", "x": 3208, "y": 3212 },
+      "dialogue": "chef_brennan_chat",
+      "questStart": "lords_feast",
+      "examine": "The head chef of Dawnhaven Keep"
+    },
+    {
+      "id": "lord_aldwyn",
+      "name": "Lord Aldwyn",
+      "type": "quest",
+      "location": { "zone": "dawnhaven", "x": 3210, "y": 3220 },
+      "dialogue": "lord_aldwyn_chat",
+      "examine": "The benevolent ruler of Dawnhaven",
+      "giveItems": [
+        { "itemId": "wyrmward_shield", "quest": "wyrms_bane", "step": 8 }
+      ]
+    },
+    {
+      "id": "elder_caelum",
+      "name": "Elder Caelum",
+      "type": "service",
+      "location": { "zone": "dawnhaven", "x": 3243, "y": 3210 },
+      "dialogue": "elder_caelum_chat",
+      "examine": "A priest of the Eternal Light",
+      "services": ["bless_symbol"]
+    },
+    {
+      "id": "banker",
+      "name": "Vault Keeper",
+      "type": "service",
+      "locations": [
+        { "zone": "dawnhaven", "x": 3208, "y": 3220 },
+        { "zone": "ironhold", "x": 3253, "y": 3420 },
+        { "zone": "crystalspire", "x": 2946, "y": 3368 }
+      ],
+      "dialogue": "banker_chat",
+      "examine": "A trusted vault keeper",
+      "services": ["bank", "pin_settings", "collection_box"]
+    },
+    {
+      "id": "trade_broker",
+      "name": "Trade Broker",
+      "type": "service",
+      "location": { "zone": "ironhold", "x": 3164, "y": 3487 },
+      "dialogue": "trade_broker_chat",
+      "examine": "Manages the Eternal Exchange trades",
+      "services": ["eternal_exchange", "price_check"]
+    },
+    {
+      "id": "shapeshifter_mystral",
+      "name": "Shapeshifter Mystral",
+      "type": "service",
+      "location": { "zone": "crystalspire", "x": 2900, "y": 3363 },
+      "dialogue": "mystral_chat",
+      "examine": "Can alter your physical appearance",
+      "services": ["makeover"],
+      "cost": 3000
+    },
+    {
+      "id": "huntmaster_kael",
+      "name": "Huntmaster Kael",
+      "type": "beastslayer_master",
+      "location": { "zone": "northwatch", "x": 2930, "y": 3535 },
+      "dialogue": "kael_chat",
+      "examine": "A patient beastslaying instructor",
+      "beastslayerInfo": {
+        "combatLevelRequired": 1,
+        "taskWeighting": "beginner",
+        "beastslayerPointsPerTask": 0
+      }
+    },
+    {
+      "id": "slayer_vorn",
+      "name": "Vorn the Scarred",
+      "type": "beastslayer_master",
+      "location": { "zone": "grims_edge_dungeon", "x": 3146, "y": 9913 },
+      "dialogue": "vorn_chat",
+      "examine": "A battle-hardened beastslayer",
+      "beastslayerInfo": {
+        "combatLevelRequired": 40,
+        "taskWeighting": "intermediate",
+        "beastslayerPointsPerTask": 4
+      }
+    },
+    {
+      "id": "huntress_nyra",
+      "name": "Huntress Nyra",
+      "type": "beastslayer_master",
+      "location": { "zone": "roothollow", "x": 2434, "y": 3422 },
+      "dialogue": "nyra_chat",
+      "examine": "One of the realm's finest beastslayers",
+      "beastslayerInfo": {
+        "combatLevelRequired": 85,
+        "taskWeighting": "advanced",
+        "beastslayerPointsPerTask": 12
+      }
+    },
+    {
+      "id": "sage_aldric",
+      "name": "Sage Aldric",
+      "type": "service",
+      "location": { "zone": "shadowfen", "x": 3092, "y": 3268 },
+      "dialogue": "sage_aldric_chat",
+      "examine": "An eccentric old mage with many secrets",
+      "services": ["quest_cloak_check", "bank_cleanup"]
+    },
+    {
+      "id": "healer_mira",
+      "name": "Healer Mira",
+      "type": "healer",
+      "location": { "zone": "dawnhaven", "x": 3233, "y": 3218 },
+      "dialogue": "healer_mira_chat",
+      "examine": "Heals wounded adventurers",
+      "services": ["heal"],
+      "healAmount": "full"
+    },
+    {
+      "id": "fishing_tutor",
+      "name": "Fisher Corin",
+      "type": "tutor",
+      "location": { "zone": "dawnhaven", "x": 3246, "y": 3154 },
+      "dialogue": "fisher_corin_chat",
+      "examine": "Can teach you the art of fishing",
+      "skill": "fishing",
+      "giveItems": [
+        { "itemId": "reed_net", "quantity": 1, "free": true },
+        { "itemId": "reed_rod", "quantity": 1, "free": true }
+      ]
+    },
+    {
+      "id": "mining_tutor",
+      "name": "Prospector Grend",
+      "type": "tutor",
+      "location": { "zone": "dawnhaven", "x": 3227, "y": 3146 },
+      "dialogue": "prospector_grend_chat",
+      "examine": "Can teach you the basics of mining",
+      "skill": "mining",
+      "giveItems": [
+        { "itemId": "copperweave_pickaxe", "quantity": 1, "free": true }
+      ]
+    },
+    {
+      "id": "woodcutting_tutor",
+      "name": "Forester Owyn",
+      "type": "tutor",
+      "location": { "zone": "dawnhaven", "x": 3232, "y": 3242 },
+      "dialogue": "forester_owyn_chat",
+      "examine": "Can teach you woodcutting techniques",
+      "skill": "woodcutting",
+      "giveItems": [
+        { "itemId": "copperweave_axe", "quantity": 1, "free": true }
+      ]
+    }
+  ],
+  "wanderingNpcs": [
+    {
+      "id": "wandering_bard",
+      "name": "Wandering Bard",
+      "type": "rest",
+      "locations": [
+        { "zone": "dawnhaven", "x": 3219, "y": 3244 },
+        { "zone": "ironhold", "x": 3211, "y": 3428 },
+        { "zone": "crystalspire", "x": 2987, "y": 3372 }
+      ],
+      "dialogue": "bard_chat",
+      "examine": "Rest near them to restore stamina faster",
+      "restBonus": 2.0
+    },
+    {
+      "id": "town_herald",
+      "name": "Town Herald",
+      "type": "info",
+      "locations": [
+        { "zone": "ironhold", "x": 3213, "y": 3433 },
+        { "zone": "crystalspire", "x": 2994, "y": 3343 }
+      ],
+      "dialogue": "herald_chat",
+      "examine": "Announces important realm events",
+      "announcements": true
+    }
+  ]
+}

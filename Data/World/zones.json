@@ -1,0 +1,421 @@
+{
+  "world": {
+    "name": "Aethermoor",
+    "description": "The ancient continent where the Realm of Eternity unfolds"
+  },
+  "regions": [
+    {
+      "id": "dawnhaven_valley",
+      "name": "Dawnhaven Valley",
+      "description": "A peaceful temperate valley where new adventurers begin their journey",
+      "levelRange": { "min": 1, "max": 20 },
+      "biome": "temperate_meadow",
+      "music": "dawnhaven_ambient",
+      "dangerLevel": "safe",
+      "pvpEnabled": false
+    },
+    {
+      "id": "ironwood_forest",
+      "name": "Ironwood Forest",
+      "description": "Dense ancient woodland filled with valuable timber and lurking dangers",
+      "levelRange": { "min": 15, "max": 40 },
+      "biome": "dense_forest",
+      "music": "forest_ambient",
+      "dangerLevel": "moderate",
+      "pvpEnabled": false
+    },
+    {
+      "id": "dustfall_expanse",
+      "name": "Dustfall Expanse",
+      "description": "An arid wasteland rich with minerals and ancient ruins",
+      "levelRange": { "min": 30, "max": 60 },
+      "biome": "desert",
+      "music": "desert_ambient",
+      "dangerLevel": "dangerous",
+      "pvpEnabled": false
+    },
+    {
+      "id": "frostpeak_range",
+      "name": "Frostpeak Range",
+      "description": "Treacherous alpine mountains hiding rare ores and frost-dwelling creatures",
+      "levelRange": { "min": 50, "max": 80 },
+      "biome": "alpine_tundra",
+      "music": "mountain_ambient",
+      "dangerLevel": "dangerous",
+      "pvpEnabled": false
+    },
+    {
+      "id": "shadowfen_marsh",
+      "name": "Shadowfen Marsh",
+      "description": "A dark, misty swampland teeming with rare herbs and undead horrors",
+      "levelRange": { "min": 45, "max": 70 },
+      "biome": "swamp",
+      "music": "swamp_ambient",
+      "dangerLevel": "dangerous",
+      "pvpEnabled": false
+    },
+    {
+      "id": "crimson_coast",
+      "name": "Crimson Coast",
+      "description": "Volcanic islands and treacherous waters home to sea monsters",
+      "levelRange": { "min": 40, "max": 75 },
+      "biome": "volcanic_coast",
+      "music": "coast_ambient",
+      "dangerLevel": "dangerous",
+      "pvpEnabled": false
+    },
+    {
+      "id": "verdant_highlands",
+      "name": "Verdant Highlands",
+      "description": "Mystical floating plateaus infused with ancient magic",
+      "levelRange": { "min": 60, "max": 90 },
+      "biome": "mystical_plateau",
+      "music": "highlands_ambient",
+      "dangerLevel": "extreme",
+      "pvpEnabled": false
+    },
+    {
+      "id": "abyssal_depths",
+      "name": "The Abyssal Depths",
+      "description": "The underground realm of endgame challenges and rarest materials",
+      "levelRange": { "min": 80, "max": 99 },
+      "biome": "underground",
+      "music": "abyss_ambient",
+      "dangerLevel": "extreme",
+      "pvpEnabled": false
+    },
+    {
+      "id": "wilderness",
+      "name": "The Wilderness",
+      "description": "Lawless lands where players can fight each other for glory and loot",
+      "levelRange": { "min": 1, "max": 99 },
+      "biome": "wasteland",
+      "music": "wilderness_ambient",
+      "dangerLevel": "extreme",
+      "pvpEnabled": true
+    }
+  ],
+  "zones": [
+    {
+      "id": "awakening_isle",
+      "name": "Awakening Isle",
+      "region": "dawnhaven_valley",
+      "type": "tutorial",
+      "levelRange": { "min": 1, "max": 3 },
+      "description": "The mystical island where all adventurers first awaken",
+      "bounds": { "minX": 0, "minY": 0, "maxX": 500, "maxY": 500 },
+      "connections": [
+        { "targetZone": "dawnhaven_city", "type": "boat", "position": { "x": 450, "y": 250 } }
+      ],
+      "spawnPoint": { "x": 250, "y": 250, "z": 0 },
+      "features": ["tutorial_guide", "basic_resources", "training_dummies"],
+      "instanceType": "personal"
+    },
+    {
+      "id": "dawnhaven_city",
+      "name": "Dawnhaven",
+      "region": "dawnhaven_valley",
+      "type": "city",
+      "levelRange": { "min": 1, "max": 20 },
+      "description": "The welcoming starter city where adventurers begin their journey",
+      "bounds": { "minX": 3200, "minY": 3200, "maxX": 3300, "maxY": 3300 },
+      "connections": [
+        { "targetZone": "awakening_isle", "type": "boat", "position": { "x": 3210, "y": 3250 } },
+        { "targetZone": "dawnhaven_farms", "type": "road", "position": { "x": 3280, "y": 3250 } },
+        { "targetZone": "dawnhaven_swamp", "type": "path", "position": { "x": 3250, "y": 3200 } },
+        { "targetZone": "dawnhaven_mines", "type": "path", "position": { "x": 3200, "y": 3280 } }
+      ],
+      "spawnPoint": { "x": 3250, "y": 3250, "z": 0 },
+      "features": ["bank", "general_store", "respawn_point", "skill_tutors"],
+      "services": ["banking", "trading", "teleport_hub"],
+      "instanceType": "shared"
+    },
+    {
+      "id": "dawnhaven_farms",
+      "name": "Dawnhaven Farms",
+      "region": "dawnhaven_valley",
+      "type": "gathering",
+      "levelRange": { "min": 1, "max": 15 },
+      "description": "Fertile farmlands surrounding Dawnhaven",
+      "bounds": { "minX": 3300, "minY": 3100, "maxX": 3500, "maxY": 3400 },
+      "connections": [
+        { "targetZone": "dawnhaven_city", "type": "road", "position": { "x": 3300, "y": 3250 } },
+        { "targetZone": "ironhold_road", "type": "road", "position": { "x": 3500, "y": 3250 } }
+      ],
+      "resources": [
+        { "type": "farming_patch", "count": 8, "level": 1 },
+        { "type": "chicken_coop", "count": 2 },
+        { "type": "cow_pen", "count": 2 },
+        { "type": "wheat_field", "count": 4 }
+      ],
+      "enemies": ["chicken", "cow", "rat", "bogling_scout"],
+      "instanceType": "shared"
+    },
+    {
+      "id": "dawnhaven_mines",
+      "name": "Dawnhaven Mines",
+      "region": "dawnhaven_valley",
+      "type": "gathering",
+      "levelRange": { "min": 1, "max": 20 },
+      "description": "Starter mines with basic ores",
+      "bounds": { "minX": 3100, "minY": 3280, "maxX": 3200, "maxY": 3400 },
+      "connections": [
+        { "targetZone": "dawnhaven_city", "type": "path", "position": { "x": 3200, "y": 3280 } }
+      ],
+      "resources": [
+        { "type": "emberite_rock", "count": 10, "level": 1 },
+        { "type": "tin_rock", "count": 8, "level": 1 },
+        { "type": "ironbark_rock", "count": 5, "level": 15 },
+        { "type": "coal_rock", "count": 3, "level": 20 }
+      ],
+      "enemies": ["cave_rat", "cave_spider", "rock_crab"],
+      "instanceType": "shared"
+    },
+    {
+      "id": "dawnhaven_swamp",
+      "name": "Shadowfen Outskirts",
+      "region": "dawnhaven_valley",
+      "type": "combat",
+      "levelRange": { "min": 5, "max": 15 },
+      "description": "The edge of the great swamp, home to frogs and boglings",
+      "bounds": { "minX": 3150, "minY": 3000, "maxX": 3350, "maxY": 3200 },
+      "connections": [
+        { "targetZone": "dawnhaven_city", "type": "path", "position": { "x": 3250, "y": 3200 } },
+        { "targetZone": "bogling_warren", "type": "cave", "position": { "x": 3200, "y": 3050 } }
+      ],
+      "enemies": ["giant_frog", "bogling", "bogling_warrior", "swamp_snake"],
+      "instanceType": "shared"
+    },
+    {
+      "id": "bogling_warren",
+      "name": "Bogling Warren",
+      "region": "dawnhaven_valley",
+      "type": "dungeon",
+      "levelRange": { "min": 10, "max": 20 },
+      "description": "The underground lair of the bogling tribe",
+      "bounds": { "minX": 0, "minY": 0, "maxX": 300, "maxY": 300 },
+      "connections": [
+        { "targetZone": "dawnhaven_swamp", "type": "cave", "position": { "x": 150, "y": 280 } }
+      ],
+      "enemies": ["bogling", "bogling_warrior", "bogling_shaman", "bogling_chieftain"],
+      "bosses": ["chief_grukk"],
+      "instanceType": "shared",
+      "questRelated": ["the_bogling_accord"]
+    },
+    {
+      "id": "ironhold_city",
+      "name": "Ironhold",
+      "region": "ironwood_forest",
+      "type": "city",
+      "levelRange": { "min": 15, "max": 40 },
+      "description": "The great trade city, center of commerce in Aethermoor",
+      "bounds": { "minX": 4000, "minY": 3400, "maxX": 4200, "maxY": 3600 },
+      "connections": [
+        { "targetZone": "ironhold_road", "type": "road", "position": { "x": 4000, "y": 3500 } },
+        { "targetZone": "ironwood_grove", "type": "road", "position": { "x": 4100, "y": 3600 } },
+        { "targetZone": "champions_hall", "type": "building", "position": { "x": 4150, "y": 3450 } }
+      ],
+      "spawnPoint": { "x": 4100, "y": 3500, "z": 0 },
+      "features": ["bank", "eternal_exchange", "sword_shop", "armor_shop", "rune_shop"],
+      "services": ["banking", "trading", "eternal_exchange", "teleport_hub"],
+      "instanceType": "shared"
+    },
+    {
+      "id": "champions_hall",
+      "name": "Champions' Hall",
+      "region": "ironwood_forest",
+      "type": "guild",
+      "levelRange": { "min": 32, "max": 99 },
+      "description": "The legendary guild hall for proven warriors",
+      "bounds": { "minX": 4150, "minY": 3400, "maxX": 4200, "maxY": 3450 },
+      "connections": [
+        { "targetZone": "ironhold_city", "type": "building", "position": { "x": 4150, "y": 3450 } }
+      ],
+      "requirements": { "questPoints": 32 },
+      "features": ["guild_master", "defender_shop", "training_room"],
+      "questRelated": ["wyrms_bane"],
+      "instanceType": "shared"
+    },
+    {
+      "id": "ironwood_grove",
+      "name": "Ironwood Grove",
+      "region": "ironwood_forest",
+      "type": "gathering",
+      "levelRange": { "min": 20, "max": 45 },
+      "description": "Ancient forest with valuable timber",
+      "bounds": { "minX": 4000, "minY": 3600, "maxX": 4300, "maxY": 3900 },
+      "resources": [
+        { "type": "ashwood_tree", "count": 20, "level": 1 },
+        { "type": "goldleaf_tree", "count": 15, "level": 15 },
+        { "type": "whisperwood_tree", "count": 10, "level": 30 },
+        { "type": "ironwood_tree", "count": 5, "level": 45 }
+      ],
+      "enemies": ["forest_spider", "wild_boar", "ent_sapling", "forest_spirit"],
+      "instanceType": "shared"
+    },
+    {
+      "id": "saltmere_port",
+      "name": "Saltmere Port",
+      "region": "crimson_coast",
+      "type": "city",
+      "levelRange": { "min": 25, "max": 50 },
+      "description": "Bustling fishing port and gateway to the seas",
+      "bounds": { "minX": 3000, "minY": 3200, "maxX": 3100, "maxY": 3300 },
+      "connections": [
+        { "targetZone": "dawnhaven_city", "type": "road", "position": { "x": 3100, "y": 3250 } },
+        { "targetZone": "saltmere_docks", "type": "path", "position": { "x": 3000, "y": 3250 } },
+        { "targetZone": "cinderpeak_isle", "type": "ship", "position": { "x": 3010, "y": 3220 } }
+      ],
+      "features": ["fishing_shop", "ship_charter", "bank"],
+      "services": ["banking", "fishing_guild", "ship_travel"],
+      "instanceType": "shared"
+    },
+    {
+      "id": "saltmere_docks",
+      "name": "Saltmere Docks",
+      "region": "crimson_coast",
+      "type": "gathering",
+      "levelRange": { "min": 1, "max": 40 },
+      "description": "Fishing spots ranging from beginner to intermediate",
+      "bounds": { "minX": 2900, "minY": 3200, "maxX": 3000, "maxY": 3300 },
+      "resources": [
+        { "type": "fishing_spot_net", "count": 5, "level": 1, "fish": ["mudcrawler", "minnow"] },
+        { "type": "fishing_spot_bait", "count": 5, "level": 5, "fish": ["streamperch", "silverscale"] },
+        { "type": "fishing_spot_fly", "count": 3, "level": 20, "fish": ["silverscale", "crimsonfish"] },
+        { "type": "fishing_spot_cage", "count": 2, "level": 40, "fish": ["stoneclaw"] }
+      ],
+      "enemies": [],
+      "instanceType": "shared"
+    },
+    {
+      "id": "cinderpeak_isle",
+      "name": "Cinderpeak Isle",
+      "region": "crimson_coast",
+      "type": "dungeon",
+      "levelRange": { "min": 50, "max": 70 },
+      "description": "Volcanic island lair of the wyrm Scorath",
+      "bounds": { "minX": 0, "minY": 0, "maxX": 500, "maxY": 500 },
+      "connections": [
+        { "targetZone": "saltmere_port", "type": "ship", "position": { "x": 250, "y": 480 } }
+      ],
+      "enemies": ["lesser_wyrm", "wyrm_spawn", "lava_elemental", "volcanic_spider"],
+      "bosses": ["scorath_the_eternal"],
+      "requirements": { "quest": "wyrms_bane", "stage": 5 },
+      "questRelated": ["wyrms_bane"],
+      "instanceType": "instanced"
+    },
+    {
+      "id": "fernwood_village",
+      "name": "Fernwood Village",
+      "region": "ironwood_forest",
+      "type": "town",
+      "levelRange": { "min": 20, "max": 35 },
+      "description": "Peaceful druid village known for potion-brewing and herbalism",
+      "bounds": { "minX": 2850, "minY": 3400, "maxX": 2950, "maxY": 3500 },
+      "connections": [
+        { "targetZone": "ironhold_road", "type": "path", "position": { "x": 2950, "y": 3450 } }
+      ],
+      "features": ["alchemy_shop", "herbalist", "druid_circle"],
+      "services": ["alchemy_supplies", "herb_patches"],
+      "instanceType": "shared"
+    },
+    {
+      "id": "northwatch_fortress",
+      "name": "Northwatch Fortress",
+      "region": "frostpeak_range",
+      "type": "town",
+      "levelRange": { "min": 40, "max": 60 },
+      "description": "Military outpost guarding the northern frontier",
+      "bounds": { "minX": 2900, "minY": 3500, "maxX": 3000, "maxY": 3600 },
+      "features": ["beastslayer_master", "military_supplies", "bank"],
+      "services": ["beastslaying", "banking"],
+      "instanceType": "shared"
+    },
+    {
+      "id": "shimmerwood_gate",
+      "name": "Shimmerwood Gate",
+      "region": "verdant_highlands",
+      "type": "portal",
+      "levelRange": { "min": 60, "max": 99 },
+      "description": "The mystical gateway to the fey realm of Shimmerwood",
+      "bounds": { "minX": 0, "minY": 0, "maxX": 200, "maxY": 200 },
+      "requirements": { "quest": "the_shimmerwood_gate", "completed": true },
+      "questRelated": ["the_shimmerwood_gate"],
+      "instanceType": "instanced"
+    },
+    {
+      "id": "ironhold_road",
+      "name": "Ironhold Road",
+      "region": "dawnhaven_valley",
+      "type": "travel",
+      "levelRange": { "min": 10, "max": 25 },
+      "description": "The main trade road connecting Dawnhaven to Ironhold",
+      "bounds": { "minX": 3500, "minY": 3200, "maxX": 4000, "maxY": 3500 },
+      "connections": [
+        { "targetZone": "dawnhaven_farms", "type": "road", "position": { "x": 3500, "y": 3250 } },
+        { "targetZone": "ironhold_city", "type": "road", "position": { "x": 4000, "y": 3500 } },
+        { "targetZone": "fernwood_village", "type": "path", "position": { "x": 3600, "y": 3450 } }
+      ],
+      "enemies": ["bandit", "bandit_archer", "highway_robber", "wild_dog"],
+      "instanceType": "shared"
+    }
+  ],
+  "worldBosses": [
+    {
+      "id": "scorath_the_eternal",
+      "name": "Scorath the Eternal",
+      "zone": "cinderpeak_isle",
+      "level": 65,
+      "combatLevel": 280,
+      "description": "The ancient wyrm who devastated Cinderpeak Isle",
+      "spawnSchedule": "on_demand",
+      "respawnTime": 0,
+      "maxPlayers": 1,
+      "mechanics": ["fire_breath", "tail_sweep", "summon_spawns", "enrage"],
+      "lootTable": "wyrm_boss_loot",
+      "questRelated": ["wyrms_bane"]
+    },
+    {
+      "id": "chief_grukk",
+      "name": "Chief Grukk",
+      "zone": "bogling_warren",
+      "level": 18,
+      "combatLevel": 42,
+      "description": "The fearsome chieftain of the bogling tribe",
+      "spawnSchedule": "always",
+      "respawnTime": 60,
+      "maxPlayers": 5,
+      "mechanics": ["war_cry", "summon_guards", "frenzy"],
+      "lootTable": "bogling_chief_loot",
+      "questRelated": ["the_bogling_accord"]
+    },
+    {
+      "id": "ancient_ent",
+      "name": "The Ancient Ent",
+      "zone": "ironwood_grove",
+      "level": 45,
+      "combatLevel": 180,
+      "description": "A massive tree spirit awakened by dark magic",
+      "spawnSchedule": "timed",
+      "spawnTimes": ["06:00", "18:00"],
+      "respawnTime": 720,
+      "maxPlayers": 20,
+      "mechanics": ["root_snare", "bark_shield", "nature_wrath", "summon_saplings"],
+      "lootTable": "ancient_ent_loot"
+    }
+  ],
+  "teleportNetwork": {
+    "lodestones": [
+      { "id": "dawnhaven_lodestone", "zone": "dawnhaven_city", "position": { "x": 3250, "y": 3260 }, "unlockLevel": 1 },
+      { "id": "ironhold_lodestone", "zone": "ironhold_city", "position": { "x": 4100, "y": 3510 }, "unlockLevel": 1 },
+      { "id": "saltmere_lodestone", "zone": "saltmere_port", "position": { "x": 3050, "y": 3250 }, "unlockLevel": 25 },
+      { "id": "fernwood_lodestone", "zone": "fernwood_village", "position": { "x": 2900, "y": 3450 }, "unlockLevel": 20 },
+      { "id": "northwatch_lodestone", "zone": "northwatch_fortress", "position": { "x": 2950, "y": 3550 }, "unlockLevel": 40 }
+    ],
+    "teleportSpells": [
+      { "id": "home_teleport", "destination": "player_home", "level": 1, "cost": 0, "cooldown": 1800 },
+      { "id": "dawnhaven_teleport", "destination": "dawnhaven_city", "level": 25, "runesCost": { "order_essence": 1, "wind_essence": 1 } },
+      { "id": "ironhold_teleport", "destination": "ironhold_city", "level": 35, "runesCost": { "order_essence": 1, "flame_essence": 1 } }
+    ]
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Player-owned house furniture definitions for Realm of Eternity"
+  },
+  "rooms": [
+    {
+      "id": "parlour",
+      "name": "Parlour",
+      "description": "Basic social room for your house",
+      "constructionLevel": 1,
+      "cost": 1000,
+      "size": "3x3",
+      "hotspots": ["chair_space", "chair_space_2", "chair_space_3", "fireplace", "rug", "curtain", "bookcase"]
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "description": "Prepare food and drinks",
+      "constructionLevel": 5,
+      "cost": 5000,
+      "size": "3x3",
+      "hotspots": ["stove", "larder", "sink", "shelves", "table", "cat_basket", "barrel"]
+    },
+    {
+      "id": "dining_room",
+      "name": "Dining Room",
+      "description": "Host feasts for your guests",
+      "constructionLevel": 10,
+      "cost": 5000,
+      "size": "3x3",
+      "hotspots": ["dining_table", "fireplace", "wall_decoration", "bell_pull", "chandelier", "curtain"]
+    },
+    {
+      "id": "workshop",
+      "name": "Workshop",
+      "description": "Craft items and repair equipment",
+      "constructionLevel": 15,
+      "cost": 10000,
+      "size": "3x3",
+      "hotspots": ["workbench", "repair_stand", "tool_store", "crafting_table", "whetstone", "heraldic_stand"]
+    },
+    {
+      "id": "bedroom",
+      "name": "Bedroom",
+      "description": "Rest and change appearance",
+      "constructionLevel": 20,
+      "cost": 10000,
+      "size": "3x3",
+      "hotspots": ["bed", "wardrobe", "dresser", "clock", "fireplace", "curtain", "rug"]
+    },
+    {
+      "id": "skill_hall",
+      "name": "Skill Hall",
+      "description": "Display trophies and achievements",
+      "constructionLevel": 25,
+      "cost": 15000,
+      "size": "3x3",
+      "hotspots": ["mounted_head", "mounted_head_2", "mounted_fish", "armor_stand", "rune_display", "staircase"]
+    },
+    {
+      "id": "games_room",
+      "name": "Games Room",
+      "description": "Challenge visitors to games",
+      "constructionLevel": 30,
+      "cost": 25000,
+      "size": "3x3",
+      "hotspots": ["prize_chest", "attack_stone", "ranging_game", "balance_beam", "elemental_balance", "jester"]
+    },
+    {
+      "id": "combat_room",
+      "name": "Combat Room",
+      "description": "Practice combat techniques",
+      "constructionLevel": 32,
+      "cost": 25000,
+      "size": "3x3",
+      "hotspots": ["combat_ring", "weapon_rack", "extra_weapon_rack", "storage_chest", "decoration"]
+    },
+    {
+      "id": "quest_hall",
+      "name": "Quest Hall",
+      "description": "Display quest rewards and glory",
+      "constructionLevel": 35,
+      "cost": 25000,
+      "size": "3x3",
+      "hotspots": ["guild_trophy", "map", "sword", "bookcase", "portrait", "landscape", "staircase"]
+    },
+    {
+      "id": "study",
+      "name": "Study",
+      "description": "Research and enchantment",
+      "constructionLevel": 40,
+      "cost": 50000,
+      "size": "3x3",
+      "hotspots": ["lectern", "globe", "crystal_ball", "telescope", "bookcase", "elemental_sphere", "wall_chart"]
+    },
+    {
+      "id": "chapel",
+      "name": "Chapel",
+      "description": "Train Sanctity with bonus experience",
+      "constructionLevel": 45,
+      "cost": 50000,
+      "size": "3x3",
+      "hotspots": ["altar", "icon", "icon_2", "burners", "musical_instrument", "statue", "window"]
+    },
+    {
+      "id": "portal_chamber",
+      "name": "Portal Chamber",
+      "description": "Create teleportation portals",
+      "constructionLevel": 50,
+      "cost": 100000,
+      "size": "3x3",
+      "hotspots": ["portal_frame", "portal_frame_2", "portal_frame_3", "centerpiece"]
+    },
+    {
+      "id": "formal_garden",
+      "name": "Formal Garden",
+      "description": "Outdoor area with plants and features",
+      "constructionLevel": 55,
+      "cost": 75000,
+      "size": "5x5",
+      "isOutdoor": true,
+      "hotspots": ["centerpiece", "hedge_1", "hedge_2", "hedge_3", "big_tree", "small_plant", "fencing"]
+    },
+    {
+      "id": "throne_room",
+      "name": "Throne Room",
+      "description": "Assert your dominance with a grand throne",
+      "constructionLevel": 60,
+      "cost": 150000,
+      "size": "5x5",
+      "hotspots": ["throne", "lever", "trapdoor", "floor_decoration", "seating", "decoration", "decoration_2"]
+    },
+    {
+      "id": "superior_garden",
+      "name": "Superior Garden",
+      "description": "Advanced garden with spirit tree and fairy ring",
+      "constructionLevel": 65,
+      "cost": 200000,
+      "size": "5x5",
+      "isOutdoor": true,
+      "hotspots": ["teleport_focus", "pool", "topiary", "big_tree", "hedge", "fence", "dungeon_entrance"]
+    },
+    {
+      "id": "achievement_gallery",
+      "name": "Achievement Gallery",
+      "description": "Display achievements, capes, and treasure",
+      "constructionLevel": 80,
+      "cost": 250000,
+      "size": "3x3",
+      "hotspots": ["cape_hanger", "quest_list", "adventure_log", "boss_lair_display", "jewelry_box", "altar"]
+    },
+    {
+      "id": "aquarium",
+      "name": "Aquarium",
+      "description": "Display fish and sea creatures",
+      "constructionLevel": 63,
+      "cost": 200000,
+      "size": "3x3",
+      "hotspots": ["small_fish_tank", "big_fish_tank", "treasure_chest", "prawn_perch", "decoration", "coral"]
+    }
+  ],
+  "furniture": {
+    "chairs": [
+      { "id": "crude_chair", "level": 1, "xp": 58, "materials": [{ "id": "ashwood_plank", "qty": 2 }] },
+      { "id": "wooden_chair", "level": 8, "xp": 87, "materials": [{ "id": "ashwood_plank", "qty": 3 }] },
+      { "id": "goldleaf_chair", "level": 19, "xp": 120, "materials": [{ "id": "goldleaf_plank", "qty": 2 }] },
+      { "id": "carved_chair", "level": 31, "xp": 180, "materials": [{ "id": "ironwood_plank", "qty": 3 }] },
+      { "id": "spiritbark_chair", "level": 52, "xp": 280, "materials": [{ "id": "spiritbark_plank", "qty": 2 }] },
+      { "id": "gilded_chair", "level": 67, "xp": 420, "materials": [{ "id": "spiritbark_plank", "qty": 2 }, { "id": "gold_leaf", "qty": 2 }] },
+      { "id": "crystal_throne", "level": 95, "xp": 950, "materials": [{ "id": "crystal_plank", "qty": 5 }, { "id": "gold_leaf", "qty": 5 }] }
+    ],
+    "tables": [
+      { "id": "crude_table", "level": 1, "xp": 58, "materials": [{ "id": "ashwood_plank", "qty": 3 }] },
+      { "id": "wooden_table", "level": 12, "xp": 87, "materials": [{ "id": "ashwood_plank", "qty": 4 }] },
+      { "id": "goldleaf_table", "level": 22, "xp": 180, "materials": [{ "id": "goldleaf_plank", "qty": 4 }] },
+      { "id": "carved_table", "level": 33, "xp": 360, "materials": [{ "id": "ironwood_plank", "qty": 6 }] },
+      { "id": "spiritbark_table", "level": 52, "xp": 560, "materials": [{ "id": "spiritbark_plank", "qty": 4 }] },
+      { "id": "gilded_table", "level": 72, "xp": 780, "materials": [{ "id": "spiritbark_plank", "qty": 4 }, { "id": "gold_leaf", "qty": 4 }] },
+      { "id": "opulent_table", "level": 90, "xp": 1200, "materials": [{ "id": "crystal_plank", "qty": 6 }, { "id": "gold_leaf", "qty": 6 }, { "id": "marble_block", "qty": 2 }] }
+    ],
+    "fireplaces": [
+      { "id": "clay_fireplace", "level": 3, "xp": 30, "materials": [{ "id": "soft_clay", "qty": 3 }], "bonus": 0 },
+      { "id": "stone_fireplace", "level": 33, "xp": 40, "materials": [{ "id": "limestone_brick", "qty": 2 }], "bonus": 0.02 },
+      { "id": "marble_fireplace", "level": 63, "xp": 500, "materials": [{ "id": "marble_block", "qty": 2 }], "bonus": 0.05 }
+    ],
+    "beds": [
+      { "id": "wooden_bed", "level": 20, "xp": 117, "materials": [{ "id": "ashwood_plank", "qty": 3 }, { "id": "wool", "qty": 2 }], "dreamBonus": 0 },
+      { "id": "goldleaf_bed", "level": 34, "xp": 210, "materials": [{ "id": "goldleaf_plank", "qty": 3 }, { "id": "silk", "qty": 2 }], "dreamBonus": 0.01 },
+      { "id": "large_bed", "level": 45, "xp": 480, "materials": [{ "id": "ironwood_plank", "qty": 5 }, { "id": "silk", "qty": 4 }], "dreamBonus": 0.02 },
+      { "id": "grand_bed", "level": 60, "xp": 700, "materials": [{ "id": "spiritbark_plank", "qty": 5 }, { "id": "gold_leaf", "qty": 2 }, { "id": "silk", "qty": 4 }], "dreamBonus": 0.04 },
+      { "id": "royal_bed", "level": 82, "xp": 1200, "materials": [{ "id": "crystal_plank", "qty": 5 }, { "id": "gold_leaf", "qty": 5 }, { "id": "fine_silk", "qty": 6 }], "dreamBonus": 0.06 }
+    ],
+    "altars": [
+      { "id": "wooden_altar", "level": 45, "xp": 240, "materials": [{ "id": "goldleaf_plank", "qty": 4 }], "sanctityBonus": 0 },
+      { "id": "goldleaf_altar", "level": 50, "xp": 360, "materials": [{ "id": "goldleaf_plank", "qty": 6 }, { "id": "gold_leaf", "qty": 2 }], "sanctityBonus": 0.05 },
+      { "id": "carved_altar", "level": 56, "xp": 500, "materials": [{ "id": "ironwood_plank", "qty": 4 }, { "id": "limestone_brick", "qty": 2 }], "sanctityBonus": 0.10 },
+      { "id": "marble_altar", "level": 64, "xp": 700, "materials": [{ "id": "marble_block", "qty": 2 }, { "id": "gold_leaf", "qty": 2 }], "sanctityBonus": 0.20 },
+      { "id": "gilded_altar", "level": 75, "xp": 2230, "materials": [{ "id": "marble_block", "qty": 4 }, { "id": "gold_leaf", "qty": 4 }, { "id": "spiritbark_plank", "qty": 2 }], "sanctityBonus": 0.50 },
+      { "id": "celestial_altar", "level": 90, "xp": 4500, "materials": [{ "id": "marble_block", "qty": 6 }, { "id": "gold_leaf", "qty": 8 }, { "id": "eternal_crystal", "qty": 2 }], "sanctityBonus": 0.75 }
+    ],
+    "portals": [
+      { "id": "ironwood_portal", "level": 50, "xp": 100, "materials": [{ "id": "ironwood_plank", "qty": 3 }], "destinations": 3 },
+      { "id": "spiritbark_portal", "level": 65, "xp": 200, "materials": [{ "id": "spiritbark_plank", "qty": 3 }], "destinations": 5 },
+      { "id": "marble_portal", "level": 80, "xp": 400, "materials": [{ "id": "marble_block", "qty": 2 }], "destinations": 7 },
+      { "id": "crystal_portal", "level": 92, "xp": 800, "materials": [{ "id": "crystal_plank", "qty": 4 }], "destinations": 10 }
+    ],
+    "portalDestinations": [
+      { "id": "dawnhaven", "level": 50, "glyphs": ["order_glyph", "ember_glyph", "terra_glyph"], "qty": 100 },
+      { "id": "ironhold", "level": 52, "glyphs": ["order_glyph", "tide_glyph", "terra_glyph"], "qty": 100 },
+      { "id": "whiteguard", "level": 54, "glyphs": ["order_glyph", "breeze_glyph", "terra_glyph"], "qty": 100 },
+      { "id": "tidecrest", "level": 58, "glyphs": ["tide_glyph", "tide_glyph", "tide_glyph"], "qty": 200 },
+      { "id": "shadowfen", "level": 60, "glyphs": ["havoc_glyph", "void_glyph", "terra_glyph"], "qty": 200 },
+      { "id": "oraclestead", "level": 64, "glyphs": ["astral_glyph", "order_glyph", "thought_glyph"], "qty": 200 },
+      { "id": "frostpeak", "level": 68, "glyphs": ["tide_glyph", "breeze_glyph", "order_glyph"], "qty": 300 },
+      { "id": "prismatic_city", "level": 72, "glyphs": ["astral_glyph", "astral_glyph", "order_glyph"], "qty": 300 },
+      { "id": "abyssal_nexus", "level": 82, "glyphs": ["void_glyph", "havoc_glyph", "crimson_glyph"], "qty": 500 },
+      { "id": "ancient_citadel", "level": 90, "glyphs": ["spirit_glyph", "astral_glyph", "order_glyph"], "qty": 1000 }
+    ],
+    "thrones": [
+      { "id": "goldleaf_throne", "level": 60, "xp": 500, "materials": [{ "id": "goldleaf_plank", "qty": 5 }, { "id": "marble_block", "qty": 2 }] },
+      { "id": "spiritbark_throne", "level": 67, "xp": 700, "materials": [{ "id": "spiritbark_plank", "qty": 5 }, { "id": "marble_block", "qty": 3 }] },
+      { "id": "gilded_throne", "level": 72, "xp": 1000, "materials": [{ "id": "spiritbark_plank", "qty": 5 }, { "id": "gold_leaf", "qty": 5 }, { "id": "marble_block", "qty": 2 }] },
+      { "id": "skeleton_throne", "level": 78, "xp": 1200, "materials": [{ "id": "magic_stone", "qty": 4 }, { "id": "wyrm_bones", "qty": 50 }, { "id": "marble_block", "qty": 3 }] },
+      { "id": "crystal_throne", "level": 88, "xp": 2000, "materials": [{ "id": "crystal_plank", "qty": 5 }, { "id": "magic_stone", "qty": 5 }] },
+      { "id": "demonic_throne", "level": 95, "xp": 3000, "materials": [{ "id": "magic_stone", "qty": 8 }, { "id": "abyssal_leather", "qty": 10 }] }
+    ],
+    "storage": [
+      { "id": "wooden_wardrobe", "level": 20, "xp": 90, "materials": [{ "id": "ashwood_plank", "qty": 5 }], "capacity": 20 },
+      { "id": "goldleaf_wardrobe", "level": 35, "xp": 180, "materials": [{ "id": "goldleaf_plank", "qty": 5 }], "capacity": 40 },
+      { "id": "gilded_wardrobe", "level": 55, "xp": 400, "materials": [{ "id": "spiritbark_plank", "qty": 5 }, { "id": "gold_leaf", "qty": 2 }], "capacity": 80 },
+      { "id": "grand_wardrobe", "level": 75, "xp": 800, "materials": [{ "id": "spiritbark_plank", "qty": 8 }, { "id": "gold_leaf", "qty": 4 }], "capacity": 150 },
+      { "id": "jewelry_box_basic", "level": 25, "xp": 150, "materials": [{ "id": "goldleaf_plank", "qty": 2 }, { "id": "gold_bar", "qty": 5 }], "teleports": 5 },
+      { "id": "jewelry_box_fancy", "level": 50, "xp": 350, "materials": [{ "id": "ironwood_plank", "qty": 2 }, { "id": "gold_bar", "qty": 10 }], "teleports": 15 },
+      { "id": "jewelry_box_ornate", "level": 75, "xp": 750, "materials": [{ "id": "spiritbark_plank", "qty": 2 }, { "id": "gold_bar", "qty": 20 }, { "id": "gold_leaf", "qty": 2 }], "teleports": 29 }
+    ],
+    "gardenFeatures": [
+      { "id": "pond", "level": 55, "xp": 100, "materials": [{ "id": "soft_clay", "qty": 10 }] },
+      { "id": "spirit_tree", "level": 75, "xp": 350, "materials": [{ "id": "spirit_sapling", "qty": 1 }], "teleport": true },
+      { "id": "fairy_ring", "level": 85, "xp": 535, "materials": [{ "id": "mushroom", "qty": 100 }, { "id": "fairy_enchantment", "qty": 1 }], "teleport": true },
+      { "id": "obelisk", "level": 80, "xp": 700, "materials": [{ "id": "marble_block", "qty": 4 }, { "id": "gold_leaf", "qty": 4 }], "teleport": true },
+      { "id": "rejuvenation_pool", "level": 65, "xp": 400, "materials": [{ "id": "limestone_brick", "qty": 8 }, { "id": "bucket_of_water", "qty": 5 }], "effect": "restore_stats" },
+      { "id": "ornate_pool", "level": 90, "xp": 1200, "materials": [{ "id": "marble_block", "qty": 8 }, { "id": "gold_leaf", "qty": 8 }, { "id": "eternal_crystal", "qty": 1 }], "effect": "full_restore" }
+    ],
+    "combatDummies": [
+      { "id": "wooden_dummy", "level": 32, "xp": 240, "materials": [{ "id": "ashwood_plank", "qty": 5 }, { "id": "stormforged_bar", "qty": 5 }], "maxHit": 100 },
+      { "id": "training_dummy", "level": 55, "xp": 500, "materials": [{ "id": "ironwood_plank", "qty": 5 }, { "id": "moonveil_bar", "qty": 5 }], "maxHit": 500 },
+      { "id": "advanced_dummy", "level": 80, "xp": 1000, "materials": [{ "id": "spiritbark_plank", "qty": 5 }, { "id": "eternium_bar", "qty": 5 }], "maxHit": 10000 },
+      { "id": "crystalline_dummy", "level": 95, "xp": 2500, "materials": [{ "id": "crystal_plank", "qty": 5 }, { "id": "magic_stone", "qty": 3 }], "maxHit": 999999 }
+    ]
+  },
+  "services": {
+    "butlerService": [
+      { "id": "servant", "level": 20, "cost": 1000, "trips": 1, "speed": 30 },
+      { "id": "cook", "level": 30, "cost": 3000, "trips": 1, "speed": 25, "canCook": true },
+      { "id": "butler", "level": 40, "cost": 5000, "trips": 2, "speed": 20 },
+      { "id": "demon_butler", "level": 50, "cost": 10000, "trips": 3, "speed": 10 }
+    ],
+    "bankAccess": {
+      "description": "Request butler to fetch items from bank",
+      "costPerTrip": 50,
+      "itemLimit": 24
+    }
+  },
+  "progression": {
+    "maxRooms": {
+      "level_1": 10,
+      "level_25": 15,
+      "level_50": 20,
+      "level_75": 25,
+      "level_99": 30
+    },
+    "houseStyling": [
+      { "id": "basic_wood", "level": 1, "cost": 0 },
+      { "id": "whitewashed_stone", "level": 10, "cost": 10000 },
+      { "id": "slate_grey", "level": 20, "cost": 25000 },
+      { "id": "polished_marble", "level": 40, "cost": 100000 },
+      { "id": "gilded_gold", "level": 60, "cost": 500000 },
+      { "id": "crystalline", "level": 80, "cost": 2000000 },
+      { "id": "void_touched", "level": 90, "cost": 5000000 }
+    ]
+  }
+}

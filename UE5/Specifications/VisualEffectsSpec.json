@@ -1,0 +1,1215 @@
+{
+  "documentInfo": {
+    "title": "Realm of Eternity - UE5 Visual Effects & Particles Specification",
+    "version": "1.0.0",
+    "game": "Realm of Eternity",
+    "engine": "Unreal Engine 5",
+    "lastUpdated": "2026-01-07"
+  },
+
+  "niagaraSystem": {
+    "overview": "All particle effects use UE5 Niagara system for optimal performance and flexibility",
+
+    "namingConventions": {
+      "particles": "NS_{Category}_{Effect}_{Variant}",
+      "materials": "M_VFX_{Category}_{Effect}",
+      "textures": "T_VFX_{Effect}_{Type}",
+      "examples": [
+        "NS_Combat_FireBall",
+        "NS_Skill_Mining_Sparks",
+        "NS_Ambient_Fireflies",
+        "M_VFX_Combat_Fire",
+        "T_VFX_Fire_Noise"
+      ]
+    },
+
+    "performanceBudget": {
+      "maxParticlesOnScreen": 50000,
+      "maxEmittersActive": 100,
+      "gpuSimPreferred": true,
+      "lodDistances": {
+        "lod0": 0,
+        "lod1": 1500,
+        "lod2": 3000,
+        "cullDistance": 5000
+      }
+    }
+  },
+
+  "combatEffects": {
+    "melee": {
+      "weaponTrails": [
+        {
+          "id": "trail_sword",
+          "system": "NS_Combat_SwordTrail",
+          "emitterType": "ribbon",
+          "lifetime": 0.3,
+          "color": { "r": 0.9, "g": 0.95, "b": 1.0, "a": 0.8 },
+          "width": 5,
+          "material": "M_VFX_WeaponTrail"
+        },
+        {
+          "id": "trail_axe",
+          "system": "NS_Combat_AxeTrail",
+          "emitterType": "ribbon",
+          "lifetime": 0.25,
+          "color": { "r": 0.8, "g": 0.85, "b": 0.9, "a": 0.7 },
+          "width": 8,
+          "material": "M_VFX_WeaponTrail"
+        },
+        {
+          "id": "trail_fire",
+          "system": "NS_Combat_FireTrail",
+          "emitterType": "ribbon",
+          "lifetime": 0.5,
+          "color": { "r": 1.0, "g": 0.5, "b": 0.1, "a": 0.9 },
+          "width": 10,
+          "material": "M_VFX_WeaponTrail_Fire",
+          "additionalEmitter": "NS_Combat_FireParticles"
+        },
+        {
+          "id": "trail_ice",
+          "system": "NS_Combat_IceTrail",
+          "emitterType": "ribbon",
+          "lifetime": 0.4,
+          "color": { "r": 0.5, "g": 0.8, "b": 1.0, "a": 0.85 },
+          "width": 8,
+          "material": "M_VFX_WeaponTrail_Ice",
+          "additionalEmitter": "NS_Combat_IceShards"
+        },
+        {
+          "id": "trail_poison",
+          "system": "NS_Combat_PoisonTrail",
+          "emitterType": "ribbon",
+          "lifetime": 0.6,
+          "color": { "r": 0.2, "g": 0.9, "b": 0.2, "a": 0.7 },
+          "width": 6,
+          "material": "M_VFX_WeaponTrail_Poison",
+          "additionalEmitter": "NS_Combat_PoisonDrip"
+        }
+      ],
+
+      "impactEffects": [
+        {
+          "id": "impact_slash",
+          "system": "NS_Combat_ImpactSlash",
+          "spawnCount": 15,
+          "lifetime": 0.3,
+          "velocity": 200,
+          "decalEnabled": true,
+          "decalMaterial": "M_Decal_SlashMark",
+          "sound": "A_Impact_Metal"
+        },
+        {
+          "id": "impact_blunt",
+          "system": "NS_Combat_ImpactBlunt",
+          "spawnCount": 25,
+          "lifetime": 0.4,
+          "velocity": 300,
+          "screenShake": { "intensity": 0.5, "duration": 0.2 },
+          "sound": "A_Impact_Heavy"
+        },
+        {
+          "id": "impact_critical",
+          "system": "NS_Combat_ImpactCritical",
+          "spawnCount": 40,
+          "lifetime": 0.5,
+          "velocity": 400,
+          "colorFlash": { "r": 1.0, "g": 0.8, "b": 0.0 },
+          "screenShake": { "intensity": 0.8, "duration": 0.3 },
+          "sound": "A_Impact_Critical"
+        },
+        {
+          "id": "impact_blood",
+          "system": "NS_Combat_Blood",
+          "spawnCount": 20,
+          "lifetime": 1.0,
+          "gravity": true,
+          "decalEnabled": true,
+          "decalMaterial": "M_Decal_Blood",
+          "decalLifetime": 30
+        }
+      ],
+
+      "blockEffects": [
+        {
+          "id": "block_metal",
+          "system": "NS_Combat_BlockSparks",
+          "spawnCount": 30,
+          "sound": "A_Block_Metal"
+        },
+        {
+          "id": "block_shield",
+          "system": "NS_Combat_BlockShield",
+          "spawnCount": 20,
+          "shieldGlow": true,
+          "sound": "A_Block_Shield"
+        },
+        {
+          "id": "block_magic",
+          "system": "NS_Combat_BlockMagic",
+          "spawnCount": 50,
+          "waveEffect": true,
+          "sound": "A_Block_Magic"
+        }
+      ]
+    },
+
+    "ranged": {
+      "projectiles": [
+        {
+          "id": "arrow_normal",
+          "system": "NS_Combat_Arrow",
+          "meshTrail": false,
+          "sound": "A_Arrow_Fly"
+        },
+        {
+          "id": "arrow_fire",
+          "system": "NS_Combat_ArrowFire",
+          "meshTrail": true,
+          "trailEmitter": "NS_Combat_FireTrailSmall",
+          "impactEffect": "NS_Combat_FireExplosion_Small",
+          "sound": "A_Arrow_Fire_Fly"
+        },
+        {
+          "id": "arrow_ice",
+          "system": "NS_Combat_ArrowIce",
+          "meshTrail": true,
+          "trailEmitter": "NS_Combat_IceTrailSmall",
+          "impactEffect": "NS_Combat_IceShatter",
+          "sound": "A_Arrow_Ice_Fly"
+        },
+        {
+          "id": "bolt_crossbow",
+          "system": "NS_Combat_Bolt",
+          "meshTrail": false,
+          "speed": 3000,
+          "sound": "A_Bolt_Fly"
+        },
+        {
+          "id": "thrown_javelin",
+          "system": "NS_Combat_Javelin",
+          "meshTrail": true,
+          "trailEmitter": "NS_Combat_AirTrail",
+          "rotateToVelocity": true,
+          "sound": "A_Javelin_Fly"
+        }
+      ],
+
+      "impactEffects": [
+        {
+          "id": "arrow_hit_flesh",
+          "system": "NS_Combat_ArrowHitFlesh",
+          "stickInTarget": true,
+          "sound": "A_Arrow_Hit_Flesh"
+        },
+        {
+          "id": "arrow_hit_metal",
+          "system": "NS_Combat_ArrowHitMetal",
+          "deflectChance": 0.3,
+          "sparks": true,
+          "sound": "A_Arrow_Hit_Metal"
+        },
+        {
+          "id": "arrow_hit_wood",
+          "system": "NS_Combat_ArrowHitWood",
+          "stickInTarget": true,
+          "woodChips": true,
+          "sound": "A_Arrow_Hit_Wood"
+        }
+      ]
+    },
+
+    "magic": {
+      "spellcastingEffects": [
+        {
+          "id": "cast_start_standard",
+          "system": "NS_Magic_CastStart",
+          "handGlow": true,
+          "auraParticles": true,
+          "duration": 0.5
+        },
+        {
+          "id": "cast_channel",
+          "system": "NS_Magic_CastChannel",
+          "looping": true,
+          "beamToTarget": false,
+          "handTrails": true
+        },
+        {
+          "id": "cast_release",
+          "system": "NS_Magic_CastRelease",
+          "burst": true,
+          "screenDistortion": true
+        }
+      ],
+
+      "elementalSpells": {
+        "fire": [
+          {
+            "id": "spell_gale_strike",
+            "system": "NS_Magic_GaleStrike",
+            "projectileSpeed": 1500,
+            "lifetime": 3,
+            "trailEmitter": "NS_Magic_AirTrail",
+            "impactEffect": "NS_Magic_AirImpact",
+            "sound": { "cast": "A_Cast_Air", "impact": "A_Impact_Air" }
+          },
+          {
+            "id": "spell_ember_strike",
+            "system": "NS_Magic_EmberStrike",
+            "projectileSpeed": 1200,
+            "lifetime": 4,
+            "trailEmitter": "NS_Magic_FireTrail",
+            "impactEffect": "NS_Magic_FireImpact",
+            "sound": { "cast": "A_Cast_Fire", "impact": "A_Impact_Fire" }
+          },
+          {
+            "id": "spell_fireball",
+            "system": "NS_Magic_Fireball",
+            "projectileSpeed": 800,
+            "lifetime": 5,
+            "scale": 2,
+            "trailEmitter": "NS_Magic_FireTrailLarge",
+            "impactEffect": "NS_Magic_FireExplosion",
+            "aoeRadius": 300,
+            "sound": { "cast": "A_Cast_Fireball", "impact": "A_Explosion_Fire" }
+          },
+          {
+            "id": "spell_fire_wave",
+            "system": "NS_Magic_FireWave",
+            "waveType": "cone",
+            "range": 600,
+            "angle": 60,
+            "groundFire": true,
+            "sound": "A_Cast_FireWave"
+          },
+          {
+            "id": "spell_solar_radiance",
+            "system": "NS_Magic_SolarRadiance",
+            "aoeType": "dome",
+            "radius": 500,
+            "duration": 10,
+            "sunbeams": true,
+            "damageOverTime": true,
+            "sound": "A_Cast_SolarRadiance"
+          }
+        ],
+
+        "ice": [
+          {
+            "id": "spell_frost_strike",
+            "system": "NS_Magic_FrostStrike",
+            "projectileSpeed": 1400,
+            "lifetime": 3,
+            "trailEmitter": "NS_Magic_IceTrail",
+            "impactEffect": "NS_Magic_IceImpact",
+            "slowEffect": { "percent": 20, "duration": 3 },
+            "sound": { "cast": "A_Cast_Ice", "impact": "A_Impact_Ice" }
+          },
+          {
+            "id": "spell_ice_barrage",
+            "system": "NS_Magic_IceBarrage",
+            "projectileCount": 8,
+            "aoeRadius": 400,
+            "freezeChance": 0.25,
+            "groundIce": true,
+            "sound": "A_Cast_IceBarrage"
+          },
+          {
+            "id": "spell_blizzard",
+            "system": "NS_Magic_Blizzard",
+            "aoeType": "cylinder",
+            "radius": 600,
+            "height": 800,
+            "duration": 8,
+            "snowParticles": true,
+            "iceShards": true,
+            "sound": "A_Cast_Blizzard"
+          }
+        ],
+
+        "earth": [
+          {
+            "id": "spell_earth_strike",
+            "system": "NS_Magic_EarthStrike",
+            "projectileSpeed": 1000,
+            "lifetime": 3,
+            "trailEmitter": "NS_Magic_EarthTrail",
+            "impactEffect": "NS_Magic_EarthImpact",
+            "knockback": 200,
+            "sound": { "cast": "A_Cast_Earth", "impact": "A_Impact_Earth" }
+          },
+          {
+            "id": "spell_earthquake",
+            "system": "NS_Magic_Earthquake",
+            "aoeType": "radial",
+            "radius": 800,
+            "duration": 3,
+            "groundCracks": true,
+            "rockSpikes": true,
+            "screenShake": { "intensity": 1.5, "duration": 3 },
+            "sound": "A_Cast_Earthquake"
+          }
+        ],
+
+        "water": [
+          {
+            "id": "spell_water_strike",
+            "system": "NS_Magic_WaterStrike",
+            "projectileSpeed": 1300,
+            "lifetime": 3,
+            "trailEmitter": "NS_Magic_WaterTrail",
+            "impactEffect": "NS_Magic_WaterSplash",
+            "sound": { "cast": "A_Cast_Water", "impact": "A_Impact_Water" }
+          },
+          {
+            "id": "spell_tsunami",
+            "system": "NS_Magic_Tsunami",
+            "waveType": "line",
+            "width": 1000,
+            "range": 1500,
+            "height": 300,
+            "knockback": 500,
+            "sound": "A_Cast_Tsunami"
+          }
+        ],
+
+        "shadow": [
+          {
+            "id": "spell_shadow_strike",
+            "system": "NS_Magic_ShadowStrike",
+            "projectileSpeed": 2000,
+            "lifetime": 2,
+            "trailEmitter": "NS_Magic_ShadowTrail",
+            "impactEffect": "NS_Magic_ShadowImpact",
+            "drainHealth": true,
+            "sound": { "cast": "A_Cast_Shadow", "impact": "A_Impact_Shadow" }
+          },
+          {
+            "id": "spell_void_eruption",
+            "system": "NS_Magic_VoidEruption",
+            "aoeType": "sphere",
+            "radius": 500,
+            "tentacles": true,
+            "pullEffect": 300,
+            "sound": "A_Cast_VoidEruption"
+          }
+        ],
+
+        "holy": [
+          {
+            "id": "spell_smite",
+            "system": "NS_Magic_Smite",
+            "projectileType": "beam",
+            "fromSky": true,
+            "impactEffect": "NS_Magic_HolyImpact",
+            "sound": "A_Cast_Smite"
+          },
+          {
+            "id": "spell_divine_storm",
+            "system": "NS_Magic_DivineStorm",
+            "aoeType": "radial",
+            "radius": 700,
+            "lightBeams": 12,
+            "duration": 5,
+            "healAllies": true,
+            "damageEnemies": true,
+            "sound": "A_Cast_DivineStorm"
+          }
+        ]
+      },
+
+      "healingSpells": [
+        {
+          "id": "heal_single",
+          "system": "NS_Magic_Heal",
+          "targetType": "single",
+          "particleColor": { "r": 0.2, "g": 1.0, "b": 0.3 },
+          "lightPillar": true,
+          "duration": 1.5,
+          "sound": "A_Cast_Heal"
+        },
+        {
+          "id": "heal_area",
+          "system": "NS_Magic_HealArea",
+          "targetType": "area",
+          "radius": 500,
+          "groundRunes": true,
+          "risingParticles": true,
+          "duration": 8,
+          "sound": "A_Cast_HealArea"
+        },
+        {
+          "id": "heal_rejuvenation",
+          "system": "NS_Magic_Rejuvenation",
+          "targetType": "single",
+          "healOverTime": true,
+          "duration": 12,
+          "orbitalParticles": true,
+          "sound": "A_Cast_Rejuvenation"
+        }
+      ],
+
+      "buffDebuffEffects": [
+        {
+          "id": "buff_strength",
+          "system": "NS_Buff_Strength",
+          "attachToCharacter": true,
+          "color": { "r": 1.0, "g": 0.3, "b": 0.1 },
+          "auraType": "pulsing"
+        },
+        {
+          "id": "buff_protection",
+          "system": "NS_Buff_Protection",
+          "attachToCharacter": true,
+          "shieldVisual": true,
+          "color": { "r": 0.3, "g": 0.6, "b": 1.0 }
+        },
+        {
+          "id": "debuff_poison",
+          "system": "NS_Debuff_Poison",
+          "attachToCharacter": true,
+          "color": { "r": 0.2, "g": 0.8, "b": 0.1 },
+          "bubblingEffect": true
+        },
+        {
+          "id": "debuff_burn",
+          "system": "NS_Debuff_Burn",
+          "attachToCharacter": true,
+          "flameParticles": true,
+          "color": { "r": 1.0, "g": 0.4, "b": 0.1 }
+        },
+        {
+          "id": "debuff_freeze",
+          "system": "NS_Debuff_Freeze",
+          "attachToCharacter": true,
+          "iceOverlay": true,
+          "color": { "r": 0.5, "g": 0.8, "b": 1.0 }
+        },
+        {
+          "id": "debuff_slow",
+          "system": "NS_Debuff_Slow",
+          "attachToCharacter": true,
+          "chainsVisual": true,
+          "color": { "r": 0.5, "g": 0.5, "b": 0.5 }
+        }
+      ]
+    },
+
+    "sanctityEffects": {
+      "blessings": [
+        {
+          "id": "blessing_valor",
+          "system": "NS_Sanctity_Valor",
+          "auraColor": { "r": 1.0, "g": 0.9, "b": 0.5 },
+          "swordIcon": true,
+          "particleRise": true
+        },
+        {
+          "id": "blessing_fortitude",
+          "system": "NS_Sanctity_Fortitude",
+          "auraColor": { "r": 0.6, "g": 0.7, "b": 1.0 },
+          "shieldIcon": true,
+          "particleBarrier": true
+        },
+        {
+          "id": "blessing_lifeweave",
+          "system": "NS_Sanctity_Lifeweave",
+          "auraColor": { "r": 0.2, "g": 1.0, "b": 0.5 },
+          "healthStreamToPlayer": true,
+          "pulsingGlow": true
+        },
+        {
+          "id": "ward_melee",
+          "system": "NS_Sanctity_WardMelee",
+          "shieldType": "bubble",
+          "color": { "r": 1.0, "g": 0.3, "b": 0.3 },
+          "deflectVisual": true
+        },
+        {
+          "id": "ward_ranged",
+          "system": "NS_Sanctity_WardRanged",
+          "shieldType": "bubble",
+          "color": { "r": 0.3, "g": 1.0, "b": 0.3 },
+          "arrowDeflect": true
+        },
+        {
+          "id": "ward_magic",
+          "system": "NS_Sanctity_WardMagic",
+          "shieldType": "bubble",
+          "color": { "r": 0.3, "g": 0.3, "b": 1.0 },
+          "magicAbsorb": true
+        }
+      ],
+
+      "devotionMeter": {
+        "system": "NS_Sanctity_DevotionAura",
+        "scaleWithDevotionPoints": true,
+        "minIntensity": 0.1,
+        "maxIntensity": 1.0,
+        "color": { "r": 1.0, "g": 0.95, "b": 0.7 }
+      }
+    },
+
+    "abilityEffects": {
+      "melee": [
+        {
+          "id": "ability_sever",
+          "system": "NS_Ability_Sever",
+          "slashCount": 3,
+          "trailColor": { "r": 1.0, "g": 0.2, "b": 0.2 },
+          "bloodExplosion": true,
+          "screenShake": { "intensity": 0.6, "duration": 0.3 }
+        },
+        {
+          "id": "ability_berserk",
+          "system": "NS_Ability_Berserk",
+          "duration": 20,
+          "redAura": true,
+          "pulsingIntensity": true,
+          "eyeGlow": true
+        },
+        {
+          "id": "ability_cleave",
+          "system": "NS_Ability_Cleave",
+          "arcEffect": true,
+          "arcAngle": 180,
+          "groundCrack": true
+        }
+      ],
+
+      "ranged": [
+        {
+          "id": "ability_deadeye_zone",
+          "system": "NS_Ability_DeadeyeZone",
+          "zoneType": "dome",
+          "radius": 600,
+          "duration": 30,
+          "arrowTrails": true,
+          "targetingLines": true,
+          "darkTint": true
+        },
+        {
+          "id": "ability_rapid_fire",
+          "system": "NS_Ability_RapidFire",
+          "multiProjectile": true,
+          "projectileCount": 8,
+          "spreadPattern": "cone",
+          "trailIntensity": 2
+        },
+        {
+          "id": "ability_snipe",
+          "system": "NS_Ability_Snipe",
+          "chargeUp": true,
+          "chargeDuration": 2,
+          "laserSight": true,
+          "impactExplosion": true
+        }
+      ],
+
+      "magic": [
+        {
+          "id": "ability_metamorphosis",
+          "system": "NS_Ability_Metamorphosis",
+          "transformEffect": true,
+          "darkWings": true,
+          "floatingParticles": true,
+          "duration": 25
+        },
+        {
+          "id": "ability_wild_magic",
+          "system": "NS_Ability_WildMagic",
+          "chaosParticles": true,
+          "randomColors": true,
+          "lightningArcs": true,
+          "duration": 15
+        }
+      ]
+    }
+  },
+
+  "skillEffects": {
+    "mining": {
+      "rockHit": {
+        "system": "NS_Skill_Mining_Hit",
+        "sparks": 15,
+        "dustCloud": true,
+        "rockChips": true,
+        "sound": "A_Pickaxe_Hit"
+      },
+      "oreReveal": {
+        "system": "NS_Skill_Mining_OreReveal",
+        "glowColor": "based_on_ore",
+        "particleBurst": true,
+        "sound": "A_Ore_Reveal"
+      },
+      "gemFind": {
+        "system": "NS_Skill_Mining_GemFind",
+        "sparkles": true,
+        "rainbowSheen": true,
+        "sound": "A_Gem_Find"
+      }
+    },
+
+    "woodcutting": {
+      "chopHit": {
+        "system": "NS_Skill_Woodcutting_Hit",
+        "woodChips": 20,
+        "barkParticles": true,
+        "sound": "A_Axe_Hit_Wood"
+      },
+      "treefall": {
+        "system": "NS_Skill_Woodcutting_Fall",
+        "leafShower": true,
+        "groundImpact": true,
+        "dustCloud": true,
+        "sound": "A_Tree_Fall"
+      }
+    },
+
+    "fishing": {
+      "castLine": {
+        "system": "NS_Skill_Fishing_Cast",
+        "lineTrail": true,
+        "splashOnEntry": true,
+        "sound": "A_Fishing_Cast"
+      },
+      "bobberBob": {
+        "system": "NS_Skill_Fishing_Bob",
+        "ripples": true,
+        "bobberAnimation": true
+      },
+      "fishCatch": {
+        "system": "NS_Skill_Fishing_Catch",
+        "waterSplash": true,
+        "fishFlop": true,
+        "sound": "A_Fish_Catch"
+      },
+      "rareCatch": {
+        "system": "NS_Skill_Fishing_RareCatch",
+        "goldenSparkles": true,
+        "waterGeyser": true,
+        "sound": "A_Rare_Catch"
+      }
+    },
+
+    "smithing": {
+      "hammerStrike": {
+        "system": "NS_Skill_Smithing_Hammer",
+        "sparks": 30,
+        "metalGlow": true,
+        "sound": "A_Hammer_Strike"
+      },
+      "itemForged": {
+        "system": "NS_Skill_Smithing_Complete",
+        "steamBurst": true,
+        "metalShine": true,
+        "sound": "A_Item_Forged"
+      }
+    },
+
+    "alchemy": {
+      "bubbling": {
+        "system": "NS_Skill_Alchemy_Bubble",
+        "bubbleCount": 15,
+        "colorByPotion": true,
+        "steamWisps": true
+      },
+      "potionComplete": {
+        "system": "NS_Skill_Alchemy_Complete",
+        "magicSwirl": true,
+        "colorBurst": true,
+        "sound": "A_Potion_Complete"
+      },
+      "potionFail": {
+        "system": "NS_Skill_Alchemy_Fail",
+        "explosion": true,
+        "smokeCloud": true,
+        "sound": "A_Potion_Fail"
+      }
+    },
+
+    "glyphcraft": {
+      "channeling": {
+        "system": "NS_Skill_Glyphcraft_Channel",
+        "glyphsFloating": true,
+        "energyBeams": true,
+        "colorByGlyph": true
+      },
+      "glyphCreate": {
+        "system": "NS_Skill_Glyphcraft_Create",
+        "flashBurst": true,
+        "runeCircle": true,
+        "sound": "A_Glyph_Create"
+      },
+      "altarActive": {
+        "system": "NS_Skill_Glyphcraft_Altar",
+        "pillarLight": true,
+        "floatingGlyphs": true,
+        "ambientHum": true
+      }
+    },
+
+    "aethertap": {
+      "moteHarvest": {
+        "system": "NS_Skill_Aethertap_Harvest",
+        "energyDrain": true,
+        "particleStream": true,
+        "colorByMote": true
+      },
+      "moteSpawn": {
+        "system": "NS_Skill_Aethertap_Spawn",
+        "fadeIn": true,
+        "floatAnimation": true,
+        "glowPulse": true
+      },
+      "riftOpen": {
+        "system": "NS_Skill_Aethertap_Rift",
+        "portalEffect": true,
+        "energyLeakage": true,
+        "distortionWave": true
+      }
+    },
+
+    "bonding": {
+      "summon": {
+        "system": "NS_Skill_Bonding_Summon",
+        "portalCircle": true,
+        "spiritEnergy": true,
+        "sound": "A_Familiar_Summon"
+      },
+      "dismiss": {
+        "system": "NS_Skill_Bonding_Dismiss",
+        "fadeOut": true,
+        "spiritReturn": true,
+        "sound": "A_Familiar_Dismiss"
+      },
+      "familiarActive": {
+        "system": "NS_Skill_Bonding_Active",
+        "bondTether": true,
+        "glowAura": true
+      }
+    },
+
+    "subterfuge": {
+      "pickpocket": {
+        "system": "NS_Skill_Subterfuge_Pickpocket",
+        "handGlow": true,
+        "coinSparkle": true,
+        "sound": "A_Pickpocket"
+      },
+      "stealthEnter": {
+        "system": "NS_Skill_Subterfuge_Stealth",
+        "shadowWrap": true,
+        "fadeEffect": true
+      },
+      "stealthExit": {
+        "system": "NS_Skill_Subterfuge_Reveal",
+        "shadowBurst": true
+      }
+    },
+
+    "delving": {
+      "dungeonEnter": {
+        "system": "NS_Skill_Delving_Enter",
+        "portalActivate": true,
+        "mysteryGlow": true
+      },
+      "treasureFind": {
+        "system": "NS_Skill_Delving_Treasure",
+        "goldSparkle": true,
+        "lightBeam": true,
+        "sound": "A_Treasure_Find"
+      },
+      "secretDoor": {
+        "system": "NS_Skill_Delving_Secret",
+        "dustFall": true,
+        "stoneScrape": true,
+        "sound": "A_Secret_Door"
+      }
+    }
+  },
+
+  "environmentalEffects": {
+    "weather": {
+      "rain": {
+        "system": "NS_Weather_Rain",
+        "spawnRate": 10000,
+        "velocity": 800,
+        "splash": {
+          "enabled": true,
+          "system": "NS_Weather_RainSplash"
+        },
+        "wetSurfaces": true,
+        "puddleFormation": true
+      },
+      "snow": {
+        "system": "NS_Weather_Snow",
+        "spawnRate": 5000,
+        "velocity": 200,
+        "windAffected": true,
+        "accumulation": {
+          "enabled": true,
+          "rate": 0.01,
+          "maxDepth": 30
+        }
+      },
+      "fog": {
+        "system": "NS_Weather_Fog",
+        "volumetric": true,
+        "density": 0.1,
+        "heightFalloff": 0.5,
+        "animatedWisps": true
+      },
+      "sandstorm": {
+        "system": "NS_Weather_Sandstorm",
+        "density": 0.3,
+        "velocity": 1500,
+        "particleSize": { "min": 0.5, "max": 3 },
+        "visibility": 300
+      },
+      "lightning": {
+        "system": "NS_Weather_Lightning",
+        "boltMesh": true,
+        "flashIntensity": 50,
+        "flashDuration": 0.1,
+        "sound": "A_Thunder"
+      }
+    },
+
+    "ambient": {
+      "fireflies": {
+        "system": "NS_Ambient_Fireflies",
+        "spawnRate": 50,
+        "lifetime": 10,
+        "color": { "r": 1.0, "g": 0.9, "b": 0.3 },
+        "biomes": ["forest", "swamp", "garden"],
+        "timeOfDay": "night"
+      },
+      "dustMotes": {
+        "system": "NS_Ambient_DustMotes",
+        "spawnRate": 100,
+        "lifetime": 5,
+        "lightShafts": true,
+        "locations": ["indoor", "cave", "ruin"]
+      },
+      "embers": {
+        "system": "NS_Ambient_Embers",
+        "spawnRate": 30,
+        "riseVelocity": 50,
+        "locations": ["campfire", "forge", "volcanic"]
+      },
+      "leaves": {
+        "system": "NS_Ambient_Leaves",
+        "spawnRate": 20,
+        "fallPattern": "spiral",
+        "biomes": ["forest", "autumn_forest"],
+        "windAffected": true
+      },
+      "pollen": {
+        "system": "NS_Ambient_Pollen",
+        "spawnRate": 40,
+        "floatVelocity": 10,
+        "biomes": ["plains", "garden", "meadow"],
+        "timeOfDay": "day"
+      },
+      "aetherMotes": {
+        "system": "NS_Ambient_AetherMotes",
+        "spawnRate": 15,
+        "pulseGlow": true,
+        "colorVariants": ["breeze", "thought", "ember", "spirit"],
+        "locations": ["aethertap_zones"]
+      }
+    },
+
+    "water": {
+      "ripples": {
+        "system": "NS_Water_Ripples",
+        "triggerType": "player_movement",
+        "expandRate": 100,
+        "fadeTime": 2
+      },
+      "splash": {
+        "system": "NS_Water_Splash",
+        "triggerType": "entry",
+        "dropletCount": 50,
+        "sound": "A_Water_Splash"
+      },
+      "bubbles": {
+        "system": "NS_Water_Bubbles",
+        "spawnRate": 10,
+        "riseVelocity": 100,
+        "locations": ["underwater"]
+      },
+      "caustics": {
+        "system": "NS_Water_Caustics",
+        "projectedTexture": true,
+        "animationSpeed": 0.5,
+        "depth": 500
+      }
+    },
+
+    "fire": {
+      "campfire": {
+        "system": "NS_Fire_Campfire",
+        "flames": true,
+        "sparks": true,
+        "smoke": true,
+        "heatDistortion": true,
+        "lightFlicker": true,
+        "sound": "A_Fire_Campfire"
+      },
+      "torch": {
+        "system": "NS_Fire_Torch",
+        "flames": true,
+        "sparks": true,
+        "smoke": false,
+        "lightFlicker": true,
+        "sound": "A_Fire_Torch"
+      },
+      "brazier": {
+        "system": "NS_Fire_Brazier",
+        "flames": true,
+        "sparks": true,
+        "smoke": true,
+        "lightFlicker": true
+      },
+      "bonfire": {
+        "system": "NS_Fire_Bonfire",
+        "flames": true,
+        "sparks": true,
+        "smoke": true,
+        "embers": true,
+        "heatDistortion": true,
+        "scale": 3,
+        "sound": "A_Fire_Large"
+      }
+    },
+
+    "destruction": {
+      "woodBreak": {
+        "system": "NS_Destruct_Wood",
+        "splinterCount": 30,
+        "dustCloud": true,
+        "sound": "A_Wood_Break"
+      },
+      "stoneBreak": {
+        "system": "NS_Destruct_Stone",
+        "debrisCount": 25,
+        "dustCloud": true,
+        "sound": "A_Stone_Break"
+      },
+      "glassBreak": {
+        "system": "NS_Destruct_Glass",
+        "shardCount": 50,
+        "sparkle": true,
+        "sound": "A_Glass_Break"
+      },
+      "explosion": {
+        "system": "NS_Destruct_Explosion",
+        "fireball": true,
+        "shockwave": true,
+        "debris": true,
+        "screenShake": { "intensity": 2, "duration": 0.5 },
+        "sound": "A_Explosion"
+      }
+    }
+  },
+
+  "uiEffects": {
+    "levelUp": {
+      "system": "NS_UI_LevelUp",
+      "lightPillar": true,
+      "particleSwirl": true,
+      "flashIntensity": 2,
+      "sound": "A_LevelUp"
+    },
+    "questComplete": {
+      "system": "NS_UI_QuestComplete",
+      "starBurst": true,
+      "goldenGlow": true,
+      "sound": "A_Quest_Complete"
+    },
+    "achievementUnlock": {
+      "system": "NS_UI_Achievement",
+      "trophySparkle": true,
+      "confetti": true,
+      "sound": "A_Achievement"
+    },
+    "itemPickup": {
+      "common": {
+        "system": "NS_UI_Pickup_Common",
+        "glow": false,
+        "particles": false
+      },
+      "uncommon": {
+        "system": "NS_UI_Pickup_Uncommon",
+        "glow": true,
+        "glowColor": { "r": 0.2, "g": 0.8, "b": 0.2 }
+      },
+      "rare": {
+        "system": "NS_UI_Pickup_Rare",
+        "glow": true,
+        "glowColor": { "r": 0.2, "g": 0.4, "b": 1.0 },
+        "particles": true
+      },
+      "epic": {
+        "system": "NS_UI_Pickup_Epic",
+        "glow": true,
+        "glowColor": { "r": 0.6, "g": 0.2, "b": 1.0 },
+        "particles": true,
+        "lightBeam": true
+      },
+      "legendary": {
+        "system": "NS_UI_Pickup_Legendary",
+        "glow": true,
+        "glowColor": { "r": 1.0, "g": 0.6, "b": 0.0 },
+        "particles": true,
+        "lightBeam": true,
+        "aura": true
+      }
+    },
+    "damageNumbers": {
+      "normal": {
+        "color": { "r": 1.0, "g": 1.0, "b": 1.0 },
+        "scale": 1.0,
+        "floatSpeed": 50
+      },
+      "critical": {
+        "color": { "r": 1.0, "g": 0.8, "b": 0.0 },
+        "scale": 1.5,
+        "floatSpeed": 70,
+        "particles": true
+      },
+      "heal": {
+        "color": { "r": 0.2, "g": 1.0, "b": 0.3 },
+        "scale": 1.0,
+        "floatSpeed": 50
+      },
+      "blocked": {
+        "color": { "r": 0.5, "g": 0.5, "b": 0.5 },
+        "scale": 0.8,
+        "floatSpeed": 30
+      }
+    }
+  },
+
+  "materialEffects": {
+    "shaders": {
+      "dissolve": {
+        "name": "MF_Dissolve",
+        "parameters": ["dissolveAmount", "edgeColor", "edgeWidth", "noiseTexture"],
+        "usage": ["death", "teleport", "stealth"]
+      },
+      "fresnel": {
+        "name": "MF_FresnelGlow",
+        "parameters": ["fresnelPower", "glowColor", "glowIntensity"],
+        "usage": ["magic_items", "buff_auras", "shields"]
+      },
+      "distortion": {
+        "name": "MF_HeatDistortion",
+        "parameters": ["distortionStrength", "distortionSpeed"],
+        "usage": ["fire", "heat", "magic_portals"]
+      },
+      "hologram": {
+        "name": "MF_Hologram",
+        "parameters": ["scanlineFrequency", "flickerRate", "baseColor"],
+        "usage": ["illusions", "projections", "quest_markers"]
+      },
+      "triplanar": {
+        "name": "MF_TriplanarBlend",
+        "parameters": ["blendSharpness", "textures"],
+        "usage": ["terrain_props", "rocks", "cliffs"]
+      }
+    },
+
+    "postProcess": {
+      "damage": {
+        "name": "PP_Damage",
+        "vignetteRed": true,
+        "desaturation": 0.3,
+        "duration": 0.5
+      },
+      "heal": {
+        "name": "PP_Heal",
+        "vignetteGreen": true,
+        "bloom": 1.2,
+        "duration": 0.3
+      },
+      "underwater": {
+        "name": "PP_Underwater",
+        "colorTint": { "r": 0.3, "g": 0.6, "b": 0.8 },
+        "blur": true,
+        "caustics": true
+      },
+      "drunk": {
+        "name": "PP_Drunk",
+        "blur": true,
+        "sway": true,
+        "colorShift": true
+      },
+      "poison": {
+        "name": "PP_Poison",
+        "colorTint": { "r": 0.3, "g": 0.5, "b": 0.2 },
+        "vignettePulse": true
+      },
+      "lowHealth": {
+        "name": "PP_LowHealth",
+        "desaturation": 0.5,
+        "vignette": true,
+        "heartbeat": true,
+        "threshold": 0.25
+      }
+    }
+  },
+
+  "implementationPhases": {
+    "phase1_Core": {
+      "description": "Essential combat and skill effects",
+      "tasks": [
+        "Setup Niagara system defaults",
+        "Create weapon trail systems",
+        "Implement melee impact effects",
+        "Create basic spell projectiles",
+        "Setup damage number system"
+      ]
+    },
+    "phase2_Skills": {
+      "description": "Skill-specific effects",
+      "tasks": [
+        "Mining and woodcutting effects",
+        "Fishing effects",
+        "Crafting station effects",
+        "Glyphcraft and aethertap effects"
+      ]
+    },
+    "phase3_Environment": {
+      "description": "Weather and ambient effects",
+      "tasks": [
+        "Weather particle systems",
+        "Ambient environmental effects",
+        "Fire and water effects",
+        "Day/night particle adjustments"
+      ]
+    },
+    "phase4_UI": {
+      "description": "UI and feedback effects",
+      "tasks": [
+        "Level up and achievement effects",
+        "Item rarity visual effects",
+        "Post-process status effects",
+        "Screen shake and feedback"
+      ]
+    },
+    "phase5_Polish": {
+      "description": "Optimization and polish",
+      "tasks": [
+        "LOD setup for all particles",
+        "GPU particle optimization",
+        "Performance profiling",
+        "Effect pooling system"
+      ]
+    }
+  }
+}

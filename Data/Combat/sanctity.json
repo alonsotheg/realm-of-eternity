@@ -1,0 +1,878 @@
+{
+  "version": "1.0.0",
+  "description": "Sanctity skill blessings, curses, and divine powers for Realm of Eternity",
+
+  "sanctity_mechanics": {
+    "skill_name": "Sanctity",
+    "resource": "divine_favor",
+    "max_favor": "level * 10",
+    "base_drain_rate": "blessing_cost / 60 per game tick",
+    "regeneration": {
+      "out_of_combat": "1 point per 3 seconds",
+      "at_altar": "full restore instant",
+      "with_potions": true
+    },
+    "quick_blessing_slots": 2,
+    "overhead_slot": 1,
+    "description": "Channel divine power to protect yourself, smite enemies, and invoke miracles"
+  },
+
+  "blessing_books": {
+    "standard": {
+      "name": "Book of Light",
+      "description": "Traditional protective and combat blessings",
+      "unlock": "default"
+    },
+    "ancient": {
+      "name": "Tome of Shadows",
+      "description": "Offensive curses that drain and weaken enemies",
+      "unlock": {"quest": "temple_at_senntisten"}
+    },
+    "lunar": {
+      "name": "Codex of Dreams",
+      "description": "Support and healing focused abilities",
+      "unlock": {"quest": "lunar_diplomacy"}
+    },
+    "elder": {
+      "name": "Elder Hymnal",
+      "description": "Powerful hybrid blessings for high-level combat",
+      "unlock": {"quest": "the_light_within", "level": 92}
+    }
+  },
+
+  "standard_blessings": {
+    "defensive": [
+      {
+        "id": "thick_skin",
+        "name": "Thick Skin",
+        "level": 1,
+        "drain_rate": 3,
+        "effect": {"defence_bonus_percent": 5},
+        "description": "Increases Defence by 5%",
+        "overhead": false
+      },
+      {
+        "id": "rock_skin",
+        "name": "Rock Skin",
+        "level": 10,
+        "drain_rate": 6,
+        "effect": {"defence_bonus_percent": 10},
+        "description": "Increases Defence by 10%",
+        "overhead": false
+      },
+      {
+        "id": "steel_skin",
+        "name": "Steel Skin",
+        "level": 28,
+        "drain_rate": 12,
+        "effect": {"defence_bonus_percent": 15},
+        "description": "Increases Defence by 15%",
+        "overhead": false
+      },
+      {
+        "id": "divine_barrier",
+        "name": "Divine Barrier",
+        "level": 65,
+        "drain_rate": 24,
+        "effect": {"defence_bonus_percent": 25, "damage_reduction_percent": 5},
+        "description": "Increases Defence by 25% and reduces damage by 5%",
+        "overhead": false
+      }
+    ],
+
+    "offensive_melee": [
+      {
+        "id": "clarity_of_thought",
+        "name": "Clarity of Thought",
+        "level": 7,
+        "drain_rate": 3,
+        "effect": {"attack_bonus_percent": 5},
+        "description": "Increases Attack by 5%",
+        "overhead": false
+      },
+      {
+        "id": "improved_reflexes",
+        "name": "Improved Reflexes",
+        "level": 16,
+        "drain_rate": 6,
+        "effect": {"attack_bonus_percent": 10},
+        "description": "Increases Attack by 10%",
+        "overhead": false
+      },
+      {
+        "id": "incredible_reflexes",
+        "name": "Incredible Reflexes",
+        "level": 34,
+        "drain_rate": 12,
+        "effect": {"attack_bonus_percent": 15},
+        "description": "Increases Attack by 15%",
+        "overhead": false
+      },
+      {
+        "id": "burst_of_strength",
+        "name": "Burst of Strength",
+        "level": 4,
+        "drain_rate": 3,
+        "effect": {"strength_bonus_percent": 5},
+        "description": "Increases Strength by 5%",
+        "overhead": false
+      },
+      {
+        "id": "superhuman_strength",
+        "name": "Superhuman Strength",
+        "level": 13,
+        "drain_rate": 6,
+        "effect": {"strength_bonus_percent": 10},
+        "description": "Increases Strength by 10%",
+        "overhead": false
+      },
+      {
+        "id": "ultimate_strength",
+        "name": "Ultimate Strength",
+        "level": 31,
+        "drain_rate": 12,
+        "effect": {"strength_bonus_percent": 15},
+        "description": "Increases Strength by 15%",
+        "overhead": false
+      },
+      {
+        "id": "chivalry",
+        "name": "Chivalry",
+        "level": 60,
+        "drain_rate": 24,
+        "effect": {"attack_bonus_percent": 15, "strength_bonus_percent": 18, "defence_bonus_percent": 20},
+        "description": "Increases Attack by 15%, Strength by 18%, and Defence by 20%",
+        "overhead": false,
+        "requirements": {"quest": "king_knight_quest", "defence": 65}
+      },
+      {
+        "id": "piety",
+        "name": "Piety",
+        "level": 70,
+        "drain_rate": 32,
+        "effect": {"attack_bonus_percent": 20, "strength_bonus_percent": 23, "defence_bonus_percent": 25},
+        "description": "Increases Attack by 20%, Strength by 23%, and Defence by 25%",
+        "overhead": false,
+        "requirements": {"quest": "king_knight_quest", "defence": 70}
+      }
+    ],
+
+    "offensive_ranged": [
+      {
+        "id": "sharp_eye",
+        "name": "Sharp Eye",
+        "level": 8,
+        "drain_rate": 3,
+        "effect": {"ranged_bonus_percent": 5},
+        "description": "Increases Ranged by 5%",
+        "overhead": false
+      },
+      {
+        "id": "hawk_eye",
+        "name": "Hawk Eye",
+        "level": 26,
+        "drain_rate": 6,
+        "effect": {"ranged_bonus_percent": 10},
+        "description": "Increases Ranged by 10%",
+        "overhead": false
+      },
+      {
+        "id": "eagle_eye",
+        "name": "Eagle Eye",
+        "level": 44,
+        "drain_rate": 12,
+        "effect": {"ranged_bonus_percent": 15},
+        "description": "Increases Ranged by 15%",
+        "overhead": false
+      },
+      {
+        "id": "rigour",
+        "name": "Rigour",
+        "level": 74,
+        "drain_rate": 32,
+        "effect": {"ranged_bonus_percent": 20, "ranged_strength_percent": 23, "defence_bonus_percent": 25},
+        "description": "Increases Ranged by 20%, Ranged Strength by 23%, and Defence by 25%",
+        "overhead": false,
+        "requirements": {"scroll": "rigour_scroll", "defence": 70}
+      }
+    ],
+
+    "offensive_magic": [
+      {
+        "id": "mystic_will",
+        "name": "Mystic Will",
+        "level": 9,
+        "drain_rate": 3,
+        "effect": {"magic_bonus_percent": 5},
+        "description": "Increases Magic by 5%",
+        "overhead": false
+      },
+      {
+        "id": "mystic_lore",
+        "name": "Mystic Lore",
+        "level": 27,
+        "drain_rate": 6,
+        "effect": {"magic_bonus_percent": 10},
+        "description": "Increases Magic by 10%",
+        "overhead": false
+      },
+      {
+        "id": "mystic_might",
+        "name": "Mystic Might",
+        "level": 45,
+        "drain_rate": 12,
+        "effect": {"magic_bonus_percent": 15},
+        "description": "Increases Magic by 15%",
+        "overhead": false
+      },
+      {
+        "id": "augury",
+        "name": "Augury",
+        "level": 77,
+        "drain_rate": 32,
+        "effect": {"magic_bonus_percent": 20, "magic_damage_percent": 4, "defence_bonus_percent": 25},
+        "description": "Increases Magic by 20%, Magic damage by 4%, and Defence by 25%",
+        "overhead": false,
+        "requirements": {"scroll": "augury_scroll", "defence": 70}
+      }
+    ],
+
+    "protection": [
+      {
+        "id": "protect_item",
+        "name": "Protect Item",
+        "level": 25,
+        "drain_rate": 6,
+        "effect": {"extra_item_on_death": 1},
+        "description": "Keep one extra item on death",
+        "overhead": false
+      },
+      {
+        "id": "protect_from_magic",
+        "name": "Protect from Magic",
+        "level": 37,
+        "drain_rate": 12,
+        "effect": {"magic_protection_percent": 40, "overhead_icon": "magic_shield"},
+        "description": "Reduces magic damage by 40% (100% vs NPCs)",
+        "overhead": true,
+        "mutual_exclusive": ["protect_from_missiles", "protect_from_melee", "deflect_magic", "deflect_missiles", "deflect_melee"]
+      },
+      {
+        "id": "protect_from_missiles",
+        "name": "Protect from Missiles",
+        "level": 40,
+        "drain_rate": 12,
+        "effect": {"ranged_protection_percent": 40, "overhead_icon": "ranged_shield"},
+        "description": "Reduces ranged damage by 40% (100% vs NPCs)",
+        "overhead": true,
+        "mutual_exclusive": ["protect_from_magic", "protect_from_melee", "deflect_magic", "deflect_missiles", "deflect_melee"]
+      },
+      {
+        "id": "protect_from_melee",
+        "name": "Protect from Melee",
+        "level": 43,
+        "drain_rate": 12,
+        "effect": {"melee_protection_percent": 40, "overhead_icon": "melee_shield"},
+        "description": "Reduces melee damage by 40% (100% vs NPCs)",
+        "overhead": true,
+        "mutual_exclusive": ["protect_from_magic", "protect_from_missiles", "deflect_magic", "deflect_missiles", "deflect_melee"]
+      },
+      {
+        "id": "retribution",
+        "name": "Retribution",
+        "level": 46,
+        "drain_rate": 3,
+        "effect": {"on_death_damage_percent": 25, "overhead_icon": "retribution"},
+        "description": "Deal damage to nearby enemies on death",
+        "overhead": true,
+        "mutual_exclusive": ["smite", "redemption", "wrath"]
+      },
+      {
+        "id": "redemption",
+        "name": "Redemption",
+        "level": 49,
+        "drain_rate": 6,
+        "effect": {"low_hp_heal_percent": 25, "trigger_hp_percent": 10, "overhead_icon": "redemption"},
+        "description": "Heals 25% HP when below 10% health, draining remaining divine favor",
+        "overhead": true,
+        "mutual_exclusive": ["smite", "retribution", "wrath"]
+      },
+      {
+        "id": "smite",
+        "name": "Smite",
+        "level": 52,
+        "drain_rate": 18,
+        "effect": {"drain_enemy_favor_percent": 25, "overhead_icon": "smite"},
+        "description": "Drain enemy divine favor equal to 25% of damage dealt",
+        "overhead": true,
+        "mutual_exclusive": ["redemption", "retribution", "wrath"]
+      }
+    ],
+
+    "utility": [
+      {
+        "id": "rapid_restore",
+        "name": "Rapid Restore",
+        "level": 19,
+        "drain_rate": 1,
+        "effect": {"stat_restore_rate_multiplier": 2},
+        "description": "Doubles stat restoration rate (not Hitpoints)",
+        "overhead": false
+      },
+      {
+        "id": "rapid_heal",
+        "name": "Rapid Heal",
+        "level": 22,
+        "drain_rate": 2,
+        "effect": {"hp_regen_rate_multiplier": 2},
+        "description": "Doubles Hitpoints restoration rate",
+        "overhead": false
+      },
+      {
+        "id": "preserve",
+        "name": "Preserve",
+        "level": 55,
+        "drain_rate": 2,
+        "effect": {"boost_duration_increase_percent": 50},
+        "description": "Boosted stats last 50% longer",
+        "overhead": false
+      }
+    ],
+
+    "combat_special": [
+      {
+        "id": "wrath",
+        "name": "Wrath",
+        "level": 89,
+        "drain_rate": 32,
+        "effect": {"on_death_damage_multiplier": 1.5, "radius": 3, "overhead_icon": "wrath"},
+        "description": "Deal massive damage to nearby enemies on death",
+        "overhead": true,
+        "mutual_exclusive": ["smite", "redemption", "retribution"],
+        "requirements": {"quest": "the_great_ascent"}
+      }
+    ]
+  },
+
+  "ancient_curses": {
+    "description": "Offensive curses from the Tome of Shadows",
+    "unlock_quest": "temple_at_senntisten",
+
+    "sap_curses": [
+      {
+        "id": "sap_warrior",
+        "name": "Sap Warrior",
+        "level": 50,
+        "drain_rate": 15,
+        "effect": {"enemy_attack_drain_percent": 10, "enemy_strength_drain_percent": 10},
+        "description": "Drains enemy Attack and Strength by 10%",
+        "overhead": false
+      },
+      {
+        "id": "sap_ranger",
+        "name": "Sap Ranger",
+        "level": 52,
+        "drain_rate": 15,
+        "effect": {"enemy_ranged_drain_percent": 10, "enemy_defence_drain_percent": 10},
+        "description": "Drains enemy Ranged and Defence by 10%",
+        "overhead": false
+      },
+      {
+        "id": "sap_mage",
+        "name": "Sap Mage",
+        "level": 54,
+        "drain_rate": 15,
+        "effect": {"enemy_magic_drain_percent": 10, "enemy_defence_drain_percent": 10},
+        "description": "Drains enemy Magic and Defence by 10%",
+        "overhead": false
+      },
+      {
+        "id": "sap_spirit",
+        "name": "Sap Spirit",
+        "level": 56,
+        "drain_rate": 18,
+        "effect": {"enemy_favor_drain_percent": 10, "enemy_special_attack_drain_percent": 10},
+        "description": "Drains enemy Divine Favor and Special Attack energy by 10%",
+        "overhead": false
+      }
+    ],
+
+    "leech_curses": [
+      {
+        "id": "leech_attack",
+        "name": "Leech Attack",
+        "level": 74,
+        "drain_rate": 18,
+        "effect": {"enemy_attack_drain_percent": 10, "self_attack_boost_percent": 5},
+        "description": "Drains enemy Attack by 10%, boosting yours by 5%",
+        "overhead": false
+      },
+      {
+        "id": "leech_strength",
+        "name": "Leech Strength",
+        "level": 76,
+        "drain_rate": 18,
+        "effect": {"enemy_strength_drain_percent": 10, "self_strength_boost_percent": 5},
+        "description": "Drains enemy Strength by 10%, boosting yours by 5%",
+        "overhead": false
+      },
+      {
+        "id": "leech_defence",
+        "name": "Leech Defence",
+        "level": 78,
+        "drain_rate": 18,
+        "effect": {"enemy_defence_drain_percent": 10, "self_defence_boost_percent": 5},
+        "description": "Drains enemy Defence by 10%, boosting yours by 5%",
+        "overhead": false
+      },
+      {
+        "id": "leech_ranged",
+        "name": "Leech Ranged",
+        "level": 80,
+        "drain_rate": 18,
+        "effect": {"enemy_ranged_drain_percent": 10, "self_ranged_boost_percent": 5},
+        "description": "Drains enemy Ranged by 10%, boosting yours by 5%",
+        "overhead": false
+      },
+      {
+        "id": "leech_magic",
+        "name": "Leech Magic",
+        "level": 82,
+        "drain_rate": 18,
+        "effect": {"enemy_magic_drain_percent": 10, "self_magic_boost_percent": 5},
+        "description": "Drains enemy Magic by 10%, boosting yours by 5%",
+        "overhead": false
+      },
+      {
+        "id": "leech_adrenaline",
+        "name": "Leech Adrenaline",
+        "level": 84,
+        "drain_rate": 24,
+        "effect": {"enemy_special_drain_percent": 10, "self_adrenaline_gain_percent": 5},
+        "description": "Drains enemy Special Attack, gaining Adrenaline",
+        "overhead": false
+      }
+    ],
+
+    "deflect_curses": [
+      {
+        "id": "deflect_summoning",
+        "name": "Deflect Summoning",
+        "level": 62,
+        "drain_rate": 12,
+        "effect": {"familiar_damage_reduction_percent": 100, "overhead_icon": "deflect_summoning"},
+        "description": "Prevents familiar damage",
+        "overhead": true
+      },
+      {
+        "id": "deflect_magic",
+        "name": "Deflect Magic",
+        "level": 65,
+        "drain_rate": 12,
+        "effect": {"magic_protection_percent": 40, "reflect_damage_percent": 10, "overhead_icon": "deflect_magic"},
+        "description": "Reduces magic damage by 40% and reflects 10%",
+        "overhead": true,
+        "mutual_exclusive": ["deflect_missiles", "deflect_melee", "protect_from_magic", "protect_from_missiles", "protect_from_melee"]
+      },
+      {
+        "id": "deflect_missiles",
+        "name": "Deflect Missiles",
+        "level": 68,
+        "drain_rate": 12,
+        "effect": {"ranged_protection_percent": 40, "reflect_damage_percent": 10, "overhead_icon": "deflect_missiles"},
+        "description": "Reduces ranged damage by 40% and reflects 10%",
+        "overhead": true,
+        "mutual_exclusive": ["deflect_magic", "deflect_melee", "protect_from_magic", "protect_from_missiles", "protect_from_melee"]
+      },
+      {
+        "id": "deflect_melee",
+        "name": "Deflect Melee",
+        "level": 71,
+        "drain_rate": 12,
+        "effect": {"melee_protection_percent": 40, "reflect_damage_percent": 10, "overhead_icon": "deflect_melee"},
+        "description": "Reduces melee damage by 40% and reflects 10%",
+        "overhead": true,
+        "mutual_exclusive": ["deflect_magic", "deflect_missiles", "protect_from_magic", "protect_from_missiles", "protect_from_melee"]
+      }
+    ],
+
+    "turmoil_line": [
+      {
+        "id": "turmoil",
+        "name": "Turmoil",
+        "level": 95,
+        "drain_rate": 36,
+        "effect": {
+          "attack_bonus_percent": 10,
+          "strength_bonus_percent": 10,
+          "defence_bonus_percent": 10,
+          "enemy_attack_drain_percent": 10,
+          "enemy_strength_drain_percent": 10,
+          "enemy_defence_drain_percent": 10,
+          "stat_scaling": true
+        },
+        "description": "Boosts stats and drains enemy stats, scaling with their levels",
+        "overhead": false,
+        "mutual_exclusive": ["torment", "anguish"]
+      },
+      {
+        "id": "torment",
+        "name": "Torment",
+        "level": 95,
+        "drain_rate": 36,
+        "effect": {
+          "magic_bonus_percent": 10,
+          "magic_damage_percent": 6,
+          "defence_bonus_percent": 10,
+          "enemy_magic_drain_percent": 10,
+          "enemy_defence_drain_percent": 10,
+          "stat_scaling": true
+        },
+        "description": "Boosts Magic stats and drains enemy stats, scaling with their levels",
+        "overhead": false,
+        "mutual_exclusive": ["turmoil", "anguish"]
+      },
+      {
+        "id": "anguish",
+        "name": "Anguish",
+        "level": 95,
+        "drain_rate": 36,
+        "effect": {
+          "ranged_bonus_percent": 10,
+          "ranged_damage_percent": 6,
+          "defence_bonus_percent": 10,
+          "enemy_ranged_drain_percent": 10,
+          "enemy_defence_drain_percent": 10,
+          "stat_scaling": true
+        },
+        "description": "Boosts Ranged stats and drains enemy stats, scaling with their levels",
+        "overhead": false,
+        "mutual_exclusive": ["turmoil", "torment"]
+      },
+      {
+        "id": "soul_split",
+        "name": "Soul Split",
+        "level": 92,
+        "drain_rate": 24,
+        "effect": {"lifesteal_percent": 10, "favor_drain_percent": 5, "overhead_icon": "soul_split"},
+        "description": "Heals for 10% of damage dealt and drains enemy Divine Favor",
+        "overhead": true,
+        "mutual_exclusive": ["protection_prayers_all", "deflect_curses_all"]
+      }
+    ]
+  },
+
+  "lunar_blessings": {
+    "description": "Support and healing blessings from the Codex of Dreams",
+    "unlock_quest": "lunar_diplomacy",
+
+    "healing": [
+      {
+        "id": "dream",
+        "name": "Dream",
+        "level": 79,
+        "drain_rate": 30,
+        "effect": {"hp_regen_percent": 3, "stat_regen_percent": 2},
+        "description": "Enhanced regeneration while stationary",
+        "overhead": false,
+        "requires_stationary": true
+      },
+      {
+        "id": "group_heal",
+        "name": "Group Heal",
+        "level": 83,
+        "type": "active",
+        "activation_cost": 50,
+        "cooldown_seconds": 120,
+        "effect": {"heal_allies_percent": 15, "radius": 5},
+        "description": "Heals nearby allies for 15% of their max HP",
+        "overhead": false
+      }
+    ],
+
+    "support": [
+      {
+        "id": "borrowed_power",
+        "name": "Borrowed Power",
+        "level": 88,
+        "drain_rate": 20,
+        "effect": {"share_damage_with_ally_percent": 30},
+        "description": "Share 30% of damage taken with bonded ally",
+        "overhead": false,
+        "requires_partner": true
+      },
+      {
+        "id": "vengeance_group",
+        "name": "Vengeance Group",
+        "level": 95,
+        "type": "active",
+        "activation_cost": 80,
+        "cooldown_seconds": 180,
+        "effect": {"vengeance_to_allies": true, "duration_seconds": 30},
+        "description": "Grants Vengeance effect to nearby allies",
+        "overhead": false
+      }
+    ]
+  },
+
+  "elder_hymns": {
+    "description": "Powerful hybrid abilities from the Elder Hymnal",
+    "unlock_quest": "the_light_within",
+    "min_level": 92,
+
+    "tier_1": [
+      {
+        "id": "light_form",
+        "name": "Light Form",
+        "level": 92,
+        "drain_rate": 30,
+        "effect": {"all_damage_bonus_percent": 5, "divine_favor_drain_reduction_percent": 20, "glow_effect": true},
+        "description": "Enter a state of pure light, boosting damage and reducing drain",
+        "overhead": false,
+        "mutual_exclusive": ["dark_form"]
+      },
+      {
+        "id": "dark_form",
+        "name": "Dark Form",
+        "level": 92,
+        "drain_rate": 30,
+        "effect": {"curse_effect_boost_percent": 20, "lifesteal_bonus_percent": 5, "shadow_effect": true},
+        "description": "Enter a state of shadow, enhancing curses and lifesteal",
+        "overhead": false,
+        "mutual_exclusive": ["light_form"]
+      }
+    ],
+
+    "tier_2": [
+      {
+        "id": "affliction",
+        "name": "Affliction",
+        "level": 95,
+        "drain_rate": 36,
+        "effect": {
+          "magic_bonus_percent": 12,
+          "magic_damage_percent": 8,
+          "defence_bonus_percent": 12,
+          "enemy_affliction_stacks": true,
+          "max_stacks": 20,
+          "damage_per_stack": 1
+        },
+        "description": "Enhanced Torment that stacks affliction on enemies for bonus damage",
+        "overhead": false,
+        "requires": "dark_form"
+      },
+      {
+        "id": "desolation",
+        "name": "Desolation",
+        "level": 95,
+        "drain_rate": 36,
+        "effect": {
+          "ranged_bonus_percent": 12,
+          "ranged_damage_percent": 8,
+          "defence_bonus_percent": 12,
+          "crit_chance_boost_percent": 5
+        },
+        "description": "Enhanced Anguish with increased critical hit chance",
+        "overhead": false,
+        "requires": "light_form"
+      },
+      {
+        "id": "malevolence",
+        "name": "Malevolence",
+        "level": 95,
+        "drain_rate": 36,
+        "effect": {
+          "attack_bonus_percent": 12,
+          "strength_bonus_percent": 12,
+          "defence_bonus_percent": 12,
+          "bleed_damage_boost_percent": 25
+        },
+        "description": "Enhanced Turmoil with increased bleed damage",
+        "overhead": false,
+        "requires": "dark_form"
+      }
+    ],
+
+    "tier_3": [
+      {
+        "id": "chronicle_absorption",
+        "name": "Chronicle Absorption",
+        "level": 99,
+        "drain_rate": 48,
+        "effect": {
+          "absorb_chronicle_energy": true,
+          "adrenaline_gain_on_kill_percent": 10,
+          "divine_favor_restore_on_kill_percent": 5
+        },
+        "description": "Absorb energy from defeated foes, restoring resources",
+        "overhead": false
+      }
+    ]
+  },
+
+  "altars": {
+    "description": "Locations to restore Divine Favor and train Sanctity",
+    "types": [
+      {
+        "id": "standard_altar",
+        "name": "Altar",
+        "favor_restore_percent": 100,
+        "xp_multiplier": 1.0,
+        "locations": ["millbrook_church", "thornhaven_church", "stoneguard_church", "ardougne_monastery"]
+      },
+      {
+        "id": "chaos_altar",
+        "name": "Chaos Altar",
+        "favor_restore_percent": 100,
+        "xp_multiplier": 3.5,
+        "bone_save_chance_percent": 50,
+        "location": "wilderness_level_38",
+        "warnings": ["Located in dangerous Wilderness"]
+      },
+      {
+        "id": "ectofuntus",
+        "name": "Ectofuntus",
+        "favor_restore_percent": 100,
+        "xp_multiplier": 4.0,
+        "requires_slime_and_bonemeal": true,
+        "location": "port_phasmatys",
+        "unlock": {"quest": "ghosts_ahoy"}
+      },
+      {
+        "id": "gilded_altar",
+        "name": "Gilded Altar",
+        "favor_restore_percent": 100,
+        "xp_multiplier": 3.5,
+        "location": "player_owned_house",
+        "requirements": {"construction": 75, "burners_lit": 2}
+      },
+      {
+        "id": "ancient_altar",
+        "name": "Ancient Altar",
+        "favor_restore_percent": 100,
+        "xp_multiplier": 1.0,
+        "special": "Switch to Tome of Shadows",
+        "location": "senntisten_temple"
+      },
+      {
+        "id": "lunar_altar",
+        "name": "Lunar Altar",
+        "favor_restore_percent": 100,
+        "xp_multiplier": 1.0,
+        "special": "Switch to Codex of Dreams",
+        "location": "lunar_isle"
+      },
+      {
+        "id": "elder_altar",
+        "name": "Elder Altar",
+        "favor_restore_percent": 100,
+        "xp_multiplier": 1.0,
+        "special": "Switch to Elder Hymnal",
+        "location": "prifddinas_tower_of_voices",
+        "unlock": {"quest": "the_light_within"}
+      }
+    ]
+  },
+
+  "bones_and_offerings": {
+    "bones": [
+      {"id": "bones", "name": "Bones", "xp": 4.5, "level": 1},
+      {"id": "wolf_bones", "name": "Wolf Bones", "xp": 4.5, "level": 1},
+      {"id": "burnt_bones", "name": "Burnt Bones", "xp": 4.5, "level": 1},
+      {"id": "monkey_bones", "name": "Monkey Bones", "xp": 5, "level": 1},
+      {"id": "bat_bones", "name": "Bat Bones", "xp": 5.3, "level": 1},
+      {"id": "big_bones", "name": "Big Bones", "xp": 15, "level": 1},
+      {"id": "zogre_bones", "name": "Zogre Bones", "xp": 22.5, "level": 1},
+      {"id": "shaikahan_bones", "name": "Shaikahan Bones", "xp": 25, "level": 1},
+      {"id": "babydragon_bones", "name": "Babydragon Bones", "xp": 30, "level": 1},
+      {"id": "wyrm_bones", "name": "Wyrm Bones", "xp": 50, "level": 1},
+      {"id": "dragon_bones", "name": "Dragon Bones", "xp": 72, "level": 1},
+      {"id": "wyvern_bones", "name": "Wyvern Bones", "xp": 72, "level": 1},
+      {"id": "drake_bones", "name": "Drake Bones", "xp": 80, "level": 1},
+      {"id": "fayrg_bones", "name": "Fayrg Bones", "xp": 84, "level": 1},
+      {"id": "lava_dragon_bones", "name": "Lava Dragon Bones", "xp": 85, "level": 1},
+      {"id": "raurg_bones", "name": "Raurg Bones", "xp": 96, "level": 1},
+      {"id": "hydra_bones", "name": "Hydra Bones", "xp": 110, "level": 1},
+      {"id": "dagannoth_bones", "name": "Dagannoth Bones", "xp": 125, "level": 1},
+      {"id": "ourg_bones", "name": "Ourg Bones", "xp": 140, "level": 1},
+      {"id": "superior_dragon_bones", "name": "Superior Dragon Bones", "xp": 150, "level": 70},
+      {"id": "frost_dragon_bones", "name": "Frost Dragon Bones", "xp": 180, "level": 1},
+      {"id": "hardened_dragon_bones", "name": "Hardened Dragon Bones", "xp": 200, "level": 80},
+      {"id": "reinforced_dragon_bones", "name": "Reinforced Dragon Bones", "xp": 230, "level": 90}
+    ],
+
+    "ashes": [
+      {"id": "fiendish_ashes", "name": "Fiendish Ashes", "xp": 10, "level": 1},
+      {"id": "vile_ashes", "name": "Vile Ashes", "xp": 25, "level": 1},
+      {"id": "malicious_ashes", "name": "Malicious Ashes", "xp": 65, "level": 1},
+      {"id": "abyssal_ashes", "name": "Abyssal Ashes", "xp": 85, "level": 1},
+      {"id": "infernal_ashes", "name": "Infernal Ashes", "xp": 110, "level": 1}
+    ],
+
+    "special_offerings": [
+      {"id": "ensouled_head", "name": "Ensouled Head", "xp_range": [52, 1200], "mechanic": "reanimate_and_kill", "level_range": [3, 93]},
+      {"id": "sacred_oil", "name": "Sacred Oil", "mechanic": "shade_burning", "locations": ["mort_ton"]},
+      {"id": "ectotoken", "name": "Ecto-token", "mechanic": "ectofuntus_worship", "per_worship": 5}
+    ]
+  },
+
+  "sanctity_potions": {
+    "restore_potions": [
+      {"id": "prayer_potion", "name": "Prayer Potion", "restore": "7 + floor(level/4)", "level": 38},
+      {"id": "super_restore", "name": "Super Restore", "restore": "8 + floor(level/4)", "level": 63, "restores_stats": true},
+      {"id": "sanfew_serum", "name": "Sanfew Serum", "restore": "8 + floor(level/4)", "level": 65, "cures_poison": true, "cures_disease": true},
+      {"id": "prayer_renewal", "name": "Prayer Renewal", "restore_over_time": "47 per minute for 5 minutes", "level": 94}
+    ],
+
+    "enhancement_potions": [
+      {"id": "holy_overload", "name": "Holy Overload", "effect": "Overload + Prayer renewal combo", "level": 97}
+    ]
+  },
+
+  "ue5_implementation": {
+    "blessing_effects": {
+      "overhead_icons": {
+        "render_above_character": true,
+        "icon_size": 32,
+        "visibility_range_meters": 50,
+        "animated": true,
+        "material": "M_Overhead_Icons_Unlit"
+      },
+      "active_blessing_aura": {
+        "particle_system": "PS_Sanctity_Aura",
+        "color_by_book": {
+          "standard": {"r": 255, "g": 255, "b": 200},
+          "ancient": {"r": 128, "g": 0, "b": 128},
+          "lunar": {"r": 100, "g": 150, "b": 255},
+          "elder": {"r": 255, "g": 215, "b": 0}
+        }
+      },
+      "soul_split_beam": {
+        "niagara_system": "NS_Soul_Split_Beam",
+        "color": {"r": 128, "g": 0, "b": 128},
+        "beam_width": 0.1,
+        "pulse_rate": 2.0
+      },
+      "deflect_effect": {
+        "niagara_system": "NS_Deflect_Shield",
+        "on_deflect_flash": true,
+        "damage_numbers_reflected": true
+      }
+    },
+
+    "favor_bar_ui": {
+      "position": "below_health",
+      "color": {"r": 100, "g": 200, "b": 255},
+      "drain_animation": true,
+      "flash_on_low": true,
+      "low_threshold_percent": 20
+    },
+
+    "altar_interactions": {
+      "interaction_radius": 2.0,
+      "restore_animation": "kneeling_pray",
+      "particle_effect": "PS_Divine_Restore",
+      "sound_cue": "SC_Altar_Restore"
+    }
+  }
+}

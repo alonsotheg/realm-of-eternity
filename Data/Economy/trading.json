@@ -1,0 +1,207 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Trading and economy configuration for Realm of Eternity"
+  },
+  "grandExchange": {
+    "name": "Grand Exchange",
+    "description": "Central marketplace for buying and selling items",
+    "locations": ["dawnhaven_ge", "ironhold_ge", "prismatic_city_ge"],
+    "slots": {
+      "free": 3,
+      "member": 8,
+      "premium": 12
+    },
+    "fees": {
+      "listingFee": 0,
+      "sellTax": 0.01,
+      "cancelFee": 0,
+      "instantBuyPremium": 0.05
+    },
+    "limits": {
+      "maxOfferDuration": 604800,
+      "minPrice": 1,
+      "maxPrice": 2147483647,
+      "maxQuantityPerOffer": 2147483647
+    },
+    "buyLimits": {
+      "description": "Maximum items purchasable per 4-hour period",
+      "defaults": {
+        "common": 25000,
+        "uncommon": 10000,
+        "rare": 5000,
+        "very_rare": 1000,
+        "ultra_rare": 100,
+        "unique": 2
+      },
+      "overrides": {
+        "gold_coins": null,
+        "spirit_shards": null,
+        "runes": 50000,
+        "food": 25000,
+        "potions": 10000,
+        "logs": 25000,
+        "ores": 25000,
+        "bars": 10000,
+        "equipment_common": 100,
+        "equipment_rare": 10,
+        "boss_drops": 2
+      }
+    },
+    "priceHistory": {
+      "retentionDays": 180,
+      "graphIntervals": ["1h", "6h", "24h", "7d", "30d", "180d"]
+    }
+  },
+  "directTrading": {
+    "name": "Player Trading",
+    "description": "Direct player-to-player trades",
+    "maxTradeValue": 2147483647,
+    "maxItemSlots": 28,
+    "antiScamFeatures": {
+      "confirmationScreen": true,
+      "valueWarning": true,
+      "valueWarningThreshold": 10000000,
+      "tradeDelay": 3,
+      "recentTradeLog": 50
+    },
+    "restrictions": {
+      "newAccountDelay": 86400,
+      "levelRequirement": 7,
+      "questRequirement": null
+    }
+  },
+  "shops": {
+    "description": "NPC shop configuration",
+    "stockTypes": {
+      "unlimited": {
+        "restockTime": 0,
+        "priceScaling": false
+      },
+      "limited": {
+        "baseRestockTime": 60,
+        "priceScaling": true,
+        "minPriceMultiplier": 0.3,
+        "maxPriceMultiplier": 3.0
+      }
+    },
+    "sellPrices": {
+      "generalStore": 0.4,
+      "specializedStore": 0.6,
+      "highAlchValue": 0.6
+    },
+    "buyPrices": {
+      "baseMarkup": 1.0,
+      "overstockDiscount": 0.1,
+      "understockPremium": 0.25
+    }
+  },
+  "itemCategories": {
+    "description": "Item trading categories and restrictions",
+    "categories": [
+      {
+        "id": "tradeable",
+        "description": "Standard tradeable items",
+        "canTrade": true,
+        "canSell": true,
+        "canDrop": true
+      },
+      {
+        "id": "untradeable",
+        "description": "Account-bound items",
+        "canTrade": false,
+        "canSell": false,
+        "canDrop": false,
+        "examples": ["quest_items", "skillcapes", "minigame_rewards"]
+      },
+      {
+        "id": "limited_trade",
+        "description": "Items with trading restrictions",
+        "canTrade": true,
+        "tradeLimit": 1,
+        "tradeLimitPeriod": 86400,
+        "examples": ["boss_uniques", "raid_gear"]
+      },
+      {
+        "id": "degradeable",
+        "description": "Items that degrade and have repair costs",
+        "canTrade": true,
+        "tradeDegraded": false,
+        "examples": ["barrows_equipment", "invention_augmented"]
+      }
+    ]
+  },
+  "priceGuide": {
+    "description": "Official price guide values",
+    "updateFrequency": 86400,
+    "sources": ["ge_trades", "high_alch", "shop_prices"],
+    "volatilityThreshold": 0.5,
+    "manipulationDetection": {
+      "enabled": true,
+      "priceSpikeTolerance": 0.3,
+      "volumeAnomaly": 10,
+      "accountAgeWeight": true
+    }
+  },
+  "economyMetrics": {
+    "description": "Server-wide economy tracking",
+    "trackedMetrics": [
+      "total_gold_supply",
+      "gold_velocity",
+      "item_sink_rate",
+      "inflation_index",
+      "ge_volume",
+      "active_traders"
+    ],
+    "balanceTargets": {
+      "dailyGoldInflux": 1000000000,
+      "dailyGoldSink": 900000000,
+      "targetInflation": 0.001
+    },
+    "interventions": {
+      "description": "Automatic economy balancing",
+      "goldSinkEvents": true,
+      "doubleXpWeekends": { "frequency": "monthly", "sinkMultiplier": 2 },
+      "itemSinks": ["invention_disassembly", "sacrifice_altar", "well_of_fortune"]
+    }
+  },
+  "antiRWT": {
+    "description": "Real-world trading prevention",
+    "detectionMethods": [
+      "unusual_trade_patterns",
+      "new_account_wealth_transfer",
+      "repeated_low_value_trades",
+      "ge_manipulation"
+    ],
+    "thresholds": {
+      "suspiciousTradeValue": 100000000,
+      "newAccountTradeLimit": 10000000,
+      "dailyTradeVolumeFlag": 500000000
+    },
+    "penalties": {
+      "warning": { "offenses": 1, "action": "warning_message" },
+      "tempBan": { "offenses": 2, "action": "temp_ban_7d" },
+      "permBan": { "offenses": 3, "action": "permanent_ban" }
+    }
+  },
+  "wealthTransfer": {
+    "description": "Rules for wealth transfer on death",
+    "pvmDeath": {
+      "itemsKept": 3,
+      "protectItemBonus": 1,
+      "reclamationCost": 0.05,
+      "reclamationCap": 10000000,
+      "graveDuration": 900
+    },
+    "pvpDeath": {
+      "itemsKept": 3,
+      "skulledItemsKept": 0,
+      "lootKeySystem": true
+    },
+    "hardcoreDeath": {
+      "itemsKept": 0,
+      "permanentDeath": true,
+      "deathStorage": true
+    }
+  }
+}

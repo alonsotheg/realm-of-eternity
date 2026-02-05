@@ -1,0 +1,9 @@
+# Realm of Eternity - Tools Requirements
+# Python 3.8+
+
+# No external dependencies required - uses standard library only
+# - json (built-in)
+# - csv (built-in)
+# - pathlib (built-in)
+# - argparse (built-in)
+# - dataclasses (built-in)

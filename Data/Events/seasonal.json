@@ -1,0 +1,505 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Seasonal and holiday events for Realm of Eternity"
+  },
+  "events": [
+    {
+      "id": "winterfest",
+      "name": "Winterfest",
+      "description": "Celebrate the winter season with snow, gifts, and festivities",
+      "schedule": {
+        "startDate": "12-15",
+        "endDate": "01-05",
+        "annual": true
+      },
+      "theme": {
+        "primaryColor": "#A8D5FF",
+        "secondaryColor": "#FFFFFF",
+        "ambiance": "winter_wonderland"
+      },
+      "worldChanges": {
+        "snow": {
+          "zones": ["dawnhaven", "whiteguard", "frostpeak", "ironhold"],
+          "intensity": 0.8
+        },
+        "decorations": ["christmas_tree", "hanging_lights", "snowman", "ice_sculptures"],
+        "npcOutfits": true,
+        "music": "winterfest_theme"
+      },
+      "activities": [
+        {
+          "id": "gift_giving",
+          "name": "Gift Exchange",
+          "description": "Exchange gifts with other players",
+          "type": "social",
+          "rewards": [
+            { "id": "mystery_gift", "chance": 1.0 },
+            { "id": "winterfest_token", "quantity": 5 }
+          ]
+        },
+        {
+          "id": "snowball_fight",
+          "name": "Snowball Fight",
+          "description": "PvP minigame with snowballs",
+          "type": "minigame",
+          "location": "winterfest_arena",
+          "rewards": [
+            { "id": "winterfest_token", "quantity": 10, "condition": "win" },
+            { "id": "winterfest_token", "quantity": 5, "condition": "participate" }
+          ]
+        },
+        {
+          "id": "ice_skating",
+          "name": "Ice Skating",
+          "description": "Skate around the frozen lake",
+          "type": "skilling",
+          "skill": "agility",
+          "xpBonus": 1.5,
+          "location": "frozen_lake"
+        },
+        {
+          "id": "frost_boss",
+          "name": "Frost Giant Raid",
+          "description": "Defeat the awakened Frost Giant",
+          "type": "boss",
+          "location": "frostpeak_summit",
+          "difficulty": "hard",
+          "rewards": [
+            { "id": "frost_giant_trophy", "chance": 0.1 },
+            { "id": "ice_crown", "chance": 0.01 },
+            { "id": "winterfest_token", "quantity": 50 }
+          ]
+        }
+      ],
+      "shop": {
+        "currency": "winterfest_token",
+        "items": [
+          { "id": "winter_scarf", "cost": 100, "description": "Cozy neck cosmetic" },
+          { "id": "snow_cape", "cost": 500, "description": "Snow-particle cape" },
+          { "id": "ice_crown", "cost": 1000, "description": "Crown of eternal ice" },
+          { "id": "penguin_pet", "cost": 2000, "description": "Adorable companion" },
+          { "id": "frost_aura", "cost": 3000, "description": "Icy visual effect" },
+          { "id": "xp_lamp_large", "cost": 200, "limit": 10 },
+          { "id": "bonus_xp_star", "cost": 150, "limit": 20 }
+        ]
+      },
+      "achievements": [
+        { "id": "winterfest_participant", "name": "Winter Wonderland", "requirement": "participate_in_winterfest" },
+        { "id": "gift_giver", "name": "Generous Soul", "requirement": "give_100_gifts" },
+        { "id": "frost_slayer", "name": "Frost Giant Slayer", "requirement": "defeat_frost_giant_10" }
+      ]
+    },
+    {
+      "id": "lunar_festival",
+      "name": "Lunar Festival",
+      "description": "Celebrate the new lunar year with lanterns and fireworks",
+      "schedule": {
+        "startDate": "01-20",
+        "endDate": "02-10",
+        "annual": true
+      },
+      "theme": {
+        "primaryColor": "#FF4444",
+        "secondaryColor": "#FFD700",
+        "ambiance": "eastern_celebration"
+      },
+      "worldChanges": {
+        "decorations": ["paper_lanterns", "dragon_statues", "lucky_banners", "firework_stands"],
+        "npcOutfits": true,
+        "music": "lunar_festival_theme"
+      },
+      "activities": [
+        {
+          "id": "dragon_parade",
+          "name": "Dragon Parade",
+          "description": "Join the dragon dance through cities",
+          "type": "social",
+          "schedule": { "interval": 3600, "duration": 600 },
+          "rewards": [
+            { "id": "lunar_token", "quantity": 20 }
+          ]
+        },
+        {
+          "id": "fireworks_display",
+          "name": "Fireworks Crafting",
+          "description": "Craft and launch fireworks",
+          "type": "skilling",
+          "skill": "bowcraft",
+          "xpBonus": 1.25,
+          "recipes": [
+            { "id": "red_firework", "materials": [{ "id": "gunpowder", "qty": 1 }, { "id": "red_dye", "qty": 1 }] },
+            { "id": "gold_firework", "materials": [{ "id": "gunpowder", "qty": 1 }, { "id": "gold_leaf", "qty": 1 }] }
+          ]
+        },
+        {
+          "id": "lucky_envelopes",
+          "name": "Lucky Envelopes",
+          "description": "Find and open lucky red envelopes",
+          "type": "collection",
+          "spawnLocations": "worldwide",
+          "rewards": [
+            { "id": "gold_coins", "quantityMin": 1000, "quantityMax": 100000, "chance": 0.9 },
+            { "id": "lunar_token", "quantity": 10, "chance": 0.5 },
+            { "id": "lucky_pet", "chance": 0.001 }
+          ]
+        }
+      ],
+      "shop": {
+        "currency": "lunar_token",
+        "items": [
+          { "id": "dragon_mask", "cost": 200 },
+          { "id": "lucky_robes", "cost": 500 },
+          { "id": "paper_lantern_pet", "cost": 1500 },
+          { "id": "dragon_firework_emote", "cost": 800 }
+        ]
+      }
+    },
+    {
+      "id": "spring_bloom",
+      "name": "Spring Bloom Festival",
+      "description": "Celebrate the return of spring with flowers and nature",
+      "schedule": {
+        "startDate": "03-20",
+        "endDate": "04-10",
+        "annual": true
+      },
+      "theme": {
+        "primaryColor": "#90EE90",
+        "secondaryColor": "#FFB6C1",
+        "ambiance": "spring_garden"
+      },
+      "worldChanges": {
+        "flowers": {
+          "zones": "all",
+          "types": ["cherry_blossom", "tulips", "daffodils"],
+          "density": 1.5
+        },
+        "decorations": ["flower_arches", "butterfly_swarms", "bird_nests"],
+        "weather": { "type": "light_rain", "chance": 0.3 }
+      },
+      "activities": [
+        {
+          "id": "egg_hunt",
+          "name": "Egg Hunt",
+          "description": "Find hidden eggs throughout the world",
+          "type": "collection",
+          "eggTypes": [
+            { "id": "common_egg", "points": 1, "spawnChance": 0.7 },
+            { "id": "uncommon_egg", "points": 3, "spawnChance": 0.2 },
+            { "id": "rare_egg", "points": 10, "spawnChance": 0.08 },
+            { "id": "golden_egg", "points": 50, "spawnChance": 0.02 }
+          ],
+          "leaderboard": true,
+          "rewards": {
+            "participation": { "id": "spring_token", "quantity": 10 },
+            "top100": { "id": "golden_bunny_ears", "quantity": 1 }
+          }
+        },
+        {
+          "id": "flower_picking",
+          "name": "Flower Picking",
+          "description": "Gather special spring flowers",
+          "type": "skilling",
+          "skill": "farming",
+          "xpBonus": 1.5,
+          "uniqueFlowers": ["rainbow_tulip", "moonpetal", "sunburst_daisy"]
+        },
+        {
+          "id": "bunny_boss",
+          "name": "Giant Bunny",
+          "description": "A corrupted spring spirit needs defeating",
+          "type": "boss",
+          "location": "meadow_of_blooms",
+          "difficulty": "medium",
+          "rewards": [
+            { "id": "bunny_slippers", "chance": 0.05 },
+            { "id": "spring_token", "quantity": 30 }
+          ]
+        }
+      ],
+      "shop": {
+        "currency": "spring_token",
+        "items": [
+          { "id": "bunny_ears", "cost": 100 },
+          { "id": "flower_crown", "cost": 200 },
+          { "id": "butterfly_wings", "cost": 1000 },
+          { "id": "chick_pet", "cost": 1500 }
+        ]
+      }
+    },
+    {
+      "id": "summer_solstice",
+      "name": "Summer Solstice",
+      "description": "Celebrate the longest day with beach activities",
+      "schedule": {
+        "startDate": "06-15",
+        "endDate": "07-05",
+        "annual": true
+      },
+      "theme": {
+        "primaryColor": "#FFD700",
+        "secondaryColor": "#00CED1",
+        "ambiance": "tropical_beach"
+      },
+      "worldChanges": {
+        "dayLength": 1.5,
+        "temperature": "hot",
+        "decorations": ["beach_umbrellas", "sandcastles", "tiki_torches"],
+        "zones": {
+          "tidecrest": { "special": "beach_party" },
+          "tropicport": { "special": "surf_competition" }
+        }
+      },
+      "activities": [
+        {
+          "id": "sandcastle_building",
+          "name": "Sandcastle Competition",
+          "description": "Build the best sandcastle",
+          "type": "skilling",
+          "skill": "construction",
+          "xpBonus": 2.0,
+          "leaderboard": true
+        },
+        {
+          "id": "fishing_tournament",
+          "name": "Big Catch Tournament",
+          "description": "Catch the biggest fish",
+          "type": "competition",
+          "skill": "fishing",
+          "duration": 3600,
+          "schedule": { "daily": true, "times": ["12:00", "20:00"] },
+          "rewards": {
+            "first": { "id": "golden_fishing_rod", "quantity": 1 },
+            "participation": { "id": "summer_token", "quantity": 15 }
+          }
+        },
+        {
+          "id": "kraken_boss",
+          "name": "Kraken Attack",
+          "description": "Defend the beach from the Kraken",
+          "type": "world_event",
+          "location": "tidecrest_beach",
+          "schedule": { "interval": 7200 },
+          "rewards": [
+            { "id": "kraken_tentacle", "chance": 0.2 },
+            { "id": "summer_token", "quantity": 40 }
+          ]
+        }
+      ],
+      "shop": {
+        "currency": "summer_token",
+        "items": [
+          { "id": "beach_shorts", "cost": 100 },
+          { "id": "surfboard_back", "cost": 500 },
+          { "id": "crab_pet", "cost": 1200 },
+          { "id": "water_balloon_emote", "cost": 300 }
+        ]
+      }
+    },
+    {
+      "id": "harvest_festival",
+      "name": "Harvest Festival",
+      "description": "Celebrate the autumn harvest with feasts and farming",
+      "schedule": {
+        "startDate": "09-20",
+        "endDate": "10-10",
+        "annual": true
+      },
+      "theme": {
+        "primaryColor": "#FF8C00",
+        "secondaryColor": "#8B4513",
+        "ambiance": "autumn_countryside"
+      },
+      "worldChanges": {
+        "foliage": "autumn_colors",
+        "decorations": ["hay_bales", "pumpkins", "scarecrows", "corn_stalks"],
+        "farmYields": 1.5
+      },
+      "activities": [
+        {
+          "id": "pumpkin_carving",
+          "name": "Pumpkin Carving",
+          "description": "Carve pumpkins into jack-o-lanterns",
+          "type": "crafting",
+          "skill": "crafting",
+          "designs": ["spooky", "happy", "silly", "scary", "artistic"],
+          "rewards": { "id": "harvest_token", "quantity": 5 }
+        },
+        {
+          "id": "harvest_race",
+          "name": "Harvest Race",
+          "description": "Race to gather the most crops",
+          "type": "competition",
+          "skills": ["farming", "woodcutting", "mining"],
+          "duration": 600,
+          "leaderboard": true
+        },
+        {
+          "id": "feast_preparation",
+          "name": "Great Feast",
+          "description": "Help prepare the harvest feast",
+          "type": "community_goal",
+          "requirements": [
+            { "item": "cooked_turkey", "quantity": 10000 },
+            { "item": "pumpkin_pie", "quantity": 5000 },
+            { "item": "apple_cider", "quantity": 8000 }
+          ],
+          "rewards": {
+            "completion": { "xpBonus": 1.5, "duration": 86400 }
+          }
+        }
+      ],
+      "shop": {
+        "currency": "harvest_token",
+        "items": [
+          { "id": "scarecrow_outfit", "cost": 400 },
+          { "id": "pumpkin_head", "cost": 200 },
+          { "id": "turkey_pet", "cost": 1500 },
+          { "id": "cornucopia_back", "cost": 800 }
+        ]
+      }
+    },
+    {
+      "id": "night_of_shadows",
+      "name": "Night of Shadows",
+      "description": "A spooky celebration of the supernatural",
+      "schedule": {
+        "startDate": "10-25",
+        "endDate": "11-05",
+        "annual": true
+      },
+      "theme": {
+        "primaryColor": "#4B0082",
+        "secondaryColor": "#FF6600",
+        "ambiance": "haunted_night"
+      },
+      "worldChanges": {
+        "darkness": 1.5,
+        "fog": { "enabled": true, "density": 0.6 },
+        "decorations": ["tombstones", "cobwebs", "jack_o_lanterns", "ghosts"],
+        "music": "spooky_theme",
+        "npcs": {
+          "costumes": true,
+          "special": ["headless_horseman", "witch", "vampire"]
+        }
+      },
+      "activities": [
+        {
+          "id": "trick_or_treat",
+          "name": "Trick or Treat",
+          "description": "Visit NPCs for treats",
+          "type": "collection",
+          "npcsToVisit": 30,
+          "rewards": [
+            { "id": "candy_corn", "quantity": 10 },
+            { "id": "shadow_token", "quantity": 5 },
+            { "id": "rare_mask", "chance": 0.01 }
+          ]
+        },
+        {
+          "id": "haunted_house",
+          "name": "Haunted House",
+          "description": "Navigate the terrifying haunted house",
+          "type": "dungeon",
+          "location": "abandoned_mansion",
+          "waves": 13,
+          "enemies": ["ghost", "skeleton", "zombie", "wraith", "banshee"],
+          "boss": "lich_king",
+          "rewards": [
+            { "id": "shadow_token", "quantity": 50 },
+            { "id": "lich_staff", "chance": 0.02 }
+          ]
+        },
+        {
+          "id": "costume_contest",
+          "name": "Costume Contest",
+          "description": "Show off your spookiest costume",
+          "type": "social",
+          "voting": true,
+          "categories": ["scariest", "funniest", "most_creative"],
+          "rewards": { "winner": { "id": "costume_crown", "quantity": 1 } }
+        }
+      ],
+      "shop": {
+        "currency": "shadow_token",
+        "items": [
+          { "id": "vampire_cape", "cost": 300 },
+          { "id": "witch_hat", "cost": 200 },
+          { "id": "skeleton_outfit", "cost": 600 },
+          { "id": "ghost_pet", "cost": 2000 },
+          { "id": "spooky_walk_emote", "cost": 400 }
+        ]
+      }
+    },
+    {
+      "id": "anniversary",
+      "name": "Realm Anniversary",
+      "description": "Celebrate another year of Realm of Eternity",
+      "schedule": {
+        "startDate": "launch_date",
+        "duration": 14,
+        "annual": true
+      },
+      "theme": {
+        "primaryColor": "#FFD700",
+        "secondaryColor": "#4169E1",
+        "ambiance": "celebration"
+      },
+      "worldChanges": {
+        "decorations": ["balloons", "banners", "fireworks_continuous"],
+        "npcDialogue": "anniversary_special"
+      },
+      "activities": [
+        {
+          "id": "memory_lane",
+          "name": "Memory Lane",
+          "description": "Revisit iconic moments from the past year",
+          "type": "quest",
+          "stages": [
+            { "name": "The Beginning", "location": "tutorial_island" },
+            { "name": "First Boss", "location": "goblin_cave" },
+            { "name": "Major Update", "location": "new_zone" }
+          ],
+          "rewards": { "id": "anniversary_token", "quantity": 100 }
+        },
+        {
+          "id": "birthday_cake",
+          "name": "Birthday Cake",
+          "description": "Bake the anniversary cake together",
+          "type": "community_goal",
+          "requirements": [
+            { "item": "flour", "quantity": 50000 },
+            { "item": "eggs", "quantity": 25000 },
+            { "item": "sugar", "quantity": 30000 }
+          ],
+          "rewards": {
+            "completion": { "item": "anniversary_cake_slice", "effect": "full_heal" }
+          }
+        }
+      ],
+      "shop": {
+        "currency": "anniversary_token",
+        "items": [
+          { "id": "anniversary_cape", "cost": 500, "yearBadge": true },
+          { "id": "party_hat", "cost": 1000, "color": "random" },
+          { "id": "cake_pet", "cost": 2500 },
+          { "id": "celebration_emote", "cost": 300 }
+        ]
+      }
+    }
+  ],
+  "weeklyEvents": {
+    "description": "Rotating weekly bonus events",
+    "events": [
+      { "id": "double_xp_combat", "name": "Combat Training", "bonus": { "xp": 2.0, "skills": ["melee", "ranged", "magic", "defense", "hitpoints"] } },
+      { "id": "double_xp_gathering", "name": "Gathering Spree", "bonus": { "xp": 2.0, "skills": ["mining", "woodcutting", "fishing", "farming"] } },
+      { "id": "double_xp_artisan", "name": "Artisan Week", "bonus": { "xp": 2.0, "skills": ["smithing", "crafting", "cooking", "bowcraft", "alchemy"] } },
+      { "id": "boss_bonus", "name": "Boss Hunter", "bonus": { "loot": 1.5, "type": "bosses" } },
+      { "id": "minigame_spotlight", "name": "Minigame Mania", "bonus": { "rewards": 2.0, "type": "minigames" } },
+      { "id": "slayer_weekend", "name": "Beastslayer Bonanza", "bonus": { "xp": 1.5, "points": 1.5, "type": "beastslaying" } }
+    ],
+    "rotation": "random",
+    "duration": 604800
+  }
+}

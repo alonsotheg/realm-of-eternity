@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Treasure trails (clue scroll) system for Realm of Eternity"
+  },
+  "clueScrollTiers": [
+    {
+      "id": "beginner",
+      "name": "Beginner Clue Scroll",
+      "color": "#A0A0A0",
+      "steps": { "min": 1, "max": 3 },
+      "requirements": null,
+      "sources": [
+        { "type": "monster", "minCombat": 1, "maxCombat": 20, "dropRate": 0.008 },
+        { "type": "skilling", "skills": ["fishing", "woodcutting", "mining"], "minLevel": 1, "maxLevel": 20, "dropRate": 0.002 }
+      ]
+    },
+    {
+      "id": "easy",
+      "name": "Easy Clue Scroll",
+      "color": "#00FF00",
+      "steps": { "min": 2, "max": 4 },
+      "requirements": null,
+      "sources": [
+        { "type": "monster", "minCombat": 15, "maxCombat": 50, "dropRate": 0.006 },
+        { "type": "skilling", "skills": ["fishing", "woodcutting", "mining", "subterfuge"], "minLevel": 15, "maxLevel": 50, "dropRate": 0.0015 },
+        { "type": "pickpocket", "npcs": ["guard", "farmer"], "dropRate": 0.01 }
+      ]
+    },
+    {
+      "id": "medium",
+      "name": "Medium Clue Scroll",
+      "color": "#0088FF",
+      "steps": { "min": 3, "max": 5 },
+      "requirements": { "skills": { "any": 40 } },
+      "sources": [
+        { "type": "monster", "minCombat": 40, "maxCombat": 80, "dropRate": 0.004 },
+        { "type": "skilling", "skills": ["fishing", "woodcutting", "mining"], "minLevel": 40, "maxLevel": 70, "dropRate": 0.001 },
+        { "type": "pickpocket", "npcs": ["knight", "paladin"], "dropRate": 0.008 }
+      ]
+    },
+    {
+      "id": "hard",
+      "name": "Hard Clue Scroll",
+      "color": "#AA00FF",
+      "steps": { "min": 4, "max": 6 },
+      "requirements": { "skills": { "any": 60 }, "quests": ["some_quest_required"] },
+      "sources": [
+        { "type": "monster", "minCombat": 70, "maxCombat": 150, "dropRate": 0.003 },
+        { "type": "skilling", "skills": ["fishing", "woodcutting", "mining", "farming"], "minLevel": 60, "maxLevel": 85, "dropRate": 0.0008 },
+        { "type": "bossKill", "bosses": ["all_mid_tier"], "dropRate": 0.02 }
+      ]
+    },
+    {
+      "id": "elite",
+      "name": "Elite Clue Scroll",
+      "color": "#FF8800",
+      "steps": { "min": 5, "max": 7 },
+      "requirements": { "skills": { "multiple": { "count": 5, "level": 80 } } },
+      "sources": [
+        { "type": "monster", "minCombat": 120, "maxCombat": 300, "dropRate": 0.002 },
+        { "type": "bossKill", "bosses": ["all_high_tier"], "dropRate": 0.03 },
+        { "type": "beastslaying", "minLevel": 80, "dropRate": 0.001 }
+      ]
+    },
+    {
+      "id": "master",
+      "name": "Master Clue Scroll",
+      "color": "#FF0000",
+      "steps": { "min": 6, "max": 8 },
+      "requirements": { "completedClues": { "easy": 1, "medium": 1, "hard": 1, "elite": 1 } },
+      "sources": [
+        { "type": "clue_completion", "tiers": ["easy", "medium", "hard", "elite"], "dropRate": 0.02 },
+        { "type": "bossKill", "bosses": ["raid_bosses"], "dropRate": 0.01 }
+      ]
+    }
+  ],
+  "clueTypes": {
+    "anagram": {
+      "description": "Solve an anagram to find an NPC to talk to",
+      "difficulty": ["easy", "medium", "hard"],
+      "examples": [
+        { "anagram": "A BAKER", "solution": "Kabera", "npc": "kabera_the_cook", "location": "dawnhaven" },
+        { "anagram": "DIM THUG", "solution": "Gudmith", "npc": "gudmith_smith", "location": "ironhold" },
+        { "anagram": "COOL NERD", "solution": "Eldercon", "npc": "eldercon_sage", "location": "oraclestead" }
+      ]
+    },
+    "cipher": {
+      "description": "Decode a cipher to find a location",
+      "difficulty": ["hard", "elite", "master"],
+      "cipherType": "caesar",
+      "examples": [
+        { "cipher": "GDKKZUDK JDXJ", "shift": 1, "solution": "FROSTPEAK TEST", "location": "frostpeak_summit" }
+      ]
+    },
+    "coordinates": {
+      "description": "Navigate to specific coordinates and dig",
+      "difficulty": ["medium", "hard", "elite"],
+      "format": "XX degrees YY minutes north/south, XX degrees YY minutes east/west",
+      "examples": [
+        { "coords": "12.45N, 34.22E", "location": "desert_oasis", "zone": "scorched_wastes" }
+      ]
+    },
+    "cryptic": {
+      "description": "Solve a cryptic riddle to find a location or NPC",
+      "difficulty": ["all"],
+      "examples": [
+        {
+          "clue": "Where the sun meets the sea at dawn, dig where the first light falls.",
+          "solution": "tidecrest_beach_east",
+          "action": "dig"
+        },
+        {
+          "clue": "The keeper of flames guards ancient knowledge. Seek wisdom from the eternal fire.",
+          "solution": "firemaking_guild_master",
+          "action": "talk"
+        },
+        {
+          "clue": "In the belly of the mountain, where metal is born, search the northern forge.",
+          "solution": "ironhold_forge_north",
+          "action": "search"
+        }
+      ]
+    },
+    "emote": {
+      "description": "Perform an emote at a specific location while wearing specific items",
+      "difficulty": ["medium", "hard", "elite"],
+      "examples": [
+        {
+          "clue": "Dance in the moonlight atop the wizard's tower while wearing mystic robes.",
+          "location": "mages_guild_tower",
+          "emote": "dance",
+          "equipment": ["mystic_robe_top", "mystic_robe_bottom"],
+          "timeRestriction": "night"
+        },
+        {
+          "clue": "Bow before the king while wearing full eternium.",
+          "location": "throne_room",
+          "emote": "bow",
+          "equipment": ["eternium_full_helm", "eternium_platebody", "eternium_platelegs"]
+        }
+      ]
+    },
+    "hotCold": {
+      "description": "Use a strange device to locate buried treasure",
+      "difficulty": ["master"],
+      "device": "strange_device",
+      "temperatures": ["ice_cold", "very_cold", "cold", "warm", "hot", "very_hot", "infernal"],
+      "searchRadius": { "min": 5, "max": 200 }
+    },
+    "map": {
+      "description": "A map showing an X marking the spot",
+      "difficulty": ["beginner", "easy", "medium"],
+      "mapTypes": ["region_map", "local_map", "building_map"],
+      "action": "dig"
+    },
+    "puzzle": {
+      "description": "Solve a puzzle box or other interactive puzzle",
+      "difficulty": ["hard", "elite", "master"],
+      "puzzleTypes": [
+        {
+          "id": "sliding_puzzle",
+          "name": "Puzzle Box",
+          "description": "Rearrange tiles to form an image",
+          "gridSize": { "hard": "3x3", "elite": "4x4", "master": "5x5" }
+        },
+        {
+          "id": "light_puzzle",
+          "name": "Light Box",
+          "description": "Toggle lights to turn them all on/off",
+          "gridSize": "5x5"
+        },
+        {
+          "id": "celtic_knot",
+          "name": "Celtic Knot",
+          "description": "Rotate rings to complete the pattern",
+          "rings": { "elite": 3, "master": 4 }
+        }
+      ]
+    },
+    "scan": {
+      "description": "Use a scan clue to locate the dig spot in an area",
+      "difficulty": ["elite", "master"],
+      "scanRanges": { "elite": 18, "master": 24 },
+      "areas": ["wilderness_volcano", "ancient_cavern", "prismatic_forest"]
+    },
+    "skill_challenge": {
+      "description": "Complete a skill-related challenge",
+      "difficulty": ["hard", "elite", "master"],
+      "examples": [
+        {
+          "clue": "Catch 5 ironjaw fish without leaving the fishing spot.",
+          "skill": "fishing",
+          "requirement": { "fish": "ironjaw", "count": 5, "consecutive": true }
+        },
+        {
+          "clue": "Mine 10 eternium ore in one session.",
+          "skill": "mining",
+          "requirement": { "ore": "eternium_ore", "count": 10 }
+        }
+      ]
+    },
+    "combat_challenge": {
+      "description": "Defeat enemies with specific conditions",
+      "difficulty": ["hard", "elite", "master"],
+      "examples": [
+        {
+          "clue": "Defeat the ancient guardian using only magic.",
+          "enemy": "ancient_guardian",
+          "restriction": "magic_only",
+          "location": "ancient_temple"
+        }
+      ]
+    }
+  },
+  "rewards": {
+    "beginner": {
+      "averageValue": 10000,
+      "rolls": { "min": 1, "max": 2 },
+      "uniqueItems": [
+        { "id": "mole_slippers", "chance": 0.003 },
+        { "id": "rain_boots", "chance": 0.003 }
+      ],
+      "commonRewards": [
+        { "id": "gold_coins", "quantityMin": 500, "quantityMax": 2000, "weight": 50 },
+        { "id": "firelighter", "quantity": 20, "weight": 20 },
+        { "id": "teleport_scroll", "quantity": 5, "weight": 15 }
+      ]
+    },
+    "easy": {
+      "averageValue": 50000,
+      "rolls": { "min": 2, "max": 4 },
+      "uniqueItems": [
+        { "id": "blue_elegant_shirt", "chance": 0.002 },
+        { "id": "blue_elegant_legs", "chance": 0.002 },
+        { "id": "willow_comp_bow", "chance": 0.002 },
+        { "id": "black_pickaxe", "chance": 0.001 },
+        { "id": "cape_of_skulls", "chance": 0.0005 }
+      ],
+      "commonRewards": [
+        { "id": "gold_coins", "quantityMin": 2000, "quantityMax": 10000, "weight": 40 },
+        { "id": "sapphire", "quantity": 3, "weight": 10 },
+        { "id": "emerald", "quantity": 2, "weight": 8 },
+        { "id": "purple_sweets", "quantity": 10, "weight": 5 }
+      ]
+    },
+    "medium": {
+      "averageValue": 150000,
+      "rolls": { "min": 3, "max": 5 },
+      "uniqueItems": [
+        { "id": "ranger_boots", "chance": 0.002 },
+        { "id": "wizard_boots", "chance": 0.002 },
+        { "id": "holy_sandals", "chance": 0.002 },
+        { "id": "climbing_boots_g", "chance": 0.001 },
+        { "id": "clueless_scroll", "chance": 0.001 }
+      ],
+      "commonRewards": [
+        { "id": "gold_coins", "quantityMin": 5000, "quantityMax": 30000, "weight": 35 },
+        { "id": "ruby", "quantity": 3, "weight": 10 },
+        { "id": "diamond", "quantity": 2, "weight": 8 },
+        { "id": "rune_equipment", "weight": 15 }
+      ]
+    },
+    "hard": {
+      "averageValue": 500000,
+      "rolls": { "min": 4, "max": 6 },
+      "uniqueItems": [
+        { "id": "gilded_platebody", "chance": 0.001 },
+        { "id": "gilded_platelegs", "chance": 0.001 },
+        { "id": "gilded_full_helm", "chance": 0.001 },
+        { "id": "third_age_range_top", "chance": 0.00004 },
+        { "id": "third_age_range_legs", "chance": 0.00004 },
+        { "id": "third_age_mage_hat", "chance": 0.00004 },
+        { "id": "robins_hood", "chance": 0.0005 }
+      ],
+      "commonRewards": [
+        { "id": "gold_coins", "quantityMin": 20000, "quantityMax": 100000, "weight": 30 },
+        { "id": "dragonstone", "quantity": 2, "weight": 8 },
+        { "id": "dragon_equipment", "weight": 5 },
+        { "id": "god_page", "weight": 10 }
+      ]
+    },
+    "elite": {
+      "averageValue": 2000000,
+      "rolls": { "min": 4, "max": 7 },
+      "uniqueItems": [
+        { "id": "rangers_tunic", "chance": 0.001 },
+        { "id": "fury_ornament_kit", "chance": 0.0008 },
+        { "id": "dragon_platebody_ornament_kit", "chance": 0.0005 },
+        { "id": "third_age_platebody", "chance": 0.00003 },
+        { "id": "third_age_platelegs", "chance": 0.00003 },
+        { "id": "third_age_kiteshield", "chance": 0.00003 },
+        { "id": "third_age_longsword", "chance": 0.00001 }
+      ],
+      "commonRewards": [
+        { "id": "gold_coins", "quantityMin": 50000, "quantityMax": 300000, "weight": 25 },
+        { "id": "onyx", "quantity": 1, "weight": 5 },
+        { "id": "dragon_equipment", "weight": 8 },
+        { "id": "ancient_shard", "quantity": 5, "weight": 10 }
+      ]
+    },
+    "master": {
+      "averageValue": 10000000,
+      "rolls": { "min": 5, "max": 8 },
+      "uniqueItems": [
+        { "id": "bloodhound_pet", "chance": 0.001 },
+        { "id": "samurai_outfit", "chance": 0.0008 },
+        { "id": "mummy_outfit", "chance": 0.0008 },
+        { "id": "ankou_outfit", "chance": 0.0008 },
+        { "id": "third_age_druidic_robe_top", "chance": 0.00002 },
+        { "id": "third_age_druidic_robe_bottom", "chance": 0.00002 },
+        { "id": "third_age_druidic_staff", "chance": 0.00002 },
+        { "id": "third_age_druidic_cloak", "chance": 0.00002 },
+        { "id": "ring_of_third_age", "chance": 0.000005 }
+      ],
+      "commonRewards": [
+        { "id": "gold_coins", "quantityMin": 100000, "quantityMax": 1000000, "weight": 20 },
+        { "id": "dragon_equipment", "weight": 10 },
+        { "id": "ancient_shard", "quantity": 10, "weight": 8 },
+        { "id": "clue_scroll_elite", "quantity": 1, "weight": 3 }
+      ]
+    }
+  },
+  "milestones": {
+    "description": "Achievement milestones for clue completion",
+    "milestones": [
+      { "clues": 10, "reward": { "id": "clue_hunter_boots", "type": "cosmetic" } },
+      { "clues": 50, "reward": { "id": "clue_hunter_gloves", "type": "cosmetic" } },
+      { "clues": 100, "reward": { "id": "clue_hunter_garb", "type": "cosmetic" } },
+      { "clues": 250, "reward": { "id": "clue_hunter_trousers", "type": "cosmetic" } },
+      { "clues": 500, "reward": { "id": "clue_hunter_cloak", "type": "cosmetic" } },
+      { "clues": 1000, "reward": { "id": "master_clue_hunter_title", "type": "title" } }
+    ],
+    "tierSpecific": {
+      "master_100": { "reward": { "id": "bloodhound_pet_guaranteed", "type": "pet" } }
+    }
+  },
+  "utilities": {
+    "description": "Items that help with treasure trails",
+    "items": [
+      { "id": "clue_box", "description": "Protects one clue from being lost on death", "charges": 1 },
+      { "id": "clue_scroll_holder", "description": "Stores multiple clues in one inventory slot", "capacity": 25 },
+      { "id": "hidey_hole", "description": "Store emote clue equipment near clue locations", "craftingLevel": 77 },
+      { "id": "treasure_trail_teleport", "description": "Teleport directly to common clue locations", "uses": "unlimited" }
+    ]
+  }
+}

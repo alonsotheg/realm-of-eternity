@@ -1,0 +1,1886 @@
+openapi: 3.1.0
+info:
+  title: Realm of Eternity API
+  description: |
+    REST API for Realm of Eternity MMO game services.
+    Provides endpoints for authentication, character management,
+    game data, social features, and administrative functions.
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: api-support@realmofeternity.com
+  license:
+    name: Proprietary
+    identifier: LicenseRef-ROE-Proprietary
+
+servers:
+  - url: https://api.realmofeternity.com/v1
+    description: Production server
+  - url: https://api-staging.realmofeternity.com/v1
+    description: Staging server
+  - url: https://api-dev.realmofeternity.com/v1
+    description: Development server
+
+tags:
+  - name: Authentication
+    description: User authentication and session management
+  - name: Characters
+    description: Character creation and management
+  - name: Inventory
+    description: Player inventory and bank operations
+  - name: Skills
+    description: Skill progression and experience
+  - name: Quests
+    description: Quest progress and rewards
+  - name: Combat
+    description: Combat stats and loadouts
+  - name: Grand Exchange
+    description: Player marketplace operations
+  - name: Social
+    description: Friends, clans, and chat
+  - name: Highscores
+    description: Leaderboards and rankings
+  - name: Game Data
+    description: Static game data and configurations
+  - name: Admin
+    description: Administrative operations
+
+security:
+  - BearerAuth: []
+  - ApiKeyAuth: []
+
+paths:
+  # Authentication Endpoints
+  /auth/register:
+    post:
+      tags: [Authentication]
+      summary: Register a new account
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          description: Username or email already exists
+
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: Authenticate and receive tokens
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+
+  /auth/refresh:
+    post:
+      tags: [Authentication]
+      summary: Refresh access token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refresh_token]
+              properties:
+                refresh_token:
+                  type: string
+      responses:
+        '200':
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/logout:
+    post:
+      tags: [Authentication]
+      summary: Invalidate current session
+      responses:
+        '204':
+          description: Logged out successfully
+
+  /auth/mfa/enable:
+    post:
+      tags: [Authentication]
+      summary: Enable two-factor authentication
+      responses:
+        '200':
+          description: MFA setup initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  secret:
+                    type: string
+                  qr_code_url:
+                    type: string
+                    format: uri
+
+  /auth/mfa/verify:
+    post:
+      tags: [Authentication]
+      summary: Verify MFA code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code:
+                  type: string
+                  pattern: '^\d{6}$'
+      responses:
+        '200':
+          description: MFA verified
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # Character Endpoints
+  /characters:
+    get:
+      tags: [Characters]
+      summary: List all characters for account
+      responses:
+        '200':
+          description: Character list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CharacterSummary'
+    post:
+      tags: [Characters]
+      summary: Create a new character
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCharacterRequest'
+      responses:
+        '201':
+          description: Character created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Character'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          description: Character name already taken
+
+  /characters/{characterId}:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Characters]
+      summary: Get character details
+      responses:
+        '200':
+          description: Character details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Character'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags: [Characters]
+      summary: Delete a character
+      responses:
+        '204':
+          description: Character deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /characters/{characterId}/appearance:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    put:
+      tags: [Characters]
+      summary: Update character appearance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CharacterAppearance'
+      responses:
+        '200':
+          description: Appearance updated
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  # Inventory Endpoints
+  /characters/{characterId}/inventory:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Inventory]
+      summary: Get character inventory
+      responses:
+        '200':
+          description: Inventory contents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+
+  /characters/{characterId}/bank:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Inventory]
+      summary: Get bank contents
+      parameters:
+        - name: tab
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 9
+      responses:
+        '200':
+          description: Bank contents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bank'
+
+  /characters/{characterId}/equipment:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Inventory]
+      summary: Get equipped items
+      responses:
+        '200':
+          description: Equipment loadout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipment'
+    put:
+      tags: [Inventory]
+      summary: Update equipment loadout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipmentUpdate'
+      responses:
+        '200':
+          description: Equipment updated
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  # Skills Endpoints
+  /characters/{characterId}/skills:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Skills]
+      summary: Get all skill levels and XP
+      responses:
+        '200':
+          description: Skill data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skills'
+
+  /characters/{characterId}/skills/{skillName}:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      - name: skillName
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/SkillName'
+    get:
+      tags: [Skills]
+      summary: Get specific skill details
+      responses:
+        '200':
+          description: Skill details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillDetail'
+
+  # Quest Endpoints
+  /characters/{characterId}/quests:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Quests]
+      summary: Get quest progress
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [not_started, in_progress, completed]
+      responses:
+        '200':
+          description: Quest list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuestProgress'
+
+  /characters/{characterId}/quests/{questId}:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      - name: questId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [Quests]
+      summary: Get specific quest details
+      responses:
+        '200':
+          description: Quest details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestDetail'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  # Combat Endpoints
+  /characters/{characterId}/combat/stats:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Combat]
+      summary: Get combat statistics
+      responses:
+        '200':
+          description: Combat stats
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombatStats'
+
+  /characters/{characterId}/combat/abilities:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Combat]
+      summary: Get unlocked abilities
+      responses:
+        '200':
+          description: Ability list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ability'
+
+  /characters/{characterId}/combat/action-bar:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Combat]
+      summary: Get action bar configuration
+      responses:
+        '200':
+          description: Action bar layout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionBar'
+    put:
+      tags: [Combat]
+      summary: Update action bar configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionBar'
+      responses:
+        '200':
+          description: Action bar updated
+
+  /characters/{characterId}/slayer:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Combat]
+      summary: Get current slayer task
+      responses:
+        '200':
+          description: Slayer task details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlayerTask'
+
+  # Grand Exchange Endpoints
+  /ge/prices:
+    get:
+      tags: [Grand Exchange]
+      summary: Get item prices
+      security: []
+      parameters:
+        - name: item_ids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Price data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemPrice'
+
+  /ge/prices/{itemId}/history:
+    parameters:
+      - name: itemId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [Grand Exchange]
+      summary: Get price history for item
+      security: []
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [day, week, month, year]
+            default: week
+      responses:
+        '200':
+          description: Price history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceHistory'
+
+  /characters/{characterId}/ge/offers:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Grand Exchange]
+      summary: Get active GE offers
+      responses:
+        '200':
+          description: Active offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GEOffer'
+    post:
+      tags: [Grand Exchange]
+      summary: Create a new GE offer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGEOffer'
+      responses:
+        '201':
+          description: Offer created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GEOffer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '402':
+          description: Insufficient funds or items
+
+  /characters/{characterId}/ge/offers/{offerId}:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      - name: offerId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    delete:
+      tags: [Grand Exchange]
+      summary: Cancel a GE offer
+      responses:
+        '204':
+          description: Offer cancelled
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /characters/{characterId}/ge/history:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Grand Exchange]
+      summary: Get GE transaction history
+      parameters:
+        - $ref: '#/components/parameters/Pagination'
+      responses:
+        '200':
+          description: Transaction history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GEHistory'
+
+  # Social Endpoints
+  /characters/{characterId}/friends:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Social]
+      summary: Get friends list
+      responses:
+        '200':
+          description: Friends list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Friend'
+    post:
+      tags: [Social]
+      summary: Add a friend
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [character_name]
+              properties:
+                character_name:
+                  type: string
+      responses:
+        '201':
+          description: Friend added
+        '404':
+          description: Character not found
+        '409':
+          description: Already friends
+
+  /characters/{characterId}/friends/{friendId}:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      - name: friendId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    delete:
+      tags: [Social]
+      summary: Remove a friend
+      responses:
+        '204':
+          description: Friend removed
+
+  /characters/{characterId}/ignore:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Social]
+      summary: Get ignore list
+      responses:
+        '200':
+          description: Ignore list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IgnoredPlayer'
+
+  /clans:
+    get:
+      tags: [Social]
+      summary: Search clans
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Pagination'
+      responses:
+        '200':
+          description: Clan list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClanSummary'
+    post:
+      tags: [Social]
+      summary: Create a clan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClanRequest'
+      responses:
+        '201':
+          description: Clan created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Clan'
+
+  /clans/{clanId}:
+    parameters:
+      - name: clanId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags: [Social]
+      summary: Get clan details
+      responses:
+        '200':
+          description: Clan details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Clan'
+
+  /clans/{clanId}/members:
+    parameters:
+      - name: clanId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags: [Social]
+      summary: Get clan members
+      responses:
+        '200':
+          description: Member list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClanMember'
+
+  # Highscores Endpoints
+  /highscores/overall:
+    get:
+      tags: [Highscores]
+      summary: Get overall highscores
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/Pagination'
+      responses:
+        '200':
+          description: Highscore list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HighscoreList'
+
+  /highscores/skills/{skillName}:
+    parameters:
+      - name: skillName
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/SkillName'
+    get:
+      tags: [Highscores]
+      summary: Get skill highscores
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/Pagination'
+      responses:
+        '200':
+          description: Skill highscores
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HighscoreList'
+
+  /highscores/bosses/{bossId}:
+    parameters:
+      - name: bossId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [Highscores]
+      summary: Get boss kill count highscores
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/Pagination'
+      responses:
+        '200':
+          description: Boss highscores
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HighscoreList'
+
+  /highscores/player/{characterName}:
+    parameters:
+      - name: characterName
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [Highscores]
+      summary: Get player's highscore rankings
+      security: []
+      responses:
+        '200':
+          description: Player rankings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerRankings'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  # Game Data Endpoints
+  /data/items:
+    get:
+      tags: [Game Data]
+      summary: Get item database
+      security: []
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Pagination'
+      responses:
+        '200':
+          description: Item list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemData'
+
+  /data/items/{itemId}:
+    parameters:
+      - name: itemId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [Game Data]
+      summary: Get item details
+      security: []
+      responses:
+        '200':
+          description: Item details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemData'
+
+  /data/npcs:
+    get:
+      tags: [Game Data]
+      summary: Get NPC database
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/Pagination'
+      responses:
+        '200':
+          description: NPC list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NPCData'
+
+  /data/quests:
+    get:
+      tags: [Game Data]
+      summary: Get quest database
+      security: []
+      responses:
+        '200':
+          description: Quest list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuestData'
+
+  /data/achievements:
+    get:
+      tags: [Game Data]
+      summary: Get achievement database
+      security: []
+      responses:
+        '200':
+          description: Achievement list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AchievementData'
+
+  # Admin Endpoints
+  /admin/players/{characterId}/ban:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    post:
+      tags: [Admin]
+      summary: Ban a player
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BanRequest'
+      responses:
+        '200':
+          description: Player banned
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /admin/players/{characterId}/mute:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    post:
+      tags: [Admin]
+      summary: Mute a player
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MuteRequest'
+      responses:
+        '200':
+          description: Player muted
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /admin/broadcast:
+    post:
+      tags: [Admin]
+      summary: Send server-wide broadcast
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+                  maxLength: 500
+                type:
+                  type: string
+                  enum: [info, warning, maintenance]
+      responses:
+        '200':
+          description: Broadcast sent
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /admin/economy/report:
+    get:
+      tags: [Admin]
+      summary: Get economy health report
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Economy report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EconomyReport'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  # Health Check
+  /health:
+    get:
+      tags: [System]
+      summary: Health check endpoint
+      security: []
+      responses:
+        '200':
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [healthy, degraded, unhealthy]
+                  version:
+                    type: string
+                  uptime:
+                    type: integer
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  parameters:
+    CharacterId:
+      name: characterId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    Pagination:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+
+  schemas:
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+
+    RegisterRequest:
+      type: object
+      required: [username, email, password]
+      properties:
+        username:
+          type: string
+          minLength: 3
+          maxLength: 20
+          pattern: '^[a-zA-Z0-9_]+$'
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+          maxLength: 128
+        date_of_birth:
+          type: string
+          format: date
+
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        mfa_code:
+          type: string
+          pattern: '^\d{6}$'
+
+    AuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        expires_in:
+          type: integer
+        token_type:
+          type: string
+          default: Bearer
+
+    CharacterSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        total_level:
+          type: integer
+        combat_level:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        last_login:
+          type: string
+          format: date-time
+
+    Character:
+      allOf:
+        - $ref: '#/components/schemas/CharacterSummary'
+        - type: object
+          properties:
+            appearance:
+              $ref: '#/components/schemas/CharacterAppearance'
+            location:
+              type: object
+              properties:
+                region:
+                  type: string
+                x:
+                  type: number
+                y:
+                  type: number
+                z:
+                  type: number
+            play_time_minutes:
+              type: integer
+            quest_points:
+              type: integer
+            achievement_points:
+              type: integer
+
+    CreateCharacterRequest:
+      type: object
+      required: [name, appearance]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 12
+          pattern: '^[a-zA-Z0-9_ ]+$'
+        appearance:
+          $ref: '#/components/schemas/CharacterAppearance'
+        game_mode:
+          type: string
+          enum: [normal, ironman, hardcore_ironman, ultimate_ironman]
+          default: normal
+
+    CharacterAppearance:
+      type: object
+      properties:
+        gender:
+          type: string
+          enum: [male, female]
+        skin_color:
+          type: integer
+        hair_style:
+          type: integer
+        hair_color:
+          type: integer
+        facial_hair:
+          type: integer
+        torso:
+          type: integer
+        legs:
+          type: integer
+
+    Inventory:
+      type: object
+      properties:
+        slots:
+          type: array
+          maxItems: 28
+          items:
+            $ref: '#/components/schemas/InventorySlot'
+        gold:
+          type: integer
+          format: int64
+
+    InventorySlot:
+      type: object
+      properties:
+        slot:
+          type: integer
+          minimum: 0
+          maximum: 27
+        item_id:
+          type: string
+        quantity:
+          type: integer
+          minimum: 1
+
+    Bank:
+      type: object
+      properties:
+        capacity:
+          type: integer
+        used:
+          type: integer
+        tabs:
+          type: array
+          items:
+            type: object
+            properties:
+              tab_id:
+                type: integer
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BankItem'
+
+    BankItem:
+      type: object
+      properties:
+        item_id:
+          type: string
+        quantity:
+          type: integer
+          format: int64
+        placeholder:
+          type: boolean
+
+    Equipment:
+      type: object
+      properties:
+        head:
+          $ref: '#/components/schemas/EquippedItem'
+        cape:
+          $ref: '#/components/schemas/EquippedItem'
+        neck:
+          $ref: '#/components/schemas/EquippedItem'
+        main_hand:
+          $ref: '#/components/schemas/EquippedItem'
+        off_hand:
+          $ref: '#/components/schemas/EquippedItem'
+        body:
+          $ref: '#/components/schemas/EquippedItem'
+        legs:
+          $ref: '#/components/schemas/EquippedItem'
+        hands:
+          $ref: '#/components/schemas/EquippedItem'
+        feet:
+          $ref: '#/components/schemas/EquippedItem'
+        ring:
+          $ref: '#/components/schemas/EquippedItem'
+        ammo:
+          $ref: '#/components/schemas/EquippedItem'
+        pocket:
+          $ref: '#/components/schemas/EquippedItem'
+        aura:
+          $ref: '#/components/schemas/EquippedItem'
+
+    EquippedItem:
+      type: object
+      properties:
+        item_id:
+          type: string
+        charges:
+          type: integer
+        augmented:
+          type: boolean
+        perks:
+          type: array
+          items:
+            type: string
+
+    EquipmentUpdate:
+      type: object
+      properties:
+        slot:
+          type: string
+        item_id:
+          type: string
+
+    SkillName:
+      type: string
+      enum:
+        - attack
+        - strength
+        - defence
+        - ranged
+        - prayer
+        - magic
+        - hitpoints
+        - crafting
+        - mining
+        - smithing
+        - fishing
+        - cooking
+        - firemaking
+        - woodcutting
+        - runecrafting
+        - slayer
+        - farming
+        - construction
+        - hunter
+        - summoning
+        - dungeoneering
+        - divination
+        - invention
+        - archaeology
+        - agility
+        - herblore
+        - thieving
+        - fletching
+
+    Skills:
+      type: object
+      properties:
+        total_level:
+          type: integer
+        total_xp:
+          type: integer
+          format: int64
+        skills:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SkillDetail'
+
+    SkillDetail:
+      type: object
+      properties:
+        level:
+          type: integer
+          minimum: 1
+          maximum: 120
+        xp:
+          type: integer
+          format: int64
+        xp_to_next_level:
+          type: integer
+        rank:
+          type: integer
+        virtual_level:
+          type: integer
+
+    QuestProgress:
+      type: object
+      properties:
+        quest_id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum: [not_started, in_progress, completed]
+        current_stage:
+          type: integer
+        completed_at:
+          type: string
+          format: date-time
+
+    QuestDetail:
+      allOf:
+        - $ref: '#/components/schemas/QuestProgress'
+        - type: object
+          properties:
+            description:
+              type: string
+            difficulty:
+              type: string
+            quest_points:
+              type: integer
+            requirements:
+              type: object
+            objectives:
+              type: array
+              items:
+                type: object
+                properties:
+                  description:
+                    type: string
+                  completed:
+                    type: boolean
+
+    CombatStats:
+      type: object
+      properties:
+        combat_level:
+          type: integer
+        max_hit_melee:
+          type: integer
+        max_hit_ranged:
+          type: integer
+        max_hit_magic:
+          type: integer
+        accuracy_melee:
+          type: number
+        accuracy_ranged:
+          type: number
+        accuracy_magic:
+          type: number
+        armor_rating:
+          type: integer
+        life_points:
+          type: integer
+        prayer_points:
+          type: integer
+        boss_kills:
+          type: object
+          additionalProperties:
+            type: integer
+
+    Ability:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [basic, threshold, ultimate, special]
+        combat_style:
+          type: string
+          enum: [melee, ranged, magic, defence, constitution]
+        cooldown:
+          type: number
+        damage_modifier:
+          type: number
+        unlocked:
+          type: boolean
+
+    ActionBar:
+      type: object
+      properties:
+        bars:
+          type: array
+          maxItems: 5
+          items:
+            type: object
+            properties:
+              bar_id:
+                type: integer
+              slots:
+                type: array
+                maxItems: 14
+                items:
+                  type: object
+                  properties:
+                    slot:
+                      type: integer
+                    ability_id:
+                      type: string
+                    item_id:
+                      type: string
+                    prayer_id:
+                      type: string
+
+    SlayerTask:
+      type: object
+      properties:
+        monster:
+          type: string
+        amount_remaining:
+          type: integer
+        amount_total:
+          type: integer
+        master:
+          type: string
+        location_hint:
+          type: string
+        streak:
+          type: integer
+        points:
+          type: integer
+
+    ItemPrice:
+      type: object
+      properties:
+        item_id:
+          type: string
+        name:
+          type: string
+        current_price:
+          type: integer
+        price_change_24h:
+          type: number
+        volume_24h:
+          type: integer
+        high_alch:
+          type: integer
+        low_alch:
+          type: integer
+
+    PriceHistory:
+      type: object
+      properties:
+        item_id:
+          type: string
+        data_points:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              price:
+                type: integer
+              volume:
+                type: integer
+
+    GEOffer:
+      type: object
+      properties:
+        offer_id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum: [buy, sell]
+        item_id:
+          type: string
+        quantity:
+          type: integer
+        price_each:
+          type: integer
+        quantity_filled:
+          type: integer
+        status:
+          type: string
+          enum: [active, completed, cancelled, partially_filled]
+        created_at:
+          type: string
+          format: date-time
+
+    CreateGEOffer:
+      type: object
+      required: [type, item_id, quantity, price_each]
+      properties:
+        type:
+          type: string
+          enum: [buy, sell]
+        item_id:
+          type: string
+        quantity:
+          type: integer
+          minimum: 1
+        price_each:
+          type: integer
+          minimum: 1
+
+    GEHistory:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            type: object
+            properties:
+              transaction_id:
+                type: string
+                format: uuid
+              type:
+                type: string
+                enum: [buy, sell]
+              item_id:
+                type: string
+              quantity:
+                type: integer
+              price_each:
+                type: integer
+              total:
+                type: integer
+              completed_at:
+                type: string
+                format: date-time
+
+    Friend:
+      type: object
+      properties:
+        character_id:
+          type: string
+          format: uuid
+        character_name:
+          type: string
+        online:
+          type: boolean
+        world:
+          type: integer
+        location:
+          type: string
+        added_at:
+          type: string
+          format: date-time
+
+    IgnoredPlayer:
+      type: object
+      properties:
+        character_id:
+          type: string
+          format: uuid
+        character_name:
+          type: string
+        added_at:
+          type: string
+          format: date-time
+
+    ClanSummary:
+      type: object
+      properties:
+        clan_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        member_count:
+          type: integer
+        citadel_tier:
+          type: integer
+
+    Clan:
+      allOf:
+        - $ref: '#/components/schemas/ClanSummary'
+        - type: object
+          properties:
+            description:
+              type: string
+            created_at:
+              type: string
+              format: date-time
+            leader:
+              type: string
+            total_xp:
+              type: integer
+              format: int64
+            settings:
+              type: object
+
+    ClanMember:
+      type: object
+      properties:
+        character_id:
+          type: string
+          format: uuid
+        character_name:
+          type: string
+        rank:
+          type: string
+        joined_at:
+          type: string
+          format: date-time
+        xp_contributed:
+          type: integer
+          format: int64
+        online:
+          type: boolean
+
+    CreateClanRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 20
+        description:
+          type: string
+          maxLength: 500
+
+    HighscoreList:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        page:
+          type: integer
+        entries:
+          type: array
+          items:
+            type: object
+            properties:
+              rank:
+                type: integer
+              character_name:
+                type: string
+              value:
+                type: integer
+                format: int64
+
+    PlayerRankings:
+      type: object
+      properties:
+        character_name:
+          type: string
+        overall_rank:
+          type: integer
+        overall_xp:
+          type: integer
+          format: int64
+        skill_ranks:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              rank:
+                type: integer
+              level:
+                type: integer
+              xp:
+                type: integer
+                format: int64
+        boss_ranks:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              rank:
+                type: integer
+              kills:
+                type: integer
+
+    ItemData:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        tradeable:
+          type: boolean
+        stackable:
+          type: boolean
+        members:
+          type: boolean
+        equipment_slot:
+          type: string
+        stats:
+          type: object
+        requirements:
+          type: object
+
+    NPCData:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        combat_level:
+          type: integer
+        hitpoints:
+          type: integer
+        attack_style:
+          type: string
+        weakness:
+          type: string
+        locations:
+          type: array
+          items:
+            type: string
+        drops:
+          type: array
+          items:
+            type: object
+
+    QuestData:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        difficulty:
+          type: string
+        length:
+          type: string
+        quest_points:
+          type: integer
+        requirements:
+          type: object
+        rewards:
+          type: object
+
+    AchievementData:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        points:
+          type: integer
+        requirements:
+          type: object
+
+    BanRequest:
+      type: object
+      required: [reason, duration_hours]
+      properties:
+        reason:
+          type: string
+        duration_hours:
+          type: integer
+          minimum: 1
+        permanent:
+          type: boolean
+          default: false
+
+    MuteRequest:
+      type: object
+      required: [reason, duration_hours]
+      properties:
+        reason:
+          type: string
+        duration_hours:
+          type: integer
+          minimum: 1
+
+    EconomyReport:
+      type: object
+      properties:
+        total_gold_supply:
+          type: integer
+          format: int64
+        gold_sinks_24h:
+          type: integer
+          format: int64
+        gold_faucets_24h:
+          type: integer
+          format: int64
+        active_ge_offers:
+          type: integer
+        top_traded_items:
+          type: array
+          items:
+            type: object
+            properties:
+              item_id:
+                type: string
+              volume:
+                type: integer
+              total_value:
+                type: integer
+                format: int64
+        inflation_index:
+          type: number

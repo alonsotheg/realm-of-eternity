@@ -1,0 +1,1191 @@
+{
+  "documentInfo": {
+    "title": "Realm of Eternity - UE5 Audio & Sound Specification",
+    "version": "1.0.0",
+    "game": "Realm of Eternity",
+    "engine": "Unreal Engine 5",
+    "audioMiddleware": "MetaSounds / Wwise (optional)",
+    "lastUpdated": "2026-01-07"
+  },
+
+  "audioArchitecture": {
+    "overview": "Comprehensive audio system using UE5 MetaSounds with optional Wwise integration for advanced features",
+
+    "namingConventions": {
+      "music": "MUS_{Zone/Context}_{Variant}",
+      "ambience": "AMB_{Zone}_{Layer}",
+      "sfx": "SFX_{Category}_{Action}_{Variant}",
+      "voice": "VO_{Character}_{Context}_{Line}",
+      "ui": "UI_{Element}_{Action}",
+      "examples": [
+        "MUS_Kingshold_Day",
+        "AMB_Forest_Birds",
+        "SFX_Combat_Sword_Hit_01",
+        "VO_Aldric_Greeting_01",
+        "UI_Button_Click"
+      ]
+    },
+
+    "audioChannels": {
+      "master": {
+        "name": "Master",
+        "defaultVolume": 1.0,
+        "children": ["music", "sfx", "voice", "ambient", "ui"]
+      },
+      "music": {
+        "name": "Music",
+        "defaultVolume": 0.7,
+        "ducking": { "trigger": "dialogue", "amount": 0.4 }
+      },
+      "sfx": {
+        "name": "Sound Effects",
+        "defaultVolume": 0.8,
+        "subcategories": ["combat", "skills", "environment", "footsteps", "impacts"]
+      },
+      "voice": {
+        "name": "Voice/Dialogue",
+        "defaultVolume": 1.0,
+        "priority": "high"
+      },
+      "ambient": {
+        "name": "Ambient",
+        "defaultVolume": 0.6,
+        "subcategories": ["environment", "weather", "creatures"]
+      },
+      "ui": {
+        "name": "UI",
+        "defaultVolume": 0.5,
+        "nonPositional": true
+      }
+    },
+
+    "technicalSpecs": {
+      "sampleRate": 48000,
+      "bitDepth": 16,
+      "format": "OGG Vorbis",
+      "musicFormat": "OGG Vorbis (streaming)",
+      "maxConcurrentSounds": 64,
+      "virtualVoices": 128,
+      "attenuationModel": "logarithmic",
+      "defaultAttenuationRadius": {
+        "min": 100,
+        "max": 3000
+      }
+    }
+  },
+
+  "musicSystem": {
+    "overview": "Dynamic music system with seamless transitions based on game state and location",
+
+    "musicStates": {
+      "exploration": {
+        "description": "Default state when exploring the world",
+        "layers": ["melody", "harmony", "percussion_light"],
+        "intensity": 0.5,
+        "transitionTime": 3.0
+      },
+      "combat": {
+        "description": "Triggered when entering combat",
+        "layers": ["melody_intense", "harmony", "percussion_heavy", "brass"],
+        "intensity": 1.0,
+        "transitionTime": 1.0,
+        "exitDelay": 5.0
+      },
+      "boss": {
+        "description": "Special music for boss encounters",
+        "layers": ["full_orchestra", "choir"],
+        "intensity": 1.0,
+        "transitionTime": 0.5,
+        "phaseTransitions": true
+      },
+      "stealth": {
+        "description": "Subterfuge skill active",
+        "layers": ["melody_tense", "percussion_minimal"],
+        "intensity": 0.3,
+        "transitionTime": 2.0
+      },
+      "death": {
+        "description": "Player death",
+        "oneShot": true,
+        "fadeOutOther": true
+      },
+      "victory": {
+        "description": "Quest complete or boss defeated",
+        "oneShot": true,
+        "duration": 8
+      }
+    },
+
+    "zoneMusic": {
+      "cities": [
+        {
+          "zone": "kingshold",
+          "theme": "MUS_Kingshold",
+          "variants": {
+            "day": { "tempo": 100, "mood": "majestic", "instruments": ["strings", "brass", "harp"] },
+            "night": { "tempo": 80, "mood": "peaceful", "instruments": ["strings", "harp", "flute"] },
+            "market": { "tempo": 110, "mood": "lively", "instruments": ["strings", "percussion", "lute"] }
+          },
+          "combatTransition": "MUS_Kingshold_Combat"
+        },
+        {
+          "zone": "whiteguard",
+          "theme": "MUS_Whiteguard",
+          "variants": {
+            "day": { "tempo": 90, "mood": "noble", "instruments": ["strings", "brass", "organ"] },
+            "night": { "tempo": 70, "mood": "solemn", "instruments": ["organ", "choir_soft"] }
+          }
+        },
+        {
+          "zone": "frostharbor",
+          "theme": "MUS_Frostharbor",
+          "variants": {
+            "day": { "tempo": 85, "mood": "hardy", "instruments": ["strings", "horn", "drums"] },
+            "night": { "tempo": 65, "mood": "cold", "instruments": ["strings", "wind", "chimes"] }
+          }
+        },
+        {
+          "zone": "tidecrest",
+          "theme": "MUS_Tidecrest",
+          "variants": {
+            "day": { "tempo": 95, "mood": "nautical", "instruments": ["accordion", "fiddle", "shanty"] },
+            "night": { "tempo": 75, "mood": "mysterious", "instruments": ["strings", "waves", "bells"] }
+          }
+        }
+      ],
+
+      "wilderness": [
+        {
+          "zone": "eldergrove",
+          "theme": "MUS_Eldergrove",
+          "mood": "mystical",
+          "instruments": ["woodwinds", "harp", "nature_sounds"],
+          "tempo": 75,
+          "combatTransition": "MUS_Forest_Combat"
+        },
+        {
+          "zone": "shadowfen",
+          "theme": "MUS_Shadowfen",
+          "mood": "ominous",
+          "instruments": ["low_strings", "distant_drums", "eerie_pads"],
+          "tempo": 60,
+          "combatTransition": "MUS_Swamp_Combat"
+        },
+        {
+          "zone": "scorchlands",
+          "theme": "MUS_Scorchlands",
+          "mood": "desolate",
+          "instruments": ["middle_eastern", "percussion", "drone"],
+          "tempo": 70,
+          "combatTransition": "MUS_Desert_Combat"
+        },
+        {
+          "zone": "ashridge_peaks",
+          "theme": "MUS_AshridgePeaks",
+          "mood": "dangerous",
+          "instruments": ["brass", "timpani", "low_choir"],
+          "tempo": 80,
+          "combatTransition": "MUS_Volcanic_Combat"
+        },
+        {
+          "zone": "glacial_wastes",
+          "theme": "MUS_GlacialWastes",
+          "mood": "isolated",
+          "instruments": ["ethereal_pads", "wind", "sparse_piano"],
+          "tempo": 55,
+          "combatTransition": "MUS_Tundra_Combat"
+        },
+        {
+          "zone": "ironpeak_mountains",
+          "theme": "MUS_IronpeakMountains",
+          "mood": "epic",
+          "instruments": ["full_orchestra", "choir", "horns"],
+          "tempo": 85,
+          "combatTransition": "MUS_Mountain_Combat"
+        }
+      ],
+
+      "dungeons": [
+        {
+          "type": "cave",
+          "theme": "MUS_Dungeon_Cave",
+          "mood": "tense",
+          "instruments": ["ambient_drone", "sparse_percussion", "drips"],
+          "tempo": 50,
+          "echo": true
+        },
+        {
+          "type": "crypt",
+          "theme": "MUS_Dungeon_Crypt",
+          "mood": "dread",
+          "instruments": ["organ", "choir_whisper", "chains"],
+          "tempo": 45,
+          "reverb": "large_hall"
+        },
+        {
+          "type": "temple",
+          "theme": "MUS_Dungeon_Temple",
+          "mood": "ancient",
+          "instruments": ["ethnic_instruments", "chanting", "bells"],
+          "tempo": 60
+        },
+        {
+          "type": "fortress",
+          "theme": "MUS_Dungeon_Fortress",
+          "mood": "military",
+          "instruments": ["brass", "war_drums", "tension_strings"],
+          "tempo": 70
+        },
+        {
+          "type": "volcanic",
+          "theme": "MUS_Dungeon_Volcanic",
+          "mood": "infernal",
+          "instruments": ["distorted_brass", "heavy_percussion", "fire_crackle"],
+          "tempo": 90
+        }
+      ],
+
+      "bosses": [
+        {
+          "boss": "scorath_the_eternal",
+          "theme": "MUS_Boss_Scorath",
+          "phases": [
+            { "phase": 1, "mood": "intimidating", "tempo": 100 },
+            { "phase": 2, "mood": "frantic", "tempo": 130, "addChoir": true },
+            { "phase": 3, "mood": "desperate", "tempo": 150, "fullOrchestra": true }
+          ],
+          "victoryStinger": "MUS_Boss_Victory_Epic"
+        },
+        {
+          "boss": "voidfiend_lord",
+          "theme": "MUS_Boss_VoidfiendLord",
+          "phases": [
+            { "phase": 1, "mood": "dark", "tempo": 90 },
+            { "phase": 2, "mood": "chaotic", "tempo": 120, "distortion": true }
+          ]
+        },
+        {
+          "boss": "frost_queen",
+          "theme": "MUS_Boss_FrostQueen",
+          "phases": [
+            { "phase": 1, "mood": "cold_elegance", "tempo": 85 },
+            { "phase": 2, "mood": "blizzard_fury", "tempo": 140 }
+          ]
+        }
+      ]
+    },
+
+    "musicTransitions": {
+      "crossfade": {
+        "defaultDuration": 3.0,
+        "combatEnter": 1.0,
+        "combatExit": 5.0,
+        "zoneChange": 4.0
+      },
+      "stingers": {
+        "questAccept": { "duration": 2, "file": "MUS_Stinger_QuestAccept" },
+        "questComplete": { "duration": 4, "file": "MUS_Stinger_QuestComplete" },
+        "levelUp": { "duration": 3, "file": "MUS_Stinger_LevelUp" },
+        "skillMilestone": { "duration": 2, "file": "MUS_Stinger_SkillUp" },
+        "rareItemDrop": { "duration": 2, "file": "MUS_Stinger_RareDrop" },
+        "achievementUnlock": { "duration": 3, "file": "MUS_Stinger_Achievement" },
+        "death": { "duration": 4, "file": "MUS_Stinger_Death" },
+        "discovery": { "duration": 2, "file": "MUS_Stinger_Discovery" }
+      }
+    },
+
+    "adaptiveMusic": {
+      "enabled": true,
+      "parameters": [
+        { "name": "combatIntensity", "range": [0, 1], "affectsLayers": ["percussion", "brass"] },
+        { "name": "healthPercent", "range": [0, 1], "affectsLayers": ["tension"] },
+        { "name": "timeOfDay", "range": [0, 24], "affectsVariant": true },
+        { "name": "weatherIntensity", "range": [0, 1], "affectsLayers": ["ambient"] }
+      ]
+    }
+  },
+
+  "ambienceSystem": {
+    "overview": "Layered ambient soundscapes that react to environment and time",
+
+    "ambienceLayers": {
+      "description": "Multiple layers combine to create rich soundscapes",
+      "layers": [
+        { "name": "base", "description": "Constant background tone", "volume": 0.3 },
+        { "name": "nature", "description": "Birds, insects, wind", "volume": 0.5 },
+        { "name": "weather", "description": "Rain, thunder, wind gusts", "volume": 0.7 },
+        { "name": "activity", "description": "NPCs, distant sounds", "volume": 0.4 },
+        { "name": "oneshots", "description": "Random occasional sounds", "volume": 0.6 }
+      ]
+    },
+
+    "zoneAmbience": {
+      "forest": {
+        "base": "AMB_Forest_Base",
+        "layers": {
+          "day": ["AMB_Forest_Birds", "AMB_Forest_Wind_Leaves", "AMB_Forest_Insects"],
+          "night": ["AMB_Forest_Owls", "AMB_Forest_Crickets", "AMB_Forest_Wind_Night"]
+        },
+        "oneshots": {
+          "day": ["AMB_OS_Bird_Call", "AMB_OS_Branch_Crack", "AMB_OS_Animal_Rustle"],
+          "night": ["AMB_OS_Wolf_Howl", "AMB_OS_Owl_Hoot", "AMB_OS_Night_Creature"]
+        },
+        "oneshotFrequency": { "min": 10, "max": 30 }
+      },
+
+      "swamp": {
+        "base": "AMB_Swamp_Base",
+        "layers": {
+          "day": ["AMB_Swamp_Frogs", "AMB_Swamp_Insects_Heavy", "AMB_Swamp_Bubbles"],
+          "night": ["AMB_Swamp_Frogs_Night", "AMB_Swamp_Insects_Night", "AMB_Swamp_Eerie"]
+        },
+        "oneshots": {
+          "all": ["AMB_OS_Splash", "AMB_OS_Gas_Escape", "AMB_OS_Creature_Cry"]
+        }
+      },
+
+      "desert": {
+        "base": "AMB_Desert_Base",
+        "layers": {
+          "day": ["AMB_Desert_Wind", "AMB_Desert_Sand_Shift", "AMB_Desert_Heat_Haze"],
+          "night": ["AMB_Desert_Wind_Night", "AMB_Desert_Cold", "AMB_Desert_Distant_Howl"]
+        },
+        "oneshots": {
+          "day": ["AMB_OS_Hawk_Cry", "AMB_OS_Sand_Slide", "AMB_OS_Scorpion_Rattle"],
+          "night": ["AMB_OS_Coyote_Howl", "AMB_OS_Snake_Rattle"]
+        }
+      },
+
+      "mountain": {
+        "base": "AMB_Mountain_Base",
+        "layers": {
+          "day": ["AMB_Mountain_Wind", "AMB_Mountain_Echo", "AMB_Mountain_Birds_High"],
+          "night": ["AMB_Mountain_Wind_Night", "AMB_Mountain_Silence"]
+        },
+        "oneshots": {
+          "all": ["AMB_OS_Rock_Fall", "AMB_OS_Eagle_Cry", "AMB_OS_Distant_Thunder"]
+        }
+      },
+
+      "tundra": {
+        "base": "AMB_Tundra_Base",
+        "layers": {
+          "day": ["AMB_Tundra_Wind", "AMB_Tundra_Ice_Creak", "AMB_Tundra_Snow_Drift"],
+          "night": ["AMB_Tundra_Wind_Howl", "AMB_Tundra_Aurora_Hum"]
+        },
+        "oneshots": {
+          "all": ["AMB_OS_Ice_Crack", "AMB_OS_Avalanche_Distant", "AMB_OS_Wolf_Pack"]
+        }
+      },
+
+      "volcanic": {
+        "base": "AMB_Volcanic_Base",
+        "layers": {
+          "all": ["AMB_Volcanic_Rumble", "AMB_Volcanic_Lava_Flow", "AMB_Volcanic_Steam_Vents", "AMB_Volcanic_Fire_Crackle"]
+        },
+        "oneshots": {
+          "all": ["AMB_OS_Eruption_Distant", "AMB_OS_Rock_Explosion", "AMB_OS_Lava_Burst"]
+        }
+      },
+
+      "ocean": {
+        "base": "AMB_Ocean_Base",
+        "layers": {
+          "calm": ["AMB_Ocean_Waves_Gentle", "AMB_Ocean_Seagulls", "AMB_Ocean_Wind_Soft"],
+          "storm": ["AMB_Ocean_Waves_Crash", "AMB_Ocean_Wind_Strong", "AMB_Ocean_Thunder"]
+        },
+        "underwater": {
+          "layers": ["AMB_Underwater_Base", "AMB_Underwater_Bubbles", "AMB_Underwater_Whale_Song"]
+        }
+      },
+
+      "city": {
+        "base": "AMB_City_Base",
+        "layers": {
+          "day": ["AMB_City_Crowd", "AMB_City_Market", "AMB_City_Carts", "AMB_City_Hammering"],
+          "night": ["AMB_City_Night_Quiet", "AMB_City_Tavern_Distant", "AMB_City_Guards_Patrol"]
+        },
+        "oneshots": {
+          "day": ["AMB_OS_Vendor_Call", "AMB_OS_Horse_Neigh", "AMB_OS_Bell_Toll", "AMB_OS_Children_Laugh"],
+          "night": ["AMB_OS_Dog_Bark", "AMB_OS_Tavern_Cheer", "AMB_OS_Guard_Call"]
+        }
+      },
+
+      "dungeon_cave": {
+        "base": "AMB_Cave_Base",
+        "layers": ["AMB_Cave_Drips", "AMB_Cave_Echo", "AMB_Cave_Wind_Distant", "AMB_Cave_Creatures"],
+        "reverb": { "preset": "cave", "decay": 2.5 }
+      },
+
+      "dungeon_crypt": {
+        "base": "AMB_Crypt_Base",
+        "layers": ["AMB_Crypt_Wind", "AMB_Crypt_Chains", "AMB_Crypt_Whispers", "AMB_Crypt_Creaks"],
+        "reverb": { "preset": "stone_hall", "decay": 3.0 }
+      }
+    },
+
+    "weatherSounds": {
+      "rain_light": {
+        "loop": "AMB_Weather_Rain_Light",
+        "surface": {
+          "grass": "AMB_Rain_On_Grass",
+          "stone": "AMB_Rain_On_Stone",
+          "wood": "AMB_Rain_On_Wood",
+          "water": "AMB_Rain_On_Water"
+        }
+      },
+      "rain_heavy": {
+        "loop": "AMB_Weather_Rain_Heavy",
+        "thunder": {
+          "distant": "AMB_Thunder_Distant",
+          "close": "AMB_Thunder_Close",
+          "crack": "AMB_Thunder_Crack"
+        }
+      },
+      "storm": {
+        "loop": "AMB_Weather_Storm",
+        "wind": "AMB_Weather_Storm_Wind",
+        "thunderFrequency": { "min": 5, "max": 20 }
+      },
+      "snow": {
+        "loop": "AMB_Weather_Snow",
+        "wind": "AMB_Weather_Snow_Wind"
+      },
+      "blizzard": {
+        "loop": "AMB_Weather_Blizzard",
+        "wind": "AMB_Weather_Blizzard_Wind_Howl"
+      },
+      "sandstorm": {
+        "loop": "AMB_Weather_Sandstorm",
+        "wind": "AMB_Weather_Sandstorm_Wind"
+      }
+    }
+  },
+
+  "combatSounds": {
+    "overview": "All combat-related sound effects",
+
+    "weapons": {
+      "melee": {
+        "sword": {
+          "swing": ["SFX_Sword_Swing_01", "SFX_Sword_Swing_02", "SFX_Sword_Swing_03"],
+          "hitFlesh": ["SFX_Sword_Hit_Flesh_01", "SFX_Sword_Hit_Flesh_02"],
+          "hitMetal": ["SFX_Sword_Hit_Metal_01", "SFX_Sword_Hit_Metal_02"],
+          "hitWood": ["SFX_Sword_Hit_Wood_01"],
+          "hitStone": ["SFX_Sword_Hit_Stone_01"],
+          "block": ["SFX_Sword_Block_01", "SFX_Sword_Block_02"],
+          "draw": "SFX_Sword_Draw",
+          "sheathe": "SFX_Sword_Sheathe"
+        },
+        "axe": {
+          "swing": ["SFX_Axe_Swing_01", "SFX_Axe_Swing_02"],
+          "hitFlesh": ["SFX_Axe_Hit_Flesh_01", "SFX_Axe_Hit_Flesh_02"],
+          "hitMetal": ["SFX_Axe_Hit_Metal_01"],
+          "hitWood": ["SFX_Axe_Hit_Wood_01", "SFX_Axe_Hit_Wood_02"],
+          "block": ["SFX_Axe_Block_01"]
+        },
+        "mace": {
+          "swing": ["SFX_Mace_Swing_01", "SFX_Mace_Swing_02"],
+          "hitFlesh": ["SFX_Mace_Hit_Flesh_01"],
+          "hitMetal": ["SFX_Mace_Hit_Metal_01", "SFX_Mace_Hit_Metal_02"],
+          "hitStone": ["SFX_Mace_Hit_Stone_01"]
+        },
+        "dagger": {
+          "swing": ["SFX_Dagger_Swing_01", "SFX_Dagger_Swing_02"],
+          "stab": ["SFX_Dagger_Stab_01", "SFX_Dagger_Stab_02"],
+          "hitFlesh": ["SFX_Dagger_Hit_Flesh_01"]
+        },
+        "twoHanded": {
+          "swing": ["SFX_2H_Swing_01", "SFX_2H_Swing_02"],
+          "hitFlesh": ["SFX_2H_Hit_Flesh_01"],
+          "hitMetal": ["SFX_2H_Hit_Metal_01"],
+          "impact": ["SFX_2H_Impact_Heavy_01"]
+        }
+      },
+
+      "ranged": {
+        "bow": {
+          "draw": "SFX_Bow_Draw",
+          "release": ["SFX_Bow_Release_01", "SFX_Bow_Release_02"],
+          "arrowFly": "SFX_Arrow_Fly",
+          "arrowHitFlesh": ["SFX_Arrow_Hit_Flesh_01", "SFX_Arrow_Hit_Flesh_02"],
+          "arrowHitWood": ["SFX_Arrow_Hit_Wood_01"],
+          "arrowHitMetal": ["SFX_Arrow_Hit_Metal_01"],
+          "arrowHitStone": ["SFX_Arrow_Hit_Stone_01"],
+          "arrowMiss": "SFX_Arrow_Miss"
+        },
+        "crossbow": {
+          "load": "SFX_Crossbow_Load",
+          "fire": "SFX_Crossbow_Fire",
+          "boltFly": "SFX_Bolt_Fly",
+          "boltHit": ["SFX_Bolt_Hit_01"]
+        },
+        "thrown": {
+          "throw": ["SFX_Throw_01", "SFX_Throw_02"],
+          "fly": "SFX_Thrown_Fly",
+          "hit": ["SFX_Thrown_Hit_01"]
+        }
+      },
+
+      "magic": {
+        "castStart": {
+          "fire": "SFX_Cast_Fire_Start",
+          "ice": "SFX_Cast_Ice_Start",
+          "earth": "SFX_Cast_Earth_Start",
+          "water": "SFX_Cast_Water_Start",
+          "shadow": "SFX_Cast_Shadow_Start",
+          "holy": "SFX_Cast_Holy_Start",
+          "generic": "SFX_Cast_Generic_Start"
+        },
+        "castLoop": {
+          "channel": "SFX_Cast_Channel_Loop",
+          "charge": "SFX_Cast_Charge_Loop"
+        },
+        "castRelease": {
+          "fire": "SFX_Cast_Fire_Release",
+          "ice": "SFX_Cast_Ice_Release",
+          "earth": "SFX_Cast_Earth_Release",
+          "water": "SFX_Cast_Water_Release",
+          "shadow": "SFX_Cast_Shadow_Release",
+          "holy": "SFX_Cast_Holy_Release"
+        },
+        "projectileFly": {
+          "fire": "SFX_Proj_Fire_Fly",
+          "ice": "SFX_Proj_Ice_Fly",
+          "shadow": "SFX_Proj_Shadow_Fly"
+        },
+        "impact": {
+          "fire": ["SFX_Impact_Fire_01", "SFX_Impact_Fire_02"],
+          "ice": ["SFX_Impact_Ice_01", "SFX_Impact_Ice_02"],
+          "earth": ["SFX_Impact_Earth_01"],
+          "water": ["SFX_Impact_Water_01"],
+          "shadow": ["SFX_Impact_Shadow_01"],
+          "holy": ["SFX_Impact_Holy_01"],
+          "explosion": ["SFX_Impact_Explosion_01", "SFX_Impact_Explosion_02"]
+        }
+      }
+    },
+
+    "abilities": {
+      "melee": {
+        "sever": "SFX_Ability_Sever",
+        "berserk": { "activate": "SFX_Ability_Berserk_Start", "loop": "SFX_Ability_Berserk_Loop", "end": "SFX_Ability_Berserk_End" },
+        "cleave": "SFX_Ability_Cleave",
+        "whirlwind": "SFX_Ability_Whirlwind"
+      },
+      "ranged": {
+        "deadeyeZone": { "activate": "SFX_Ability_DeadeyeZone_Start", "loop": "SFX_Ability_DeadeyeZone_Loop" },
+        "rapidFire": "SFX_Ability_RapidFire",
+        "snipe": { "charge": "SFX_Ability_Snipe_Charge", "release": "SFX_Ability_Snipe_Release" }
+      },
+      "magic": {
+        "solarRadiance": { "activate": "SFX_Ability_SolarRadiance_Start", "loop": "SFX_Ability_SolarRadiance_Loop" },
+        "wildMagic": "SFX_Ability_WildMagic",
+        "metamorphosis": { "transform": "SFX_Ability_Metamorphosis_Transform", "loop": "SFX_Ability_Metamorphosis_Loop" }
+      }
+    },
+
+    "sanctity": {
+      "blessingActivate": {
+        "valor": "SFX_Sanctity_Valor_On",
+        "fortitude": "SFX_Sanctity_Fortitude_On",
+        "lifeweave": "SFX_Sanctity_Lifeweave_On"
+      },
+      "blessingDeactivate": "SFX_Sanctity_Blessing_Off",
+      "wardActivate": {
+        "melee": "SFX_Sanctity_Ward_Melee_On",
+        "ranged": "SFX_Sanctity_Ward_Ranged_On",
+        "magic": "SFX_Sanctity_Ward_Magic_On"
+      },
+      "wardBlock": {
+        "melee": "SFX_Sanctity_Ward_Melee_Block",
+        "ranged": "SFX_Sanctity_Ward_Ranged_Block",
+        "magic": "SFX_Sanctity_Ward_Magic_Block"
+      },
+      "devotionGain": "SFX_Sanctity_Devotion_Gain",
+      "devotionDrain": "SFX_Sanctity_Devotion_Drain",
+      "prayAtAltar": "SFX_Sanctity_Pray"
+    },
+
+    "reactions": {
+      "playerHurt": {
+        "light": ["SFX_Player_Hurt_Light_01", "SFX_Player_Hurt_Light_02"],
+        "heavy": ["SFX_Player_Hurt_Heavy_01", "SFX_Player_Hurt_Heavy_02"],
+        "critical": ["SFX_Player_Hurt_Critical_01"]
+      },
+      "playerDeath": "SFX_Player_Death",
+      "enemyHurt": {
+        "generic": ["SFX_Enemy_Hurt_01", "SFX_Enemy_Hurt_02"],
+        "beast": ["SFX_Enemy_Hurt_Beast_01"],
+        "undead": ["SFX_Enemy_Hurt_Undead_01"],
+        "demon": ["SFX_Enemy_Hurt_Demon_01"]
+      },
+      "enemyDeath": {
+        "generic": ["SFX_Enemy_Death_01", "SFX_Enemy_Death_02"],
+        "beast": ["SFX_Enemy_Death_Beast_01"],
+        "undead": ["SFX_Enemy_Death_Undead_01"],
+        "demon": ["SFX_Enemy_Death_Demon_01"],
+        "boss": "SFX_Enemy_Death_Boss"
+      },
+      "block": ["SFX_Block_01", "SFX_Block_02"],
+      "parry": "SFX_Parry",
+      "dodge": "SFX_Dodge_Roll",
+      "stagger": "SFX_Stagger",
+      "knockdown": "SFX_Knockdown"
+    }
+  },
+
+  "skillSounds": {
+    "mining": {
+      "pickaxeSwing": ["SFX_Mining_Swing_01", "SFX_Mining_Swing_02", "SFX_Mining_Swing_03"],
+      "rockHit": ["SFX_Mining_Hit_01", "SFX_Mining_Hit_02", "SFX_Mining_Hit_03"],
+      "oreReveal": "SFX_Mining_Ore_Reveal",
+      "gemFind": "SFX_Mining_Gem_Find",
+      "rockDepleted": "SFX_Mining_Rock_Depleted"
+    },
+
+    "woodcutting": {
+      "axeSwing": ["SFX_Woodcut_Swing_01", "SFX_Woodcut_Swing_02"],
+      "axeHit": ["SFX_Woodcut_Hit_01", "SFX_Woodcut_Hit_02", "SFX_Woodcut_Hit_03"],
+      "treeFall": "SFX_Woodcut_Tree_Fall",
+      "treeImpact": "SFX_Woodcut_Tree_Impact",
+      "logObtain": "SFX_Woodcut_Log_Obtain"
+    },
+
+    "fishing": {
+      "castLine": "SFX_Fishing_Cast",
+      "lineSplash": "SFX_Fishing_Splash",
+      "bobberBob": ["SFX_Fishing_Bob_01", "SFX_Fishing_Bob_02"],
+      "fishBite": "SFX_Fishing_Bite",
+      "reelIn": "SFX_Fishing_Reel",
+      "catchSuccess": "SFX_Fishing_Catch_Success",
+      "catchFail": "SFX_Fishing_Catch_Fail",
+      "rareCatch": "SFX_Fishing_Rare_Catch"
+    },
+
+    "smithing": {
+      "furnaceRoar": "SFX_Smithing_Furnace_Loop",
+      "metalHeat": "SFX_Smithing_Metal_Heat",
+      "hammerStrike": ["SFX_Smithing_Hammer_01", "SFX_Smithing_Hammer_02", "SFX_Smithing_Hammer_03"],
+      "anvilRing": "SFX_Smithing_Anvil_Ring",
+      "quench": "SFX_Smithing_Quench",
+      "itemComplete": "SFX_Smithing_Complete"
+    },
+
+    "cooking": {
+      "fireLoop": "SFX_Cooking_Fire_Loop",
+      "sizzle": "SFX_Cooking_Sizzle",
+      "stir": ["SFX_Cooking_Stir_01", "SFX_Cooking_Stir_02"],
+      "chop": ["SFX_Cooking_Chop_01", "SFX_Cooking_Chop_02"],
+      "pour": "SFX_Cooking_Pour",
+      "complete": "SFX_Cooking_Complete",
+      "burn": "SFX_Cooking_Burn"
+    },
+
+    "alchemy": {
+      "bubbling": "SFX_Alchemy_Bubble_Loop",
+      "pour": "SFX_Alchemy_Pour",
+      "stir": "SFX_Alchemy_Stir",
+      "fizz": "SFX_Alchemy_Fizz",
+      "complete": "SFX_Alchemy_Complete",
+      "fail": "SFX_Alchemy_Fail_Explosion"
+    },
+
+    "glyphcraft": {
+      "altarActivate": "SFX_Glyphcraft_Altar_Activate",
+      "altarLoop": "SFX_Glyphcraft_Altar_Loop",
+      "channelStart": "SFX_Glyphcraft_Channel_Start",
+      "channelLoop": "SFX_Glyphcraft_Channel_Loop",
+      "glyphCreate": "SFX_Glyphcraft_Glyph_Create",
+      "glyphTypes": {
+        "breeze": "SFX_Glyphcraft_Breeze",
+        "ember": "SFX_Glyphcraft_Ember",
+        "tide": "SFX_Glyphcraft_Tide",
+        "terra": "SFX_Glyphcraft_Terra",
+        "thought": "SFX_Glyphcraft_Thought",
+        "havoc": "SFX_Glyphcraft_Havoc",
+        "spirit": "SFX_Glyphcraft_Spirit"
+      }
+    },
+
+    "aethertap": {
+      "moteAppear": "SFX_Aethertap_Mote_Appear",
+      "moteLoop": "SFX_Aethertap_Mote_Loop",
+      "harvestStart": "SFX_Aethertap_Harvest_Start",
+      "harvestLoop": "SFX_Aethertap_Harvest_Loop",
+      "harvestComplete": "SFX_Aethertap_Harvest_Complete",
+      "riftOpen": "SFX_Aethertap_Rift_Open",
+      "riftClose": "SFX_Aethertap_Rift_Close"
+    },
+
+    "bonding": {
+      "summonStart": "SFX_Bonding_Summon_Start",
+      "summonComplete": "SFX_Bonding_Summon_Complete",
+      "dismiss": "SFX_Bonding_Dismiss",
+      "familiarHappy": "SFX_Bonding_Familiar_Happy",
+      "familiarAttack": "SFX_Bonding_Familiar_Attack"
+    },
+
+    "subterfuge": {
+      "sneakEnter": "SFX_Subterfuge_Stealth_Enter",
+      "sneakLoop": "SFX_Subterfuge_Stealth_Loop",
+      "sneakExit": "SFX_Subterfuge_Stealth_Exit",
+      "pickpocketAttempt": "SFX_Subterfuge_Pickpocket_Attempt",
+      "pickpocketSuccess": "SFX_Subterfuge_Pickpocket_Success",
+      "pickpocketFail": "SFX_Subterfuge_Pickpocket_Fail",
+      "lockpickStart": "SFX_Subterfuge_Lockpick_Start",
+      "lockpickClick": ["SFX_Subterfuge_Lockpick_Click_01", "SFX_Subterfuge_Lockpick_Click_02"],
+      "lockpickSuccess": "SFX_Subterfuge_Lockpick_Success",
+      "lockpickFail": "SFX_Subterfuge_Lockpick_Fail"
+    },
+
+    "crafting": {
+      "generic": {
+        "start": "SFX_Crafting_Start",
+        "loop": "SFX_Crafting_Loop",
+        "complete": "SFX_Crafting_Complete"
+      },
+      "sewing": ["SFX_Crafting_Sew_01", "SFX_Crafting_Sew_02"],
+      "carving": ["SFX_Crafting_Carve_01", "SFX_Crafting_Carve_02"],
+      "gemCutting": "SFX_Crafting_Gem_Cut"
+    },
+
+    "bowcraft": {
+      "whittle": ["SFX_Bowcraft_Whittle_01", "SFX_Bowcraft_Whittle_02"],
+      "string": "SFX_Bowcraft_String",
+      "fletch": ["SFX_Bowcraft_Fletch_01", "SFX_Bowcraft_Fletch_02"],
+      "complete": "SFX_Bowcraft_Complete"
+    },
+
+    "farming": {
+      "till": "SFX_Farming_Till",
+      "plant": "SFX_Farming_Plant",
+      "water": "SFX_Farming_Water",
+      "harvest": "SFX_Farming_Harvest"
+    }
+  },
+
+  "footstepSounds": {
+    "overview": "Surface-based footstep system with walk/run variants",
+
+    "surfaces": {
+      "grass": {
+        "walk": ["SFX_Foot_Grass_Walk_01", "SFX_Foot_Grass_Walk_02", "SFX_Foot_Grass_Walk_03"],
+        "run": ["SFX_Foot_Grass_Run_01", "SFX_Foot_Grass_Run_02", "SFX_Foot_Grass_Run_03"],
+        "land": "SFX_Foot_Grass_Land"
+      },
+      "stone": {
+        "walk": ["SFX_Foot_Stone_Walk_01", "SFX_Foot_Stone_Walk_02", "SFX_Foot_Stone_Walk_03"],
+        "run": ["SFX_Foot_Stone_Run_01", "SFX_Foot_Stone_Run_02", "SFX_Foot_Stone_Run_03"],
+        "land": "SFX_Foot_Stone_Land"
+      },
+      "wood": {
+        "walk": ["SFX_Foot_Wood_Walk_01", "SFX_Foot_Wood_Walk_02", "SFX_Foot_Wood_Walk_03"],
+        "run": ["SFX_Foot_Wood_Run_01", "SFX_Foot_Wood_Run_02"],
+        "land": "SFX_Foot_Wood_Land"
+      },
+      "dirt": {
+        "walk": ["SFX_Foot_Dirt_Walk_01", "SFX_Foot_Dirt_Walk_02", "SFX_Foot_Dirt_Walk_03"],
+        "run": ["SFX_Foot_Dirt_Run_01", "SFX_Foot_Dirt_Run_02"],
+        "land": "SFX_Foot_Dirt_Land"
+      },
+      "sand": {
+        "walk": ["SFX_Foot_Sand_Walk_01", "SFX_Foot_Sand_Walk_02"],
+        "run": ["SFX_Foot_Sand_Run_01", "SFX_Foot_Sand_Run_02"],
+        "land": "SFX_Foot_Sand_Land"
+      },
+      "snow": {
+        "walk": ["SFX_Foot_Snow_Walk_01", "SFX_Foot_Snow_Walk_02", "SFX_Foot_Snow_Walk_03"],
+        "run": ["SFX_Foot_Snow_Run_01", "SFX_Foot_Snow_Run_02"],
+        "land": "SFX_Foot_Snow_Land"
+      },
+      "mud": {
+        "walk": ["SFX_Foot_Mud_Walk_01", "SFX_Foot_Mud_Walk_02"],
+        "run": ["SFX_Foot_Mud_Run_01", "SFX_Foot_Mud_Run_02"],
+        "land": "SFX_Foot_Mud_Land"
+      },
+      "metal": {
+        "walk": ["SFX_Foot_Metal_Walk_01", "SFX_Foot_Metal_Walk_02"],
+        "run": ["SFX_Foot_Metal_Run_01", "SFX_Foot_Metal_Run_02"],
+        "land": "SFX_Foot_Metal_Land"
+      },
+      "water_shallow": {
+        "walk": ["SFX_Foot_Water_Walk_01", "SFX_Foot_Water_Walk_02"],
+        "run": ["SFX_Foot_Water_Run_01", "SFX_Foot_Water_Run_02"],
+        "land": "SFX_Foot_Water_Land"
+      }
+    },
+
+    "armorModifiers": {
+      "cloth": { "volumeMultiplier": 0.8, "additionalSound": null },
+      "leather": { "volumeMultiplier": 1.0, "additionalSound": "SFX_Armor_Leather_Move" },
+      "chainmail": { "volumeMultiplier": 1.0, "additionalSound": "SFX_Armor_Chain_Jingle" },
+      "plate": { "volumeMultiplier": 1.2, "additionalSound": "SFX_Armor_Plate_Clank" }
+    }
+  },
+
+  "uiSounds": {
+    "buttons": {
+      "hover": "UI_Button_Hover",
+      "click": "UI_Button_Click",
+      "back": "UI_Button_Back",
+      "disabled": "UI_Button_Disabled"
+    },
+
+    "inventory": {
+      "open": "UI_Inventory_Open",
+      "close": "UI_Inventory_Close",
+      "itemPickup": "UI_Item_Pickup",
+      "itemDrop": "UI_Item_Drop",
+      "itemEquip": "UI_Item_Equip",
+      "itemUnequip": "UI_Item_Unequip",
+      "itemMove": "UI_Item_Move",
+      "itemStack": "UI_Item_Stack",
+      "goldGain": "UI_Gold_Gain",
+      "goldSpend": "UI_Gold_Spend"
+    },
+
+    "menus": {
+      "menuOpen": "UI_Menu_Open",
+      "menuClose": "UI_Menu_Close",
+      "tabSwitch": "UI_Tab_Switch",
+      "scrollTick": "UI_Scroll_Tick",
+      "sliderMove": "UI_Slider_Move",
+      "checkboxToggle": "UI_Checkbox_Toggle",
+      "dropdownOpen": "UI_Dropdown_Open",
+      "dropdownSelect": "UI_Dropdown_Select"
+    },
+
+    "notifications": {
+      "info": "UI_Notification_Info",
+      "success": "UI_Notification_Success",
+      "warning": "UI_Notification_Warning",
+      "error": "UI_Notification_Error",
+      "questAccept": "UI_Quest_Accept",
+      "questComplete": "UI_Quest_Complete",
+      "achievementUnlock": "UI_Achievement_Unlock",
+      "levelUp": "UI_Level_Up",
+      "skillUp": "UI_Skill_Up"
+    },
+
+    "chat": {
+      "messageReceive": "UI_Chat_Message",
+      "messageSend": "UI_Chat_Send",
+      "whisperReceive": "UI_Chat_Whisper",
+      "mentionReceive": "UI_Chat_Mention"
+    },
+
+    "trade": {
+      "tradeRequest": "UI_Trade_Request",
+      "tradeAccept": "UI_Trade_Accept",
+      "tradeCancel": "UI_Trade_Cancel",
+      "tradeComplete": "UI_Trade_Complete"
+    },
+
+    "map": {
+      "mapOpen": "UI_Map_Open",
+      "mapClose": "UI_Map_Close",
+      "waypointSet": "UI_Waypoint_Set",
+      "waypointRemove": "UI_Waypoint_Remove"
+    }
+  },
+
+  "voiceSystem": {
+    "overview": "Voice acting specifications for NPCs and player character",
+
+    "playerVoice": {
+      "grunts": {
+        "effort": ["VO_Player_Effort_01", "VO_Player_Effort_02", "VO_Player_Effort_03"],
+        "hurt": ["VO_Player_Hurt_01", "VO_Player_Hurt_02", "VO_Player_Hurt_03"],
+        "death": ["VO_Player_Death_01", "VO_Player_Death_02"],
+        "jump": ["VO_Player_Jump_01", "VO_Player_Jump_02"],
+        "dodge": ["VO_Player_Dodge_01"]
+      },
+      "reactions": {
+        "surprised": ["VO_Player_Surprised_01"],
+        "victory": ["VO_Player_Victory_01", "VO_Player_Victory_02"],
+        "levelUp": ["VO_Player_LevelUp_01"]
+      },
+      "voicePresets": 8,
+      "pitchVariation": { "min": 0.85, "max": 1.15 }
+    },
+
+    "npcVoice": {
+      "greetings": {
+        "friendly": ["VO_NPC_Greeting_Friendly_01", "VO_NPC_Greeting_Friendly_02"],
+        "neutral": ["VO_NPC_Greeting_Neutral_01"],
+        "hostile": ["VO_NPC_Greeting_Hostile_01"]
+      },
+      "merchants": {
+        "welcome": ["VO_Merchant_Welcome_01", "VO_Merchant_Welcome_02"],
+        "browse": ["VO_Merchant_Browse_01"],
+        "purchase": ["VO_Merchant_Purchase_01", "VO_Merchant_Purchase_02"],
+        "farewell": ["VO_Merchant_Farewell_01"]
+      },
+      "guards": {
+        "alert": ["VO_Guard_Alert_01"],
+        "warning": ["VO_Guard_Warning_01"],
+        "attack": ["VO_Guard_Attack_01"]
+      },
+      "questGivers": {
+        "questOffer": "context_specific",
+        "questProgress": "context_specific",
+        "questComplete": "context_specific"
+      }
+    },
+
+    "beastslayerMasters": {
+      "aldric": {
+        "greeting": "VO_Aldric_Greeting",
+        "taskAssign": "VO_Aldric_Task_Assign",
+        "taskComplete": "VO_Aldric_Task_Complete",
+        "farewell": "VO_Aldric_Farewell"
+      },
+      "vexrath": {
+        "greeting": "VO_Vexrath_Greeting",
+        "taskAssign": "VO_Vexrath_Task_Assign",
+        "taskComplete": "VO_Vexrath_Task_Complete"
+      },
+      "sylara": {
+        "greeting": "VO_Sylara_Greeting",
+        "taskAssign": "VO_Sylara_Task_Assign",
+        "taskComplete": "VO_Sylara_Task_Complete"
+      },
+      "kazari": {
+        "greeting": "VO_Kazari_Greeting",
+        "taskAssign": "VO_Kazari_Task_Assign",
+        "taskComplete": "VO_Kazari_Task_Complete"
+      },
+      "seraphine": {
+        "greeting": "VO_Seraphine_Greeting",
+        "taskAssign": "VO_Seraphine_Task_Assign",
+        "taskComplete": "VO_Seraphine_Task_Complete"
+      },
+      "theron": {
+        "greeting": "VO_Theron_Greeting",
+        "taskAssign": "VO_Theron_Task_Assign",
+        "taskComplete": "VO_Theron_Task_Complete"
+      }
+    },
+
+    "enemyVoice": {
+      "humanoid": {
+        "aggro": ["VO_Enemy_Human_Aggro_01", "VO_Enemy_Human_Aggro_02"],
+        "attack": ["VO_Enemy_Human_Attack_01", "VO_Enemy_Human_Attack_02"],
+        "hurt": ["VO_Enemy_Human_Hurt_01", "VO_Enemy_Human_Hurt_02"],
+        "death": ["VO_Enemy_Human_Death_01"]
+      },
+      "beast": {
+        "aggro": ["VO_Enemy_Beast_Growl_01"],
+        "attack": ["VO_Enemy_Beast_Attack_01"],
+        "hurt": ["VO_Enemy_Beast_Hurt_01"],
+        "death": ["VO_Enemy_Beast_Death_01"]
+      },
+      "undead": {
+        "aggro": ["VO_Enemy_Undead_Moan_01"],
+        "attack": ["VO_Enemy_Undead_Attack_01"],
+        "death": ["VO_Enemy_Undead_Death_01"]
+      },
+      "demon": {
+        "aggro": ["VO_Enemy_Demon_Roar_01"],
+        "attack": ["VO_Enemy_Demon_Attack_01"],
+        "death": ["VO_Enemy_Demon_Death_01"]
+      }
+    },
+
+    "voiceGuidelines": {
+      "format": "WAV 48kHz 16-bit mono",
+      "deliveryExport": "OGG Vorbis",
+      "noiseFloor": "-60dB",
+      "peakLevel": "-3dB",
+      "roomTone": "included",
+      "multipleVariants": "minimum 3 per common line"
+    }
+  },
+
+  "spatialAudio": {
+    "overview": "3D audio configuration for immersive sound positioning",
+
+    "attenuationSettings": {
+      "default": {
+        "innerRadius": 100,
+        "falloffDistance": 3000,
+        "falloffMode": "logarithmic"
+      },
+      "combat": {
+        "innerRadius": 50,
+        "falloffDistance": 2000,
+        "falloffMode": "logarithmic"
+      },
+      "ambient": {
+        "innerRadius": 200,
+        "falloffDistance": 5000,
+        "falloffMode": "linear"
+      },
+      "voice": {
+        "innerRadius": 100,
+        "falloffDistance": 1500,
+        "falloffMode": "logarithmic"
+      },
+      "music": {
+        "nonPositional": true
+      }
+    },
+
+    "occlusionSettings": {
+      "enabled": true,
+      "traceChannel": "audio_occlusion",
+      "maxOcclusion": 0.8,
+      "interpolationSpeed": 5.0,
+      "materials": {
+        "stone": { "occlusion": 0.9, "lowPassFreq": 500 },
+        "wood": { "occlusion": 0.6, "lowPassFreq": 1500 },
+        "metal": { "occlusion": 0.95, "lowPassFreq": 300 },
+        "cloth": { "occlusion": 0.2, "lowPassFreq": 4000 },
+        "glass": { "occlusion": 0.3, "lowPassFreq": 3000 }
+      }
+    },
+
+    "reverbZones": {
+      "outdoor_open": {
+        "preset": "outdoor",
+        "decay": 0.5,
+        "wetLevel": 0.1
+      },
+      "outdoor_forest": {
+        "preset": "forest",
+        "decay": 0.8,
+        "wetLevel": 0.15
+      },
+      "indoor_small": {
+        "preset": "small_room",
+        "decay": 0.6,
+        "wetLevel": 0.3
+      },
+      "indoor_large": {
+        "preset": "hall",
+        "decay": 1.5,
+        "wetLevel": 0.4
+      },
+      "cave": {
+        "preset": "cave",
+        "decay": 2.5,
+        "wetLevel": 0.5
+      },
+      "cathedral": {
+        "preset": "cathedral",
+        "decay": 4.0,
+        "wetLevel": 0.6
+      },
+      "underwater": {
+        "preset": "underwater",
+        "decay": 0.8,
+        "wetLevel": 0.7,
+        "lowPassFreq": 800
+      }
+    },
+
+    "hrtf": {
+      "enabled": true,
+      "quality": "high",
+      "headTracking": false
+    }
+  },
+
+  "performanceOptimization": {
+    "soundPooling": {
+      "enabled": true,
+      "poolSizes": {
+        "footsteps": 8,
+        "impacts": 16,
+        "projectiles": 12,
+        "ambient_oneshots": 10
+      }
+    },
+
+    "prioritySystem": {
+      "critical": { "priority": 100, "examples": ["player_hurt", "boss_attack", "quest_complete"] },
+      "high": { "priority": 75, "examples": ["combat_hits", "ability_cast", "dialogue"] },
+      "medium": { "priority": 50, "examples": ["footsteps", "skill_actions", "ambient_loops"] },
+      "low": { "priority": 25, "examples": ["distant_ambience", "particle_sounds", "ui_hover"] }
+    },
+
+    "distanceCulling": {
+      "enabled": true,
+      "maxDistance": 10000,
+      "fadeStartDistance": 8000
+    },
+
+    "virtualization": {
+      "enabled": true,
+      "maxRealVoices": 32,
+      "maxVirtualVoices": 128,
+      "virtualizeWhenOccluded": true
+    },
+
+    "streaming": {
+      "musicStreaming": true,
+      "ambienceStreaming": true,
+      "sfxInMemory": true,
+      "preloadRadius": 5000
+    }
+  },
+
+  "implementationPhases": {
+    "phase1_Core": {
+      "description": "Essential audio systems",
+      "tasks": [
+        "Setup audio middleware integration",
+        "Implement music state machine",
+        "Create basic combat sounds",
+        "Add footstep system",
+        "Setup UI sounds"
+      ]
+    },
+    "phase2_Skills": {
+      "description": "Skill and activity sounds",
+      "tasks": [
+        "Add all gathering skill sounds",
+        "Implement crafting sounds",
+        "Create magic and ability sounds",
+        "Add Sanctity blessing sounds"
+      ]
+    },
+    "phase3_Ambience": {
+      "description": "Environmental audio",
+      "tasks": [
+        "Create zone-specific ambience",
+        "Implement weather sounds",
+        "Add day/night variations",
+        "Setup reverb zones"
+      ]
+    },
+    "phase4_Music": {
+      "description": "Complete music implementation",
+      "tasks": [
+        "Compose all zone themes",
+        "Create combat music variants",
+        "Implement boss music with phases",
+        "Add music stingers"
+      ]
+    },
+    "phase5_Voice": {
+      "description": "Voice acting integration",
+      "tasks": [
+        "Record player voice sets",
+        "Record key NPC dialogue",
+        "Implement lip sync system",
+        "Add enemy vocalizations"
+      ]
+    },
+    "phase6_Polish": {
+      "description": "Optimization and polish",
+      "tasks": [
+        "Implement spatial audio",
+        "Setup occlusion system",
+        "Optimize memory usage",
+        "Fine-tune mix levels"
+      ]
+    }
+  }
+}

@@ -1,0 +1,1106 @@
+{
+  "documentInfo": {
+    "title": "Realm of Eternity - UE5 UI/HUD Specification",
+    "version": "1.0.0",
+    "game": "Realm of Eternity",
+    "engine": "Unreal Engine 5",
+    "lastUpdated": "2026-01-07"
+  },
+
+  "uiFramework": {
+    "overview": "Complete UI system using UMG (Unreal Motion Graphics) with modular widget architecture",
+
+    "designPrinciples": [
+      "Responsive layout supporting 16:9, 21:9, and 4:3 aspect ratios",
+      "Scalable UI from 1080p to 4K",
+      "Controller and keyboard/mouse support",
+      "Consistent visual language across all interfaces",
+      "Minimal screen clutter during gameplay"
+    ],
+
+    "namingConventions": {
+      "widgets": "WBP_{Category}_{Name}",
+      "materials": "M_UI_{Category}_{Name}",
+      "textures": "T_UI_{Category}_{Name}",
+      "animations": "UIAnim_{Widget}_{Action}",
+      "examples": [
+        "WBP_HUD_HealthBar",
+        "WBP_Menu_Inventory",
+        "M_UI_Panel_Default",
+        "T_UI_Icon_Sword",
+        "UIAnim_HealthBar_Damage"
+      ]
+    },
+
+    "colorPalette": {
+      "primary": { "r": 0.18, "g": 0.12, "b": 0.08, "a": 0.9 },
+      "secondary": { "r": 0.25, "g": 0.18, "b": 0.12, "a": 0.85 },
+      "accent": { "r": 0.85, "g": 0.7, "b": 0.4, "a": 1.0 },
+      "highlight": { "r": 1.0, "g": 0.85, "b": 0.5, "a": 1.0 },
+      "health": { "r": 0.8, "g": 0.15, "b": 0.15, "a": 1.0 },
+      "mana": { "r": 0.15, "g": 0.4, "b": 0.85, "a": 1.0 },
+      "devotion": { "r": 0.9, "g": 0.8, "b": 0.3, "a": 1.0 },
+      "stamina": { "r": 0.2, "g": 0.75, "b": 0.25, "a": 1.0 },
+      "xp": { "r": 0.6, "g": 0.4, "b": 0.9, "a": 1.0 },
+      "text": {
+        "primary": { "r": 0.95, "g": 0.9, "b": 0.8, "a": 1.0 },
+        "secondary": { "r": 0.7, "g": 0.65, "b": 0.55, "a": 1.0 },
+        "disabled": { "r": 0.5, "g": 0.45, "b": 0.4, "a": 0.6 }
+      },
+      "rarity": {
+        "common": { "r": 0.7, "g": 0.7, "b": 0.7, "a": 1.0 },
+        "uncommon": { "r": 0.2, "g": 0.8, "b": 0.2, "a": 1.0 },
+        "rare": { "r": 0.2, "g": 0.4, "b": 1.0, "a": 1.0 },
+        "epic": { "r": 0.6, "g": 0.2, "b": 1.0, "a": 1.0 },
+        "legendary": { "r": 1.0, "g": 0.6, "b": 0.0, "a": 1.0 }
+      }
+    },
+
+    "typography": {
+      "fonts": {
+        "title": {
+          "family": "MedievalSharp",
+          "sizes": { "large": 48, "medium": 36, "small": 28 }
+        },
+        "heading": {
+          "family": "Cinzel",
+          "sizes": { "h1": 32, "h2": 26, "h3": 22 }
+        },
+        "body": {
+          "family": "OpenSans",
+          "sizes": { "large": 18, "medium": 16, "small": 14, "tiny": 12 }
+        },
+        "numbers": {
+          "family": "RobotoMono",
+          "sizes": { "large": 24, "medium": 18, "small": 14 }
+        }
+      },
+      "shadows": {
+        "enabled": true,
+        "offset": { "x": 2, "y": 2 },
+        "blur": 2,
+        "color": { "r": 0, "g": 0, "b": 0, "a": 0.5 }
+      }
+    }
+  },
+
+  "hudSystem": {
+    "overview": "Main gameplay HUD visible during normal play",
+
+    "mainHUD": {
+      "widget": "WBP_HUD_Main",
+      "zOrder": 0,
+      "components": [
+        {
+          "name": "HealthBar",
+          "widget": "WBP_HUD_HealthBar",
+          "anchor": "TopLeft",
+          "position": { "x": 20, "y": 20 },
+          "size": { "width": 250, "height": 30 },
+          "features": [
+            "Current/max health display",
+            "Damage flash animation",
+            "Heal animation",
+            "Poison/burn indicator overlay",
+            "Low health warning pulse"
+          ]
+        },
+        {
+          "name": "ResourceBars",
+          "widget": "WBP_HUD_ResourceBars",
+          "anchor": "TopLeft",
+          "position": { "x": 20, "y": 55 },
+          "size": { "width": 250, "height": 60 },
+          "bars": [
+            {
+              "type": "mana",
+              "color": "mana",
+              "showNumeric": true
+            },
+            {
+              "type": "devotion",
+              "color": "devotion",
+              "showNumeric": true,
+              "conditionalDisplay": "sanctity_active"
+            },
+            {
+              "type": "stamina",
+              "color": "stamina",
+              "showNumeric": false,
+              "conditionalDisplay": "combat_mode"
+            }
+          ]
+        },
+        {
+          "name": "TargetInfo",
+          "widget": "WBP_HUD_TargetInfo",
+          "anchor": "TopCenter",
+          "position": { "x": 0, "y": 20 },
+          "size": { "width": 300, "height": 80 },
+          "features": [
+            "Target name and level",
+            "Target health bar",
+            "Combat level indicator",
+            "Boss mechanics display",
+            "Debuff icons on target"
+          ]
+        },
+        {
+          "name": "Minimap",
+          "widget": "WBP_HUD_Minimap",
+          "anchor": "TopRight",
+          "position": { "x": -20, "y": 20 },
+          "size": { "width": 200, "height": 200 },
+          "features": [
+            "Circular map display",
+            "Player position and direction",
+            "Party member markers",
+            "Quest objective markers",
+            "Resource node markers (optional)",
+            "Enemy dots (optional)",
+            "Zoom controls"
+          ]
+        },
+        {
+          "name": "ActionBar",
+          "widget": "WBP_HUD_ActionBar",
+          "anchor": "BottomCenter",
+          "position": { "x": 0, "y": -20 },
+          "size": { "width": 600, "height": 60 },
+          "features": [
+            "12 action slots (keyboard 1-9, 0, -, =)",
+            "Drag-and-drop ability placement",
+            "Cooldown display",
+            "Keybind labels",
+            "Additional bar toggle (14 more slots)"
+          ]
+        },
+        {
+          "name": "QuickPrayers",
+          "widget": "WBP_HUD_QuickBlessings",
+          "anchor": "BottomCenter",
+          "position": { "x": 0, "y": -85 },
+          "size": { "width": 400, "height": 40 },
+          "features": [
+            "Quick blessing toggle buttons",
+            "Devotion cost indicators",
+            "Active blessing highlights"
+          ]
+        },
+        {
+          "name": "ChatBox",
+          "widget": "WBP_HUD_ChatBox",
+          "anchor": "BottomLeft",
+          "position": { "x": 20, "y": -20 },
+          "size": { "width": 400, "height": 200 },
+          "features": [
+            "Multiple chat channels (local, global, trade, clan, private)",
+            "Channel tabs",
+            "Scrollable history",
+            "Clickable player names",
+            "Emoji support",
+            "Auto-hide when inactive"
+          ]
+        },
+        {
+          "name": "BuffDebuffBar",
+          "widget": "WBP_HUD_BuffBar",
+          "anchor": "TopLeft",
+          "position": { "x": 20, "y": 130 },
+          "size": { "width": 400, "height": 80 },
+          "features": [
+            "Active buff icons",
+            "Active debuff icons",
+            "Duration timers",
+            "Stack counts",
+            "Tooltip on hover"
+          ]
+        },
+        {
+          "name": "QuestTracker",
+          "widget": "WBP_HUD_QuestTracker",
+          "anchor": "Right",
+          "position": { "x": -20, "y": 0 },
+          "size": { "width": 300, "height": 400 },
+          "features": [
+            "Active quest list (max 5 tracked)",
+            "Objective checkboxes",
+            "Progress counters",
+            "Click to view quest details",
+            "Minimize/expand toggle"
+          ]
+        },
+        {
+          "name": "XPBar",
+          "widget": "WBP_HUD_XPBar",
+          "anchor": "Bottom",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "100%", "height": 10 },
+          "features": [
+            "Current XP progress",
+            "XP gain animation",
+            "Level display",
+            "Hover for exact numbers"
+          ]
+        }
+      ]
+    },
+
+    "combatHUD": {
+      "widget": "WBP_HUD_Combat",
+      "zOrder": 1,
+      "activationCondition": "in_combat",
+      "components": [
+        {
+          "name": "ComboCounter",
+          "widget": "WBP_HUD_ComboCounter",
+          "anchor": "Center",
+          "position": { "x": 200, "y": -100 },
+          "features": [
+            "Current combo count",
+            "Combo multiplier",
+            "Combo timer",
+            "Break animation"
+          ]
+        },
+        {
+          "name": "DamageNumbers",
+          "widget": "WBP_HUD_DamageNumbers",
+          "worldSpace": true,
+          "features": [
+            "Floating damage numbers",
+            "Critical hit styling",
+            "Heal numbers",
+            "XP gain popups"
+          ]
+        },
+        {
+          "name": "Crosshair",
+          "widget": "WBP_HUD_Crosshair",
+          "anchor": "Center",
+          "conditionalDisplay": "ranged_weapon_equipped",
+          "variants": ["dot", "cross", "circle", "custom"]
+        }
+      ]
+    },
+
+    "skillHUD": {
+      "widget": "WBP_HUD_Skill",
+      "zOrder": 1,
+      "activationCondition": "skilling_active",
+      "components": [
+        {
+          "name": "SkillProgress",
+          "widget": "WBP_HUD_SkillProgress",
+          "anchor": "TopCenter",
+          "position": { "x": 0, "y": 100 },
+          "size": { "width": 300, "height": 60 },
+          "features": [
+            "Current skill action progress bar",
+            "Action name display",
+            "Cancel button",
+            "Success/failure feedback"
+          ]
+        },
+        {
+          "name": "ResourceGathered",
+          "widget": "WBP_HUD_ResourceGathered",
+          "anchor": "Center",
+          "position": { "x": 0, "y": 50 },
+          "features": [
+            "Item gained popup",
+            "XP gained display",
+            "Rare item special effect"
+          ]
+        }
+      ]
+    }
+  },
+
+  "menuSystem": {
+    "overview": "Full-screen and overlay menus for game systems",
+
+    "mainMenu": {
+      "widget": "WBP_Menu_Main",
+      "type": "fullscreen",
+      "background": "animated_scene",
+      "components": [
+        {
+          "name": "Logo",
+          "anchor": "TopCenter",
+          "animation": "fade_in_scale"
+        },
+        {
+          "name": "MenuButtons",
+          "buttons": [
+            { "text": "Continue", "action": "load_last_save", "conditionalDisplay": "has_save" },
+            { "text": "New Game", "action": "open_character_creation" },
+            { "text": "Load Game", "action": "open_load_menu" },
+            { "text": "Settings", "action": "open_settings" },
+            { "text": "Credits", "action": "open_credits" },
+            { "text": "Quit", "action": "quit_game" }
+          ]
+        },
+        {
+          "name": "VersionInfo",
+          "anchor": "BottomRight",
+          "display": "version_build_date"
+        }
+      ]
+    },
+
+    "pauseMenu": {
+      "widget": "WBP_Menu_Pause",
+      "type": "overlay",
+      "pausesGame": true,
+      "backgroundBlur": 5,
+      "components": [
+        {
+          "name": "MenuButtons",
+          "buttons": [
+            { "text": "Resume", "action": "close_menu" },
+            { "text": "Inventory", "action": "open_inventory" },
+            { "text": "Skills", "action": "open_skills" },
+            { "text": "Quests", "action": "open_quests" },
+            { "text": "Map", "action": "open_map" },
+            { "text": "Settings", "action": "open_settings" },
+            { "text": "Main Menu", "action": "return_to_main", "confirmRequired": true }
+          ]
+        }
+      ]
+    },
+
+    "inventory": {
+      "widget": "WBP_Menu_Inventory",
+      "type": "overlay",
+      "pausesGame": false,
+      "size": { "width": 800, "height": 600 },
+      "components": [
+        {
+          "name": "EquipmentPanel",
+          "position": "left",
+          "slots": [
+            { "slot": "helmet", "position": { "x": 100, "y": 20 } },
+            { "slot": "cape", "position": { "x": 180, "y": 20 } },
+            { "slot": "amulet", "position": { "x": 100, "y": 80 } },
+            { "slot": "weapon_main", "position": { "x": 20, "y": 140 } },
+            { "slot": "body", "position": { "x": 100, "y": 140 } },
+            { "slot": "weapon_off", "position": { "x": 180, "y": 140 } },
+            { "slot": "legs", "position": { "x": 100, "y": 220 } },
+            { "slot": "gloves", "position": { "x": 20, "y": 220 } },
+            { "slot": "boots", "position": { "x": 180, "y": 220 } },
+            { "slot": "ring_left", "position": { "x": 20, "y": 280 } },
+            { "slot": "ring_right", "position": { "x": 180, "y": 280 } },
+            { "slot": "quiver", "position": { "x": 100, "y": 280 } }
+          ],
+          "characterPreview": {
+            "enabled": true,
+            "rotatable": true,
+            "position": "center"
+          }
+        },
+        {
+          "name": "BackpackGrid",
+          "position": "right",
+          "gridSize": { "columns": 7, "rows": 4 },
+          "slotSize": 50,
+          "features": [
+            "Drag and drop items",
+            "Right-click context menu",
+            "Double-click to equip/use",
+            "Shift-click to split stacks",
+            "Sort button"
+          ]
+        },
+        {
+          "name": "ItemTooltip",
+          "features": [
+            "Item name and rarity",
+            "Item icon",
+            "Stats comparison",
+            "Item description",
+            "Requirements",
+            "Value"
+          ]
+        },
+        {
+          "name": "CurrencyDisplay",
+          "position": "bottom",
+          "currencies": ["gold", "silver", "copper", "premium"]
+        }
+      ]
+    },
+
+    "skills": {
+      "widget": "WBP_Menu_Skills",
+      "type": "overlay",
+      "pausesGame": false,
+      "size": { "width": 900, "height": 700 },
+      "components": [
+        {
+          "name": "SkillGrid",
+          "layout": "grid",
+          "skillCategories": [
+            {
+              "category": "Combat",
+              "skills": ["attack", "strength", "defence", "constitution", "ranged", "magic"]
+            },
+            {
+              "category": "Gathering",
+              "skills": ["mining", "woodcutting", "fishing", "farming", "hunter"]
+            },
+            {
+              "category": "Artisan",
+              "skills": ["smithing", "crafting", "bowcraft", "cooking", "alchemy", "glyphcraft"]
+            },
+            {
+              "category": "Support",
+              "skills": ["sanctity", "bonding", "aethertap", "delving", "subterfuge", "firemaking", "construction", "agility"]
+            }
+          ],
+          "skillTile": {
+            "showIcon": true,
+            "showLevel": true,
+            "showXpBar": true,
+            "clickAction": "open_skill_detail"
+          }
+        },
+        {
+          "name": "SkillDetail",
+          "position": "right_panel",
+          "features": [
+            "Skill name and icon",
+            "Current level and XP",
+            "XP to next level",
+            "Total XP earned",
+            "Unlocks list",
+            "Training methods"
+          ]
+        },
+        {
+          "name": "TotalLevel",
+          "position": "top",
+          "display": "Total Level: {sum_of_all_skills}"
+        }
+      ]
+    },
+
+    "questLog": {
+      "widget": "WBP_Menu_QuestLog",
+      "type": "overlay",
+      "pausesGame": false,
+      "size": { "width": 800, "height": 600 },
+      "components": [
+        {
+          "name": "QuestCategories",
+          "position": "left",
+          "tabs": ["Active", "Completed", "All"],
+          "filters": ["main_story", "side_quest", "daily", "weekly", "beastslayer"]
+        },
+        {
+          "name": "QuestList",
+          "position": "center",
+          "features": [
+            "Quest name",
+            "Difficulty indicator",
+            "Progress percentage",
+            "Track/untrack toggle"
+          ]
+        },
+        {
+          "name": "QuestDetail",
+          "position": "right",
+          "features": [
+            "Quest title",
+            "Quest giver",
+            "Quest description",
+            "Objectives list",
+            "Rewards preview",
+            "Location hint"
+          ]
+        }
+      ]
+    },
+
+    "worldMap": {
+      "widget": "WBP_Menu_WorldMap",
+      "type": "fullscreen",
+      "pausesGame": false,
+      "components": [
+        {
+          "name": "MapCanvas",
+          "features": [
+            "Pan and zoom controls",
+            "Zone labels",
+            "Discovered/undiscovered areas",
+            "Fast travel points",
+            "Quest markers",
+            "Party member locations",
+            "Custom waypoints"
+          ]
+        },
+        {
+          "name": "ZoneInfo",
+          "position": "sidebar",
+          "features": [
+            "Zone name",
+            "Recommended level",
+            "Zone type",
+            "Resources available",
+            "Key NPCs"
+          ]
+        },
+        {
+          "name": "Legend",
+          "position": "bottom",
+          "toggleable": true
+        }
+      ]
+    },
+
+    "beastslayer": {
+      "widget": "WBP_Menu_Beastslayer",
+      "type": "overlay",
+      "pausesGame": false,
+      "size": { "width": 700, "height": 500 },
+      "components": [
+        {
+          "name": "CurrentTask",
+          "features": [
+            "Target creature",
+            "Kill count progress",
+            "Location hint",
+            "Rewards",
+            "Cancel task option"
+          ]
+        },
+        {
+          "name": "MasterInfo",
+          "features": [
+            "Current master",
+            "Tasks completed",
+            "Streak bonus",
+            "Points earned"
+          ]
+        },
+        {
+          "name": "PointsShop",
+          "features": [
+            "Purchasable rewards",
+            "Unlockable abilities",
+            "Cosmetic items"
+          ]
+        },
+        {
+          "name": "BestiaryPreview",
+          "features": [
+            "Creature image",
+            "Combat level",
+            "Weakness info",
+            "Drop table preview"
+          ]
+        }
+      ]
+    },
+
+    "bank": {
+      "widget": "WBP_Menu_Bank",
+      "type": "overlay",
+      "pausesGame": false,
+      "size": { "width": 900, "height": 700 },
+      "components": [
+        {
+          "name": "BankTabs",
+          "tabCount": 10,
+          "customTabNames": true,
+          "tabIcons": true
+        },
+        {
+          "name": "BankGrid",
+          "gridSize": { "columns": 10, "rows": "expandable" },
+          "slotSize": 45,
+          "maxSlots": 800,
+          "features": [
+            "Drag and drop",
+            "Search filter",
+            "Placeholder mode",
+            "Sort options"
+          ]
+        },
+        {
+          "name": "InventoryPreview",
+          "position": "bottom",
+          "features": [
+            "Quick deposit all",
+            "Quick withdraw preset",
+            "Equipment loadouts"
+          ]
+        }
+      ]
+    },
+
+    "trade": {
+      "widget": "WBP_Menu_Trade",
+      "type": "overlay",
+      "pausesGame": false,
+      "size": { "width": 600, "height": 400 },
+      "components": [
+        {
+          "name": "MyOffer",
+          "position": "left",
+          "gridSlots": 12,
+          "features": [
+            "Item slots",
+            "Currency offer",
+            "Accept checkbox"
+          ]
+        },
+        {
+          "name": "TheirOffer",
+          "position": "right",
+          "gridSlots": 12,
+          "features": [
+            "Partner's items",
+            "Partner's currency",
+            "Partner accept status"
+          ]
+        },
+        {
+          "name": "TradeStatus",
+          "position": "center",
+          "displays": ["waiting", "both_accepted", "trade_complete", "trade_cancelled"]
+        }
+      ]
+    },
+
+    "grandExchange": {
+      "widget": "WBP_Menu_GrandExchange",
+      "type": "overlay",
+      "pausesGame": false,
+      "size": { "width": 900, "height": 600 },
+      "components": [
+        {
+          "name": "SearchPanel",
+          "features": [
+            "Item search bar",
+            "Category filters",
+            "Recent searches",
+            "Price history graph"
+          ]
+        },
+        {
+          "name": "BuySlots",
+          "slotCount": 8,
+          "features": [
+            "Buy/sell toggle",
+            "Quantity input",
+            "Price input",
+            "Market price suggestion",
+            "Progress bar",
+            "Collect button"
+          ]
+        },
+        {
+          "name": "TransactionHistory",
+          "features": [
+            "Recent transactions",
+            "Filter by buy/sell",
+            "Export option"
+          ]
+        }
+      ]
+    },
+
+    "settings": {
+      "widget": "WBP_Menu_Settings",
+      "type": "overlay",
+      "pausesGame": true,
+      "size": { "width": 800, "height": 600 },
+      "tabs": [
+        {
+          "name": "Graphics",
+          "settings": [
+            { "id": "resolution", "type": "dropdown" },
+            { "id": "windowMode", "type": "dropdown", "options": ["fullscreen", "borderless", "windowed"] },
+            { "id": "vsync", "type": "toggle" },
+            { "id": "frameRateCap", "type": "slider", "range": [30, 240] },
+            { "id": "overallQuality", "type": "dropdown", "options": ["low", "medium", "high", "ultra", "custom"] },
+            { "id": "textureQuality", "type": "dropdown" },
+            { "id": "shadowQuality", "type": "dropdown" },
+            { "id": "effectsQuality", "type": "dropdown" },
+            { "id": "viewDistance", "type": "slider" },
+            { "id": "antiAliasing", "type": "dropdown" },
+            { "id": "ambientOcclusion", "type": "toggle" },
+            { "id": "motionBlur", "type": "toggle" },
+            { "id": "bloom", "type": "toggle" }
+          ]
+        },
+        {
+          "name": "Audio",
+          "settings": [
+            { "id": "masterVolume", "type": "slider", "range": [0, 100] },
+            { "id": "musicVolume", "type": "slider", "range": [0, 100] },
+            { "id": "sfxVolume", "type": "slider", "range": [0, 100] },
+            { "id": "voiceVolume", "type": "slider", "range": [0, 100] },
+            { "id": "ambientVolume", "type": "slider", "range": [0, 100] },
+            { "id": "muteWhenUnfocused", "type": "toggle" },
+            { "id": "audioDevice", "type": "dropdown" }
+          ]
+        },
+        {
+          "name": "Controls",
+          "settings": [
+            { "id": "keybindings", "type": "keybind_list" },
+            { "id": "mouseSensitivity", "type": "slider" },
+            { "id": "invertMouseY", "type": "toggle" },
+            { "id": "cameraSmoothing", "type": "slider" },
+            { "id": "controllerSupport", "type": "toggle" },
+            { "id": "controllerDeadzone", "type": "slider" }
+          ]
+        },
+        {
+          "name": "Gameplay",
+          "settings": [
+            { "id": "difficulty", "type": "dropdown" },
+            { "id": "autoLoot", "type": "toggle" },
+            { "id": "combatMode", "type": "dropdown", "options": ["click_to_attack", "auto_retaliate"] },
+            { "id": "showDamageNumbers", "type": "toggle" },
+            { "id": "showOtherPlayerNames", "type": "toggle" },
+            { "id": "profanityFilter", "type": "toggle" },
+            { "id": "tutorialHints", "type": "toggle" }
+          ]
+        },
+        {
+          "name": "Interface",
+          "settings": [
+            { "id": "uiScale", "type": "slider", "range": [0.75, 1.5] },
+            { "id": "hudOpacity", "type": "slider", "range": [0.5, 1.0] },
+            { "id": "minimapSize", "type": "slider" },
+            { "id": "minimapRotation", "type": "toggle" },
+            { "id": "chatFontSize", "type": "dropdown" },
+            { "id": "showClock", "type": "dropdown", "options": ["off", "game_time", "real_time", "both"] },
+            { "id": "colorblindMode", "type": "dropdown", "options": ["off", "protanopia", "deuteranopia", "tritanopia"] }
+          ]
+        },
+        {
+          "name": "Social",
+          "settings": [
+            { "id": "acceptTradeRequests", "type": "dropdown", "options": ["everyone", "friends_only", "nobody"] },
+            { "id": "acceptPartyInvites", "type": "dropdown" },
+            { "id": "acceptClanInvites", "type": "dropdown" },
+            { "id": "privateMessages", "type": "dropdown" },
+            { "id": "showOnlineSatus", "type": "toggle" }
+          ]
+        }
+      ]
+    }
+  },
+
+  "dialogueSystem": {
+    "widget": "WBP_Dialogue_Main",
+    "type": "overlay",
+    "position": "bottom_center",
+    "size": { "width": 700, "height": 250 },
+    "components": [
+      {
+        "name": "SpeakerPortrait",
+        "position": "left",
+        "size": { "width": 150, "height": 200 },
+        "features": [
+          "Character portrait",
+          "Expression changes",
+          "Animation support"
+        ]
+      },
+      {
+        "name": "SpeakerName",
+        "position": "top",
+        "styling": "accent_banner"
+      },
+      {
+        "name": "DialogueText",
+        "position": "center",
+        "features": [
+          "Typewriter effect",
+          "Click to skip",
+          "Rich text support",
+          "Keyword highlighting"
+        ]
+      },
+      {
+        "name": "ResponseOptions",
+        "position": "bottom",
+        "maxOptions": 4,
+        "features": [
+          "Numbered selection (1-4)",
+          "Skill check indicators",
+          "Quest requirement indicators",
+          "Hover preview"
+        ]
+      },
+      {
+        "name": "ContinuePrompt",
+        "position": "bottom_right",
+        "text": "Click or press Space to continue"
+      }
+    ]
+  },
+
+  "notificationSystem": {
+    "overview": "Toast notifications and popup alerts",
+
+    "toastNotifications": {
+      "widget": "WBP_Notification_Toast",
+      "position": "top_center",
+      "maxVisible": 5,
+      "duration": 3,
+      "types": [
+        {
+          "type": "info",
+          "icon": "info_circle",
+          "color": { "r": 0.3, "g": 0.5, "b": 0.8 }
+        },
+        {
+          "type": "success",
+          "icon": "checkmark",
+          "color": { "r": 0.2, "g": 0.7, "b": 0.3 }
+        },
+        {
+          "type": "warning",
+          "icon": "exclamation",
+          "color": { "r": 0.9, "g": 0.7, "b": 0.2 }
+        },
+        {
+          "type": "error",
+          "icon": "x_circle",
+          "color": { "r": 0.8, "g": 0.2, "b": 0.2 }
+        },
+        {
+          "type": "achievement",
+          "icon": "trophy",
+          "color": { "r": 1.0, "g": 0.8, "b": 0.2 },
+          "sound": "A_Achievement_Unlock"
+        },
+        {
+          "type": "levelUp",
+          "icon": "level_up",
+          "color": { "r": 0.6, "g": 0.4, "b": 0.9 },
+          "sound": "A_Level_Up"
+        }
+      ]
+    },
+
+    "confirmDialogs": {
+      "widget": "WBP_Notification_Confirm",
+      "types": [
+        {
+          "type": "confirm",
+          "buttons": ["Confirm", "Cancel"]
+        },
+        {
+          "type": "yesNo",
+          "buttons": ["Yes", "No"]
+        },
+        {
+          "type": "okCancel",
+          "buttons": ["OK", "Cancel"]
+        },
+        {
+          "type": "custom",
+          "buttons": "dynamic"
+        }
+      ]
+    },
+
+    "itemPopup": {
+      "widget": "WBP_Notification_ItemGained",
+      "position": "center_right",
+      "features": [
+        "Item icon",
+        "Item name",
+        "Quantity",
+        "Rarity glow",
+        "Stack with same items"
+      ]
+    }
+  },
+
+  "socialUI": {
+    "friendsList": {
+      "widget": "WBP_Social_FriendsList",
+      "type": "overlay",
+      "size": { "width": 300, "height": 500 },
+      "features": [
+        "Online/offline sorting",
+        "Last seen indicator",
+        "Current activity display",
+        "Quick message button",
+        "Invite to party button",
+        "Block/remove options"
+      ]
+    },
+
+    "partyFrame": {
+      "widget": "WBP_Social_PartyFrame",
+      "type": "hud_element",
+      "anchor": "left",
+      "maxMembers": 5,
+      "features": [
+        "Party member health bars",
+        "Class/role icons",
+        "Buff/debuff indicators",
+        "Click to target",
+        "Right-click menu"
+      ]
+    },
+
+    "clanInterface": {
+      "widget": "WBP_Social_Clan",
+      "type": "overlay",
+      "tabs": ["Members", "Ranks", "Settings", "Citadel", "Events"],
+      "features": [
+        "Member list with ranks",
+        "Clan message board",
+        "Clan bank access",
+        "Event calendar",
+        "Rank permissions"
+      ]
+    }
+  },
+
+  "loadingScreens": {
+    "mainLoading": {
+      "widget": "WBP_Loading_Main",
+      "components": [
+        { "name": "Background", "type": "zone_artwork" },
+        { "name": "ProgressBar", "type": "animated_bar" },
+        { "name": "LoadingTips", "type": "rotating_text", "interval": 5 },
+        { "name": "ZoneName", "type": "title_text" }
+      ]
+    },
+
+    "transitionLoading": {
+      "widget": "WBP_Loading_Transition",
+      "type": "brief_fade",
+      "duration": 0.5
+    }
+  },
+
+  "tutorialSystem": {
+    "widget": "WBP_Tutorial_Main",
+    "components": [
+      {
+        "name": "HighlightBox",
+        "features": [
+          "Pulsing border around UI element",
+          "Darkened background",
+          "Arrow pointer"
+        ]
+      },
+      {
+        "name": "TutorialTooltip",
+        "features": [
+          "Instructional text",
+          "Action required indicator",
+          "Skip button",
+          "Progress dots"
+        ]
+      },
+      {
+        "name": "ControlHints",
+        "position": "bottom_center",
+        "features": [
+          "Context-sensitive controls",
+          "Keyboard/controller icons",
+          "Action descriptions"
+        ]
+      }
+    ]
+  },
+
+  "accessibilityFeatures": {
+    "screenReader": {
+      "enabled": true,
+      "announcements": [
+        "Menu navigation",
+        "Combat events",
+        "Notifications",
+        "Chat messages"
+      ]
+    },
+    "colorblindModes": {
+      "protanopia": {
+        "healthColor": { "r": 1.0, "g": 0.7, "b": 0.0 },
+        "enemyHighlight": { "r": 0.0, "g": 0.5, "b": 1.0 }
+      },
+      "deuteranopia": {
+        "healthColor": { "r": 1.0, "g": 0.5, "b": 0.0 },
+        "enemyHighlight": { "r": 0.5, "g": 0.0, "b": 1.0 }
+      },
+      "tritanopia": {
+        "healthColor": { "r": 1.0, "g": 0.3, "b": 0.3 },
+        "enemyHighlight": { "r": 0.0, "g": 0.8, "b": 0.8 }
+      }
+    },
+    "textScaling": {
+      "range": [0.75, 2.0],
+      "default": 1.0
+    },
+    "highContrast": {
+      "enabled": false,
+      "outlines": true,
+      "increasedOpacity": true
+    }
+  },
+
+  "implementationPhases": {
+    "phase1_Core": {
+      "description": "Essential HUD and menus",
+      "tasks": [
+        "Create base widget styles",
+        "Implement health/resource bars",
+        "Create action bar system",
+        "Build basic inventory UI",
+        "Setup minimap"
+      ]
+    },
+    "phase2_Menus": {
+      "description": "Full menu system",
+      "tasks": [
+        "Implement skill panel",
+        "Create quest log",
+        "Build settings menu",
+        "Setup world map",
+        "Create bank interface"
+      ]
+    },
+    "phase3_Social": {
+      "description": "Social features",
+      "tasks": [
+        "Implement chat system",
+        "Create friends list",
+        "Build party frames",
+        "Setup trade interface",
+        "Create clan UI"
+      ]
+    },
+    "phase4_Advanced": {
+      "description": "Advanced features",
+      "tasks": [
+        "Grand Exchange UI",
+        "Beastslayer interface",
+        "Dialogue system",
+        "Tutorial system"
+      ]
+    },
+    "phase5_Polish": {
+      "description": "Polish and accessibility",
+      "tasks": [
+        "Add animations",
+        "Implement accessibility features",
+        "Localization support",
+        "Performance optimization"
+      ]
+    }
+  }
+}

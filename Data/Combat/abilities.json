@@ -1,0 +1,611 @@
+{
+  "abilityCategories": [
+    { "id": "melee_basic", "name": "Melee Basic", "skill": "melee", "type": "basic" },
+    { "id": "melee_threshold", "name": "Melee Threshold", "skill": "melee", "type": "threshold" },
+    { "id": "melee_ultimate", "name": "Melee Ultimate", "skill": "melee", "type": "ultimate" },
+    { "id": "ranged_basic", "name": "Ranged Basic", "skill": "ranged", "type": "basic" },
+    { "id": "ranged_threshold", "name": "Ranged Threshold", "skill": "ranged", "type": "threshold" },
+    { "id": "ranged_ultimate", "name": "Ranged Ultimate", "skill": "ranged", "type": "ultimate" },
+    { "id": "magic_basic", "name": "Magic Basic", "skill": "magic", "type": "basic" },
+    { "id": "magic_threshold", "name": "Magic Threshold", "skill": "magic", "type": "threshold" },
+    { "id": "magic_ultimate", "name": "Magic Ultimate", "skill": "magic", "type": "ultimate" },
+    { "id": "defense", "name": "Defensive", "skill": "defense", "type": "defensive" },
+    { "id": "sanctity", "name": "Sanctity", "skill": "sanctity", "type": "blessing" }
+  ],
+  "abilities": {
+    "melee": [
+      {
+        "id": "cleave",
+        "name": "Cleave",
+        "category": "melee_basic",
+        "description": "A powerful horizontal slash that hits all enemies in front of you",
+        "level": 1,
+        "type": "basic",
+        "damage": { "min": 20, "max": 100, "type": "melee" },
+        "damageType": "slashing",
+        "cooldown": 0,
+        "adrenalineGain": 8,
+        "adrenalineCost": 0,
+        "range": 2,
+        "aoe": { "type": "cone", "angle": 90, "radius": 2 },
+        "animation": "slash_horizontal",
+        "effects": []
+      },
+      {
+        "id": "slice",
+        "name": "Slice",
+        "category": "melee_basic",
+        "description": "A quick diagonal cut dealing moderate damage",
+        "level": 1,
+        "type": "basic",
+        "damage": { "min": 30, "max": 120, "type": "melee" },
+        "damageType": "slashing",
+        "cooldown": 0,
+        "adrenalineGain": 8,
+        "adrenalineCost": 0,
+        "range": 2,
+        "animation": "slash_diagonal",
+        "effects": []
+      },
+      {
+        "id": "punish",
+        "name": "Punish",
+        "category": "melee_basic",
+        "description": "A heavy overhead strike. Deals bonus damage to stunned targets",
+        "level": 5,
+        "type": "basic",
+        "damage": { "min": 25, "max": 94, "type": "melee" },
+        "damageType": "blunt",
+        "cooldown": 0,
+        "adrenalineGain": 8,
+        "adrenalineCost": 0,
+        "range": 2,
+        "animation": "overhead_slam",
+        "effects": [
+          { "type": "bonus_damage", "condition": "target_stunned", "multiplier": 1.5 }
+        ]
+      },
+      {
+        "id": "fury",
+        "name": "Fury",
+        "category": "melee_basic",
+        "description": "Channel a rapid flurry of attacks over 2 seconds",
+        "level": 10,
+        "type": "basic",
+        "channeled": true,
+        "channelDuration": 2000,
+        "damage": { "min": 15, "max": 60, "type": "melee", "ticks": 4 },
+        "damageType": "slashing",
+        "cooldown": 0,
+        "adrenalineGain": 5,
+        "adrenalineCost": 0,
+        "range": 2,
+        "animation": "fury_channel",
+        "effects": []
+      },
+      {
+        "id": "sever",
+        "name": "Sever",
+        "category": "melee_basic",
+        "description": "A deep wound that deals damage and prevents healing",
+        "level": 20,
+        "type": "basic",
+        "damage": { "min": 37, "max": 188, "type": "melee" },
+        "damageType": "slashing",
+        "cooldown": 15000,
+        "adrenalineGain": 8,
+        "adrenalineCost": 0,
+        "range": 2,
+        "animation": "deep_cut",
+        "effects": [
+          { "type": "debuff", "id": "healing_reduction", "value": 50, "duration": 6000 }
+        ]
+      },
+      {
+        "id": "whirlwind",
+        "name": "Whirlwind",
+        "category": "melee_threshold",
+        "description": "Spin in a circle, hitting all nearby enemies",
+        "level": 30,
+        "type": "threshold",
+        "damage": { "min": 50, "max": 188, "type": "melee" },
+        "damageType": "slashing",
+        "cooldown": 20000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 50,
+        "range": 1,
+        "aoe": { "type": "circle", "radius": 3 },
+        "animation": "spin_attack",
+        "effects": []
+      },
+      {
+        "id": "assault",
+        "name": "Assault",
+        "category": "melee_threshold",
+        "description": "Channel a devastating series of rapid strikes",
+        "level": 40,
+        "type": "threshold",
+        "channeled": true,
+        "channelDuration": 3000,
+        "damage": { "min": 40, "max": 150, "type": "melee", "ticks": 6 },
+        "damageType": "slashing",
+        "cooldown": 30000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 50,
+        "range": 2,
+        "animation": "assault_channel",
+        "effects": []
+      },
+      {
+        "id": "quake",
+        "name": "Quake",
+        "category": "melee_threshold",
+        "description": "Slam the ground, causing an earthquake that damages and stuns",
+        "level": 50,
+        "type": "threshold",
+        "damage": { "min": 60, "max": 219, "type": "melee" },
+        "damageType": "blunt",
+        "cooldown": 25000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 50,
+        "range": 1,
+        "aoe": { "type": "circle", "radius": 4 },
+        "animation": "ground_slam",
+        "effects": [
+          { "type": "stun", "duration": 2000, "chance": 100 },
+          { "type": "debuff", "id": "armor_break", "value": 10, "duration": 10000 }
+        ]
+      },
+      {
+        "id": "slaughter",
+        "name": "Slaughter",
+        "category": "melee_threshold",
+        "description": "A vicious attack that causes bleeding. Target takes more damage while moving",
+        "level": 60,
+        "type": "threshold",
+        "damage": { "min": 70, "max": 250, "type": "melee" },
+        "damageType": "slashing",
+        "cooldown": 30000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 50,
+        "range": 2,
+        "animation": "brutal_slash",
+        "effects": [
+          { "type": "bleed", "damagePerTick": 50, "duration": 6000, "tickRate": 1000 },
+          { "type": "conditional_damage", "condition": "target_moving", "multiplier": 3 }
+        ]
+      },
+      {
+        "id": "meteor_strike",
+        "name": "Meteor Strike",
+        "category": "melee_ultimate",
+        "description": "Leap into the air and crash down with devastating force",
+        "level": 80,
+        "type": "ultimate",
+        "damage": { "min": 200, "max": 500, "type": "melee" },
+        "damageType": "blunt",
+        "cooldown": 60000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 100,
+        "range": 8,
+        "aoe": { "type": "circle", "radius": 5 },
+        "animation": "meteor_leap",
+        "effects": [
+          { "type": "stun", "duration": 3000, "chance": 100 },
+          { "type": "buff", "id": "adrenaline_refund", "value": 10, "onKill": true }
+        ]
+      },
+      {
+        "id": "berserk",
+        "name": "Berserk",
+        "category": "melee_ultimate",
+        "description": "Enter a berserker rage, doubling damage but taking increased damage",
+        "level": 85,
+        "type": "ultimate",
+        "damage": { "min": 0, "max": 0, "type": "none" },
+        "cooldown": 60000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 100,
+        "range": 0,
+        "animation": "berserk_roar",
+        "effects": [
+          { "type": "buff", "id": "damage_boost", "value": 100, "duration": 20000 },
+          { "type": "debuff", "id": "damage_taken", "value": 50, "duration": 20000 }
+        ]
+      }
+    ],
+    "ranged": [
+      {
+        "id": "piercing_shot",
+        "name": "Piercing Shot",
+        "category": "ranged_basic",
+        "description": "A precise shot that pierces through armor",
+        "level": 1,
+        "type": "basic",
+        "damage": { "min": 20, "max": 94, "type": "ranged" },
+        "damageType": "piercing",
+        "cooldown": 0,
+        "adrenalineGain": 8,
+        "adrenalineCost": 0,
+        "range": 12,
+        "animation": "bow_shot",
+        "effects": [
+          { "type": "armor_pierce", "value": 25 }
+        ]
+      },
+      {
+        "id": "binding_shot",
+        "name": "Binding Shot",
+        "category": "ranged_basic",
+        "description": "Fire a bola that binds the target in place",
+        "level": 15,
+        "type": "basic",
+        "damage": { "min": 15, "max": 70, "type": "ranged" },
+        "damageType": "piercing",
+        "cooldown": 15000,
+        "adrenalineGain": 8,
+        "adrenalineCost": 0,
+        "range": 12,
+        "animation": "bola_throw",
+        "effects": [
+          { "type": "root", "duration": 3000 }
+        ]
+      },
+      {
+        "id": "rapid_fire",
+        "name": "Rapid Fire",
+        "category": "ranged_threshold",
+        "description": "Channel a barrage of arrows at your target",
+        "level": 35,
+        "type": "threshold",
+        "channeled": true,
+        "channelDuration": 3000,
+        "damage": { "min": 30, "max": 125, "type": "ranged", "ticks": 8 },
+        "damageType": "piercing",
+        "cooldown": 20000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 50,
+        "range": 12,
+        "animation": "rapid_fire",
+        "effects": []
+      },
+      {
+        "id": "shadow_tendrils",
+        "name": "Shadow Tendrils",
+        "category": "ranged_threshold",
+        "description": "Summon dark tendrils that damage you and your target",
+        "level": 55,
+        "type": "threshold",
+        "channeled": true,
+        "channelDuration": 4000,
+        "damage": { "min": 60, "max": 300, "type": "ranged", "ticks": 5 },
+        "damageType": "shadow",
+        "cooldown": 45000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 50,
+        "range": 12,
+        "animation": "shadow_channel",
+        "effects": [
+          { "type": "self_damage", "percent": 25 }
+        ]
+      },
+      {
+        "id": "deadeye_zone",
+        "name": "Deadeye Zone",
+        "category": "ranged_ultimate",
+        "description": "Create a zone of precision that boosts ranged damage within it",
+        "level": 80,
+        "type": "ultimate",
+        "damage": { "min": 0, "max": 0, "type": "none" },
+        "cooldown": 60000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 100,
+        "range": 0,
+        "animation": "deadeye_zone",
+        "effects": [
+          { "type": "zone", "radius": 5, "duration": 30000 },
+          { "type": "buff", "id": "ranged_damage", "value": 50, "zone_only": true, "duration": 30000 }
+        ]
+      }
+    ],
+    "magic": [
+      {
+        "id": "gale_strike",
+        "name": "Gale Strike",
+        "category": "magic_basic",
+        "description": "Launch a bolt of compressed air at your target",
+        "level": 1,
+        "type": "basic",
+        "damage": { "min": 15, "max": 75, "type": "magic" },
+        "damageType": "wind",
+        "cooldown": 0,
+        "adrenalineGain": 8,
+        "adrenalineCost": 0,
+        "manaCost": 5,
+        "range": 10,
+        "animation": "cast_gale",
+        "effects": [],
+        "essenceCost": { "breeze_essence": 1 }
+      },
+      {
+        "id": "flame_burst",
+        "name": "Flame Burst",
+        "category": "magic_basic",
+        "description": "Hurl a ball of fire that explodes on impact",
+        "level": 15,
+        "type": "basic",
+        "damage": { "min": 25, "max": 94, "type": "magic" },
+        "damageType": "fire",
+        "cooldown": 0,
+        "adrenalineGain": 8,
+        "adrenalineCost": 0,
+        "manaCost": 10,
+        "range": 10,
+        "aoe": { "type": "circle", "radius": 2 },
+        "animation": "cast_fire",
+        "effects": [],
+        "essenceCost": { "flame_essence": 2 }
+      },
+      {
+        "id": "frost_bolt",
+        "name": "Frost Bolt",
+        "category": "magic_basic",
+        "description": "Launch a shard of ice that slows the target",
+        "level": 20,
+        "type": "basic",
+        "damage": { "min": 20, "max": 85, "type": "magic" },
+        "damageType": "ice",
+        "cooldown": 0,
+        "adrenalineGain": 8,
+        "adrenalineCost": 0,
+        "manaCost": 10,
+        "range": 10,
+        "animation": "cast_ice",
+        "effects": [
+          { "type": "slow", "value": 30, "duration": 5000 }
+        ],
+        "essenceCost": { "tide_essence": 2 }
+      },
+      {
+        "id": "chain_lightning",
+        "name": "Chain Lightning",
+        "category": "magic_threshold",
+        "description": "Blast lightning that jumps between nearby enemies",
+        "level": 45,
+        "type": "threshold",
+        "damage": { "min": 50, "max": 188, "type": "magic" },
+        "damageType": "lightning",
+        "cooldown": 20000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 50,
+        "manaCost": 25,
+        "range": 10,
+        "chainTargets": 3,
+        "chainRadius": 5,
+        "chainDamageReduction": 0.15,
+        "animation": "cast_lightning",
+        "effects": [
+          { "type": "stun", "duration": 1000, "chance": 25 }
+        ],
+        "essenceCost": { "wind_essence": 3, "flame_essence": 1 }
+      },
+      {
+        "id": "wild_magic",
+        "name": "Wild Magic",
+        "category": "magic_threshold",
+        "description": "Unleash chaotic magical energy in two devastating hits",
+        "level": 60,
+        "type": "threshold",
+        "damage": { "min": 80, "max": 300, "type": "magic", "hits": 2 },
+        "damageType": "arcane",
+        "cooldown": 25000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 50,
+        "manaCost": 30,
+        "range": 10,
+        "animation": "wild_magic",
+        "effects": [],
+        "essenceCost": { "chaos_essence": 2 }
+      },
+      {
+        "id": "solar_radiance",
+        "name": "Solar Radiance",
+        "category": "magic_ultimate",
+        "description": "Call down radiant light that dramatically boosts magic damage",
+        "level": 80,
+        "type": "ultimate",
+        "damage": { "min": 0, "max": 0, "type": "none" },
+        "cooldown": 60000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 100,
+        "manaCost": 50,
+        "range": 0,
+        "animation": "solar_radiance",
+        "effects": [
+          { "type": "zone", "radius": 5, "duration": 30000 },
+          { "type": "buff", "id": "magic_damage", "value": 50, "zone_only": true, "duration": 30000 }
+        ],
+        "essenceCost": { "ember_essence": 5, "growth_essence": 2 }
+      }
+    ],
+    "defense": [
+      {
+        "id": "bash",
+        "name": "Bash",
+        "category": "defense",
+        "description": "Slam your shield into the target, stunning them",
+        "level": 10,
+        "type": "defensive",
+        "damage": { "min": 10, "max": 50, "type": "melee" },
+        "damageType": "blunt",
+        "cooldown": 15000,
+        "adrenalineGain": 8,
+        "adrenalineCost": 0,
+        "range": 2,
+        "requiresShield": true,
+        "animation": "shield_bash",
+        "effects": [
+          { "type": "stun", "duration": 2000, "chance": 100 }
+        ]
+      },
+      {
+        "id": "resonance",
+        "name": "Resonance",
+        "category": "defense",
+        "description": "The next attack heals you instead of dealing damage",
+        "level": 30,
+        "type": "defensive",
+        "damage": { "min": 0, "max": 0, "type": "none" },
+        "cooldown": 30000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 0,
+        "range": 0,
+        "requiresShield": true,
+        "animation": "resonance_channel",
+        "effects": [
+          { "type": "buff", "id": "heal_on_hit", "duration": 6000, "stacks": 1 }
+        ]
+      },
+      {
+        "id": "devotion",
+        "name": "Devotion",
+        "category": "defense",
+        "description": "Become immune to damage for a short time. Extended by kills",
+        "level": 50,
+        "type": "defensive",
+        "damage": { "min": 0, "max": 0, "type": "none" },
+        "cooldown": 60000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 50,
+        "range": 0,
+        "animation": "devotion",
+        "effects": [
+          { "type": "immunity", "duration": 10000 },
+          { "type": "on_kill", "effect": "extend_duration", "value": 5000 }
+        ]
+      },
+      {
+        "id": "barricade",
+        "name": "Barricade",
+        "category": "defense",
+        "description": "Become completely invulnerable but cannot attack",
+        "level": 80,
+        "type": "defensive",
+        "damage": { "min": 0, "max": 0, "type": "none" },
+        "cooldown": 90000,
+        "adrenalineGain": 0,
+        "adrenalineCost": 100,
+        "range": 0,
+        "requiresShield": true,
+        "animation": "barricade",
+        "effects": [
+          { "type": "invulnerable", "duration": 10000 },
+          { "type": "debuff", "id": "cannot_attack", "duration": 10000 }
+        ]
+      }
+    ],
+    "sanctity": [
+      {
+        "id": "thick_skin",
+        "name": "Thick Skin",
+        "category": "sanctity",
+        "description": "Increases defense by 5%",
+        "level": 1,
+        "type": "blessing",
+        "devotionDrain": 1,
+        "effects": [
+          { "type": "buff", "id": "defense", "value": 5, "percent": true }
+        ]
+      },
+      {
+        "id": "clarity_of_thought",
+        "name": "Clarity of Thought",
+        "category": "sanctity",
+        "description": "Increases attack accuracy by 5%",
+        "level": 7,
+        "type": "blessing",
+        "devotionDrain": 1,
+        "effects": [
+          { "type": "buff", "id": "accuracy", "value": 5, "percent": true }
+        ]
+      },
+      {
+        "id": "ward_melee",
+        "name": "Ward from Melee",
+        "category": "sanctity",
+        "description": "Reduces melee damage taken by 50%",
+        "level": 43,
+        "type": "blessing",
+        "devotionDrain": 5,
+        "exclusive": "protection",
+        "effects": [
+          { "type": "damage_reduction", "damageType": "melee", "value": 50 }
+        ]
+      },
+      {
+        "id": "ward_ranged",
+        "name": "Ward from Ranged",
+        "category": "sanctity",
+        "description": "Reduces ranged damage taken by 50%",
+        "level": 40,
+        "type": "blessing",
+        "devotionDrain": 5,
+        "exclusive": "protection",
+        "effects": [
+          { "type": "damage_reduction", "damageType": "ranged", "value": 50 }
+        ]
+      },
+      {
+        "id": "ward_magic",
+        "name": "Ward from Magic",
+        "category": "sanctity",
+        "description": "Reduces magic damage taken by 50%",
+        "level": 37,
+        "type": "blessing",
+        "devotionDrain": 5,
+        "exclusive": "protection",
+        "effects": [
+          { "type": "damage_reduction", "damageType": "magic", "value": 50 }
+        ]
+      },
+      {
+        "id": "valor",
+        "name": "Valor",
+        "category": "sanctity",
+        "description": "Boosts melee attack, strength, and defense by 20%",
+        "level": 70,
+        "type": "blessing",
+        "devotionDrain": 12,
+        "exclusive": "combat_boost",
+        "effects": [
+          { "type": "buff", "id": "melee_attack", "value": 20, "percent": true },
+          { "type": "buff", "id": "melee_strength", "value": 23, "percent": true },
+          { "type": "buff", "id": "defense", "value": 25, "percent": true }
+        ]
+      },
+      {
+        "id": "lifeweave",
+        "name": "Lifeweave",
+        "category": "sanctity",
+        "description": "Heals you for a portion of damage dealt",
+        "level": 92,
+        "type": "blessing",
+        "devotionDrain": 15,
+        "exclusive": "invocation",
+        "effects": [
+          { "type": "lifesteal", "value": 10, "percent": true }
+        ]
+      }
+    ]
+  },
+  "combatCalculations": {
+    "damageFormula": "base_damage * (1 + strength_bonus/100) * ability_modifier * random(0.8, 1.0)",
+    "accuracyFormula": "base_accuracy * (1 + attack_bonus/100) vs target_defense",
+    "criticalChance": "base_crit + (luck / 10)%",
+    "criticalMultiplier": 1.5,
+    "adrenalinePerBasic": 8,
+    "maxAdrenaline": 100,
+    "adrenalineDecayRate": 5,
+    "adrenalineDecayDelay": 10000
+  }
+}

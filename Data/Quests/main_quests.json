@@ -1,0 +1,167 @@
+{
+  "quests": [
+    {
+      "id": "the_awakening",
+      "name": "The Awakening",
+      "description": "Learn the basics of survival in the Realm of Eternity",
+      "type": "main",
+      "difficulty": "novice",
+      "length": "short",
+      "questPoints": 1,
+      "requirements": { "quests": [], "skills": {}, "items": [] },
+      "startNpc": "guide",
+      "startLocation": { "zone": "awakening_isle", "x": 100, "y": 100 },
+      "steps": [
+        { "id": 1, "description": "Talk to the Guide", "type": "dialogue", "npc": "guide", "dialogueId": "awakening_intro" },
+        { "id": 2, "description": "Chop an ashwood tree", "type": "skill_action", "skill": "woodcutting", "target": "ashwood_tree", "count": 1 },
+        { "id": 3, "description": "Light a campfire", "type": "skill_action", "skill": "firemaking", "target": "ashwood_log", "count": 1 },
+        { "id": 4, "description": "Catch a fish", "type": "skill_action", "skill": "fishing", "count": 1 },
+        { "id": 5, "description": "Cook your catch", "type": "skill_action", "skill": "cooking", "count": 1 },
+        { "id": 6, "description": "Mine emberite and tin ore", "type": "skill_action", "skill": "mining", "targets": ["emberite_ore", "tin_ore"], "count": 2 },
+        { "id": 7, "description": "Smelt a copperweave bar", "type": "craft", "recipe": "smelt_copperweave_bar" },
+        { "id": 8, "description": "Defeat a training dummy", "type": "combat", "target": "training_dummy", "count": 1 },
+        { "id": 9, "description": "Board the ferry to the mainland", "type": "interact", "target": "mainland_ferry" }
+      ],
+      "rewards": {
+        "xp": { "woodcutting": 100, "firemaking": 100, "fishing": 100, "cooking": 100, "mining": 100, "smithing": 100, "melee": 100 },
+        "items": [
+          { "itemId": "copperweave_sword", "quantity": 1 },
+          { "itemId": "copperweave_pickaxe", "quantity": 1 },
+          { "itemId": "copperweave_axe", "quantity": 1 },
+          { "itemId": "gold_coins", "quantity": 100 }
+        ],
+        "unlocks": ["mainland_access"]
+      }
+    },
+    {
+      "id": "lords_feast",
+      "name": "The Lord's Feast",
+      "description": "The head chef of Dawnhaven Keep needs help preparing a grand feast for Lord Aldwyn's celebration",
+      "type": "main",
+      "difficulty": "novice",
+      "length": "short",
+      "questPoints": 1,
+      "requirements": { "quests": ["the_awakening"], "skills": {}, "items": [] },
+      "startNpc": "chef_brennan",
+      "startLocation": { "zone": "dawnhaven", "x": 3208, "y": 3212 },
+      "steps": [
+        { "id": 1, "description": "Talk to Chef Brennan", "type": "dialogue", "npc": "chef_brennan", "dialogueId": "lords_feast_start" },
+        { "id": 2, "description": "Obtain a fresh egg", "type": "obtain_item", "itemId": "egg", "quantity": 1, "hint": "Check the chicken coops north of Dawnhaven" },
+        { "id": 3, "description": "Obtain a bucket of milk", "type": "obtain_item", "itemId": "bucket_of_milk", "quantity": 1, "hint": "Use a bucket on a dairy cow" },
+        { "id": 4, "description": "Obtain a pot of flour", "type": "obtain_item", "itemId": "pot_of_flour", "quantity": 1, "hint": "Mill wheat at the Dawnhaven windmill" },
+        { "id": 5, "description": "Return to Chef Brennan", "type": "dialogue", "npc": "chef_brennan", "dialogueId": "lords_feast_end" }
+      ],
+      "rewards": { "xp": { "cooking": 300 }, "items": [], "unlocks": ["dawnhaven_kitchen_access"] }
+    },
+    {
+      "id": "bogling_accord",
+      "name": "The Bogling Accord",
+      "description": "Two bogling chieftains can't agree on what color their tribe's armor should be",
+      "type": "main",
+      "difficulty": "novice",
+      "length": "short",
+      "questPoints": 5,
+      "requirements": { "quests": ["the_awakening"], "skills": {}, "items": [] },
+      "startNpc": "chieftain_grubnak",
+      "startLocation": { "zone": "bogling_warren", "x": 2956, "y": 3508 },
+      "steps": [
+        { "id": 1, "description": "Talk to the bogling chieftains", "type": "dialogue", "npc": "chieftain_grubnak", "dialogueId": "bogling_accord_start" },
+        { "id": 2, "description": "Obtain orange armor dye", "type": "obtain_item", "itemId": "orange_dye", "quantity": 1 },
+        { "id": 3, "description": "Dye bogling mail orange", "type": "use_item_on", "item": "orange_dye", "target": "bogling_mail", "result": "orange_bogling_mail" },
+        { "id": 4, "description": "Show the orange mail to the chieftains", "type": "dialogue", "npc": "chieftain_grubnak", "dialogueId": "bogling_accord_orange", "requiredItem": "orange_bogling_mail" },
+        { "id": 5, "description": "Obtain blue armor dye", "type": "obtain_item", "itemId": "blue_dye", "quantity": 1 },
+        { "id": 6, "description": "Dye bogling mail blue", "type": "use_item_on", "item": "blue_dye", "target": "bogling_mail", "result": "blue_bogling_mail" },
+        { "id": 7, "description": "Show the blue mail to the chieftains", "type": "dialogue", "npc": "chieftain_grubnak", "dialogueId": "bogling_accord_blue", "requiredItem": "blue_bogling_mail" },
+        { "id": 8, "description": "Suggest natural mud-brown armor", "type": "dialogue", "npc": "chieftain_grubnak", "dialogueId": "bogling_accord_brown" },
+        { "id": 9, "description": "Give them regular bogling mail", "type": "give_item", "npc": "chieftain_grubnak", "itemId": "bogling_mail", "quantity": 1 }
+      ],
+      "rewards": { "xp": { "crafting": 200 }, "items": [{ "itemId": "gold_bar", "quantity": 1 }] }
+    },
+    {
+      "id": "wyrms_bane",
+      "name": "Wyrm's Bane",
+      "description": "Prove yourself as a true champion by slaying the fearsome wyrm Scorath on Cinderpeak Isle",
+      "type": "main",
+      "difficulty": "experienced",
+      "length": "long",
+      "questPoints": 18,
+      "requirements": { "quests": ["the_awakening"], "skills": { "melee": 25, "defense": 25 }, "items": [], "combatLevel": 40 },
+      "recommendedLevel": 50,
+      "startNpc": "guildmaster_veran",
+      "startLocation": { "zone": "champions_hall", "x": 3191, "y": 3363 },
+      "steps": [
+        { "id": 1, "description": "Talk to Guildmaster Veran", "type": "dialogue", "npc": "guildmaster_veran", "dialogueId": "wyrms_bane_start" },
+        { "id": 2, "description": "Obtain the first map piece from Malachar's Labyrinth", "type": "dungeon", "dungeon": "malachars_labyrinth", "objective": "map_piece_1" },
+        { "id": 3, "description": "Obtain the second map piece from the Seer", "type": "dialogue", "npc": "the_seer", "dialogueId": "seer_map_piece" },
+        { "id": 4, "description": "Obtain the third map piece from the imprisoned Grimeye", "type": "dialogue", "npc": "grimeye", "dialogueId": "grimeye_map_piece" },
+        { "id": 5, "description": "Combine the map pieces", "type": "combine_items", "items": ["map_piece_1", "map_piece_2", "map_piece_3"], "result": "cinderpeak_map" },
+        { "id": 6, "description": "Buy or repair a ship", "type": "obtain_item", "itemId": "the_dawn_seeker", "quantity": 1, "price": 2000 },
+        { "id": 7, "description": "Find a captain to sail to Cinderpeak", "type": "dialogue", "npc": "captain_tormund", "dialogueId": "tormund_hire" },
+        { "id": 8, "description": "Prepare a wyrmward shield", "type": "obtain_item", "itemId": "wyrmward_shield", "quantity": 1 },
+        { "id": 9, "description": "Sail to Cinderpeak Isle", "type": "travel", "destination": "cinderpeak_isle" },
+        { "id": 10, "description": "Defeat Scorath the Wyrm", "type": "boss_kill", "target": "scorath", "count": 1 },
+        { "id": 11, "description": "Return to Guildmaster Veran with Scorath's head", "type": "dialogue", "npc": "guildmaster_veran", "dialogueId": "wyrms_bane_complete", "requiredItem": "scorath_head" }
+      ],
+      "rewards": {
+        "xp": { "melee": 18650, "defense": 18650 },
+        "items": [{ "itemId": "eternium_platebody", "quantity": 1 }],
+        "unlocks": ["eternium_platebody_equip", "champions_hall_wyrm_display"]
+      }
+    },
+    {
+      "id": "shimmerwood_gate",
+      "name": "The Shimmerwood Gate",
+      "description": "Discover the legendary fey realm of Shimmerwood hidden within the marshes",
+      "type": "main",
+      "difficulty": "intermediate",
+      "length": "medium",
+      "questPoints": 3,
+      "requirements": { "quests": ["the_awakening"], "skills": { "woodcutting": 36, "crafting": 31 }, "items": [] },
+      "startNpc": "wanderer",
+      "startLocation": { "zone": "misthollow_marsh", "x": 3150, "y": 3205 },
+      "steps": [
+        { "id": 1, "description": "Talk to the wanderers in Misthollow Marsh", "type": "dialogue", "npc": "wanderer", "dialogueId": "shimmerwood_start" },
+        { "id": 2, "description": "Find the sprite Glimwick", "type": "dialogue", "npc": "glimwick", "dialogueId": "glimwick_intro" },
+        { "id": 3, "description": "Enter the cavern beneath the marsh", "type": "enter_area", "area": "marsh_cavern" },
+        { "id": 4, "description": "Defeat the bog spirit (unequipped)", "type": "combat", "target": "bog_spirit", "count": 1, "restrictions": ["no_weapons", "no_armor"] },
+        { "id": 5, "description": "Cut a Starwood branch", "type": "skill_action", "skill": "woodcutting", "target": "starwood_tree", "count": 1 },
+        { "id": 6, "description": "Craft a Starwood staff", "type": "craft", "recipe": "craft_starwood_staff" },
+        { "id": 7, "description": "Enter Shimmerwood through the ancient archway", "type": "enter_area", "area": "shimmerwood", "requiredItem": "starwood_staff", "equipped": true }
+      ],
+      "rewards": {
+        "xp": {},
+        "items": [{ "itemId": "starwood_staff", "quantity": 1 }],
+        "unlocks": ["shimmerwood_access", "fey_portal_network"]
+      }
+    },
+    {
+      "id": "primate_peril",
+      "name": "Primate Peril",
+      "description": "A Roothollow scout squad has gone missing on Simian Shores. Infiltrate the ape kingdom to rescue them.",
+      "type": "main",
+      "difficulty": "master",
+      "length": "very_long",
+      "questPoints": 20,
+      "requirements": { "quests": ["roothollow_alliance", "the_great_oak"], "skills": { "agility": 48 }, "items": [] },
+      "recommendedLevel": 70,
+      "warnings": ["High-level combat required", "Long quest with no bank access in some areas"],
+      "startNpc": "elder_thornbark",
+      "startLocation": { "zone": "roothollow", "x": 2465, "y": 3495 },
+      "steps": [
+        { "id": 1, "description": "Talk to Elder Thornbark", "type": "dialogue", "npc": "elder_thornbark", "dialogueId": "primate_peril_start" },
+        { "id": 2, "description": "Travel to Simian Shores", "type": "travel", "destination": "simian_shores" },
+        { "id": 3, "description": "Infiltrate the ape city", "type": "stealth", "area": "simian_city" },
+        { "id": 4, "description": "Find Scout Captain Bramble and the lost squad", "type": "dialogue", "npc": "captain_bramble", "dialogueId": "bramble_intro" },
+        { "id": 5, "description": "Obtain an ape disguise talisman", "type": "obtain_item", "itemId": "ape_talisman", "quantity": 1 },
+        { "id": 6, "description": "Infiltrate the Temple of the Great Ape", "type": "enter_area", "area": "temple_of_great_ape", "requiredItem": "ape_talisman" },
+        { "id": 7, "description": "Defeat the Jungle Shadowfiend", "type": "boss_kill", "target": "jungle_shadowfiend", "count": 1 },
+        { "id": 8, "description": "Return to Elder Thornbark", "type": "dialogue", "npc": "elder_thornbark", "dialogueId": "primate_peril_complete" }
+      ],
+      "rewards": {
+        "xp": { "melee": 35000, "defense": 35000, "ranged": 35000, "magic": 35000 },
+        "items": [{ "itemId": "diamond", "quantity": 3 }],
+        "unlocks": ["wyrmscale_scimitar_equip", "simian_shores_access"]
+      }
+    }
+  ]
+}

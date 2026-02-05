@@ -1,0 +1,507 @@
+{
+  "categories": [
+    {
+      "id": "combat",
+      "name": "Combat",
+      "description": "Achievements related to fighting and slaying monsters"
+    },
+    {
+      "id": "skilling",
+      "name": "Skilling",
+      "description": "Achievements for training and mastering skills"
+    },
+    {
+      "id": "questing",
+      "name": "Questing",
+      "description": "Complete quests and storylines"
+    },
+    {
+      "id": "exploration",
+      "name": "Exploration",
+      "description": "Discover new areas and secrets"
+    },
+    {
+      "id": "economy",
+      "name": "Economy",
+      "description": "Trading, earning, and spending wealth"
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "description": "Interacting with other players"
+    },
+    {
+      "id": "collection",
+      "name": "Collection",
+      "description": "Collecting rare items and sets"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "first_blood",
+      "name": "First Blood",
+      "description": "Defeat your first enemy",
+      "category": "combat",
+      "tier": "easy",
+      "points": 5,
+      "requirements": {
+        "type": "kill_count",
+        "target": "any",
+        "count": 1
+      },
+      "rewards": {
+        "xp": { "melee": 100 }
+      }
+    },
+    {
+      "id": "monster_slayer",
+      "name": "Monster Slayer",
+      "description": "Defeat 100 enemies",
+      "category": "combat",
+      "tier": "medium",
+      "points": 15,
+      "requirements": {
+        "type": "kill_count",
+        "target": "any",
+        "count": 100
+      },
+      "rewards": {
+        "xp": { "melee": 1000 }
+      }
+    },
+    {
+      "id": "slaughter",
+      "name": "Slaughter",
+      "description": "Defeat 1000 enemies",
+      "category": "combat",
+      "tier": "hard",
+      "points": 30,
+      "requirements": {
+        "type": "kill_count",
+        "target": "any",
+        "count": 1000
+      },
+      "rewards": {
+        "items": [{ "itemId": "blood_amulet", "quantity": 1 }]
+      }
+    },
+    {
+      "id": "wyrm_hunter",
+      "name": "Wyrm Hunter",
+      "description": "Slay 50 wyrms",
+      "category": "combat",
+      "tier": "hard",
+      "points": 25,
+      "requirements": {
+        "type": "kill_count",
+        "target": "wyrm",
+        "targetType": "category",
+        "count": 50
+      },
+      "rewards": {
+        "title": "the Wyrm Hunter",
+        "xp": { "melee": 5000 }
+      }
+    },
+    {
+      "id": "beastslayer_novice",
+      "name": "Beastslayer Novice",
+      "description": "Complete 10 beastslaying tasks",
+      "category": "combat",
+      "tier": "easy",
+      "points": 10,
+      "requirements": {
+        "type": "beastslayer_tasks",
+        "count": 10
+      },
+      "rewards": {
+        "beastslayerPoints": 50
+      }
+    },
+    {
+      "id": "beastslayer_master_achievement",
+      "name": "Beastslayer Master",
+      "description": "Complete 100 beastslaying tasks",
+      "category": "combat",
+      "tier": "elite",
+      "points": 50,
+      "requirements": {
+        "type": "beastslayer_tasks",
+        "count": 100
+      },
+      "rewards": {
+        "title": "Beastslayer Master",
+        "beastslayerPoints": 500
+      }
+    },
+    {
+      "id": "first_steps",
+      "name": "First Steps",
+      "description": "Complete the tutorial",
+      "category": "questing",
+      "tier": "easy",
+      "points": 5,
+      "requirements": {
+        "type": "quest_complete",
+        "questId": "the_awakening"
+      },
+      "rewards": {
+        "items": [{ "itemId": "gold_coins", "quantity": 100 }]
+      }
+    },
+    {
+      "id": "quest_cape",
+      "name": "Quest Cape",
+      "description": "Complete all quests",
+      "category": "questing",
+      "tier": "elite",
+      "points": 100,
+      "requirements": {
+        "type": "all_quests"
+      },
+      "rewards": {
+        "items": [{ "itemId": "quest_cape", "quantity": 1 }],
+        "title": "Questmaster"
+      }
+    },
+    {
+      "id": "woodcutter_apprentice",
+      "name": "Woodcutter Apprentice",
+      "description": "Reach level 50 Woodcutting",
+      "category": "skilling",
+      "tier": "medium",
+      "points": 15,
+      "requirements": {
+        "type": "skill_level",
+        "skill": "woodcutting",
+        "level": 50
+      },
+      "rewards": {
+        "xp": { "woodcutting": 5000 }
+      }
+    },
+    {
+      "id": "master_woodcutter",
+      "name": "Master Woodcutter",
+      "description": "Reach level 99 Woodcutting",
+      "category": "skilling",
+      "tier": "elite",
+      "points": 50,
+      "requirements": {
+        "type": "skill_level",
+        "skill": "woodcutting",
+        "level": 99
+      },
+      "rewards": {
+        "items": [{ "itemId": "woodcutting_cape", "quantity": 1 }],
+        "title": "Master Woodcutter"
+      }
+    },
+    {
+      "id": "mining_apprentice",
+      "name": "Mining Apprentice",
+      "description": "Reach level 50 Mining",
+      "category": "skilling",
+      "tier": "medium",
+      "points": 15,
+      "requirements": {
+        "type": "skill_level",
+        "skill": "mining",
+        "level": 50
+      },
+      "rewards": {
+        "xp": { "mining": 5000 }
+      }
+    },
+    {
+      "id": "master_miner",
+      "name": "Master Miner",
+      "description": "Reach level 99 Mining",
+      "category": "skilling",
+      "tier": "elite",
+      "points": 50,
+      "requirements": {
+        "type": "skill_level",
+        "skill": "mining",
+        "level": 99
+      },
+      "rewards": {
+        "items": [{ "itemId": "mining_cape", "quantity": 1 }],
+        "title": "Master Miner"
+      }
+    },
+    {
+      "id": "total_level_500",
+      "name": "Rising Star",
+      "description": "Reach a total level of 500",
+      "category": "skilling",
+      "tier": "easy",
+      "points": 10,
+      "requirements": {
+        "type": "total_level",
+        "level": 500
+      },
+      "rewards": {
+        "items": [{ "itemId": "gold_coins", "quantity": 10000 }]
+      }
+    },
+    {
+      "id": "total_level_1000",
+      "name": "Dedicated Adventurer",
+      "description": "Reach a total level of 1000",
+      "category": "skilling",
+      "tier": "medium",
+      "points": 25,
+      "requirements": {
+        "type": "total_level",
+        "level": 1000
+      },
+      "rewards": {
+        "items": [{ "itemId": "gold_coins", "quantity": 100000 }]
+      }
+    },
+    {
+      "id": "total_level_2000",
+      "name": "Living Legend",
+      "description": "Reach a total level of 2000",
+      "category": "skilling",
+      "tier": "elite",
+      "points": 75,
+      "requirements": {
+        "type": "total_level",
+        "level": 2000
+      },
+      "rewards": {
+        "title": "the Legend",
+        "items": [{ "itemId": "gold_coins", "quantity": 1000000 }]
+      }
+    },
+    {
+      "id": "maxed",
+      "name": "Maxed",
+      "description": "Reach level 99 in all skills",
+      "category": "skilling",
+      "tier": "elite",
+      "points": 200,
+      "requirements": {
+        "type": "all_skills_99"
+      },
+      "rewards": {
+        "items": [{ "itemId": "max_cape", "quantity": 1 }],
+        "title": "Maxed"
+      }
+    },
+    {
+      "id": "explorer_dawnhaven",
+      "name": "Dawnhaven Explorer",
+      "description": "Discover all locations in Dawnhaven",
+      "category": "exploration",
+      "tier": "easy",
+      "points": 5,
+      "requirements": {
+        "type": "discover_area",
+        "zone": "dawnhaven",
+        "percentage": 100
+      },
+      "rewards": {
+        "xp": { "agility": 500 }
+      }
+    },
+    {
+      "id": "world_explorer",
+      "name": "World Explorer",
+      "description": "Visit every zone in the game",
+      "category": "exploration",
+      "tier": "hard",
+      "points": 40,
+      "requirements": {
+        "type": "discover_all_zones"
+      },
+      "rewards": {
+        "title": "the Explorer",
+        "items": [{ "itemId": "explorers_ring", "quantity": 1 }]
+      }
+    },
+    {
+      "id": "first_million",
+      "name": "First Million",
+      "description": "Earn 1,000,000 gold coins",
+      "category": "economy",
+      "tier": "medium",
+      "points": 20,
+      "requirements": {
+        "type": "total_wealth",
+        "amount": 1000000
+      },
+      "rewards": {
+        "title": "the Wealthy"
+      }
+    },
+    {
+      "id": "billionaire",
+      "name": "Billionaire",
+      "description": "Earn 1,000,000,000 gold coins",
+      "category": "economy",
+      "tier": "elite",
+      "points": 100,
+      "requirements": {
+        "type": "total_wealth",
+        "amount": 1000000000
+      },
+      "rewards": {
+        "title": "the Billionaire",
+        "items": [{ "itemId": "golden_crown", "quantity": 1 }]
+      }
+    },
+    {
+      "id": "first_trade",
+      "name": "First Trade",
+      "description": "Complete your first Eternal Exchange trade",
+      "category": "economy",
+      "tier": "easy",
+      "points": 5,
+      "requirements": {
+        "type": "exchange_trades",
+        "count": 1
+      },
+      "rewards": {
+        "items": [{ "itemId": "gold_coins", "quantity": 500 }]
+      }
+    },
+    {
+      "id": "merchant",
+      "name": "Merchant",
+      "description": "Complete 100 Eternal Exchange trades",
+      "category": "economy",
+      "tier": "medium",
+      "points": 15,
+      "requirements": {
+        "type": "exchange_trades",
+        "count": 100
+      },
+      "rewards": {
+        "title": "the Merchant"
+      }
+    },
+    {
+      "id": "first_friend",
+      "name": "First Friend",
+      "description": "Add someone to your friends list",
+      "category": "social",
+      "tier": "easy",
+      "points": 5,
+      "requirements": {
+        "type": "friends_count",
+        "count": 1
+      }
+    },
+    {
+      "id": "social_butterfly",
+      "name": "Social Butterfly",
+      "description": "Have 50 friends",
+      "category": "social",
+      "tier": "medium",
+      "points": 15,
+      "requirements": {
+        "type": "friends_count",
+        "count": 50
+      },
+      "rewards": {
+        "title": "the Friendly"
+      }
+    },
+    {
+      "id": "guild_founder",
+      "name": "Guild Founder",
+      "description": "Create a guild",
+      "category": "social",
+      "tier": "medium",
+      "points": 20,
+      "requirements": {
+        "type": "create_guild"
+      },
+      "rewards": {
+        "items": [{ "itemId": "guild_banner", "quantity": 1 }]
+      }
+    },
+    {
+      "id": "copperweave_collector",
+      "name": "Copperweave Collector",
+      "description": "Collect a full set of copperweave equipment",
+      "category": "collection",
+      "tier": "easy",
+      "points": 5,
+      "requirements": {
+        "type": "collect_set",
+        "setId": "copperweave_equipment"
+      },
+      "rewards": {
+        "xp": { "defense": 100 }
+      }
+    },
+    {
+      "id": "wyrmscale_collector",
+      "name": "Wyrmscale Collector",
+      "description": "Collect a full set of wyrmscale equipment",
+      "category": "collection",
+      "tier": "elite",
+      "points": 75,
+      "requirements": {
+        "type": "collect_set",
+        "setId": "wyrmscale_equipment"
+      },
+      "rewards": {
+        "title": "Wyrmscale Collector",
+        "items": [{ "itemId": "wyrmscale_keepsake_key", "quantity": 1 }]
+      }
+    },
+    {
+      "id": "boss_hunter_50",
+      "name": "Boss Hunter",
+      "description": "Defeat 50 boss monsters",
+      "category": "combat",
+      "tier": "hard",
+      "points": 35,
+      "requirements": {
+        "type": "kill_count",
+        "target": "boss",
+        "targetType": "category",
+        "count": 50
+      },
+      "rewards": {
+        "title": "Boss Hunter"
+      }
+    },
+    {
+      "id": "pet_collector",
+      "name": "Pet Collector",
+      "description": "Obtain 10 different pets",
+      "category": "collection",
+      "tier": "elite",
+      "points": 50,
+      "requirements": {
+        "type": "unique_pets",
+        "count": 10
+      },
+      "rewards": {
+        "title": "Pet Collector"
+      }
+    }
+  ],
+  "tiers": {
+    "easy": { "color": "#4CAF50", "multiplier": 1 },
+    "medium": { "color": "#2196F3", "multiplier": 2 },
+    "hard": { "color": "#9C27B0", "multiplier": 3 },
+    "elite": { "color": "#FF9800", "multiplier": 5 }
+  },
+  "sets": {
+    "copperweave_equipment": {
+      "name": "Copperweave Equipment Set",
+      "items": ["copperweave_helm", "copperweave_platebody", "copperweave_platelegs", "copperweave_boots", "copperweave_gauntlets", "copperweave_sword", "copperweave_shield"]
+    },
+    "wyrmscale_equipment": {
+      "name": "Wyrmscale Equipment Set",
+      "items": ["wyrmscale_helm", "wyrmscale_platebody", "wyrmscale_platelegs", "wyrmscale_boots", "wyrmscale_gauntlets", "wyrmscale_scimitar", "wyrmscale_defender"]
+    }
+  }
+}

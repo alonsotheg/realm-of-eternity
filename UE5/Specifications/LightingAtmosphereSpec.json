@@ -1,0 +1,498 @@
+{
+  "version": "1.0.0",
+  "description": "UE5 Lighting, Atmosphere, and Weather specification for Realm of Eternity",
+
+  "day_night_cycle": {
+    "enabled": true,
+    "real_time_sync": false,
+    "cycle_duration_minutes": 60,
+    "time_scale": 24,
+    "phases": [
+      {"name": "dawn", "start_hour": 5, "end_hour": 7, "transition_duration_minutes": 2},
+      {"name": "morning", "start_hour": 7, "end_hour": 11},
+      {"name": "midday", "start_hour": 11, "end_hour": 14},
+      {"name": "afternoon", "start_hour": 14, "end_hour": 17},
+      {"name": "dusk", "start_hour": 17, "end_hour": 19, "transition_duration_minutes": 2},
+      {"name": "evening", "start_hour": 19, "end_hour": 22},
+      {"name": "night", "start_hour": 22, "end_hour": 5}
+    ],
+    "server_synchronized": true,
+    "affects_gameplay": {
+      "creature_spawns": true,
+      "npc_schedules": true,
+      "shop_hours": false,
+      "skill_bonuses": false
+    }
+  },
+
+  "directional_light_sun": {
+    "component": "DirectionalLight",
+    "settings": {
+      "intensity_lux": {
+        "dawn": 20000,
+        "midday": 120000,
+        "dusk": 15000,
+        "night": 0
+      },
+      "light_color_kelvin": {
+        "dawn": 2700,
+        "midday": 6500,
+        "dusk": 2200,
+        "night": 0
+      },
+      "soft_source_angle": 1.5,
+      "source_angle": 0.5357,
+      "cast_shadows": true,
+      "shadow_cascades": 4,
+      "cascade_distribution_exponent": 2.0,
+      "dynamic_shadow_distance_movable": 20000,
+      "far_shadow_cascade_count": 2,
+      "use_inset_shadows_for_movable": true,
+      "atmosphere_sun_disk": true,
+      "volumetric_scattering_intensity": 1.0
+    }
+  },
+
+  "sky_light": {
+    "component": "SkyLight",
+    "settings": {
+      "real_time_capture": true,
+      "source_type": "SLS_CapturedScene",
+      "recapture_interval_seconds": 0.5,
+      "intensity_day": 1.5,
+      "intensity_night": 0.3,
+      "lower_hemisphere_solid_color": {"r": 0.05, "g": 0.05, "b": 0.08},
+      "cloud_ambient_occlusion": true,
+      "cloud_ao_extent": 32,
+      "cloud_ao_strength": 0.7,
+      "affects_global_illumination": true,
+      "cast_shadows": false
+    }
+  },
+
+  "sky_atmosphere": {
+    "component": "SkyAtmosphere",
+    "settings": {
+      "transform_mode": "Planet_Top_At_Component_Transform",
+      "ground_albedo": {"r": 0.4, "g": 0.4, "b": 0.4},
+      "atmosphere_height": 60.0,
+      "rayleigh_scattering": {
+        "r": 0.0000058,
+        "g": 0.0000135,
+        "b": 0.0000331
+      },
+      "rayleigh_exponential_distribution": 8.0,
+      "mie_scattering": {"r": 0.000003996, "g": 0.000003996, "b": 0.000003996},
+      "mie_absorption_scale": 0.44,
+      "mie_exponential_distribution": 1.2,
+      "mie_anisotropy": 0.8,
+      "absorption": {
+        "r": 0.00000065,
+        "g": 0.00000181,
+        "b": 0.00000009
+      },
+      "aerial_perspective_view_distance_scale": 1.0,
+      "height_fog_contribution": 1.0
+    }
+  },
+
+  "volumetric_clouds": {
+    "component": "VolumetricCloud",
+    "settings": {
+      "layer_bottom_altitude_km": 5.0,
+      "layer_height_km": 10.0,
+      "tracing_start_max_distance_km": 350.0,
+      "tracing_max_distance_km": 50.0,
+      "shadow_reflection_sample_count_scale": 1.0,
+      "view_sample_count_scale": 1.0,
+      "reflection_sample_count_scale": 0.5,
+      "shadow_ray_march_step_scale": 1.0,
+      "ground_contribution": true,
+      "beer_powder_intensity": 0.1,
+      "beer_powder_depth": 0.5
+    },
+    "cloud_material_settings": {
+      "density_base": 0.03,
+      "density_detail": 0.04,
+      "coverage": 0.5,
+      "type_weight": 0.5,
+      "erosion_intensity": 0.5,
+      "cloud_wind_speed": 30.0,
+      "cloud_wind_direction": {"x": 1.0, "y": 0.2, "z": 0.0}
+    }
+  },
+
+  "exponential_height_fog": {
+    "component": "ExponentialHeightFog",
+    "settings": {
+      "fog_density": 0.005,
+      "fog_height_falloff": 0.2,
+      "fog_inscattering_color": {"r": 0.5, "g": 0.6, "b": 0.8},
+      "fog_max_opacity": 0.85,
+      "start_distance": 200,
+      "directional_inscattering_exponent": 8.0,
+      "directional_inscattering_start_distance": 10000,
+      "directional_inscattering_color": {"r": 1.0, "g": 0.9, "b": 0.7},
+      "volumetric_fog": true,
+      "volumetric_fog_scattering_distribution": 0.2,
+      "volumetric_fog_albedo": {"r": 0.9, "g": 0.9, "b": 1.0},
+      "volumetric_fog_extinction_scale": 1.0,
+      "volumetric_fog_distance": 6000,
+      "volumetric_fog_view_distance": 6000,
+      "volumetric_fog_static_lighting_scattering_intensity": 1.0
+    }
+  },
+
+  "moon_light": {
+    "component": "DirectionalLight",
+    "settings": {
+      "intensity_lux": 0.5,
+      "light_color": {"r": 0.7, "g": 0.8, "b": 1.0},
+      "cast_shadows": true,
+      "shadow_resolution_scale": 0.5,
+      "moon_phase_cycle_days": 28,
+      "visible_during": "night"
+    }
+  },
+
+  "weather_system": {
+    "enabled": true,
+    "server_controlled": true,
+    "transition_duration_seconds": 30,
+    "region_based": true,
+
+    "weather_types": {
+      "clear": {
+        "cloud_coverage": 0.2,
+        "fog_density_multiplier": 0.5,
+        "precipitation": "none",
+        "wind_speed": 5,
+        "ambient_sound": "AS_Weather_Clear"
+      },
+      "partly_cloudy": {
+        "cloud_coverage": 0.5,
+        "fog_density_multiplier": 0.8,
+        "precipitation": "none",
+        "wind_speed": 10,
+        "ambient_sound": "AS_Weather_Windy"
+      },
+      "overcast": {
+        "cloud_coverage": 0.9,
+        "fog_density_multiplier": 1.2,
+        "sun_intensity_multiplier": 0.3,
+        "precipitation": "none",
+        "wind_speed": 15,
+        "ambient_sound": "AS_Weather_Overcast"
+      },
+      "light_rain": {
+        "cloud_coverage": 0.8,
+        "fog_density_multiplier": 1.5,
+        "sun_intensity_multiplier": 0.4,
+        "precipitation": "rain",
+        "precipitation_intensity": 0.3,
+        "wind_speed": 15,
+        "ambient_sound": "AS_Weather_LightRain",
+        "puddles": true,
+        "wet_surfaces": true
+      },
+      "heavy_rain": {
+        "cloud_coverage": 1.0,
+        "fog_density_multiplier": 2.0,
+        "sun_intensity_multiplier": 0.15,
+        "precipitation": "rain",
+        "precipitation_intensity": 1.0,
+        "wind_speed": 30,
+        "ambient_sound": "AS_Weather_HeavyRain",
+        "puddles": true,
+        "wet_surfaces": true,
+        "lightning": true,
+        "lightning_interval_range": [5, 20]
+      },
+      "thunderstorm": {
+        "cloud_coverage": 1.0,
+        "fog_density_multiplier": 2.5,
+        "sun_intensity_multiplier": 0.1,
+        "precipitation": "rain",
+        "precipitation_intensity": 1.0,
+        "wind_speed": 45,
+        "ambient_sound": "AS_Weather_Storm",
+        "puddles": true,
+        "wet_surfaces": true,
+        "lightning": true,
+        "lightning_interval_range": [2, 8],
+        "thunder_sound": "SC_Thunder_Rumble",
+        "screen_shake": true
+      },
+      "snow": {
+        "cloud_coverage": 0.9,
+        "fog_density_multiplier": 1.3,
+        "sun_intensity_multiplier": 0.5,
+        "precipitation": "snow",
+        "precipitation_intensity": 0.6,
+        "wind_speed": 10,
+        "ambient_sound": "AS_Weather_Snow",
+        "snow_accumulation": true,
+        "breath_visible": true
+      },
+      "blizzard": {
+        "cloud_coverage": 1.0,
+        "fog_density_multiplier": 3.0,
+        "visibility_range": 50,
+        "sun_intensity_multiplier": 0.1,
+        "precipitation": "snow",
+        "precipitation_intensity": 1.0,
+        "wind_speed": 60,
+        "ambient_sound": "AS_Weather_Blizzard",
+        "snow_accumulation": true,
+        "breath_visible": true,
+        "movement_speed_penalty": 0.2
+      },
+      "fog": {
+        "cloud_coverage": 0.6,
+        "fog_density_multiplier": 5.0,
+        "visibility_range": 100,
+        "sun_intensity_multiplier": 0.6,
+        "precipitation": "none",
+        "wind_speed": 2,
+        "ambient_sound": "AS_Weather_Foggy",
+        "ground_fog": true
+      },
+      "sandstorm": {
+        "regions": ["kharidian_desert"],
+        "cloud_coverage": 0.3,
+        "fog_density_multiplier": 4.0,
+        "fog_color": {"r": 0.8, "g": 0.6, "b": 0.3},
+        "visibility_range": 80,
+        "precipitation": "sand",
+        "precipitation_intensity": 0.8,
+        "wind_speed": 50,
+        "ambient_sound": "AS_Weather_Sandstorm",
+        "movement_speed_penalty": 0.15,
+        "damage_per_tick": 1
+      }
+    }
+  },
+
+  "precipitation_systems": {
+    "rain": {
+      "niagara_system": "NS_Rain_Weather",
+      "particle_count_scale": 1.0,
+      "collision_with_surfaces": true,
+      "splash_effects": true,
+      "ripple_on_water": true,
+      "windshield_effect": false
+    },
+    "snow": {
+      "niagara_system": "NS_Snow_Weather",
+      "particle_count_scale": 1.0,
+      "accumulation_rate": 0.001,
+      "max_accumulation": 0.1,
+      "melt_rate_above_freezing": 0.0005
+    },
+    "sand": {
+      "niagara_system": "NS_Sandstorm_Weather",
+      "particle_count_scale": 1.0,
+      "post_process_color_grade": true
+    }
+  },
+
+  "region_lighting_overrides": {
+    "description": "Per-region lighting modifications",
+    "regions": {
+      "dreadmire_marshes": {
+        "sun_intensity_multiplier": 0.6,
+        "desaturation": 0.3,
+        "fog_density_multiplier": 1.5,
+        "fog_color_override": {"r": 0.3, "g": 0.35, "b": 0.4},
+        "ambient_color_tint": {"r": 0.7, "g": 0.8, "b": 0.9},
+        "perpetual_overcast": true
+      },
+      "wilderness": {
+        "sun_intensity_multiplier": 0.8,
+        "desaturation": 0.2,
+        "fog_density_multiplier": 1.2,
+        "ambient_color_tint": {"r": 0.85, "g": 0.8, "b": 0.75}
+      },
+      "kharidian_desert": {
+        "sun_intensity_multiplier": 1.3,
+        "saturation_boost": 0.15,
+        "heat_haze": true,
+        "fog_color_override": {"r": 0.9, "g": 0.85, "b": 0.7}
+      },
+      "tirannwn": {
+        "sun_intensity_multiplier": 0.9,
+        "forest_canopy_shadows": true,
+        "fog_density_multiplier": 0.8,
+        "ambient_color_tint": {"r": 0.85, "g": 1.0, "b": 0.85}
+      },
+      "trollheim": {
+        "sun_intensity_multiplier": 0.85,
+        "snow_on_ground": true,
+        "breath_visible": true,
+        "fog_density_multiplier": 1.3,
+        "ambient_color_tint": {"r": 0.9, "g": 0.95, "b": 1.0}
+      },
+      "celestine_archipelago": {
+        "sun_intensity_multiplier": 1.1,
+        "saturation_boost": 0.2,
+        "humidity_haze": true,
+        "lush_vegetation_lighting": true
+      },
+      "zanaris": {
+        "perpetual_twilight": true,
+        "bioluminescent_flora": true,
+        "fairy_lights": true,
+        "ambient_color_tint": {"r": 0.7, "g": 0.8, "b": 1.0}
+      },
+      "prifddinas": {
+        "crystal_light_sources": true,
+        "prismatic_effects": true,
+        "ambient_color_tint": {"r": 0.9, "g": 0.95, "b": 1.0},
+        "ethereal_glow": true
+      },
+      "the_abyss": {
+        "no_sky": true,
+        "ambient_only": true,
+        "ambient_color": {"r": 0.2, "g": 0.05, "b": 0.1},
+        "point_lights_required": true,
+        "fog_density_multiplier": 3.0
+      }
+    }
+  },
+
+  "interior_lighting": {
+    "system": "Lumen",
+    "global_illumination": true,
+    "reflection_method": "Lumen",
+    "settings": {
+      "lumen_scene_lighting_quality": 3,
+      "lumen_scene_detail": 3,
+      "lumen_scene_view_distance": 20000,
+      "final_gather_quality": 3,
+      "max_trace_distance": 20000,
+      "ray_lighting_mode": "Surface Cache",
+      "screen_probe_quality": "High"
+    },
+    "light_types": {
+      "torch": {
+        "type": "PointLight",
+        "intensity": 3000,
+        "light_color": {"r": 1.0, "g": 0.8, "b": 0.5},
+        "flicker": true,
+        "flicker_intensity_range": [0.8, 1.2],
+        "flicker_speed": 8.0,
+        "radius": 500,
+        "cast_shadows": true,
+        "particle_system": "NS_Torch_Fire"
+      },
+      "candle": {
+        "type": "PointLight",
+        "intensity": 500,
+        "light_color": {"r": 1.0, "g": 0.85, "b": 0.6},
+        "flicker": true,
+        "flicker_intensity_range": [0.7, 1.0],
+        "radius": 150,
+        "cast_shadows": false
+      },
+      "fireplace": {
+        "type": "PointLight",
+        "intensity": 5000,
+        "light_color": {"r": 1.0, "g": 0.7, "b": 0.4},
+        "flicker": true,
+        "flicker_intensity_range": [0.85, 1.15],
+        "radius": 800,
+        "cast_shadows": true,
+        "particle_system": "NS_Fireplace_Fire"
+      },
+      "magic_crystal": {
+        "type": "PointLight",
+        "intensity": 2000,
+        "light_color": {"r": 0.5, "g": 0.8, "b": 1.0},
+        "flicker": false,
+        "pulsing": true,
+        "pulse_rate": 2.0,
+        "radius": 400,
+        "cast_shadows": true
+      },
+      "lantern": {
+        "type": "PointLight",
+        "intensity": 2500,
+        "light_color": {"r": 1.0, "g": 0.9, "b": 0.7},
+        "flicker": true,
+        "flicker_intensity_range": [0.9, 1.05],
+        "radius": 600,
+        "cast_shadows": true
+      }
+    }
+  },
+
+  "post_process_volume": {
+    "global_settings": {
+      "bloom": {
+        "intensity": 0.5,
+        "threshold": 1.0,
+        "size_scale": 4.0
+      },
+      "exposure": {
+        "method": "Auto Exposure Histogram",
+        "min_ev100": -2.0,
+        "max_ev100": 14.0,
+        "speed_up": 3.0,
+        "speed_down": 1.0
+      },
+      "color_grading": {
+        "temperature": 6500,
+        "global_saturation": {"r": 1.0, "g": 1.0, "b": 1.0, "a": 1.0},
+        "contrast": {"r": 1.0, "g": 1.0, "b": 1.0, "a": 1.0}
+      },
+      "vignette": {
+        "intensity": 0.25
+      },
+      "lens_flares": {
+        "enabled": true,
+        "intensity": 1.0,
+        "threshold": 8.0
+      },
+      "chromatic_aberration": {
+        "intensity": 0.0,
+        "start_offset": 0.0
+      },
+      "motion_blur": {
+        "enabled": false,
+        "amount": 0.5
+      },
+      "ambient_occlusion": {
+        "method": "GTAO",
+        "intensity": 0.5,
+        "radius": 200.0
+      }
+    }
+  },
+
+  "performance_scalability": {
+    "shadow_quality": {
+      "low": {"cascade_count": 2, "resolution": 1024, "distance": 5000},
+      "medium": {"cascade_count": 3, "resolution": 2048, "distance": 10000},
+      "high": {"cascade_count": 4, "resolution": 2048, "distance": 15000},
+      "epic": {"cascade_count": 4, "resolution": 4096, "distance": 20000}
+    },
+    "volumetric_fog_quality": {
+      "low": {"enabled": false},
+      "medium": {"enabled": true, "view_distance": 3000},
+      "high": {"enabled": true, "view_distance": 6000},
+      "epic": {"enabled": true, "view_distance": 10000}
+    },
+    "cloud_quality": {
+      "low": {"enabled": false, "use_2d_clouds": true},
+      "medium": {"enabled": true, "sample_count_scale": 0.5},
+      "high": {"enabled": true, "sample_count_scale": 0.8},
+      "epic": {"enabled": true, "sample_count_scale": 1.0}
+    },
+    "gi_quality": {
+      "low": {"method": "none"},
+      "medium": {"method": "Lumen", "quality": 1},
+      "high": {"method": "Lumen", "quality": 2},
+      "epic": {"method": "Lumen", "quality": 3}
+    }
+  }
+}

@@ -1,0 +1,576 @@
+{
+  "1": {
+    "player": {
+      "gold": 22141,
+      "hp": 918,
+      "maxHp": 2400,
+      "skills": {
+        "mining": {
+          "level": 1,
+          "exp": 0,
+          "expToNext": 50
+        },
+        "woodcutting": {
+          "level": 14,
+          "exp": 4383,
+          "expToNext": 9679
+        },
+        "fishing": {
+          "level": 1,
+          "exp": 0,
+          "expToNext": 50
+        },
+        "cooking": {
+          "level": 3,
+          "exp": 5,
+          "expToNext": 112
+        },
+        "strength": {
+          "level": 16,
+          "exp": 15041,
+          "expToNext": 21777
+        },
+        "smithing": {
+          "level": 1,
+          "exp": 0,
+          "expToNext": 50
+        },
+        "herblore": {
+          "level": 1,
+          "exp": 12,
+          "expToNext": 50
+        },
+        "farming": {
+          "level": 11,
+          "exp": 2536,
+          "expToNext": 2868
+        },
+        "health": {
+          "level": 15,
+          "exp": 5273,
+          "expToNext": 14518
+        },
+        "attack": {
+          "level": 11,
+          "exp": 622,
+          "expToNext": 2868
+        },
+        "defense": {
+          "level": 10,
+          "exp": 1257,
+          "expToNext": 1912
+        }
+      },
+      "inventory": {
+        "copper": 3666,
+        "wood": 3957,
+        "shrimp": 41,
+        "cooked_shrimp": 21,
+        "potions": 1114,
+        "sword": 166,
+        "bronze_shield": 5,
+        "greenleaf": 40,
+        "strawberry_seed": 730,
+        "wolf_pelt": 1,
+        "swiftgrass": 15,
+        "cooked_trout": 785,
+        "bronze_helmet": 255,
+        "iron": 1250,
+        "cooked_frog_legs": 403,
+        "iron_shield": 155,
+        "bronze_platebody": 144,
+        "frog_legs": 13,
+        "bloodroot": 40,
+        "trout": 0,
+        "earthweed": 0,
+        "minor_haste_potion": 0,
+        "bronze_axe": 0,
+        "bronze_platelegs": 0,
+        "raspberry_seed": 518,
+        "iron_helmet": 18,
+        "iron_sword": 12,
+        "rock_shell": 0,
+        "minor_attack_potion": 11,
+        "ironleaf": 46,
+        "blackberry_seed": 446,
+        "lettuce_seed": 278,
+        "bronze_pickaxe": 58,
+        "ash_powder": 0,
+        "coal": 422,
+        "cooked_salmon": 14,
+        "iron_platelegs": 1,
+        "onyx": 0,
+        "iron_platebody": 0,
+        "dragon_scale": 22,
+        "greater_defense_potion": 0,
+        "silverleaf": 3,
+        "nightshade_bloom": 13,
+        "superior_healing_potion": 13,
+        "glowcap": 29,
+        "steel_helmet": 0,
+        "pearl": 1,
+        "defense_elixir": 0,
+        "diamond": 38,
+        "squash_seed": 80,
+        "steel_boots": 0,
+        "blueberry_seed": 694,
+        "golden_leaf": 20,
+        "iron_boots": 9,
+        "leather_boots": 1,
+        "cucumber_seed": 143,
+        "spirit_moss": 1,
+        "dragon_amulet": 0,
+        "attack_elixir": 0,
+        "astral_lotus": 3,
+        "tomato_seed": 119,
+        "bronze_boots": 8,
+        "blueberry": 100,
+        "radish_seed": 294,
+        "strawberry": 97,
+        "chronoweed": 1,
+        "superior_haste_potion": 1,
+        "blackberry": 49,
+        "lettuce": 93,
+        "greater_healing_potion": 23,
+        "steel_shield": 2,
+        "iron_chest": 2,
+        "steel_platelegs": 2,
+        "amulet_blueprint": 1,
+        "golden_chest": 1
+      },
+      "inventoryOrder": [
+        "copper",
+        "wood",
+        "shrimp",
+        "cooked_shrimp",
+        "potions",
+        "sword",
+        "iron_sword",
+        "iron",
+        "dragon_scale",
+        "wolf_pelt",
+        "frog_legs",
+        "cooked_trout",
+        "bronze_helmet",
+        "iron_helmet",
+        "bronze_shield",
+        "coal",
+        "raspberry_seed",
+        "greenleaf",
+        "swiftgrass",
+        "minor_attack_potion",
+        "ironleaf",
+        "blackberry_seed",
+        "lettuce_seed",
+        "bloodroot",
+        "cooked_salmon",
+        "strawberry_seed",
+        "nightshade_bloom",
+        "superior_healing_potion",
+        "glowcap",
+        "pearl",
+        "diamond",
+        "squash_seed",
+        "blueberry_seed",
+        "golden_leaf",
+        "leather_boots",
+        "cucumber_seed",
+        "spirit_moss",
+        "attack_elixir",
+        "astral_lotus",
+        "tomato_seed",
+        "bronze_boots",
+        "blueberry",
+        "radish_seed",
+        "strawberry",
+        "iron_chest",
+        "wooden_chest",
+        "iron_shield",
+        "chronoweed",
+        "superior_haste_potion"
+      ],
+      "location": "mountains",
+      "homes": {
+        "forest": {
+          "tier": 1,
+          "inventory": {},
+          "plots": [
+            {
+              "id": 0,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 1,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 2,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 3,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 4,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 5,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 6,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 7,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 8,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 9,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 10,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 11,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 12,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 13,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 14,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 15,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 16,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 17,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 18,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 19,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 20,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 21,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 22,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 23,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 24,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 25,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 26,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 27,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 28,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 29,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 30,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 31,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 32,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 33,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 34,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 35,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 36,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 37,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 38,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 39,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 40,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 41,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 42,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 43,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 44,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 45,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 46,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 47,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 48,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            },
+            {
+              "id": 49,
+              "seedId": "blackberry_seed",
+              "plantedAt": 1769747621235,
+              "growthTime": 900000,
+              "ready": true
+            }
+          ]
+        }
+      },
+      "equipment": {
+        "head": "steel_helmet",
+        "body": "iron_platebody",
+        "legs": "iron_platelegs",
+        "weapon": "iron_sword",
+        "offhand": "iron_shield",
+        "boots": "iron_boots",
+        "accessory": "dragon_amulet",
+        "tool": "bronze_axe",
+        "familiar1": null,
+        "familiar2": null,
+        "familiar3": null
+      }
+    },
+    "playerIdentity": {
+      "playerId": 1,
+      "displayName": "alonsotheg",
+      "totalLevel": 84,
+      "combatLevel": 52,
+      "currentLocation": "mountains",
+      "currentActivity": "fighting Dragon",
+      "lastOnline": 1769749727783
+    },
+    "updatedAt": "2026-01-30T05:08:47.784Z"
+  }
+}

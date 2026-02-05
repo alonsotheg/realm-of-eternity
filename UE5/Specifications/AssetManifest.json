@@ -1,0 +1,989 @@
+{
+  "documentInfo": {
+    "title": "Realm of Eternity - Complete Asset Manifest",
+    "version": "1.0.0",
+    "game": "Realm of Eternity",
+    "engine": "Unreal Engine 5",
+    "lastUpdated": "2026-01-07",
+    "totalAssetCount": "estimated_5000+"
+  },
+
+  "assetNamingConventions": {
+    "prefixes": {
+      "SK": "Skeletal Mesh",
+      "SM": "Static Mesh",
+      "T": "Texture",
+      "M": "Material",
+      "MI": "Material Instance",
+      "A": "Animation",
+      "AM": "Animation Montage",
+      "ABP": "Animation Blueprint",
+      "NS": "Niagara System",
+      "SFX": "Sound Effect",
+      "MUS": "Music",
+      "AMB": "Ambience",
+      "VO": "Voice Over",
+      "UI": "UI Element",
+      "WBP": "Widget Blueprint",
+      "BP": "Blueprint",
+      "BT": "Behavior Tree",
+      "EQS": "Environment Query"
+    },
+    "format": "{Prefix}_{Category}_{Name}_{Variant}",
+    "examples": [
+      "SK_Player_Human_Male",
+      "SM_Weapon_Sword_Iron",
+      "T_Armor_Dreadplate_Diffuse",
+      "A_Player_Run_Forward"
+    ]
+  },
+
+  "characterAssets": {
+    "playerCharacters": {
+      "skeletalMeshes": [
+        { "id": "SK_Player_Human_Male", "polyCount": 65000, "lods": 4, "priority": "critical" },
+        { "id": "SK_Player_Human_Female", "polyCount": 65000, "lods": 4, "priority": "critical" },
+        { "id": "SK_Player_Elf_Male", "polyCount": 65000, "lods": 4, "priority": "high" },
+        { "id": "SK_Player_Elf_Female", "polyCount": 65000, "lods": 4, "priority": "high" },
+        { "id": "SK_Player_Dwarf_Male", "polyCount": 60000, "lods": 4, "priority": "high" },
+        { "id": "SK_Player_Dwarf_Female", "polyCount": 60000, "lods": 4, "priority": "high" },
+        { "id": "SK_Player_Orc_Male", "polyCount": 70000, "lods": 4, "priority": "high" },
+        { "id": "SK_Player_Orc_Female", "polyCount": 70000, "lods": 4, "priority": "high" }
+      ],
+      "textureSets": [
+        { "id": "T_Player_Human_Body", "resolution": 4096, "maps": ["diffuse", "normal", "roughness", "ao"], "variants": 24 },
+        { "id": "T_Player_Human_Face", "resolution": 4096, "maps": ["diffuse", "normal", "roughness", "sss"], "variants": 20 },
+        { "id": "T_Player_Elf_Body", "resolution": 4096, "maps": ["diffuse", "normal", "roughness", "ao"], "variants": 20 },
+        { "id": "T_Player_Dwarf_Body", "resolution": 4096, "maps": ["diffuse", "normal", "roughness", "ao"], "variants": 18 },
+        { "id": "T_Player_Orc_Body", "resolution": 4096, "maps": ["diffuse", "normal", "roughness", "ao"], "variants": 16 }
+      ],
+      "hairAssets": [
+        { "id": "SK_Hair_Style", "count": 50, "polyCount": 15000, "cardsOrStrands": "cards" }
+      ],
+      "customizationMorphs": {
+        "face": ["jaw_width", "jaw_height", "chin_length", "cheek_height", "nose_length", "nose_width", "brow_height", "eye_size", "mouth_width", "lip_thickness", "ear_size"],
+        "body": ["muscle_definition", "body_fat", "height_scale"]
+      }
+    },
+
+    "npcCharacters": {
+      "humanoidNPCs": [
+        { "id": "SK_NPC_Guard_Male", "polyCount": 40000, "lods": 4, "variants": 5 },
+        { "id": "SK_NPC_Guard_Female", "polyCount": 40000, "lods": 4, "variants": 3 },
+        { "id": "SK_NPC_Merchant_Male", "polyCount": 35000, "lods": 4, "variants": 8 },
+        { "id": "SK_NPC_Merchant_Female", "polyCount": 35000, "lods": 4, "variants": 6 },
+        { "id": "SK_NPC_Citizen_Male", "polyCount": 30000, "lods": 4, "variants": 15 },
+        { "id": "SK_NPC_Citizen_Female", "polyCount": 30000, "lods": 4, "variants": 15 },
+        { "id": "SK_NPC_Farmer_Male", "polyCount": 30000, "lods": 4, "variants": 4 },
+        { "id": "SK_NPC_Priest", "polyCount": 35000, "lods": 4, "variants": 3 },
+        { "id": "SK_NPC_Innkeeper", "polyCount": 35000, "lods": 4, "variants": 4 },
+        { "id": "SK_NPC_Blacksmith", "polyCount": 35000, "lods": 4, "variants": 3 }
+      ],
+      "beastslayerMasters": [
+        { "id": "SK_NPC_Aldric", "polyCount": 45000, "lods": 4, "unique": true },
+        { "id": "SK_NPC_Vexrath", "polyCount": 45000, "lods": 4, "unique": true },
+        { "id": "SK_NPC_Sylara", "polyCount": 45000, "lods": 4, "unique": true },
+        { "id": "SK_NPC_Kazari", "polyCount": 45000, "lods": 4, "unique": true },
+        { "id": "SK_NPC_Seraphine", "polyCount": 45000, "lods": 4, "unique": true },
+        { "id": "SK_NPC_Theron", "polyCount": 45000, "lods": 4, "unique": true }
+      ],
+      "questGivers": [
+        { "id": "SK_NPC_Guide", "polyCount": 40000, "lods": 4, "unique": true },
+        { "id": "SK_NPC_ChefBrennan", "polyCount": 40000, "lods": 4, "unique": true },
+        { "id": "SK_NPC_ChieftainGrubnak", "polyCount": 45000, "lods": 4, "unique": true },
+        { "id": "SK_NPC_GuildmasterVeran", "polyCount": 45000, "lods": 4, "unique": true },
+        { "id": "SK_NPC_ElderThornbark", "polyCount": 50000, "lods": 4, "unique": true }
+      ]
+    },
+
+    "enemies": {
+      "humanoidEnemies": [
+        { "id": "SK_Enemy_Goblin", "polyCount": 25000, "lods": 4, "variants": 5 },
+        { "id": "SK_Enemy_Bandit", "polyCount": 35000, "lods": 4, "variants": 8 },
+        { "id": "SK_Enemy_Skeleton_Warrior", "polyCount": 30000, "lods": 4, "variants": 4 },
+        { "id": "SK_Enemy_Skeleton_Archer", "polyCount": 30000, "lods": 4, "variants": 3 },
+        { "id": "SK_Enemy_Skeleton_Mage", "polyCount": 32000, "lods": 4, "variants": 3 },
+        { "id": "SK_Enemy_Zombie", "polyCount": 30000, "lods": 4, "variants": 6 },
+        { "id": "SK_Enemy_Ghost", "polyCount": 20000, "lods": 3, "transparent": true },
+        { "id": "SK_Enemy_DarkMage", "polyCount": 40000, "lods": 4, "variants": 4 },
+        { "id": "SK_Enemy_Cultist", "polyCount": 35000, "lods": 4, "variants": 5 },
+        { "id": "SK_Enemy_Berserker", "polyCount": 45000, "lods": 4, "variants": 3 },
+        { "id": "SK_Enemy_Assassin", "polyCount": 38000, "lods": 4, "variants": 3 },
+        { "id": "SK_Enemy_Knight", "polyCount": 45000, "lods": 4, "variants": 4 }
+      ],
+      "beastEnemies": [
+        { "id": "SK_Enemy_Wolf", "polyCount": 20000, "lods": 4, "variants": 4 },
+        { "id": "SK_Enemy_Bear", "polyCount": 35000, "lods": 4, "variants": 3 },
+        { "id": "SK_Enemy_Boar", "polyCount": 18000, "lods": 4, "variants": 2 },
+        { "id": "SK_Enemy_Spider_Small", "polyCount": 12000, "lods": 3, "variants": 3 },
+        { "id": "SK_Enemy_Spider_Large", "polyCount": 25000, "lods": 4, "variants": 2 },
+        { "id": "SK_Enemy_Rat", "polyCount": 8000, "lods": 3, "variants": 2 },
+        { "id": "SK_Enemy_Bat", "polyCount": 10000, "lods": 3, "variants": 2 },
+        { "id": "SK_Enemy_Snake", "polyCount": 12000, "lods": 3, "variants": 4 },
+        { "id": "SK_Enemy_Scorpion", "polyCount": 15000, "lods": 3, "variants": 2 }
+      ],
+      "monsterEnemies": [
+        { "id": "SK_Enemy_Troll", "polyCount": 50000, "lods": 4, "variants": 3 },
+        { "id": "SK_Enemy_Ogre", "polyCount": 55000, "lods": 4, "variants": 3 },
+        { "id": "SK_Enemy_Demon_Imp", "polyCount": 25000, "lods": 4, "variants": 3 },
+        { "id": "SK_Enemy_Demon_Greater", "polyCount": 60000, "lods": 4, "variants": 2 },
+        { "id": "SK_Enemy_Elemental_Fire", "polyCount": 30000, "lods": 4, "vfxHeavy": true },
+        { "id": "SK_Enemy_Elemental_Ice", "polyCount": 30000, "lods": 4, "vfxHeavy": true },
+        { "id": "SK_Enemy_Elemental_Earth", "polyCount": 35000, "lods": 4 },
+        { "id": "SK_Enemy_Golem_Stone", "polyCount": 45000, "lods": 4, "variants": 2 },
+        { "id": "SK_Enemy_Golem_Iron", "polyCount": 50000, "lods": 4, "variants": 2 },
+        { "id": "SK_Enemy_Wyvern", "polyCount": 60000, "lods": 4, "variants": 3 },
+        { "id": "SK_Enemy_Bloodmaw", "polyCount": 40000, "lods": 4, "variants": 2 },
+        { "id": "SK_Enemy_Thornback", "polyCount": 45000, "lods": 4 },
+        { "id": "SK_Enemy_Voidfiend", "polyCount": 50000, "lods": 4, "variants": 2 }
+      ],
+      "bossEnemies": [
+        { "id": "SK_Boss_Scorath", "polyCount": 150000, "lods": 4, "unique": true, "type": "dragon" },
+        { "id": "SK_Boss_VoidfiendLord", "polyCount": 100000, "lods": 4, "unique": true },
+        { "id": "SK_Boss_FrostQueenCrystallia", "polyCount": 90000, "lods": 4, "unique": true },
+        { "id": "SK_Boss_GreatOrcWarlord", "polyCount": 80000, "lods": 4, "unique": true },
+        { "id": "SK_Boss_AncientLich", "polyCount": 85000, "lods": 4, "unique": true },
+        { "id": "SK_Boss_KrakenTentacle", "polyCount": 70000, "lods": 4, "count": 8 },
+        { "id": "SK_Boss_GiantSpider", "polyCount": 75000, "lods": 4, "unique": true }
+      ]
+    },
+
+    "familiars": [
+      { "id": "SK_Familiar_SpiritWolf", "polyCount": 25000, "lods": 4, "type": "combat" },
+      { "id": "SK_Familiar_FireImp", "polyCount": 20000, "lods": 4, "type": "combat" },
+      { "id": "SK_Familiar_ShadowPanther", "polyCount": 28000, "lods": 4, "type": "combat" },
+      { "id": "SK_Familiar_WarTortoise", "polyCount": 30000, "lods": 4, "type": "tank" },
+      { "id": "SK_Familiar_IronMinotaur", "polyCount": 45000, "lods": 4, "type": "tank" },
+      { "id": "SK_Familiar_StoneGolem", "polyCount": 40000, "lods": 4, "type": "tank" },
+      { "id": "SK_Familiar_Unicorn", "polyCount": 35000, "lods": 4, "type": "healer" },
+      { "id": "SK_Familiar_HealingSprite", "polyCount": 15000, "lods": 3, "type": "healer" },
+      { "id": "SK_Familiar_PhoenixChick", "polyCount": 20000, "lods": 4, "type": "healer" },
+      { "id": "SK_Familiar_PackYak", "polyCount": 30000, "lods": 4, "type": "utility" },
+      { "id": "SK_Familiar_SpiritTerrorbird", "polyCount": 25000, "lods": 4, "type": "utility" },
+      { "id": "SK_Familiar_FruitBat", "polyCount": 12000, "lods": 3, "type": "forager" }
+    ]
+  },
+
+  "equipmentAssets": {
+    "weapons": {
+      "swords1H": [
+        { "id": "SM_Weapon_Sword_Bronze", "polyCount": 3000, "tier": 1 },
+        { "id": "SM_Weapon_Sword_Iron", "polyCount": 3500, "tier": 2 },
+        { "id": "SM_Weapon_Sword_Steel", "polyCount": 4000, "tier": 3 },
+        { "id": "SM_Weapon_Sword_Mithril", "polyCount": 4500, "tier": 4 },
+        { "id": "SM_Weapon_Sword_Adamant", "polyCount": 5000, "tier": 5 },
+        { "id": "SM_Weapon_Sword_Runite", "polyCount": 5500, "tier": 6 },
+        { "id": "SM_Weapon_Sword_Dragon", "polyCount": 6000, "tier": 7 },
+        { "id": "SM_Weapon_Sword_Riftborn", "polyCount": 7000, "tier": 8 }
+      ],
+      "swords2H": [
+        { "id": "SM_Weapon_Greatsword_Bronze", "polyCount": 4000, "tier": 1 },
+        { "id": "SM_Weapon_Greatsword_Iron", "polyCount": 4500, "tier": 2 },
+        { "id": "SM_Weapon_Greatsword_Steel", "polyCount": 5000, "tier": 3 },
+        { "id": "SM_Weapon_Greatsword_Mithril", "polyCount": 5500, "tier": 4 },
+        { "id": "SM_Weapon_Greatsword_Adamant", "polyCount": 6000, "tier": 5 },
+        { "id": "SM_Weapon_Greatsword_Runite", "polyCount": 6500, "tier": 6 },
+        { "id": "SM_Weapon_Greatsword_Dragon", "polyCount": 7000, "tier": 7 }
+      ],
+      "axes": [
+        { "id": "SM_Weapon_Axe_Bronze", "polyCount": 2500, "tier": 1 },
+        { "id": "SM_Weapon_Axe_Iron", "polyCount": 3000, "tier": 2 },
+        { "id": "SM_Weapon_Axe_Steel", "polyCount": 3500, "tier": 3 },
+        { "id": "SM_Weapon_Axe_Mithril", "polyCount": 4000, "tier": 4 },
+        { "id": "SM_Weapon_Axe_Adamant", "polyCount": 4500, "tier": 5 },
+        { "id": "SM_Weapon_Axe_Runite", "polyCount": 5000, "tier": 6 },
+        { "id": "SM_Weapon_Axe_Dragon", "polyCount": 5500, "tier": 7 },
+        { "id": "SM_Weapon_Battleaxe_Dragon", "polyCount": 6500, "tier": 7 }
+      ],
+      "maces": [
+        { "id": "SM_Weapon_Mace_Bronze", "polyCount": 2000, "tier": 1 },
+        { "id": "SM_Weapon_Mace_Iron", "polyCount": 2500, "tier": 2 },
+        { "id": "SM_Weapon_Mace_Steel", "polyCount": 3000, "tier": 3 },
+        { "id": "SM_Weapon_Mace_Mithril", "polyCount": 3500, "tier": 4 },
+        { "id": "SM_Weapon_Mace_Adamant", "polyCount": 4000, "tier": 5 },
+        { "id": "SM_Weapon_Mace_Runite", "polyCount": 4500, "tier": 6 }
+      ],
+      "daggers": [
+        { "id": "SM_Weapon_Dagger_Bronze", "polyCount": 1500, "tier": 1 },
+        { "id": "SM_Weapon_Dagger_Iron", "polyCount": 1800, "tier": 2 },
+        { "id": "SM_Weapon_Dagger_Steel", "polyCount": 2000, "tier": 3 },
+        { "id": "SM_Weapon_Dagger_Mithril", "polyCount": 2200, "tier": 4 },
+        { "id": "SM_Weapon_Dagger_Adamant", "polyCount": 2500, "tier": 5 },
+        { "id": "SM_Weapon_Dagger_Runite", "polyCount": 2800, "tier": 6 },
+        { "id": "SM_Weapon_Dagger_Dragon", "polyCount": 3000, "tier": 7 }
+      ],
+      "bows": [
+        { "id": "SM_Weapon_Shortbow_Normal", "polyCount": 2000, "tier": 1 },
+        { "id": "SM_Weapon_Shortbow_Oak", "polyCount": 2200, "tier": 2 },
+        { "id": "SM_Weapon_Shortbow_Willow", "polyCount": 2400, "tier": 3 },
+        { "id": "SM_Weapon_Shortbow_Maple", "polyCount": 2600, "tier": 4 },
+        { "id": "SM_Weapon_Shortbow_Yew", "polyCount": 2800, "tier": 5 },
+        { "id": "SM_Weapon_Shortbow_Magic", "polyCount": 3000, "tier": 6 },
+        { "id": "SM_Weapon_Longbow_Normal", "polyCount": 2500, "tier": 1 },
+        { "id": "SM_Weapon_Longbow_Oak", "polyCount": 2700, "tier": 2 },
+        { "id": "SM_Weapon_Longbow_Willow", "polyCount": 2900, "tier": 3 },
+        { "id": "SM_Weapon_Longbow_Maple", "polyCount": 3100, "tier": 4 },
+        { "id": "SM_Weapon_Longbow_Yew", "polyCount": 3300, "tier": 5 },
+        { "id": "SM_Weapon_Longbow_Magic", "polyCount": 3500, "tier": 6 },
+        { "id": "SM_Weapon_Longbow_Elder", "polyCount": 4000, "tier": 7 }
+      ],
+      "crossbows": [
+        { "id": "SM_Weapon_Crossbow_Bronze", "polyCount": 3000, "tier": 1 },
+        { "id": "SM_Weapon_Crossbow_Iron", "polyCount": 3500, "tier": 2 },
+        { "id": "SM_Weapon_Crossbow_Steel", "polyCount": 4000, "tier": 3 },
+        { "id": "SM_Weapon_Crossbow_Mithril", "polyCount": 4500, "tier": 4 },
+        { "id": "SM_Weapon_Crossbow_Adamant", "polyCount": 5000, "tier": 5 },
+        { "id": "SM_Weapon_Crossbow_Runite", "polyCount": 5500, "tier": 6 },
+        { "id": "SM_Weapon_Crossbow_Dragon", "polyCount": 6000, "tier": 7 }
+      ],
+      "staves": [
+        { "id": "SM_Weapon_Staff_Basic", "polyCount": 2500, "tier": 1 },
+        { "id": "SM_Weapon_Staff_Air", "polyCount": 3000, "tier": 2 },
+        { "id": "SM_Weapon_Staff_Water", "polyCount": 3000, "tier": 2 },
+        { "id": "SM_Weapon_Staff_Earth", "polyCount": 3000, "tier": 2 },
+        { "id": "SM_Weapon_Staff_Fire", "polyCount": 3000, "tier": 2 },
+        { "id": "SM_Weapon_Staff_Mystic", "polyCount": 4000, "tier": 4 },
+        { "id": "SM_Weapon_Staff_Ancient", "polyCount": 5000, "tier": 6 },
+        { "id": "SM_Weapon_Staff_Celestial", "polyCount": 5500, "tier": 7 }
+      ],
+      "wands": [
+        { "id": "SM_Weapon_Wand_Basic", "polyCount": 1500, "tier": 1 },
+        { "id": "SM_Weapon_Wand_Apprentice", "polyCount": 1800, "tier": 2 },
+        { "id": "SM_Weapon_Wand_Adept", "polyCount": 2000, "tier": 3 },
+        { "id": "SM_Weapon_Wand_Master", "polyCount": 2500, "tier": 5 },
+        { "id": "SM_Weapon_Wand_Arcane", "polyCount": 3000, "tier": 7 }
+      ],
+      "shields": [
+        { "id": "SM_Weapon_Shield_Bronze", "polyCount": 2500, "tier": 1 },
+        { "id": "SM_Weapon_Shield_Iron", "polyCount": 3000, "tier": 2 },
+        { "id": "SM_Weapon_Shield_Steel", "polyCount": 3500, "tier": 3 },
+        { "id": "SM_Weapon_Shield_Mithril", "polyCount": 4000, "tier": 4 },
+        { "id": "SM_Weapon_Shield_Adamant", "polyCount": 4500, "tier": 5 },
+        { "id": "SM_Weapon_Shield_Runite", "polyCount": 5000, "tier": 6 },
+        { "id": "SM_Weapon_Shield_Dragon", "polyCount": 5500, "tier": 7 },
+        { "id": "SM_Weapon_Shield_Spirit", "polyCount": 6000, "tier": 8 }
+      ]
+    },
+
+    "armor": {
+      "plateSets": [
+        { "id": "SK_Armor_Plate_Bronze", "slots": ["helm", "body", "legs", "gloves", "boots"], "tier": 1 },
+        { "id": "SK_Armor_Plate_Iron", "slots": ["helm", "body", "legs", "gloves", "boots"], "tier": 2 },
+        { "id": "SK_Armor_Plate_Steel", "slots": ["helm", "body", "legs", "gloves", "boots"], "tier": 3 },
+        { "id": "SK_Armor_Plate_Mithril", "slots": ["helm", "body", "legs", "gloves", "boots"], "tier": 4 },
+        { "id": "SK_Armor_Plate_Adamant", "slots": ["helm", "body", "legs", "gloves", "boots"], "tier": 5 },
+        { "id": "SK_Armor_Plate_Runite", "slots": ["helm", "body", "legs", "gloves", "boots"], "tier": 6 },
+        { "id": "SK_Armor_Dreadplate", "slots": ["helm", "body", "legs", "gloves", "boots"], "tier": 7 },
+        { "id": "SK_Armor_Voidforge", "slots": ["helm", "body", "legs", "gloves", "boots"], "tier": 8 }
+      ],
+      "leatherSets": [
+        { "id": "SK_Armor_Leather_Basic", "slots": ["coif", "body", "chaps", "vambraces", "boots"], "tier": 1 },
+        { "id": "SK_Armor_Leather_Hard", "slots": ["coif", "body", "chaps", "vambraces", "boots"], "tier": 2 },
+        { "id": "SK_Armor_Leather_Studded", "slots": ["coif", "body", "chaps", "vambraces", "boots"], "tier": 3 },
+        { "id": "SK_Armor_Wyrmhide_Green", "slots": ["coif", "body", "chaps", "vambraces", "boots"], "tier": 4 },
+        { "id": "SK_Armor_Wyrmhide_Blue", "slots": ["coif", "body", "chaps", "vambraces", "boots"], "tier": 5 },
+        { "id": "SK_Armor_Wyrmhide_Red", "slots": ["coif", "body", "chaps", "vambraces", "boots"], "tier": 6 },
+        { "id": "SK_Armor_Wyrmhide_Black", "slots": ["coif", "body", "chaps", "vambraces", "boots"], "tier": 7 },
+        { "id": "SK_Armor_Seaweave", "slots": ["coif", "body", "chaps", "vambraces", "boots"], "tier": 8 }
+      ],
+      "robeSets": [
+        { "id": "SK_Armor_Robe_Basic", "slots": ["hat", "top", "bottom", "gloves", "boots"], "tier": 1 },
+        { "id": "SK_Armor_Robe_Wizard", "slots": ["hat", "top", "bottom", "gloves", "boots"], "tier": 2 },
+        { "id": "SK_Armor_Robe_Mystic", "slots": ["hat", "top", "bottom", "gloves", "boots"], "tier": 4 },
+        { "id": "SK_Armor_Robe_Infinity", "slots": ["hat", "top", "bottom", "gloves", "boots"], "tier": 6 },
+        { "id": "SK_Armor_Robe_Ancestral", "slots": ["hat", "top", "bottom", "gloves", "boots"], "tier": 7 },
+        { "id": "SK_Armor_Robe_Primordial", "slots": ["hat", "top", "bottom", "gloves", "boots"], "tier": 8 }
+      ],
+      "accessories": [
+        { "id": "SM_Accessory_Amulet", "variants": 20, "polyCount": 1000 },
+        { "id": "SM_Accessory_Ring", "variants": 15, "polyCount": 500 },
+        { "id": "SM_Accessory_Cape", "variants": 25, "polyCount": 3000, "clothSim": true },
+        { "id": "SM_Accessory_Quiver", "variants": 8, "polyCount": 2000 }
+      ]
+    },
+
+    "tools": [
+      { "id": "SM_Tool_Pickaxe", "variants": 8, "polyCount": 2500, "tiers": ["bronze", "iron", "steel", "mithril", "adamant", "runite", "dragon", "crystal"] },
+      { "id": "SM_Tool_Axe_Woodcutting", "variants": 8, "polyCount": 2500, "tiers": ["bronze", "iron", "steel", "mithril", "adamant", "runite", "dragon", "crystal"] },
+      { "id": "SM_Tool_FishingRod", "variants": 5, "polyCount": 1500 },
+      { "id": "SM_Tool_FishingNet", "variants": 3, "polyCount": 2000 },
+      { "id": "SM_Tool_Hammer", "variants": 3, "polyCount": 1500 },
+      { "id": "SM_Tool_Chisel", "polyCount": 800 },
+      { "id": "SM_Tool_Needle", "polyCount": 500 },
+      { "id": "SM_Tool_Knife", "variants": 3, "polyCount": 1000 },
+      { "id": "SM_Tool_Tinderbox", "polyCount": 800 },
+      { "id": "SM_Tool_GlyphTalisman", "variants": 12, "polyCount": 1200 }
+    ]
+  },
+
+  "environmentAssets": {
+    "terrain": {
+      "landscapeMaterials": [
+        { "id": "M_Landscape_Grass", "layers": 4, "resolution": 4096 },
+        { "id": "M_Landscape_Dirt", "layers": 4, "resolution": 4096 },
+        { "id": "M_Landscape_Rock", "layers": 4, "resolution": 4096 },
+        { "id": "M_Landscape_Sand", "layers": 4, "resolution": 4096 },
+        { "id": "M_Landscape_Snow", "layers": 4, "resolution": 4096 },
+        { "id": "M_Landscape_Mud", "layers": 4, "resolution": 4096 },
+        { "id": "M_Landscape_Volcanic", "layers": 4, "resolution": 4096 },
+        { "id": "M_Landscape_Cobblestone", "layers": 2, "resolution": 4096 }
+      ],
+      "heightmaps": [
+        { "id": "HM_Kingshold_Region", "resolution": 8129 },
+        { "id": "HM_Eldergrove_Region", "resolution": 8129 },
+        { "id": "HM_Shadowfen_Region", "resolution": 8129 },
+        { "id": "HM_Scorchlands_Region", "resolution": 8129 },
+        { "id": "HM_GlacialWastes_Region", "resolution": 8129 },
+        { "id": "HM_IronpeakMountains_Region", "resolution": 8129 },
+        { "id": "HM_Coastal_Region", "resolution": 8129 }
+      ]
+    },
+
+    "foliage": {
+      "trees": [
+        { "id": "SM_Tree_Oak", "polyCount": 25000, "lods": 4, "nanite": true },
+        { "id": "SM_Tree_Willow", "polyCount": 30000, "lods": 4, "nanite": true },
+        { "id": "SM_Tree_Maple", "polyCount": 28000, "lods": 4, "nanite": true },
+        { "id": "SM_Tree_Yew", "polyCount": 22000, "lods": 4, "nanite": true },
+        { "id": "SM_Tree_Magic", "polyCount": 26000, "lods": 4, "nanite": true, "glow": true },
+        { "id": "SM_Tree_Elder", "polyCount": 35000, "lods": 4, "nanite": true, "glow": true },
+        { "id": "SM_Tree_Pine", "polyCount": 20000, "lods": 4, "nanite": true },
+        { "id": "SM_Tree_Palm", "polyCount": 18000, "lods": 4, "nanite": true },
+        { "id": "SM_Tree_Dead", "polyCount": 15000, "lods": 4, "nanite": true }
+      ],
+      "rocks": [
+        { "id": "SM_Rock_Copper", "polyCount": 5000, "lods": 3, "harvestable": true },
+        { "id": "SM_Rock_Tin", "polyCount": 5000, "lods": 3, "harvestable": true },
+        { "id": "SM_Rock_Iron", "polyCount": 5500, "lods": 3, "harvestable": true },
+        { "id": "SM_Rock_Coal", "polyCount": 5000, "lods": 3, "harvestable": true },
+        { "id": "SM_Rock_Gold", "polyCount": 5500, "lods": 3, "harvestable": true },
+        { "id": "SM_Rock_Mithril", "polyCount": 6000, "lods": 3, "harvestable": true, "glow": true },
+        { "id": "SM_Rock_Adamant", "polyCount": 6000, "lods": 3, "harvestable": true, "glow": true },
+        { "id": "SM_Rock_Runite", "polyCount": 6500, "lods": 3, "harvestable": true, "glow": true },
+        { "id": "SM_Rock_Decorative", "variants": 15, "polyCount": 3000, "lods": 3 }
+      ],
+      "vegetation": [
+        { "id": "SM_Grass_Wild", "polyCount": 500, "instances": "high_density" },
+        { "id": "SM_Fern", "polyCount": 800, "instances": "medium_density" },
+        { "id": "SM_Flowers", "variants": 10, "polyCount": 600, "instances": "medium_density" },
+        { "id": "SM_Mushroom", "variants": 8, "polyCount": 400, "harvestable": true },
+        { "id": "SM_Herb", "variants": 15, "polyCount": 300, "harvestable": true },
+        { "id": "SM_Reed", "polyCount": 400, "instances": "high_density" },
+        { "id": "SM_Bush", "variants": 8, "polyCount": 2000, "lods": 3 }
+      ]
+    },
+
+    "water": [
+      { "id": "WaterBody_Ocean", "type": "ocean", "material": "M_Water_Ocean" },
+      { "id": "WaterBody_River", "type": "river", "material": "M_Water_River" },
+      { "id": "WaterBody_Lake", "type": "lake", "material": "M_Water_Lake" },
+      { "id": "SM_Waterfall", "variants": 5, "polyCount": 5000, "vfxIntegrated": true }
+    ],
+
+    "props": {
+      "natural": [
+        { "id": "SM_Log_Fallen", "variants": 5, "polyCount": 3000 },
+        { "id": "SM_Boulder", "variants": 10, "polyCount": 5000 },
+        { "id": "SM_Stump", "variants": 4, "polyCount": 2000 },
+        { "id": "SM_Cliff_Face", "variants": 8, "polyCount": 15000 },
+        { "id": "SM_Cave_Entrance", "variants": 5, "polyCount": 20000 }
+      ],
+      "manMade": [
+        { "id": "SM_Fence_Wood", "variants": 5, "polyCount": 1500 },
+        { "id": "SM_Fence_Stone", "variants": 4, "polyCount": 2000 },
+        { "id": "SM_Bridge_Wood", "variants": 3, "polyCount": 8000 },
+        { "id": "SM_Bridge_Stone", "variants": 3, "polyCount": 12000 },
+        { "id": "SM_Well", "variants": 3, "polyCount": 5000 },
+        { "id": "SM_Lamppost", "variants": 4, "polyCount": 2000 },
+        { "id": "SM_Signpost", "variants": 6, "polyCount": 1500 },
+        { "id": "SM_Cart", "variants": 4, "polyCount": 6000 },
+        { "id": "SM_Barrel", "variants": 3, "polyCount": 1000 },
+        { "id": "SM_Crate", "variants": 4, "polyCount": 800 },
+        { "id": "SM_Sack", "variants": 3, "polyCount": 600 }
+      ]
+    }
+  },
+
+  "buildingAssets": {
+    "modularPieces": {
+      "walls": [
+        { "id": "SM_Wall_Stone", "variants": ["straight", "corner", "doorway", "window"], "polyCount": 2000 },
+        { "id": "SM_Wall_Wood", "variants": ["straight", "corner", "doorway", "window"], "polyCount": 1500 },
+        { "id": "SM_Wall_Plaster", "variants": ["straight", "corner", "doorway", "window"], "polyCount": 1500 },
+        { "id": "SM_Wall_Castle", "variants": ["straight", "corner", "tower", "battlement"], "polyCount": 3000 }
+      ],
+      "floors": [
+        { "id": "SM_Floor_Stone", "variants": 4, "polyCount": 500 },
+        { "id": "SM_Floor_Wood", "variants": 4, "polyCount": 500 },
+        { "id": "SM_Floor_Tile", "variants": 4, "polyCount": 500 }
+      ],
+      "roofs": [
+        { "id": "SM_Roof_Thatch", "variants": ["flat", "angled", "corner"], "polyCount": 2000 },
+        { "id": "SM_Roof_Tile", "variants": ["flat", "angled", "corner"], "polyCount": 2500 },
+        { "id": "SM_Roof_Slate", "variants": ["flat", "angled", "corner"], "polyCount": 2500 }
+      ],
+      "doors": [
+        { "id": "SM_Door_Wood", "variants": 5, "polyCount": 1500, "animated": true },
+        { "id": "SM_Door_Iron", "variants": 3, "polyCount": 2000, "animated": true },
+        { "id": "SM_Door_Castle", "variants": 2, "polyCount": 4000, "animated": true },
+        { "id": "SM_Gate_Portcullis", "polyCount": 5000, "animated": true }
+      ],
+      "stairs": [
+        { "id": "SM_Stairs_Stone", "variants": ["straight", "spiral"], "polyCount": 3000 },
+        { "id": "SM_Stairs_Wood", "variants": ["straight", "spiral"], "polyCount": 2500 }
+      ]
+    },
+
+    "completedBuildings": {
+      "residential": [
+        { "id": "SM_Building_House_Small", "variants": 8, "polyCount": 25000, "interior": true },
+        { "id": "SM_Building_House_Medium", "variants": 6, "polyCount": 40000, "interior": true },
+        { "id": "SM_Building_House_Large", "variants": 4, "polyCount": 60000, "interior": true },
+        { "id": "SM_Building_Farmhouse", "variants": 4, "polyCount": 35000, "interior": true }
+      ],
+      "commercial": [
+        { "id": "SM_Building_Shop_General", "variants": 4, "polyCount": 35000, "interior": true },
+        { "id": "SM_Building_Shop_Blacksmith", "polyCount": 40000, "interior": true },
+        { "id": "SM_Building_Shop_Armorer", "polyCount": 40000, "interior": true },
+        { "id": "SM_Building_Shop_Magic", "polyCount": 45000, "interior": true },
+        { "id": "SM_Building_Bank", "polyCount": 60000, "interior": true },
+        { "id": "SM_Building_Inn", "variants": 3, "polyCount": 55000, "interior": true },
+        { "id": "SM_Building_Tavern", "variants": 3, "polyCount": 50000, "interior": true }
+      ],
+      "civic": [
+        { "id": "SM_Building_Temple", "variants": 3, "polyCount": 80000, "interior": true },
+        { "id": "SM_Building_Cathedral", "polyCount": 150000, "interior": true },
+        { "id": "SM_Building_TownHall", "polyCount": 70000, "interior": true },
+        { "id": "SM_Building_Barracks", "polyCount": 60000, "interior": true },
+        { "id": "SM_Building_GuildHall", "variants": 3, "polyCount": 75000, "interior": true }
+      ],
+      "fortifications": [
+        { "id": "SM_Building_Castle_Main", "polyCount": 200000, "interior": true },
+        { "id": "SM_Building_Castle_Tower", "variants": 4, "polyCount": 40000 },
+        { "id": "SM_Building_Castle_Wall", "modular": true, "polyCount": 15000 },
+        { "id": "SM_Building_Castle_Gate", "polyCount": 50000, "animated": true }
+      ]
+    },
+
+    "interiorProps": [
+      { "id": "SM_Furniture_Table", "variants": 8, "polyCount": 2000 },
+      { "id": "SM_Furniture_Chair", "variants": 10, "polyCount": 1500 },
+      { "id": "SM_Furniture_Bench", "variants": 5, "polyCount": 1800 },
+      { "id": "SM_Furniture_Bed", "variants": 6, "polyCount": 3000 },
+      { "id": "SM_Furniture_Shelf", "variants": 5, "polyCount": 1500 },
+      { "id": "SM_Furniture_Cabinet", "variants": 4, "polyCount": 2500 },
+      { "id": "SM_Furniture_Chest", "variants": 6, "polyCount": 2000 },
+      { "id": "SM_Furniture_Throne", "variants": 3, "polyCount": 5000 },
+      { "id": "SM_Light_Candle", "variants": 4, "polyCount": 300 },
+      { "id": "SM_Light_Chandelier", "variants": 4, "polyCount": 3000 },
+      { "id": "SM_Light_TorchSconce", "variants": 3, "polyCount": 800 },
+      { "id": "SM_Fireplace", "variants": 4, "polyCount": 5000 },
+      { "id": "SM_Decor_Painting", "variants": 20, "polyCount": 200 },
+      { "id": "SM_Decor_Tapestry", "variants": 15, "polyCount": 300, "clothSim": true },
+      { "id": "SM_Decor_Rug", "variants": 12, "polyCount": 400 },
+      { "id": "SM_Decor_Vase", "variants": 8, "polyCount": 1000 },
+      { "id": "SM_Decor_Books", "variants": 6, "polyCount": 500 }
+    ]
+  },
+
+  "dungeonAssets": {
+    "modularKits": {
+      "cave": [
+        { "id": "SM_Dungeon_Cave_Corridor", "variants": 6, "polyCount": 8000 },
+        { "id": "SM_Dungeon_Cave_Room_Small", "variants": 4, "polyCount": 15000 },
+        { "id": "SM_Dungeon_Cave_Room_Large", "variants": 3, "polyCount": 25000 },
+        { "id": "SM_Dungeon_Cave_Junction", "variants": 4, "polyCount": 12000 },
+        { "id": "SM_Dungeon_Cave_Stalactite", "variants": 10, "polyCount": 2000 },
+        { "id": "SM_Dungeon_Cave_Crystal", "variants": 6, "polyCount": 3000, "glow": true }
+      ],
+      "crypt": [
+        { "id": "SM_Dungeon_Crypt_Corridor", "variants": 5, "polyCount": 10000 },
+        { "id": "SM_Dungeon_Crypt_Room", "variants": 4, "polyCount": 20000 },
+        { "id": "SM_Dungeon_Crypt_Coffin", "variants": 4, "polyCount": 3000 },
+        { "id": "SM_Dungeon_Crypt_Altar", "polyCount": 5000 },
+        { "id": "SM_Dungeon_Crypt_Pillar", "variants": 4, "polyCount": 4000 },
+        { "id": "SM_Dungeon_Crypt_Bones", "variants": 8, "polyCount": 1500 }
+      ],
+      "temple": [
+        { "id": "SM_Dungeon_Temple_Corridor", "variants": 4, "polyCount": 12000 },
+        { "id": "SM_Dungeon_Temple_Room", "variants": 4, "polyCount": 25000 },
+        { "id": "SM_Dungeon_Temple_Statue", "variants": 6, "polyCount": 8000 },
+        { "id": "SM_Dungeon_Temple_Brazier", "variants": 3, "polyCount": 3000 },
+        { "id": "SM_Dungeon_Temple_RuneCircle", "polyCount": 2000, "glow": true }
+      ],
+      "fortress": [
+        { "id": "SM_Dungeon_Fortress_Corridor", "variants": 5, "polyCount": 10000 },
+        { "id": "SM_Dungeon_Fortress_Room", "variants": 4, "polyCount": 22000 },
+        { "id": "SM_Dungeon_Fortress_WeaponRack", "variants": 4, "polyCount": 3000 },
+        { "id": "SM_Dungeon_Fortress_ArmorStand", "variants": 3, "polyCount": 4000 },
+        { "id": "SM_Dungeon_Fortress_Banner", "variants": 6, "polyCount": 1000, "clothSim": true }
+      ],
+      "volcanic": [
+        { "id": "SM_Dungeon_Volcanic_Corridor", "variants": 4, "polyCount": 10000 },
+        { "id": "SM_Dungeon_Volcanic_Room", "variants": 3, "polyCount": 22000 },
+        { "id": "SM_Dungeon_Volcanic_LavaPool", "polyCount": 3000, "vfxIntegrated": true },
+        { "id": "SM_Dungeon_Volcanic_Obsidian", "variants": 6, "polyCount": 4000 },
+        { "id": "SM_Dungeon_Volcanic_SteamVent", "polyCount": 2000, "vfxIntegrated": true }
+      ]
+    },
+
+    "bossArenas": [
+      { "id": "SM_Arena_Scorath", "polyCount": 100000, "unique": true },
+      { "id": "SM_Arena_VoidfiendLord", "polyCount": 80000, "unique": true },
+      { "id": "SM_Arena_FrostQueen", "polyCount": 85000, "unique": true },
+      { "id": "SM_Arena_Generic_Large", "variants": 3, "polyCount": 60000 },
+      { "id": "SM_Arena_Generic_Small", "variants": 4, "polyCount": 40000 }
+    ]
+  },
+
+  "animationAssets": {
+    "playerAnimations": {
+      "locomotion": [
+        { "id": "A_Player_Idle", "variants": 3, "frames": 120 },
+        { "id": "A_Player_Walk", "directions": 8, "frames": 30 },
+        { "id": "A_Player_Run", "directions": 8, "frames": 24 },
+        { "id": "A_Player_Sprint", "frames": 20 },
+        { "id": "A_Player_Jump_Start", "frames": 15 },
+        { "id": "A_Player_Jump_Loop", "frames": 10 },
+        { "id": "A_Player_Jump_Land", "frames": 12 },
+        { "id": "A_Player_Swim_Surface", "directions": 8, "frames": 30 },
+        { "id": "A_Player_Swim_Underwater", "directions": 8, "frames": 30 },
+        { "id": "A_Player_Climb", "frames": 24 }
+      ],
+      "combat": [
+        { "id": "A_Player_Combat_Idle", "weaponVariants": 6, "frames": 60 },
+        { "id": "A_Player_Attack_Sword", "combo": 4, "frames": 30 },
+        { "id": "A_Player_Attack_2H", "combo": 3, "frames": 40 },
+        { "id": "A_Player_Attack_Axe", "combo": 3, "frames": 35 },
+        { "id": "A_Player_Attack_Mace", "combo": 3, "frames": 35 },
+        { "id": "A_Player_Attack_Dagger", "combo": 4, "frames": 20 },
+        { "id": "A_Player_Attack_Bow_Draw", "frames": 20 },
+        { "id": "A_Player_Attack_Bow_Release", "frames": 10 },
+        { "id": "A_Player_Attack_Staff", "variants": 3, "frames": 30 },
+        { "id": "A_Player_Block", "frames": 15 },
+        { "id": "A_Player_Block_Hit", "frames": 12 },
+        { "id": "A_Player_Dodge_Roll", "directions": 4, "frames": 24 },
+        { "id": "A_Player_Hit_React", "variants": 4, "frames": 20 },
+        { "id": "A_Player_Death", "variants": 3, "frames": 60 }
+      ],
+      "skills": [
+        { "id": "A_Player_Mine", "phases": ["start", "loop", "end"], "totalFrames": 90 },
+        { "id": "A_Player_Chop", "phases": ["start", "loop", "end"], "totalFrames": 90 },
+        { "id": "A_Player_Fish_Cast", "frames": 30 },
+        { "id": "A_Player_Fish_Wait", "frames": 60 },
+        { "id": "A_Player_Fish_Reel", "frames": 45 },
+        { "id": "A_Player_Smith_Hammer", "frames": 30 },
+        { "id": "A_Player_Cook_Stir", "frames": 45 },
+        { "id": "A_Player_Alchemy_Mix", "frames": 60 },
+        { "id": "A_Player_Craft_Generic", "frames": 45 },
+        { "id": "A_Player_Glyphcraft_Channel", "frames": 90 },
+        { "id": "A_Player_Aethertap_Harvest", "frames": 60 },
+        { "id": "A_Player_Pickpocket", "frames": 40 },
+        { "id": "A_Player_Lockpick", "frames": 60 },
+        { "id": "A_Player_Pray", "frames": 90 }
+      ],
+      "interactions": [
+        { "id": "A_Player_Talk", "variants": 3, "frames": 60 },
+        { "id": "A_Player_Pickup", "variants": 3, "frames": 20 },
+        { "id": "A_Player_Sit", "variants": 4, "frames": 30 },
+        { "id": "A_Player_Rest", "frames": 120 },
+        { "id": "A_Player_Use_Bank", "frames": 30 }
+      ],
+      "emotes": [
+        { "id": "A_Player_Emote_Wave", "frames": 45 },
+        { "id": "A_Player_Emote_Bow", "frames": 50 },
+        { "id": "A_Player_Emote_Dance", "frames": 180 },
+        { "id": "A_Player_Emote_Cheer", "frames": 60 },
+        { "id": "A_Player_Emote_Cry", "frames": 90 },
+        { "id": "A_Player_Emote_Laugh", "frames": 60 },
+        { "id": "A_Player_Emote_Angry", "frames": 45 },
+        { "id": "A_Player_Emote_ThumbsUp", "frames": 30 },
+        { "id": "A_Player_Emote_Salute", "frames": 40 }
+      ]
+    },
+
+    "enemyAnimations": {
+      "humanoid": {
+        "standard": ["idle", "walk", "run", "attack_1", "attack_2", "hit_react", "death"],
+        "framesPerAnim": 30
+      },
+      "beast": {
+        "standard": ["idle", "walk", "run", "attack_bite", "attack_claw", "hit_react", "death"],
+        "framesPerAnim": 30
+      },
+      "boss": {
+        "perBoss": ["idle", "walk", "attack_1", "attack_2", "attack_3", "special_1", "special_2", "phase_transition", "death"],
+        "framesPerAnim": 60
+      }
+    },
+
+    "npcAnimations": {
+      "standard": ["idle", "idle_variant", "walk", "talk", "work_generic"],
+      "specific": {
+        "merchant": ["arrange_goods", "count_coins", "greet"],
+        "guard": ["patrol", "alert", "salute"],
+        "blacksmith": ["hammer", "pump_bellows", "inspect"],
+        "innkeeper": ["pour_drink", "wipe_counter", "greet"]
+      }
+    }
+  },
+
+  "vfxAssets": {
+    "combat": {
+      "weaponTrails": [
+        { "id": "NS_Trail_Sword", "priority": "high" },
+        { "id": "NS_Trail_Axe", "priority": "high" },
+        { "id": "NS_Trail_Fire", "priority": "high" },
+        { "id": "NS_Trail_Ice", "priority": "high" },
+        { "id": "NS_Trail_Poison", "priority": "medium" }
+      ],
+      "impacts": [
+        { "id": "NS_Impact_Slash", "priority": "high" },
+        { "id": "NS_Impact_Blunt", "priority": "high" },
+        { "id": "NS_Impact_Critical", "priority": "high" },
+        { "id": "NS_Impact_Blood", "priority": "medium" },
+        { "id": "NS_Impact_Sparks", "priority": "medium" }
+      ],
+      "projectiles": [
+        { "id": "NS_Projectile_Arrow", "priority": "high" },
+        { "id": "NS_Projectile_Arrow_Fire", "priority": "high" },
+        { "id": "NS_Projectile_Arrow_Ice", "priority": "high" },
+        { "id": "NS_Projectile_Bolt", "priority": "high" }
+      ]
+    },
+
+    "magic": {
+      "fire": [
+        { "id": "NS_Magic_Fire_Projectile", "priority": "high" },
+        { "id": "NS_Magic_Fire_Explosion", "priority": "high" },
+        { "id": "NS_Magic_Fire_Trail", "priority": "medium" },
+        { "id": "NS_Magic_Fire_Wave", "priority": "high" },
+        { "id": "NS_Magic_SolarRadiance", "priority": "high" }
+      ],
+      "ice": [
+        { "id": "NS_Magic_Ice_Projectile", "priority": "high" },
+        { "id": "NS_Magic_Ice_Shatter", "priority": "high" },
+        { "id": "NS_Magic_Ice_Trail", "priority": "medium" },
+        { "id": "NS_Magic_Blizzard", "priority": "high" }
+      ],
+      "earth": [
+        { "id": "NS_Magic_Earth_Projectile", "priority": "high" },
+        { "id": "NS_Magic_Earth_Spike", "priority": "high" },
+        { "id": "NS_Magic_Earthquake", "priority": "high" }
+      ],
+      "shadow": [
+        { "id": "NS_Magic_Shadow_Projectile", "priority": "high" },
+        { "id": "NS_Magic_Shadow_Eruption", "priority": "high" },
+        { "id": "NS_Magic_VoidZone", "priority": "high" }
+      ],
+      "holy": [
+        { "id": "NS_Magic_Holy_Smite", "priority": "high" },
+        { "id": "NS_Magic_Holy_Heal", "priority": "high" },
+        { "id": "NS_Magic_DivineStorm", "priority": "high" }
+      ],
+      "casting": [
+        { "id": "NS_Magic_Cast_Start", "priority": "high" },
+        { "id": "NS_Magic_Cast_Channel", "priority": "high" },
+        { "id": "NS_Magic_Cast_Release", "priority": "high" }
+      ]
+    },
+
+    "skills": [
+      { "id": "NS_Skill_Mining_Hit", "priority": "medium" },
+      { "id": "NS_Skill_Mining_OreReveal", "priority": "medium" },
+      { "id": "NS_Skill_Woodcutting_Hit", "priority": "medium" },
+      { "id": "NS_Skill_Woodcutting_TreeFall", "priority": "medium" },
+      { "id": "NS_Skill_Fishing_Splash", "priority": "low" },
+      { "id": "NS_Skill_Smithing_Sparks", "priority": "medium" },
+      { "id": "NS_Skill_Alchemy_Bubbles", "priority": "low" },
+      { "id": "NS_Skill_Glyphcraft_Channel", "priority": "medium" },
+      { "id": "NS_Skill_Aethertap_Harvest", "priority": "medium" }
+    ],
+
+    "environment": [
+      { "id": "NS_Weather_Rain", "priority": "medium" },
+      { "id": "NS_Weather_Snow", "priority": "medium" },
+      { "id": "NS_Weather_Lightning", "priority": "high" },
+      { "id": "NS_Weather_Fog", "priority": "low" },
+      { "id": "NS_Weather_Sandstorm", "priority": "medium" },
+      { "id": "NS_Ambient_Fireflies", "priority": "low" },
+      { "id": "NS_Ambient_DustMotes", "priority": "low" },
+      { "id": "NS_Ambient_Embers", "priority": "low" },
+      { "id": "NS_Ambient_Leaves", "priority": "low" },
+      { "id": "NS_Fire_Campfire", "priority": "medium" },
+      { "id": "NS_Fire_Torch", "priority": "medium" },
+      { "id": "NS_Water_Ripples", "priority": "low" },
+      { "id": "NS_Water_Splash", "priority": "medium" }
+    ],
+
+    "ui": [
+      { "id": "NS_UI_LevelUp", "priority": "high" },
+      { "id": "NS_UI_QuestComplete", "priority": "high" },
+      { "id": "NS_UI_Achievement", "priority": "high" },
+      { "id": "NS_UI_ItemPickup_Legendary", "priority": "medium" }
+    ]
+  },
+
+  "audioAssets": {
+    "music": {
+      "zones": [
+        { "id": "MUS_Kingshold", "variants": ["day", "night", "market"], "duration": "3-5min" },
+        { "id": "MUS_Whiteguard", "variants": ["day", "night"], "duration": "3-5min" },
+        { "id": "MUS_Frostharbor", "variants": ["day", "night"], "duration": "3-5min" },
+        { "id": "MUS_Tidecrest", "variants": ["day", "night"], "duration": "3-5min" },
+        { "id": "MUS_Eldergrove", "duration": "4-6min" },
+        { "id": "MUS_Shadowfen", "duration": "4-6min" },
+        { "id": "MUS_Scorchlands", "duration": "4-6min" },
+        { "id": "MUS_AshridgePeaks", "duration": "4-6min" },
+        { "id": "MUS_GlacialWastes", "duration": "4-6min" },
+        { "id": "MUS_IronpeakMountains", "duration": "4-6min" }
+      ],
+      "combat": [
+        { "id": "MUS_Combat_General", "variants": 3, "duration": "2-3min" },
+        { "id": "MUS_Combat_Forest", "duration": "2-3min" },
+        { "id": "MUS_Combat_Desert", "duration": "2-3min" },
+        { "id": "MUS_Combat_Dungeon", "duration": "2-3min" }
+      ],
+      "bosses": [
+        { "id": "MUS_Boss_Scorath", "phases": 3, "duration": "8-10min" },
+        { "id": "MUS_Boss_VoidfiendLord", "phases": 2, "duration": "6-8min" },
+        { "id": "MUS_Boss_FrostQueen", "phases": 3, "duration": "8-10min" }
+      ],
+      "dungeons": [
+        { "id": "MUS_Dungeon_Cave", "duration": "5-7min" },
+        { "id": "MUS_Dungeon_Crypt", "duration": "5-7min" },
+        { "id": "MUS_Dungeon_Temple", "duration": "5-7min" },
+        { "id": "MUS_Dungeon_Fortress", "duration": "5-7min" },
+        { "id": "MUS_Dungeon_Volcanic", "duration": "5-7min" }
+      ],
+      "stingers": [
+        { "id": "MUS_Stinger_QuestAccept", "duration": "2sec" },
+        { "id": "MUS_Stinger_QuestComplete", "duration": "4sec" },
+        { "id": "MUS_Stinger_LevelUp", "duration": "3sec" },
+        { "id": "MUS_Stinger_Achievement", "duration": "3sec" },
+        { "id": "MUS_Stinger_Death", "duration": "4sec" },
+        { "id": "MUS_Stinger_RareDrop", "duration": "2sec" }
+      ]
+    },
+
+    "ambience": {
+      "zones": [
+        { "id": "AMB_Forest", "layers": ["base", "birds", "wind", "insects"], "variants": ["day", "night"] },
+        { "id": "AMB_Swamp", "layers": ["base", "frogs", "bubbles", "insects"], "variants": ["day", "night"] },
+        { "id": "AMB_Desert", "layers": ["base", "wind", "sand"], "variants": ["day", "night"] },
+        { "id": "AMB_Mountain", "layers": ["base", "wind", "echo"], "variants": ["day", "night"] },
+        { "id": "AMB_Tundra", "layers": ["base", "wind", "ice"], "variants": ["day", "night"] },
+        { "id": "AMB_Volcanic", "layers": ["base", "rumble", "lava", "steam"] },
+        { "id": "AMB_Ocean", "layers": ["base", "waves", "seagulls", "wind"] },
+        { "id": "AMB_City", "layers": ["base", "crowd", "market", "carts"], "variants": ["day", "night"] }
+      ],
+      "dungeons": [
+        { "id": "AMB_Cave", "layers": ["base", "drips", "echo", "creatures"] },
+        { "id": "AMB_Crypt", "layers": ["base", "wind", "chains", "whispers"] },
+        { "id": "AMB_Temple", "layers": ["base", "chanting", "bells"] },
+        { "id": "AMB_Fortress", "layers": ["base", "torches", "distant_activity"] }
+      ],
+      "weather": [
+        { "id": "AMB_Weather_Rain_Light" },
+        { "id": "AMB_Weather_Rain_Heavy" },
+        { "id": "AMB_Weather_Thunder" },
+        { "id": "AMB_Weather_Storm" },
+        { "id": "AMB_Weather_Snow" },
+        { "id": "AMB_Weather_Blizzard" },
+        { "id": "AMB_Weather_Sandstorm" }
+      ]
+    },
+
+    "sfx": {
+      "combat": {
+        "weapons": {
+          "count": 150,
+          "categories": ["sword", "axe", "mace", "dagger", "bow", "crossbow", "staff"],
+          "actions": ["swing", "hit_flesh", "hit_metal", "hit_wood", "block", "draw", "sheathe"]
+        },
+        "magic": {
+          "count": 100,
+          "categories": ["fire", "ice", "earth", "water", "shadow", "holy"],
+          "actions": ["cast_start", "cast_channel", "cast_release", "projectile_fly", "impact"]
+        },
+        "reactions": {
+          "count": 50,
+          "types": ["hurt_light", "hurt_heavy", "death", "block", "dodge", "stagger"]
+        }
+      },
+      "skills": {
+        "count": 120,
+        "perSkill": ["mining", "woodcutting", "fishing", "smithing", "cooking", "alchemy", "crafting", "glyphcraft", "aethertap", "bonding", "subterfuge"]
+      },
+      "footsteps": {
+        "surfaces": 9,
+        "variants": 6,
+        "types": ["walk", "run", "land"],
+        "totalCount": 162
+      },
+      "ui": {
+        "count": 60,
+        "categories": ["buttons", "inventory", "menus", "notifications", "chat", "trade"]
+      }
+    },
+
+    "voice": {
+      "player": {
+        "presets": 8,
+        "lines": ["effort", "hurt", "death", "victory", "levelup"],
+        "variantsPerLine": 3
+      },
+      "npcs": {
+        "genericLines": 50,
+        "uniqueNPCs": 20,
+        "linesPerUnique": 20
+      },
+      "enemies": {
+        "types": ["humanoid", "beast", "undead", "demon"],
+        "actionsPerType": ["aggro", "attack", "hurt", "death"],
+        "variantsPerAction": 2
+      },
+      "beastslayerMasters": {
+        "count": 6,
+        "linesPerMaster": 15
+      }
+    }
+  },
+
+  "uiAssets": {
+    "icons": {
+      "items": { "count": 500, "resolution": 128, "categories": ["weapons", "armor", "consumables", "materials", "quest_items"] },
+      "skills": { "count": 25, "resolution": 128 },
+      "abilities": { "count": 100, "resolution": 64 },
+      "buffs": { "count": 80, "resolution": 48 },
+      "achievements": { "count": 150, "resolution": 128 },
+      "emotes": { "count": 20, "resolution": 64 },
+      "misc": { "count": 100, "resolution": 64, "types": ["currency", "map_markers", "status", "social"] }
+    },
+
+    "frames": {
+      "panels": { "variants": 10, "9slice": true },
+      "buttons": { "variants": 8, "states": ["normal", "hover", "pressed", "disabled"] },
+      "slots": { "variants": 6, "types": ["inventory", "equipment", "ability", "bank"] },
+      "bars": { "variants": 5, "types": ["health", "mana", "xp", "progress"] },
+      "borders": { "variants": 12, "rarities": ["common", "uncommon", "rare", "epic", "legendary"] }
+    },
+
+    "backgrounds": {
+      "menus": { "count": 10, "resolution": 1920 },
+      "loading": { "count": 15, "resolution": 1920 },
+      "character_select": { "count": 1, "animated": true }
+    },
+
+    "portraits": {
+      "npcs": { "count": 50, "resolution": 256 },
+      "enemies": { "count": 30, "resolution": 256 },
+      "bosses": { "count": 10, "resolution": 512 }
+    }
+  },
+
+  "assetSummary": {
+    "models": {
+      "characters": 180,
+      "weapons": 120,
+      "armor": 150,
+      "environment": 400,
+      "buildings": 200,
+      "props": 300,
+      "dungeons": 150,
+      "total": 1500
+    },
+    "textures": {
+      "characters": 200,
+      "equipment": 300,
+      "environment": 500,
+      "buildings": 300,
+      "ui": 400,
+      "total": 1700
+    },
+    "animations": {
+      "player": 150,
+      "enemies": 200,
+      "npcs": 80,
+      "total": 430
+    },
+    "vfx": {
+      "combat": 50,
+      "magic": 60,
+      "skills": 30,
+      "environment": 40,
+      "ui": 10,
+      "total": 190
+    },
+    "audio": {
+      "music": 50,
+      "ambience": 80,
+      "sfx": 500,
+      "voice": 400,
+      "total": 1030
+    },
+    "ui": {
+      "icons": 875,
+      "frames": 100,
+      "backgrounds": 26,
+      "portraits": 90,
+      "total": 1091
+    },
+    "grandTotal": "~5,941 assets"
+  },
+
+  "productionPriority": {
+    "phase1_MVP": {
+      "description": "Minimum viable product assets",
+      "priority": "critical",
+      "assets": [
+        "Player character (1 race)",
+        "Basic weapons (sword, bow, staff)",
+        "Basic armor (3 tiers)",
+        "Core enemies (10 types)",
+        "Starting zone environment",
+        "Essential UI",
+        "Core combat VFX",
+        "Basic audio"
+      ]
+    },
+    "phase2_Alpha": {
+      "description": "Alpha release assets",
+      "priority": "high",
+      "assets": [
+        "All player races",
+        "All weapon types",
+        "5 armor tiers",
+        "25 enemy types",
+        "3 zones",
+        "1 dungeon",
+        "Full UI",
+        "All skill VFX"
+      ]
+    },
+    "phase3_Beta": {
+      "description": "Beta release assets",
+      "priority": "medium",
+      "assets": [
+        "All armor tiers",
+        "All enemies",
+        "All zones",
+        "All dungeons",
+        "Boss encounters",
+        "All VFX",
+        "Full audio"
+      ]
+    },
+    "phase4_Launch": {
+      "description": "Launch polish assets",
+      "priority": "normal",
+      "assets": [
+        "Polish passes",
+        "Additional variants",
+        "Cosmetics",
+        "Voice acting",
+        "Cinematics"
+      ]
+    }
+  }
+}

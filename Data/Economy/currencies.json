@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Currency definitions for Realm of Eternity"
+  },
+  "currencies": [
+    {
+      "id": "gold_coins",
+      "name": "Gold Coins",
+      "description": "The standard currency of the realm",
+      "icon": "currency_gold",
+      "maxStack": 2147483647,
+      "tradeable": true,
+      "droppable": true,
+      "bankable": true,
+      "sources": ["monster_drops", "trading", "shops", "quests", "skilling"],
+      "sinks": ["shops", "trading", "death_costs", "repair_costs", "construction"]
+    },
+    {
+      "id": "eternium_tokens",
+      "name": "Eternium Tokens",
+      "description": "Premium currency earned through gameplay milestones",
+      "icon": "currency_eternium",
+      "maxStack": 100000,
+      "tradeable": false,
+      "droppable": false,
+      "bankable": true,
+      "earnMethods": [
+        { "source": "daily_challenges", "amount": 5 },
+        { "source": "weekly_challenges", "amount": 25 },
+        { "source": "achievement_milestones", "amount": 10 },
+        { "source": "boss_first_kills", "amount": 50 },
+        { "source": "skill_99", "amount": 100 },
+        { "source": "skill_120", "amount": 250 }
+      ],
+      "uses": ["cosmetic_shop", "convenience_items", "bank_space"]
+    },
+    {
+      "id": "beastslayer_points",
+      "name": "Beastslayer Points",
+      "description": "Earned by completing beastslayer tasks",
+      "icon": "currency_beastslayer",
+      "maxStack": 65535,
+      "tradeable": false,
+      "droppable": false,
+      "bankable": false,
+      "earnRate": {
+        "basePerTask": 10,
+        "streakBonus": 5,
+        "bossTaskBonus": 25,
+        "masterTaskBonus": 15
+      },
+      "shop": "beastslayer_rewards"
+    },
+    {
+      "id": "depth_tokens",
+      "name": "Depth Tokens",
+      "description": "Earned from completing delving floors",
+      "icon": "currency_depth",
+      "maxStack": 999999,
+      "tradeable": false,
+      "droppable": false,
+      "bankable": false,
+      "earnRate": {
+        "perFloor": { "c1": 500, "c2": 1000, "c3": 1500, "c4": 2000, "c5": 2500, "c6": 3500 },
+        "prestige_multiplier": 1.1
+      },
+      "shop": "depth_rewards"
+    },
+    {
+      "id": "champion_marks",
+      "name": "Champion Marks",
+      "description": "Earned from PvP activities and tournaments",
+      "icon": "currency_champion",
+      "maxStack": 100000,
+      "tradeable": false,
+      "droppable": false,
+      "bankable": false,
+      "sources": ["arena_wins", "tournament_placement", "bounty_hunter"],
+      "shop": "champion_rewards"
+    },
+    {
+      "id": "guild_credits",
+      "name": "Guild Credits",
+      "description": "Shared currency for guild activities",
+      "icon": "currency_guild",
+      "maxStack": 10000000,
+      "tradeable": false,
+      "droppable": false,
+      "bankable": false,
+      "isGuildCurrency": true,
+      "sources": ["guild_events", "citadel_upkeep", "guild_bosses"],
+      "uses": ["guild_upgrades", "citadel_buildings", "guild_rewards"]
+    },
+    {
+      "id": "void_shards",
+      "name": "Void Shards",
+      "description": "Rare currency from high-level bosses",
+      "icon": "currency_void",
+      "maxStack": 10000,
+      "tradeable": true,
+      "droppable": true,
+      "bankable": true,
+      "sources": ["elite_bosses", "raid_completions"],
+      "shop": "void_merchant"
+    },
+    {
+      "id": "seasonal_tokens",
+      "name": "Seasonal Tokens",
+      "description": "Event currency that changes each season",
+      "icon": "currency_seasonal",
+      "maxStack": 50000,
+      "tradeable": false,
+      "droppable": false,
+      "bankable": true,
+      "expiresAfterEvent": true,
+      "conversionRate": { "to": "gold_coins", "ratio": 100 }
+    },
+    {
+      "id": "ancient_coins",
+      "name": "Ancient Coins",
+      "description": "Archaeological currency from excavation sites",
+      "icon": "currency_ancient",
+      "maxStack": 100000,
+      "tradeable": false,
+      "droppable": false,
+      "bankable": true,
+      "sources": ["archaeology_excavation", "artifact_restoration"],
+      "shop": "archaeology_rewards"
+    },
+    {
+      "id": "runic_dust",
+      "name": "Runic Dust",
+      "description": "Magical essence from disenchanting items",
+      "icon": "currency_runic",
+      "maxStack": 999999,
+      "tradeable": true,
+      "droppable": true,
+      "bankable": true,
+      "sources": ["item_disenchant", "magic_training"],
+      "uses": ["enchanting", "augmentation", "invention"]
+    }
+  ],
+  "exchangeRates": {
+    "description": "Fixed exchange rates between currencies",
+    "rates": [
+      { "from": "void_shards", "to": "gold_coins", "rate": 50000 },
+      { "from": "runic_dust", "to": "gold_coins", "rate": 100 }
+    ]
+  },
+  "currencyLimits": {
+    "description": "Daily/weekly limits on currency gains",
+    "limits": [
+      { "currency": "eternium_tokens", "daily": 100, "weekly": 500 },
+      { "currency": "champion_marks", "daily": 1000, "weekly": null },
+      { "currency": "seasonal_tokens", "daily": 500, "weekly": null }
+    ]
+  },
+  "wealthTracking": {
+    "description": "Wealth calculation for matchmaking and leaderboards",
+    "includedCurrencies": ["gold_coins", "void_shards"],
+    "itemValuation": true,
+    "wealthTiers": [
+      { "tier": "beginner", "minWealth": 0, "maxWealth": 1000000 },
+      { "tier": "intermediate", "minWealth": 1000001, "maxWealth": 50000000 },
+      { "tier": "advanced", "minWealth": 50000001, "maxWealth": 500000000 },
+      { "tier": "wealthy", "minWealth": 500000001, "maxWealth": 2147483647 }
+    ]
+  }
+}

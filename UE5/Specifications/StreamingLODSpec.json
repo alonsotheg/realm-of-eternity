@@ -1,0 +1,428 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Level streaming and LOD specification for Realm of Eternity UE5",
+    "unrealVersion": "5.3"
+  },
+  "worldPartition": {
+    "description": "World Partition settings for open world streaming",
+    "enabled": true,
+    "cellSize": 12800,
+    "loadingRange": 3,
+    "dataLayers": [
+      {
+        "name": "Landscape",
+        "type": "runtime",
+        "loadingRange": 4,
+        "priority": 100,
+        "description": "Base terrain and landscape"
+      },
+      {
+        "name": "Buildings",
+        "type": "runtime",
+        "loadingRange": 3,
+        "priority": 90,
+        "description": "Major structures and buildings"
+      },
+      {
+        "name": "Foliage",
+        "type": "runtime",
+        "loadingRange": 2,
+        "priority": 70,
+        "description": "Trees, grass, and vegetation"
+      },
+      {
+        "name": "Props",
+        "type": "runtime",
+        "loadingRange": 2,
+        "priority": 60,
+        "description": "Small decorative objects"
+      },
+      {
+        "name": "NPCs",
+        "type": "runtime",
+        "loadingRange": 2,
+        "priority": 80,
+        "description": "Non-player characters"
+      },
+      {
+        "name": "Audio",
+        "type": "runtime",
+        "loadingRange": 3,
+        "priority": 50,
+        "description": "Ambient audio volumes"
+      },
+      {
+        "name": "Gameplay",
+        "type": "runtime",
+        "loadingRange": 3,
+        "priority": 95,
+        "description": "Triggers, spawners, interaction points"
+      }
+    ],
+    "streamingSource": {
+      "type": "player",
+      "preloadAhead": true,
+      "preloadDistance": 2
+    }
+  },
+  "levelStreaming": {
+    "description": "Traditional level streaming for dungeons and instances",
+    "dungeons": {
+      "loadingStrategy": "onDemand",
+      "unloadDelay": 30,
+      "persistentActors": ["quest_triggers", "checkpoint_markers"],
+      "instancedLevels": true
+    },
+    "interiors": {
+      "loadingStrategy": "proximity",
+      "loadDistance": 500,
+      "unloadDistance": 1000,
+      "transitionType": "seamless"
+    },
+    "loadingScreens": {
+      "dungeonEntry": {
+        "minDuration": 1.0,
+        "showTips": true,
+        "showProgress": true
+      },
+      "zoneTransition": {
+        "minDuration": 0.5,
+        "fadeType": "crossfade"
+      },
+      "teleport": {
+        "minDuration": 0.3,
+        "effect": "magic_swirl"
+      }
+    }
+  },
+  "lodSettings": {
+    "description": "Level of Detail configuration",
+    "global": {
+      "lodBias": 1.0,
+      "minLodLevel": 0,
+      "maxLodLevel": 4,
+      "forcedLodModel": -1,
+      "lodDistanceScale": 1.0
+    },
+    "categories": {
+      "characters": {
+        "description": "Player and NPC character LODs",
+        "lodLevels": [
+          { "lod": 0, "distance": 0, "triangles": "100%", "features": ["full_detail", "cloth_sim", "facial_anim"] },
+          { "lod": 1, "distance": 1500, "triangles": "60%", "features": ["reduced_cloth", "basic_facial"] },
+          { "lod": 2, "distance": 3000, "triangles": "30%", "features": ["no_cloth", "no_facial"] },
+          { "lod": 3, "distance": 5000, "triangles": "15%", "features": ["simplified_rig"] },
+          { "lod": 4, "distance": 8000, "triangles": "5%", "features": ["billboard_impostor"] }
+        ],
+        "screenSizeThresholds": [0.5, 0.25, 0.125, 0.0625, 0.03],
+        "shadowLod": {
+          "useLowerLod": true,
+          "lodOffset": 1
+        }
+      },
+      "buildings": {
+        "description": "Structure and building LODs",
+        "lodLevels": [
+          { "lod": 0, "distance": 0, "triangles": "100%", "features": ["full_detail", "interior_visible"] },
+          { "lod": 1, "distance": 5000, "triangles": "50%", "features": ["exterior_only"] },
+          { "lod": 2, "distance": 10000, "triangles": "25%", "features": ["simplified_geo"] },
+          { "lod": 3, "distance": 20000, "triangles": "10%", "features": ["basic_silhouette"] },
+          { "lod": 4, "distance": 50000, "triangles": "2%", "features": ["impostor"] }
+        ],
+        "hlod": {
+          "enabled": true,
+          "clusterRadius": 5000,
+          "simplificationTarget": 0.1
+        }
+      },
+      "foliage": {
+        "description": "Vegetation and tree LODs",
+        "lodLevels": [
+          { "lod": 0, "distance": 0, "features": ["full_geometry", "wind_animation"] },
+          { "lod": 1, "distance": 2000, "features": ["reduced_branches", "wind_animation"] },
+          { "lod": 2, "distance": 4000, "features": ["billboard_crossfade"] },
+          { "lod": 3, "distance": 8000, "features": ["billboard"] }
+        ],
+        "grassCullDistance": 3000,
+        "treeImpostorDistance": 10000,
+        "densityScale": {
+          "ultra": 1.0,
+          "high": 0.8,
+          "medium": 0.5,
+          "low": 0.3
+        }
+      },
+      "props": {
+        "description": "Small world objects and decorations",
+        "lodLevels": [
+          { "lod": 0, "distance": 0, "triangles": "100%" },
+          { "lod": 1, "distance": 1000, "triangles": "50%" },
+          { "lod": 2, "distance": 2500, "triangles": "20%" },
+          { "lod": 3, "distance": 5000, "triangles": "5%" }
+        ],
+        "cullDistance": {
+          "tiny": 1500,
+          "small": 3000,
+          "medium": 6000,
+          "large": 15000
+        }
+      },
+      "weapons": {
+        "description": "Weapon and equipment LODs",
+        "lodLevels": [
+          { "lod": 0, "distance": 0, "triangles": "100%" },
+          { "lod": 1, "distance": 2000, "triangles": "40%" },
+          { "lod": 2, "distance": 4000, "triangles": "15%" }
+        ],
+        "firstPersonLod": 0
+      },
+      "particles": {
+        "description": "VFX LOD settings",
+        "distanceScale": {
+          "lod0": { "distance": 0, "spawnRate": 1.0, "lifetime": 1.0 },
+          "lod1": { "distance": 2000, "spawnRate": 0.6, "lifetime": 0.8 },
+          "lod2": { "distance": 5000, "spawnRate": 0.3, "lifetime": 0.5 },
+          "lod3": { "distance": 10000, "spawnRate": 0.1, "lifetime": 0.3 }
+        },
+        "cullDistance": 15000,
+        "maxParticlesPerSystem": {
+          "ultra": 10000,
+          "high": 5000,
+          "medium": 2000,
+          "low": 500
+        }
+      }
+    }
+  },
+  "hlod": {
+    "description": "Hierarchical Level of Detail for distant rendering",
+    "enabled": true,
+    "buildSettings": {
+      "minClusterSize": 2048,
+      "maxClusterSize": 8192,
+      "simplificationMethod": "quadric",
+      "textureSize": 2048,
+      "useInstancing": true
+    },
+    "layers": [
+      {
+        "name": "HLOD_Buildings",
+        "distance": 20000,
+        "simplification": 0.1,
+        "mergeActors": true,
+        "includedTypes": ["StaticMesh", "InstancedStaticMesh"]
+      },
+      {
+        "name": "HLOD_Landscape",
+        "distance": 50000,
+        "simplification": 0.05,
+        "generateImpostors": true
+      }
+    ]
+  },
+  "nanite": {
+    "description": "Nanite virtualized geometry settings",
+    "enabled": true,
+    "supportedMeshTypes": ["static_environment", "buildings", "terrain_meshes"],
+    "unsupportedMeshTypes": ["skeletal_meshes", "foliage_with_wind", "translucent"],
+    "settings": {
+      "maxPixelsPerEdge": 1.0,
+      "minPixelsPerEdge": 0.1,
+      "displacementEnabled": true,
+      "allowDeformables": false
+    },
+    "fallback": {
+      "useTraditionalLod": true,
+      "lodBiasForNonNanite": 0.5
+    }
+  },
+  "virtualTexturing": {
+    "description": "Virtual texture streaming configuration",
+    "enabled": true,
+    "tileSize": 128,
+    "tileBorderSize": 4,
+    "poolSizes": {
+      "physical": {
+        "ultra": 4096,
+        "high": 2048,
+        "medium": 1024,
+        "low": 512
+      }
+    },
+    "streamingSettings": {
+      "maxAnisotropy": 8,
+      "mipBias": 0,
+      "priorityScale": 1.0
+    },
+    "runtimeVirtualTexture": {
+      "landscape": {
+        "enabled": true,
+        "size": 8192,
+        "tileCount": 64,
+        "materialTypes": ["baseColor", "normal", "roughness", "worldHeight"]
+      }
+    }
+  },
+  "occlusion": {
+    "description": "Occlusion culling configuration",
+    "hardwareOcclusion": {
+      "enabled": true,
+      "maxQueries": 4096,
+      "threshold": 6
+    },
+    "softwareOcclusion": {
+      "enabled": true,
+      "resolution": 256,
+      "maxOccluders": 64
+    },
+    "precomputedVisibility": {
+      "enabled": true,
+      "cellSize": 200,
+      "playAreaHeight": 400,
+      "aggressiveness": "moderate"
+    },
+    "frustumCulling": {
+      "enabled": true,
+      "paddingPercentage": 5
+    }
+  },
+  "distanceCulling": {
+    "description": "Distance-based culling settings",
+    "categories": {
+      "tiny_detail": { "maxDrawDistance": 1000, "examples": ["pebbles", "small_debris"] },
+      "small_props": { "maxDrawDistance": 3000, "examples": ["crates", "barrels", "signs"] },
+      "medium_props": { "maxDrawDistance": 8000, "examples": ["market_stalls", "carts", "fountains"] },
+      "large_props": { "maxDrawDistance": 20000, "examples": ["statues", "monuments"] },
+      "structures": { "maxDrawDistance": 50000, "examples": ["buildings", "walls"] },
+      "landmarks": { "maxDrawDistance": 100000, "examples": ["castles", "towers", "mountains"] }
+    },
+    "dynamicAdjustment": {
+      "enabled": true,
+      "targetFramerate": 60,
+      "adjustmentSpeed": 0.1,
+      "minScale": 0.5,
+      "maxScale": 1.5
+    }
+  },
+  "asyncLoading": {
+    "description": "Asynchronous asset loading configuration",
+    "enabled": true,
+    "settings": {
+      "maxConcurrentStreams": 8,
+      "ioDispatcherThreads": 4,
+      "priorityBoostForVisible": true,
+      "memoryBudget": {
+        "ultra": 8192,
+        "high": 4096,
+        "medium": 2048,
+        "low": 1024
+      }
+    },
+    "prefetching": {
+      "enabled": true,
+      "lookAheadDistance": 5000,
+      "predictPlayerMovement": true
+    },
+    "unloading": {
+      "unusedAssetTimeout": 60,
+      "memoryPressureThreshold": 0.9,
+      "aggressiveUnloadOnTravel": true
+    }
+  },
+  "instancedRendering": {
+    "description": "GPU instancing configuration",
+    "staticMeshInstancing": {
+      "enabled": true,
+      "minInstanceCount": 4,
+      "maxInstancesPerDrawCall": 1024
+    },
+    "foliageInstancing": {
+      "enabled": true,
+      "useLODTransitions": true,
+      "clusterSize": 256
+    },
+    "ism": {
+      "description": "Instanced Static Mesh settings",
+      "useOcclusionQueries": true,
+      "randomRotation": true,
+      "randomScale": { "min": 0.9, "max": 1.1 }
+    }
+  },
+  "qualityScalability": {
+    "description": "Quality preset configurations",
+    "presets": {
+      "ultra": {
+        "viewDistanceScale": 1.5,
+        "foliageDensity": 1.0,
+        "lodBias": 0.5,
+        "shadowQuality": 4,
+        "textureQuality": 4,
+        "effectsQuality": 4
+      },
+      "high": {
+        "viewDistanceScale": 1.0,
+        "foliageDensity": 0.8,
+        "lodBias": 1.0,
+        "shadowQuality": 3,
+        "textureQuality": 3,
+        "effectsQuality": 3
+      },
+      "medium": {
+        "viewDistanceScale": 0.75,
+        "foliageDensity": 0.5,
+        "lodBias": 1.5,
+        "shadowQuality": 2,
+        "textureQuality": 2,
+        "effectsQuality": 2
+      },
+      "low": {
+        "viewDistanceScale": 0.5,
+        "foliageDensity": 0.3,
+        "lodBias": 2.0,
+        "shadowQuality": 1,
+        "textureQuality": 1,
+        "effectsQuality": 1
+      }
+    },
+    "autoDetect": {
+      "enabled": true,
+      "benchmarkOnFirstRun": true,
+      "targetFramerate": 60
+    }
+  },
+  "memoryManagement": {
+    "description": "Memory budget and management",
+    "budgets": {
+      "textures": {
+        "ultra": 6144,
+        "high": 4096,
+        "medium": 2048,
+        "low": 1024
+      },
+      "meshes": {
+        "ultra": 2048,
+        "high": 1024,
+        "medium": 512,
+        "low": 256
+      },
+      "audio": {
+        "ultra": 512,
+        "high": 384,
+        "medium": 256,
+        "low": 128
+      }
+    },
+    "pooling": {
+      "actorPool": {
+        "enabled": true,
+        "maxPooledActors": 1000,
+        "warmupCount": 100
+      },
+      "componentPool": {
+        "enabled": true,
+        "pooledTypes": ["projectile", "vfx", "audio"]
+      }
+    }
+  }
+}

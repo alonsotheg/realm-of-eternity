@@ -1,0 +1,364 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Save/Load and data persistence specification for Realm of Eternity",
+    "unrealVersion": "5.3"
+  },
+  "architecture": {
+    "description": "MMO save architecture - server authoritative with client cache",
+    "model": "server_authoritative",
+    "components": [
+      {
+        "name": "GameServer",
+        "role": "primary",
+        "description": "Authoritative game state storage",
+        "database": "PostgreSQL",
+        "responsibilities": ["character_data", "inventory", "skills", "quests", "achievements"]
+      },
+      {
+        "name": "ClientCache",
+        "role": "cache",
+        "description": "Local cache for UI responsiveness",
+        "storage": "SQLite",
+        "responsibilities": ["settings", "keybinds", "ui_layout", "chat_history", "map_markers"]
+      },
+      {
+        "name": "CloudSync",
+        "role": "backup",
+        "description": "Cross-device settings synchronization",
+        "service": "AWS_S3",
+        "responsibilities": ["settings_backup", "screenshot_storage", "adventure_log"]
+      }
+    ]
+  },
+  "characterData": {
+    "description": "Player character persistent data",
+    "saveFrequency": "realtime",
+    "schema": {
+      "identity": {
+        "characterId": "uuid",
+        "accountId": "uuid",
+        "displayName": "string(12)",
+        "createdAt": "timestamp",
+        "lastLogin": "timestamp",
+        "playTime": "integer",
+        "isIronman": "boolean",
+        "isHardcore": "boolean"
+      },
+      "appearance": {
+        "gender": "enum(male,female)",
+        "skinTone": "integer(0-11)",
+        "hairStyle": "integer",
+        "hairColor": "integer",
+        "facialHair": "integer",
+        "headShape": "integer",
+        "bodyType": "integer"
+      },
+      "stats": {
+        "combatLevel": "integer",
+        "totalLevel": "integer",
+        "totalXp": "bigint",
+        "questPoints": "integer",
+        "achievementPoints": "integer"
+      },
+      "skills": {
+        "type": "array",
+        "schema": {
+          "skillId": "string",
+          "level": "integer(1-120)",
+          "xp": "bigint",
+          "masteryLevel": "integer(0-10)",
+          "masteryXp": "bigint"
+        }
+      },
+      "position": {
+        "worldId": "string",
+        "zoneId": "string",
+        "x": "float",
+        "y": "float",
+        "z": "float",
+        "rotation": "float"
+      }
+    }
+  },
+  "inventory": {
+    "description": "Item storage systems",
+    "systems": [
+      {
+        "name": "equipment",
+        "slots": 14,
+        "saveFrequency": "realtime",
+        "validation": "server"
+      },
+      {
+        "name": "inventory",
+        "slots": 28,
+        "saveFrequency": "realtime",
+        "validation": "server"
+      },
+      {
+        "name": "bank",
+        "baseSlots": 100,
+        "maxSlots": 1200,
+        "saveFrequency": "on_close",
+        "validation": "server",
+        "tabs": 10
+      },
+      {
+        "name": "lootingBag",
+        "slots": 28,
+        "wildernessOnly": true,
+        "saveFrequency": "realtime"
+      },
+      {
+        "name": "pouches",
+        "types": ["glyph_pouch", "seed_box", "gem_bag", "coal_bag", "herb_sack"],
+        "saveFrequency": "realtime"
+      }
+    ],
+    "itemSchema": {
+      "itemId": "string",
+      "quantity": "integer",
+      "charges": "integer",
+      "augmented": "boolean",
+      "augmentData": "json",
+      "customName": "string",
+      "dyeColors": "array(2)"
+    }
+  },
+  "quests": {
+    "description": "Quest progress tracking",
+    "schema": {
+      "questId": "string",
+      "status": "enum(not_started,in_progress,completed)",
+      "currentStep": "integer",
+      "stepProgress": "json",
+      "startedAt": "timestamp",
+      "completedAt": "timestamp"
+    },
+    "saveFrequency": "on_step_complete"
+  },
+  "achievements": {
+    "description": "Achievement tracking",
+    "schema": {
+      "achievementId": "string",
+      "completed": "boolean",
+      "progress": "integer",
+      "completedAt": "timestamp"
+    },
+    "saveFrequency": "on_progress"
+  },
+  "socialData": {
+    "description": "Friends and social features",
+    "schema": {
+      "friends": {
+        "friendId": "uuid",
+        "addedAt": "timestamp",
+        "nickname": "string",
+        "note": "string"
+      },
+      "ignoreList": {
+        "playerId": "uuid",
+        "addedAt": "timestamp",
+        "reason": "string"
+      },
+      "clan": {
+        "clanId": "uuid",
+        "rank": "string",
+        "joinedAt": "timestamp"
+      }
+    },
+    "saveFrequency": "on_change"
+  },
+  "clientSettings": {
+    "description": "Client-side settings stored locally",
+    "storage": "local",
+    "categories": {
+      "graphics": {
+        "resolution": "string",
+        "windowMode": "enum(fullscreen,windowed,borderless)",
+        "vsync": "boolean",
+        "fpsLimit": "integer",
+        "qualityPreset": "enum(low,medium,high,ultra,custom)",
+        "shadowQuality": "integer(0-4)",
+        "textureQuality": "integer(0-4)",
+        "effectsQuality": "integer(0-4)",
+        "viewDistance": "integer(0-4)",
+        "antiAliasing": "enum(off,fxaa,taa,msaa2x,msaa4x)",
+        "ambientOcclusion": "boolean",
+        "bloomEnabled": "boolean",
+        "motionBlur": "boolean",
+        "fieldOfView": "integer(60-120)"
+      },
+      "audio": {
+        "masterVolume": "float(0-1)",
+        "musicVolume": "float(0-1)",
+        "sfxVolume": "float(0-1)",
+        "voiceVolume": "float(0-1)",
+        "ambienceVolume": "float(0-1)",
+        "uiSounds": "boolean",
+        "combatSounds": "boolean"
+      },
+      "controls": {
+        "mouseSensitivity": "float(0.1-5)",
+        "invertY": "boolean",
+        "toggleRun": "boolean",
+        "actionBarLock": "boolean"
+      },
+      "keybinds": {
+        "type": "map",
+        "schema": {
+          "actionId": "string",
+          "primaryKey": "string",
+          "secondaryKey": "string"
+        }
+      },
+      "interface": {
+        "chatOpacity": "float(0-1)",
+        "chatFontSize": "integer(10-24)",
+        "minimapZoom": "float(0.5-2)",
+        "showPlayerNames": "boolean",
+        "showNpcNames": "boolean",
+        "showHealthBars": "enum(off,damaged,always)",
+        "xpDrops": "boolean",
+        "damageNumbers": "boolean",
+        "timestampsInChat": "boolean"
+      },
+      "uiLayout": {
+        "type": "json",
+        "description": "Serialized UI panel positions and sizes"
+      }
+    }
+  },
+  "saveTriggers": {
+    "description": "Events that trigger save operations",
+    "automatic": [
+      { "event": "skill_level_up", "data": ["skills"], "immediate": true },
+      { "event": "quest_step_complete", "data": ["quests"], "immediate": true },
+      { "event": "item_acquired", "data": ["inventory"], "debounce": 1000 },
+      { "event": "item_dropped", "data": ["inventory"], "debounce": 1000 },
+      { "event": "equipment_changed", "data": ["equipment"], "immediate": true },
+      { "event": "zone_transition", "data": ["position"], "immediate": true },
+      { "event": "bank_closed", "data": ["bank"], "immediate": true },
+      { "event": "achievement_progress", "data": ["achievements"], "debounce": 5000 },
+      { "event": "periodic", "interval": 60000, "data": ["all_dirty"] }
+    ],
+    "manual": [
+      { "event": "logout", "data": ["all"], "timeout": 5000 },
+      { "event": "disconnect", "data": ["all"], "timeout": 3000 }
+    ]
+  },
+  "dataValidation": {
+    "description": "Server-side validation rules",
+    "rules": [
+      {
+        "type": "skill_xp",
+        "validation": "xp_cannot_decrease",
+        "maxGainPerTick": 5000000,
+        "logViolations": true
+      },
+      {
+        "type": "inventory_item",
+        "validation": "item_must_exist_in_database",
+        "checkQuantityLimits": true,
+        "logViolations": true
+      },
+      {
+        "type": "currency",
+        "validation": "non_negative",
+        "maxTransaction": 2147483647,
+        "logLargeTransactions": 100000000
+      },
+      {
+        "type": "position",
+        "validation": "within_world_bounds",
+        "maxTeleportDistance": 10000,
+        "logSuspiciousMovement": true
+      }
+    ]
+  },
+  "backupAndRecovery": {
+    "description": "Data backup and recovery systems",
+    "serverBackups": {
+      "frequency": "hourly",
+      "retention": {
+        "hourly": 24,
+        "daily": 30,
+        "weekly": 12,
+        "monthly": 12
+      },
+      "storage": "offsite_s3"
+    },
+    "characterRollback": {
+      "enabled": true,
+      "maxRollbackPeriod": 604800,
+      "requiresGMApproval": true,
+      "snapshotFrequency": 3600
+    },
+    "itemRecovery": {
+      "deathReclaim": {
+        "duration": 900,
+        "cost": "calculated"
+      },
+      "accidentalDrop": {
+        "gracePeriod": 60,
+        "autoRecovery": false
+      }
+    }
+  },
+  "migration": {
+    "description": "Data migration and versioning",
+    "currentVersion": "1.0.0",
+    "migrations": [
+      {
+        "version": "1.0.0",
+        "description": "Initial schema",
+        "date": "2024-01-01"
+      }
+    ],
+    "migrationStrategy": {
+      "automatic": true,
+      "backupBeforeMigration": true,
+      "rollbackOnFailure": true
+    }
+  },
+  "gdprCompliance": {
+    "description": "GDPR and data privacy compliance",
+    "dataExport": {
+      "enabled": true,
+      "format": "json",
+      "includesAll": ["character_data", "inventory", "social", "settings", "chat_logs"],
+      "processingTime": 72
+    },
+    "dataDelete": {
+      "enabled": true,
+      "gracePeriod": 30,
+      "anonymization": true
+    },
+    "dataRetention": {
+      "activeAccounts": "indefinite",
+      "inactiveAccounts": 365,
+      "deletedAccounts": 30,
+      "chatLogs": 90,
+      "tradeLogs": 180
+    }
+  },
+  "offlineMode": {
+    "description": "Limited offline functionality",
+    "enabled": false,
+    "note": "As an MMO, full offline play is not supported. Only local settings accessible offline.",
+    "offlineCapabilities": [
+      "view_cached_character",
+      "modify_settings",
+      "view_item_database",
+      "view_quest_guides"
+    ]
+  },
+  "crossPlatform": {
+    "description": "Cross-platform save compatibility",
+    "platforms": ["pc", "console", "mobile"],
+    "sharedData": ["character", "inventory", "progress"],
+    "platformSpecific": ["keybinds", "graphics_settings", "controller_settings"],
+    "conflictResolution": "server_wins"
+  }
+}

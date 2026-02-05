@@ -1,0 +1,477 @@
+{
+  "version": "1.0.0",
+  "description": "UE5 Audio and Sound Design specification for Realm of Eternity",
+
+  "audio_engine": {
+    "system": "MetaSounds",
+    "spatial_audio": true,
+    "hrtf_enabled": true,
+    "reverb_system": "convolution_and_algorithmic",
+    "occlusion": true,
+    "distance_attenuation": true,
+    "doppler_effect": false
+  },
+
+  "sound_classes": {
+    "master": {
+      "volume": 1.0,
+      "children": ["music", "sfx", "voice", "ambient", "ui"]
+    },
+    "music": {
+      "volume": 0.8,
+      "children": ["music_combat", "music_exploration", "music_boss", "music_menu"]
+    },
+    "sfx": {
+      "volume": 1.0,
+      "children": ["sfx_combat", "sfx_footsteps", "sfx_abilities", "sfx_world", "sfx_items"]
+    },
+    "voice": {
+      "volume": 1.0,
+      "children": ["voice_npc", "voice_player", "voice_emotes"]
+    },
+    "ambient": {
+      "volume": 0.6,
+      "children": ["ambient_nature", "ambient_town", "ambient_dungeon", "ambient_weather"]
+    },
+    "ui": {
+      "volume": 0.7,
+      "non_spatial": true,
+      "children": ["ui_buttons", "ui_notifications", "ui_inventory"]
+    }
+  },
+
+  "music_system": {
+    "adaptive_music": true,
+    "crossfade_duration_seconds": 3.0,
+    "combat_music_delay_seconds": 2.0,
+    "out_of_combat_fade_seconds": 5.0,
+
+    "music_states": {
+      "exploration": {
+        "layers": ["melody", "harmony", "percussion_light"],
+        "intensity": 0.5
+      },
+      "combat_low": {
+        "layers": ["melody", "harmony", "percussion_medium", "bass"],
+        "intensity": 0.7,
+        "trigger": "combat_started"
+      },
+      "combat_high": {
+        "layers": ["melody", "harmony", "percussion_heavy", "bass", "strings"],
+        "intensity": 1.0,
+        "trigger": "player_health_below_50"
+      },
+      "boss": {
+        "unique_track": true,
+        "phases": true,
+        "intensity": 1.0
+      },
+      "victory": {
+        "stinger": true,
+        "duration_seconds": 5,
+        "trigger": "combat_victory"
+      },
+      "death": {
+        "stinger": true,
+        "duration_seconds": 3,
+        "trigger": "player_death"
+      }
+    },
+
+    "region_themes": {
+      "mistral": {
+        "style": "orchestral_pastoral",
+        "instruments": ["strings", "flute", "harp", "french_horn"],
+        "tempo": "moderate",
+        "mood": "hopeful"
+      },
+      "dreadmire_marshes": {
+        "style": "gothic_horror",
+        "instruments": ["organ", "choir", "low_strings", "bells"],
+        "tempo": "slow",
+        "mood": "ominous"
+      },
+      "kharidian_desert": {
+        "style": "middle_eastern",
+        "instruments": ["oud", "darbuka", "ney", "qanun", "strings"],
+        "tempo": "moderate",
+        "mood": "mysterious"
+      },
+      "fremennik": {
+        "style": "nordic_epic",
+        "instruments": ["war_drums", "low_brass", "hurdy_gurdy", "nyckelharpa"],
+        "tempo": "moderate_to_fast",
+        "mood": "heroic"
+      },
+      "tirannwn": {
+        "style": "ethereal_celtic",
+        "instruments": ["harp", "celtic_flute", "violin", "bodhrán", "vocals"],
+        "tempo": "flowing",
+        "mood": "mystical"
+      },
+      "celestine_archipelago": {
+        "style": "tribal_tropical",
+        "instruments": ["steel_drums", "bongos", "marimba", "shakers"],
+        "tempo": "upbeat",
+        "mood": "adventurous"
+      },
+      "wilderness": {
+        "style": "dark_ambient",
+        "instruments": ["drones", "distorted_strings", "industrial_percussion"],
+        "tempo": "slow_unsettling",
+        "mood": "dangerous"
+      },
+      "prifddinas": {
+        "style": "orchestral_magical",
+        "instruments": ["crystal_bells", "harp", "ethereal_choir", "strings"],
+        "tempo": "graceful",
+        "mood": "majestic"
+      }
+    },
+
+    "boss_themes": {
+      "god_wars_bosses": {
+        "style": "epic_orchestral",
+        "phase_transitions": true,
+        "intensity_scaling": true
+      },
+      "raids": {
+        "unique_per_boss": true,
+        "phase_specific_music": true,
+        "final_phase_climax": true
+      },
+      "slayer_bosses": {
+        "style": "dark_combat",
+        "intensity": 0.9
+      }
+    }
+  },
+
+  "combat_sounds": {
+    "melee_weapons": {
+      "sword_slash": {
+        "variations": 6,
+        "pitch_variance": 0.1,
+        "impact_sounds": ["flesh", "metal", "bone", "stone"]
+      },
+      "mace_crush": {
+        "variations": 4,
+        "pitch_variance": 0.15,
+        "impact_sounds": ["flesh_heavy", "metal_dent", "bone_crack"]
+      },
+      "dagger_stab": {
+        "variations": 4,
+        "pitch_variance": 0.1,
+        "impact_sounds": ["flesh_pierce", "leather", "metal_scrape"]
+      },
+      "axe_chop": {
+        "variations": 5,
+        "pitch_variance": 0.12,
+        "impact_sounds": ["flesh_chop", "wood", "metal"]
+      }
+    },
+
+    "ranged_weapons": {
+      "bow_draw": {"duration_sync": "attack_speed"},
+      "bow_release": {"variations": 3},
+      "arrow_flight": {"looping": true, "doppler": false},
+      "arrow_impact": {
+        "variations": 4,
+        "material_specific": true
+      },
+      "crossbow_cock": {"mechanical": true},
+      "crossbow_fire": {"variations": 3}
+    },
+
+    "magic_spells": {
+      "fire_spells": {
+        "cast": {"whoosh": true, "crackle": true},
+        "projectile": {"looping_flame": true},
+        "impact": {"explosion_small": true, "sizzle": true}
+      },
+      "water_spells": {
+        "cast": {"splash": true, "flow": true},
+        "projectile": {"water_movement": true},
+        "impact": {"splash_impact": true, "drip": true}
+      },
+      "earth_spells": {
+        "cast": {"rumble": true, "stone_form": true},
+        "projectile": {"rock_tumble": true},
+        "impact": {"stone_shatter": true}
+      },
+      "air_spells": {
+        "cast": {"wind_gather": true},
+        "projectile": {"wind_rush": true},
+        "impact": {"air_burst": true}
+      },
+      "ancient_spells": {
+        "cast": {"dark_energy": true, "reverb_heavy": true},
+        "impact": {"magical_explosion": true}
+      }
+    },
+
+    "ability_sounds": {
+      "melee_abilities": {
+        "berserk": {"rage_yell": true, "power_up": true, "sustained_aura": true},
+        "assault": {"rapid_slashes": 4, "intensity_build": true},
+        "hurricane": {"spin_whoosh": true, "blade_cuts": true},
+        "quake": {"ground_slam": true, "earth_crack": true, "rumble": true}
+      },
+      "ranged_abilities": {
+        "deaths_swiftness": {"dark_energy": true, "sustained_field": true},
+        "rapid_fire": {"quick_shots": 8},
+        "snapshot": {"double_shot": true}
+      },
+      "magic_abilities": {
+        "sunshine": {"light_burst": true, "sustained_radiance": true},
+        "wild_magic": {"chaotic_energy": true, "double_impact": true},
+        "tsunami": {"wave_build": true, "massive_crash": true}
+      },
+      "defensive_abilities": {
+        "barricade": {"shield_form": true, "energy_barrier": true},
+        "resonance": {"chime": true, "absorb": true},
+        "devotion": {"holy_sound": true, "protection": true}
+      }
+    },
+
+    "damage_feedback": {
+      "player_hit": {
+        "variations": 5,
+        "armor_type_modifier": true,
+        "damage_intensity_scaling": true
+      },
+      "critical_hit": {
+        "extra_impact": true,
+        "audio_cue": "sharp_crack"
+      },
+      "player_death": {
+        "dramatic": true,
+        "fade_out": true
+      },
+      "enemy_death": {
+        "creature_specific": true,
+        "size_variation": true
+      }
+    }
+  },
+
+  "footsteps": {
+    "system": "physical_material_based",
+    "materials": {
+      "grass": {"variations": 8, "volume": 0.4},
+      "dirt": {"variations": 6, "volume": 0.5},
+      "stone": {"variations": 6, "volume": 0.7},
+      "wood": {"variations": 6, "volume": 0.6},
+      "metal": {"variations": 4, "volume": 0.8},
+      "water_shallow": {"variations": 4, "volume": 0.5, "splash": true},
+      "water_deep": {"variations": 4, "volume": 0.6, "splash": true},
+      "sand": {"variations": 6, "volume": 0.3},
+      "snow": {"variations": 6, "volume": 0.4, "crunch": true},
+      "mud": {"variations": 4, "volume": 0.5, "squelch": true},
+      "gravel": {"variations": 6, "volume": 0.6},
+      "carpet": {"variations": 4, "volume": 0.2}
+    },
+    "armor_layer": {
+      "cloth": {"jingle": false, "volume_add": 0},
+      "leather": {"creak": true, "volume_add": 0.1},
+      "chainmail": {"jingle": true, "volume_add": 0.2},
+      "plate": {"clank": true, "volume_add": 0.3}
+    },
+    "speed_variation": {
+      "walking": 1.0,
+      "running": 0.6,
+      "sprinting": 0.4
+    }
+  },
+
+  "ambient_soundscapes": {
+    "nature": {
+      "forest": {
+        "layers": ["wind_leaves", "birds_distant", "insects_subtle", "creek_nearby"],
+        "randomized_events": ["bird_call", "branch_crack", "animal_rustle"]
+      },
+      "beach": {
+        "layers": ["waves_crash", "seagulls", "wind_coastal"],
+        "randomized_events": ["wave_large", "gull_cry"]
+      },
+      "swamp": {
+        "layers": ["water_bubbles", "insects_heavy", "frogs", "mist_ambience"],
+        "randomized_events": ["splash", "creature_call"]
+      },
+      "desert": {
+        "layers": ["wind_sand", "heat_haze_hum"],
+        "randomized_events": ["sand_shift", "distant_creature"]
+      },
+      "arctic": {
+        "layers": ["wind_cold", "ice_creak", "snow_settle"],
+        "randomized_events": ["ice_crack", "wind_gust"]
+      },
+      "jungle": {
+        "layers": ["birds_exotic", "insects_tropical", "leaves_rustle", "distant_water"],
+        "randomized_events": ["monkey_call", "bird_screech", "branch_fall"]
+      }
+    },
+
+    "urban": {
+      "city": {
+        "layers": ["crowd_murmur", "footsteps_distant", "vendor_calls", "cart_wheels"],
+        "randomized_events": ["door_open", "laugh", "shout", "bell_ring"]
+      },
+      "village": {
+        "layers": ["wind_light", "birds", "distant_activity"],
+        "randomized_events": ["chicken_cluck", "dog_bark", "hammer_anvil"]
+      },
+      "tavern_interior": {
+        "layers": ["crowd_chatter", "fire_crackle", "mugs_clink"],
+        "randomized_events": ["laugh_loud", "chair_scrape", "door_creak"]
+      }
+    },
+
+    "dungeon": {
+      "cave": {
+        "layers": ["water_drip", "echo_distant", "wind_draft"],
+        "randomized_events": ["rock_fall", "creature_distant", "chain_rattle"]
+      },
+      "crypt": {
+        "layers": ["wind_moan", "stone_shift", "whispers"],
+        "randomized_events": ["coffin_creak", "ghost_wail", "bone_rattle"]
+      },
+      "lava": {
+        "layers": ["lava_bubble", "heat_roar", "steam_hiss"],
+        "randomized_events": ["eruption_small", "rock_crack"]
+      }
+    },
+
+    "weather": {
+      "rain_light": {
+        "layers": ["rain_patter", "thunder_distant"],
+        "interior_variant": true
+      },
+      "rain_heavy": {
+        "layers": ["rain_heavy", "thunder_close", "wind_storm"],
+        "interior_variant": true
+      },
+      "thunderstorm": {
+        "layers": ["rain_torrential", "wind_howl"],
+        "randomized_events": ["thunder_crack", "lightning_strike"]
+      },
+      "snow": {
+        "layers": ["wind_cold", "snow_fall_subtle"],
+        "muffled": true
+      },
+      "sandstorm": {
+        "layers": ["sand_blast", "wind_roar"],
+        "low_pass_filter": true
+      }
+    }
+  },
+
+  "ui_sounds": {
+    "buttons": {
+      "hover": {"subtle_click": true, "volume": 0.3},
+      "click": {"satisfying_click": true, "volume": 0.5},
+      "back": {"soft_whoosh": true, "volume": 0.4}
+    },
+    "inventory": {
+      "open": {"bag_rustle": true},
+      "close": {"bag_close": true},
+      "item_pickup": {"item_type_specific": true},
+      "item_drop": {"thud": true},
+      "equip": {"armor_equip": true, "weapon_draw": true},
+      "unequip": {"armor_remove": true, "weapon_sheathe": true}
+    },
+    "notifications": {
+      "level_up": {"fanfare": true, "ascending_chime": true},
+      "quest_complete": {"triumphant": true},
+      "achievement": {"special_chime": true},
+      "xp_drop": {"subtle_ding": true, "volume": 0.2},
+      "rare_drop": {"exciting_sound": true, "broadcast_special": true}
+    },
+    "chat": {
+      "message_received": {"subtle_ping": true},
+      "private_message": {"distinct_tone": true},
+      "clan_message": {"group_tone": true}
+    }
+  },
+
+  "voice_and_emotes": {
+    "player_emotes": {
+      "laugh": {"variations": 3},
+      "cry": {"variations": 2},
+      "dance": {"music_snippet": true},
+      "bow": {"subtle": true},
+      "wave": {"none": true}
+    },
+    "combat_voices": {
+      "attack_grunt": {"variations": 5, "gender_specific": true},
+      "pain": {"variations": 4, "gender_specific": true},
+      "death_cry": {"variations": 2, "gender_specific": true}
+    },
+    "npc_voices": {
+      "greeting": {"race_specific": true},
+      "goodbye": {"race_specific": true},
+      "combat_taunt": {"creature_specific": true}
+    }
+  },
+
+  "audio_settings": {
+    "quality_presets": {
+      "low": {
+        "sample_rate": 22050,
+        "max_concurrent_sounds": 16,
+        "reverb": false,
+        "hrtf": false
+      },
+      "medium": {
+        "sample_rate": 44100,
+        "max_concurrent_sounds": 32,
+        "reverb": true,
+        "hrtf": false
+      },
+      "high": {
+        "sample_rate": 48000,
+        "max_concurrent_sounds": 64,
+        "reverb": true,
+        "hrtf": true
+      },
+      "ultra": {
+        "sample_rate": 48000,
+        "max_concurrent_sounds": 128,
+        "reverb": true,
+        "hrtf": true,
+        "convolution_reverb": true
+      }
+    },
+    "accessibility": {
+      "mono_audio": true,
+      "subtitles": true,
+      "visual_audio_cues": true,
+      "hearing_aid_mode": true
+    }
+  },
+
+  "technical_specifications": {
+    "file_formats": {
+      "music": "ogg_vorbis",
+      "sfx": "wav_pcm",
+      "voice": "opus",
+      "ambient": "ogg_vorbis"
+    },
+    "streaming": {
+      "music": true,
+      "long_ambient": true,
+      "sfx": false
+    },
+    "memory_budget_mb": {
+      "low": 128,
+      "medium": 256,
+      "high": 512,
+      "ultra": 1024
+    },
+    "distance_models": {
+      "linear": "short_range_sfx",
+      "logarithmic": "medium_range",
+      "inverse": "long_range_ambient"
+    }
+  }
+}

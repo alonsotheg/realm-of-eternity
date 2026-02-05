@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Crafting skill recipes for Realm of Eternity - leather, jewelry, glass, pottery"
+  },
+  "leather": {
+    "description": "Leather armor crafting",
+    "items": [
+      { "id": "leather_gloves", "level": 1, "xp": 13.8, "materials": [{ "id": "leather", "qty": 1 }] },
+      { "id": "leather_boots", "level": 7, "xp": 16.3, "materials": [{ "id": "leather", "qty": 1 }] },
+      { "id": "leather_cowl", "level": 9, "xp": 18.5, "materials": [{ "id": "leather", "qty": 1 }] },
+      { "id": "leather_vambraces", "level": 11, "xp": 22, "materials": [{ "id": "leather", "qty": 1 }] },
+      { "id": "leather_body", "level": 14, "xp": 25, "materials": [{ "id": "leather", "qty": 1 }] },
+      { "id": "leather_chaps", "level": 18, "xp": 27, "materials": [{ "id": "leather", "qty": 1 }] },
+      { "id": "coif", "level": 38, "xp": 37, "materials": [{ "id": "leather", "qty": 1 }] },
+      { "id": "hard_leather_body", "level": 28, "xp": 35, "materials": [{ "id": "hard_leather", "qty": 1 }] },
+      { "id": "studded_body", "level": 41, "xp": 40, "materials": [{ "id": "leather_body", "qty": 1 }, { "id": "stormforged_studs", "qty": 1 }] },
+      { "id": "studded_chaps", "level": 44, "xp": 42, "materials": [{ "id": "leather_chaps", "qty": 1 }, { "id": "stormforged_studs", "qty": 1 }] }
+    ]
+  },
+  "wyrmhide": {
+    "description": "Wyrmhide armor crafting from wyrm leather",
+    "tiers": [
+      {
+        "name": "emerald",
+        "levelBase": 57,
+        "items": [
+          { "id": "emerald_wyrmhide_vambraces", "level": 57, "xp": 62, "materials": [{ "id": "emerald_wyrmhide", "qty": 1 }] },
+          { "id": "emerald_wyrmhide_chaps", "level": 60, "xp": 124, "materials": [{ "id": "emerald_wyrmhide", "qty": 2 }] },
+          { "id": "emerald_wyrmhide_body", "level": 63, "xp": 186, "materials": [{ "id": "emerald_wyrmhide", "qty": 3 }] }
+        ]
+      },
+      {
+        "name": "azure",
+        "levelBase": 66,
+        "items": [
+          { "id": "azure_wyrmhide_vambraces", "level": 66, "xp": 70, "materials": [{ "id": "azure_wyrmhide", "qty": 1 }] },
+          { "id": "azure_wyrmhide_chaps", "level": 68, "xp": 140, "materials": [{ "id": "azure_wyrmhide", "qty": 2 }] },
+          { "id": "azure_wyrmhide_body", "level": 71, "xp": 210, "materials": [{ "id": "azure_wyrmhide", "qty": 3 }] }
+        ]
+      },
+      {
+        "name": "crimson",
+        "levelBase": 73,
+        "items": [
+          { "id": "crimson_wyrmhide_vambraces", "level": 73, "xp": 78, "materials": [{ "id": "crimson_wyrmhide", "qty": 1 }] },
+          { "id": "crimson_wyrmhide_chaps", "level": 75, "xp": 156, "materials": [{ "id": "crimson_wyrmhide", "qty": 2 }] },
+          { "id": "crimson_wyrmhide_body", "level": 77, "xp": 234, "materials": [{ "id": "crimson_wyrmhide", "qty": 3 }] }
+        ]
+      },
+      {
+        "name": "shadow",
+        "levelBase": 79,
+        "items": [
+          { "id": "shadow_wyrmhide_vambraces", "level": 79, "xp": 86, "materials": [{ "id": "shadow_wyrmhide", "qty": 1 }] },
+          { "id": "shadow_wyrmhide_chaps", "level": 82, "xp": 172, "materials": [{ "id": "shadow_wyrmhide", "qty": 2 }] },
+          { "id": "shadow_wyrmhide_body", "level": 84, "xp": 258, "materials": [{ "id": "shadow_wyrmhide", "qty": 3 }] }
+        ]
+      },
+      {
+        "name": "elder",
+        "levelBase": 87,
+        "items": [
+          { "id": "elder_wyrmhide_vambraces", "level": 87, "xp": 94, "materials": [{ "id": "elder_wyrmhide", "qty": 1 }] },
+          { "id": "elder_wyrmhide_chaps", "level": 89, "xp": 188, "materials": [{ "id": "elder_wyrmhide", "qty": 2 }] },
+          { "id": "elder_wyrmhide_body", "level": 91, "xp": 282, "materials": [{ "id": "elder_wyrmhide", "qty": 3 }] }
+        ]
+      }
+    ],
+    "tanningProcess": {
+      "description": "Converting wyrm hides to leather",
+      "tanners": ["dawnhaven_tanner", "ironhold_tanner", "tidecrest_tanner"],
+      "cost": 20
+    }
+  },
+  "jewelry": {
+    "description": "Gold and silver jewelry crafting",
+    "silver": [
+      { "id": "silver_ring", "level": 16, "xp": 10, "materials": [{ "id": "silver_bar", "qty": 1 }], "mould": "ring_mould" },
+      { "id": "silver_necklace", "level": 22, "xp": 15, "materials": [{ "id": "silver_bar", "qty": 1 }], "mould": "necklace_mould" },
+      { "id": "silver_bracelet", "level": 29, "xp": 20, "materials": [{ "id": "silver_bar", "qty": 1 }], "mould": "bracelet_mould" },
+      { "id": "tiara", "level": 23, "xp": 52.5, "materials": [{ "id": "silver_bar", "qty": 1 }], "mould": "tiara_mould" },
+      { "id": "sanctity_symbol", "level": 16, "xp": 50, "materials": [{ "id": "silver_bar", "qty": 1 }], "mould": "symbol_mould" }
+    ],
+    "gold": [
+      { "id": "gold_ring", "level": 5, "xp": 15, "materials": [{ "id": "gold_bar", "qty": 1 }], "mould": "ring_mould" },
+      { "id": "gold_necklace", "level": 6, "xp": 20, "materials": [{ "id": "gold_bar", "qty": 1 }], "mould": "necklace_mould" },
+      { "id": "gold_bracelet", "level": 7, "xp": 25, "materials": [{ "id": "gold_bar", "qty": 1 }], "mould": "bracelet_mould" },
+      { "id": "gold_amulet_u", "level": 8, "xp": 30, "materials": [{ "id": "gold_bar", "qty": 1 }], "mould": "amulet_mould" }
+    ],
+    "gem_jewelry": {
+      "description": "Jewelry with gemstones",
+      "sapphire": [
+        { "id": "sapphire_ring", "level": 20, "xp": 40, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "sapphire", "qty": 1 }] },
+        { "id": "sapphire_necklace", "level": 22, "xp": 55, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "sapphire", "qty": 1 }] },
+        { "id": "sapphire_bracelet", "level": 23, "xp": 60, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "sapphire", "qty": 1 }] },
+        { "id": "sapphire_amulet_u", "level": 24, "xp": 65, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "sapphire", "qty": 1 }] }
+      ],
+      "emerald": [
+        { "id": "emerald_ring", "level": 27, "xp": 55, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "emerald", "qty": 1 }] },
+        { "id": "emerald_necklace", "level": 29, "xp": 60, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "emerald", "qty": 1 }] },
+        { "id": "emerald_bracelet", "level": 30, "xp": 65, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "emerald", "qty": 1 }] },
+        { "id": "emerald_amulet_u", "level": 31, "xp": 70, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "emerald", "qty": 1 }] }
+      ],
+      "ruby": [
+        { "id": "ruby_ring", "level": 34, "xp": 70, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "ruby", "qty": 1 }] },
+        { "id": "ruby_necklace", "level": 40, "xp": 75, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "ruby", "qty": 1 }] },
+        { "id": "ruby_bracelet", "level": 42, "xp": 80, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "ruby", "qty": 1 }] },
+        { "id": "ruby_amulet_u", "level": 50, "xp": 85, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "ruby", "qty": 1 }] }
+      ],
+      "diamond": [
+        { "id": "diamond_ring", "level": 43, "xp": 85, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "diamond", "qty": 1 }] },
+        { "id": "diamond_necklace", "level": 56, "xp": 90, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "diamond", "qty": 1 }] },
+        { "id": "diamond_bracelet", "level": 58, "xp": 95, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "diamond", "qty": 1 }] },
+        { "id": "diamond_amulet_u", "level": 70, "xp": 100, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "diamond", "qty": 1 }] }
+      ],
+      "dragonstone": [
+        { "id": "dragonstone_ring", "level": 55, "xp": 100, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "dragonstone", "qty": 1 }] },
+        { "id": "dragonstone_necklace", "level": 72, "xp": 105, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "dragonstone", "qty": 1 }] },
+        { "id": "dragonstone_bracelet", "level": 74, "xp": 110, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "dragonstone", "qty": 1 }] },
+        { "id": "dragonstone_amulet_u", "level": 80, "xp": 150, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "dragonstone", "qty": 1 }] }
+      ],
+      "onyx": [
+        { "id": "onyx_ring", "level": 67, "xp": 115, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "onyx", "qty": 1 }] },
+        { "id": "onyx_necklace", "level": 82, "xp": 120, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "onyx", "qty": 1 }] },
+        { "id": "onyx_bracelet", "level": 84, "xp": 125, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "onyx", "qty": 1 }] },
+        { "id": "onyx_amulet_u", "level": 90, "xp": 165, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "onyx", "qty": 1 }] }
+      ],
+      "zenyte": [
+        { "id": "zenyte_ring", "level": 89, "xp": 150, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "zenyte", "qty": 1 }] },
+        { "id": "zenyte_necklace", "level": 92, "xp": 165, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "zenyte", "qty": 1 }] },
+        { "id": "zenyte_bracelet", "level": 95, "xp": 180, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "zenyte", "qty": 1 }] },
+        { "id": "zenyte_amulet_u", "level": 98, "xp": 200, "materials": [{ "id": "gold_bar", "qty": 1 }, { "id": "zenyte", "qty": 1 }] }
+      ]
+    }
+  },
+  "gemCutting": {
+    "description": "Cutting uncut gems",
+    "gems": [
+      { "id": "sapphire", "level": 20, "xp": 50 },
+      { "id": "emerald", "level": 27, "xp": 67.5 },
+      { "id": "ruby", "level": 34, "xp": 85 },
+      { "id": "diamond", "level": 43, "xp": 107.5 },
+      { "id": "dragonstone", "level": 55, "xp": 137.5 },
+      { "id": "onyx", "level": 67, "xp": 167.5 },
+      { "id": "zenyte", "level": 89, "xp": 200 },
+      { "id": "hydrix", "level": 95, "xp": 250 }
+    ],
+    "tool": "chisel"
+  },
+  "glass": {
+    "description": "Glassblowing crafting",
+    "smelting": {
+      "id": "molten_glass",
+      "level": 1,
+      "xp": 20,
+      "materials": [{ "id": "bucket_of_sand", "qty": 1 }, { "id": "soda_ash", "qty": 1 }]
+    },
+    "items": [
+      { "id": "beer_glass", "level": 1, "xp": 17.5, "materials": [{ "id": "molten_glass", "qty": 1 }] },
+      { "id": "empty_candle_lantern", "level": 4, "xp": 19, "materials": [{ "id": "molten_glass", "qty": 1 }] },
+      { "id": "oil_lamp", "level": 12, "xp": 25, "materials": [{ "id": "molten_glass", "qty": 1 }] },
+      { "id": "vial", "level": 33, "xp": 35, "materials": [{ "id": "molten_glass", "qty": 1 }] },
+      { "id": "fishbowl", "level": 42, "xp": 42.5, "materials": [{ "id": "molten_glass", "qty": 1 }] },
+      { "id": "lantern_lens", "level": 49, "xp": 55, "materials": [{ "id": "molten_glass", "qty": 1 }] },
+      { "id": "empty_light_orb", "level": 87, "xp": 70, "materials": [{ "id": "molten_glass", "qty": 1 }] }
+    ],
+    "tool": "glassblowing_pipe"
+  },
+  "pottery": {
+    "description": "Clay pottery crafting",
+    "shaping": {
+      "location": "pottery_wheel",
+      "items": [
+        { "id": "unfired_pot", "level": 1, "xp": 6.3, "materials": [{ "id": "soft_clay", "qty": 1 }] },
+        { "id": "unfired_pie_dish", "level": 7, "xp": 10, "materials": [{ "id": "soft_clay", "qty": 1 }] },
+        { "id": "unfired_bowl", "level": 8, "xp": 10, "materials": [{ "id": "soft_clay", "qty": 1 }] },
+        { "id": "unfired_plant_pot", "level": 19, "xp": 17.5, "materials": [{ "id": "soft_clay", "qty": 1 }] },
+        { "id": "unfired_pot_lid", "level": 25, "xp": 20, "materials": [{ "id": "soft_clay", "qty": 1 }] }
+      ]
+    },
+    "firing": {
+      "location": "pottery_oven",
+      "items": [
+        { "id": "pot", "level": 1, "xp": 6.3, "materials": [{ "id": "unfired_pot", "qty": 1 }] },
+        { "id": "pie_dish", "level": 7, "xp": 10, "materials": [{ "id": "unfired_pie_dish", "qty": 1 }] },
+        { "id": "bowl", "level": 8, "xp": 10, "materials": [{ "id": "unfired_bowl", "qty": 1 }] },
+        { "id": "plant_pot", "level": 19, "xp": 17.5, "materials": [{ "id": "unfired_plant_pot", "qty": 1 }] },
+        { "id": "pot_lid", "level": 25, "xp": 20, "materials": [{ "id": "unfired_pot_lid", "qty": 1 }] }
+      ]
+    }
+  },
+  "spinning": {
+    "description": "Spinning materials on a spinning wheel",
+    "items": [
+      { "id": "ball_of_wool", "level": 1, "xp": 2.5, "materials": [{ "id": "wool", "qty": 1 }] },
+      { "id": "bowstring", "level": 10, "xp": 15, "materials": [{ "id": "flax", "qty": 1 }] },
+      { "id": "crossbow_string", "level": 10, "xp": 15, "materials": [{ "id": "sinew", "qty": 1 }] },
+      { "id": "magic_string", "level": 19, "xp": 30, "materials": [{ "id": "magic_roots", "qty": 1 }] },
+      { "id": "rope", "level": 30, "xp": 25, "materials": [{ "id": "yak_hair", "qty": 4 }] }
+    ]
+  },
+  "battlestaves": {
+    "description": "Attaching orbs to battlestaves",
+    "items": [
+      { "id": "water_battlestaff", "level": 54, "xp": 100, "materials": [{ "id": "battlestaff", "qty": 1 }, { "id": "water_orb", "qty": 1 }] },
+      { "id": "earth_battlestaff", "level": 58, "xp": 112.5, "materials": [{ "id": "battlestaff", "qty": 1 }, { "id": "earth_orb", "qty": 1 }] },
+      { "id": "fire_battlestaff", "level": 62, "xp": 125, "materials": [{ "id": "battlestaff", "qty": 1 }, { "id": "fire_orb", "qty": 1 }] },
+      { "id": "air_battlestaff", "level": 66, "xp": 137.5, "materials": [{ "id": "battlestaff", "qty": 1 }, { "id": "air_orb", "qty": 1 }] }
+    ]
+  },
+  "stringing": {
+    "description": "Stringing unstrung jewelry",
+    "items": [
+      { "id": "gold_amulet", "materials": [{ "id": "gold_amulet_u", "qty": 1 }, { "id": "ball_of_wool", "qty": 1 }] },
+      { "id": "sapphire_amulet", "materials": [{ "id": "sapphire_amulet_u", "qty": 1 }, { "id": "ball_of_wool", "qty": 1 }] },
+      { "id": "emerald_amulet", "materials": [{ "id": "emerald_amulet_u", "qty": 1 }, { "id": "ball_of_wool", "qty": 1 }] },
+      { "id": "ruby_amulet", "materials": [{ "id": "ruby_amulet_u", "qty": 1 }, { "id": "ball_of_wool", "qty": 1 }] },
+      { "id": "diamond_amulet", "materials": [{ "id": "diamond_amulet_u", "qty": 1 }, { "id": "ball_of_wool", "qty": 1 }] },
+      { "id": "dragonstone_amulet", "materials": [{ "id": "dragonstone_amulet_u", "qty": 1 }, { "id": "ball_of_wool", "qty": 1 }] },
+      { "id": "onyx_amulet", "materials": [{ "id": "onyx_amulet_u", "qty": 1 }, { "id": "ball_of_wool", "qty": 1 }] },
+      { "id": "zenyte_amulet", "materials": [{ "id": "zenyte_amulet_u", "qty": 1 }, { "id": "ball_of_wool", "qty": 1 }] }
+    ],
+    "xpPerString": 4
+  },
+  "snakeskin": {
+    "description": "Snakeskin armor crafting",
+    "items": [
+      { "id": "snakeskin_boots", "level": 45, "xp": 30, "materials": [{ "id": "snakeskin", "qty": 6 }] },
+      { "id": "snakeskin_vambraces", "level": 47, "xp": 35, "materials": [{ "id": "snakeskin", "qty": 8 }] },
+      { "id": "snakeskin_bandana", "level": 48, "xp": 45, "materials": [{ "id": "snakeskin", "qty": 5 }] },
+      { "id": "snakeskin_chaps", "level": 51, "xp": 50, "materials": [{ "id": "snakeskin", "qty": 12 }] },
+      { "id": "snakeskin_body", "level": 53, "xp": 55, "materials": [{ "id": "snakeskin", "qty": 15 }] }
+    ]
+  },
+  "seaweave": {
+    "description": "High-level magic armor from sea creatures",
+    "items": [
+      { "id": "seaweave_boots", "level": 91, "xp": 200, "materials": [{ "id": "sea_silk", "qty": 5 }, { "id": "sea_coral", "qty": 2 }] },
+      { "id": "seaweave_gloves", "level": 93, "xp": 220, "materials": [{ "id": "sea_silk", "qty": 5 }, { "id": "sea_coral", "qty": 2 }] },
+      { "id": "seaweave_helm", "level": 95, "xp": 250, "materials": [{ "id": "sea_silk", "qty": 8 }, { "id": "sea_coral", "qty": 4 }] },
+      { "id": "seaweave_legs", "level": 97, "xp": 280, "materials": [{ "id": "sea_silk", "qty": 10 }, { "id": "sea_coral", "qty": 5 }] },
+      { "id": "seaweave_body", "level": 99, "xp": 320, "materials": [{ "id": "sea_silk", "qty": 15 }, { "id": "sea_coral", "qty": 8 }] }
+    ]
+  }
+}

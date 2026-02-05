@@ -1,0 +1,437 @@
+{
+  "version": "1.0.0",
+  "description": "Regional achievement diary system for Realm of Eternity - Aethermoor",
+
+  "diary_mechanics": {
+    "tiers": ["easy", "medium", "hard", "elite"],
+    "completion_tracking": true,
+    "reward_claiming_npc": true,
+    "lamp_rewards": {
+      "easy": 2500,
+      "medium": 7500,
+      "hard": 15000,
+      "elite": 50000
+    },
+    "lamp_skill_requirement": {
+      "easy": 30,
+      "medium": 40,
+      "hard": 50,
+      "elite": 70
+    }
+  },
+
+  "diaries": {
+    "misthollow_vale": {
+      "id": "misthollow_vale",
+      "name": "Misthollow Vale Diary",
+      "region": "misthollow_vale",
+      "reward_npc": "Chronicler Aldwin",
+      "reward_location": "Thornhaven",
+
+      "tasks": {
+        "easy": [
+          {"id": 1, "description": "Complete The Restless Spirit quest", "type": "quest"},
+          {"id": 2, "description": "Kill a wolf in Ravenswood", "type": "combat"},
+          {"id": 3, "description": "Mine some copper ore at Millbrook", "type": "skilling", "skill": "mining", "level": 1},
+          {"id": 4, "description": "Catch some carp at Silverstream", "type": "skilling", "skill": "fishing", "level": 1},
+          {"id": 5, "description": "Bake bread on the Thornhaven bakery oven", "type": "skilling", "skill": "cooking", "level": 1},
+          {"id": 6, "description": "Light a fire at the Millbrook village square", "type": "skilling", "skill": "firemaking", "level": 1},
+          {"id": 7, "description": "Enter the Oldstone Ruins", "type": "exploration"},
+          {"id": 8, "description": "Chop and burn oak logs in Willowmere", "type": "skilling", "skill": "woodcutting", "level": 15},
+          {"id": 9, "description": "Harvest herbs from the Thornhaven garden", "type": "skilling", "skill": "herbcraft", "level": 5},
+          {"id": 10, "description": "Craft water essence at the Silverstream shrine", "type": "skilling", "skill": "runecrafting", "level": 5}
+        ],
+        "medium": [
+          {"id": 1, "description": "Complete the Portal to the Feywild quest", "type": "quest"},
+          {"id": 2, "description": "Use the Thornhaven teleport stone", "type": "magic"},
+          {"id": 3, "description": "Get a bounty task from Huntmaster Kira", "type": "skilling", "skill": "slayer"},
+          {"id": 4, "description": "Catch some salmon in Silverstream", "type": "skilling", "skill": "fishing", "level": 30},
+          {"id": 5, "description": "Craft leather armor at the Thornhaven tannery", "type": "skilling", "skill": "crafting", "level": 38},
+          {"id": 6, "description": "Chop some willow logs in Willowmere", "type": "skilling", "skill": "woodcutting", "level": 30},
+          {"id": 7, "description": "Pickpocket Master Gardner Marcus", "type": "skilling", "skill": "thieving", "level": 38},
+          {"id": 8, "description": "Catch a spirit moth in the Feywild", "type": "skilling", "skill": "hunter", "level": 42},
+          {"id": 9, "description": "Craft 56 nature runes simultaneously", "type": "skilling", "skill": "runecrafting", "level": 59}
+        ],
+        "hard": [
+          {"id": 1, "description": "Complete the Spirit Trials in under 2 minutes", "type": "minigame"},
+          {"id": 2, "description": "Cast Essence to Spirit in Thornhaven", "type": "magic", "level": 60},
+          {"id": 3, "description": "Smith an obsidian breastplate at the Thornhaven forge", "type": "skilling", "skill": "smithing", "level": 88},
+          {"id": 4, "description": "Offer bones at the Millbrook shrine", "type": "skilling", "skill": "sanctity"},
+          {"id": 5, "description": "Craft 140 water runes at once", "type": "skilling", "skill": "runecrafting", "level": 76},
+          {"id": 6, "description": "Chop some elderwood logs in Ravenswood", "type": "skilling", "skill": "woodcutting", "level": 75}
+        ],
+        "elite": [
+          {"id": 1, "description": "Craft 252 or more air runes simultaneously", "type": "skilling", "skill": "runecrafting", "level": 88},
+          {"id": 2, "description": "Chop elderwood logs at the Arcane Grove", "type": "skilling", "skill": "woodcutting", "level": 75},
+          {"id": 3, "description": "Smith an eternium ingot at the Thornhaven forge", "type": "skilling", "skill": "smithing", "level": 99}
+        ]
+      },
+
+      "rewards": {
+        "easy": {
+          "item": "explorers_ring_1",
+          "perks": ["30_free_transmute_casts_per_day", "stamina_restore_twice_daily"]
+        },
+        "medium": {
+          "item": "explorers_ring_2",
+          "perks": ["all_easy_perks", "portal_stone_in_ravenswood", "additional_stamina_restore"]
+        },
+        "hard": {
+          "item": "explorers_ring_3",
+          "perks": ["all_medium_perks", "unlimited_teleports_to_millbrook", "high_transmute_casts_daily"]
+        },
+        "elite": {
+          "item": "explorers_ring_4",
+          "perks": ["all_hard_perks", "unlimited_stamina_restores", "100_percent_block_rate_vale_bounties"]
+        }
+      }
+    },
+
+    "ironhold_dominion": {
+      "id": "ironhold_dominion",
+      "name": "Ironhold Dominion Diary",
+      "region": "ironhold_dominion",
+      "reward_npc": "Forge Chronicler Grimm",
+      "reward_location": "Forgecrest",
+
+      "tasks": {
+        "easy": [
+          {"id": 1, "description": "Browse Forgemaster's superior weapons", "type": "interaction"},
+          {"id": 2, "description": "Mine iron ore in Hammerfall", "type": "skilling", "skill": "mining", "level": 15},
+          {"id": 3, "description": "Smelt an iron bar at Forgecrest", "type": "skilling", "skill": "smithing", "level": 15},
+          {"id": 4, "description": "Enter the Champions' Arena", "type": "exploration", "quest_points": 32},
+          {"id": 5, "description": "Buy a forge permit from the Smithing Guild", "type": "interaction"},
+          {"id": 6, "description": "Donate ore to the war effort", "type": "interaction"}
+        ],
+        "medium": [
+          {"id": 1, "description": "Use the lava channel transport system", "type": "transportation"},
+          {"id": 2, "description": "Teleport to the Eternal Exchange", "type": "magic", "level": 25},
+          {"id": 3, "description": "Get a bounty from Warlord Thane", "type": "slayer"},
+          {"id": 4, "description": "Create obsidian ingots at the Grand Forge", "type": "skilling"},
+          {"id": 5, "description": "Harvest fire crystals from Cinderpeak", "type": "skilling", "skill": "mining", "level": 45}
+        ],
+        "hard": [
+          {"id": 1, "description": "Trade materials with the Weapons Master", "type": "interaction"},
+          {"id": 2, "description": "Smith and fletch 10 obsidian arrows", "type": "skilling", "skill": "smithing", "level": 74},
+          {"id": 3, "description": "Teleport to Cinderpeak", "type": "magic", "skill": "magic", "level": 54}
+        ],
+        "elite": [
+          {"id": 1, "description": "Create a master combat elixir in Forgecrest", "type": "skilling", "skill": "herbcraft", "level": 90},
+          {"id": 2, "description": "Smith an eternium platemail at the Grand Forge", "type": "skilling", "skill": "smithing", "level": 99},
+          {"id": 3, "description": "Process 20 obsidian ingots in one batch", "type": "interaction"}
+        ]
+      },
+
+      "rewards": {
+        "easy": {
+          "item": "forgecrest_insignia_1",
+          "perks": ["10_percent_chance_smelt_2_bars", "forge_shop_discount"]
+        },
+        "medium": {
+          "item": "forgecrest_insignia_2",
+          "perks": ["all_easy_perks", "30_percent_smithing_speed", "10_percent_chance_mine_2_ores"]
+        },
+        "hard": {
+          "item": "forgecrest_insignia_3",
+          "perks": ["all_medium_perks", "60_daily_ore_allowance", "forgecrest_teleport"]
+        },
+        "elite": {
+          "item": "forgecrest_insignia_4",
+          "perks": ["all_hard_perks", "unlimited_forge_access", "coal_not_consumed_25_percent"]
+        }
+      }
+    },
+
+    "verdant_wilds": {
+      "id": "verdant_wilds",
+      "name": "Verdant Wilds Diary",
+      "region": "verdant_wilds",
+      "reward_npc": "Elder Keeper",
+      "reward_location": "Sylvanheart",
+
+      "rewards": {
+        "easy": {
+          "item": "nature_crown_1",
+          "perks": ["10_percent_more_herb_yield", "free_teleport_to_moonpetal"]
+        },
+        "medium": {
+          "item": "nature_crown_2",
+          "perks": ["all_easy_perks", "15_percent_more_wood", "beast_taming_bonus"]
+        },
+        "hard": {
+          "item": "nature_crown_3",
+          "perks": ["all_medium_perks", "crystal_equipment_10_percent_cheaper", "faster_nature_regeneration"]
+        },
+        "elite": {
+          "item": "nature_crown_4",
+          "perks": ["all_hard_perks", "sylvanheart_full_teleport", "150_percent_more_nature_essence"]
+        }
+      }
+    },
+
+    "dreadmire_marshes": {
+      "id": "dreadmire_marshes",
+      "name": "Dreadmire Marshes Diary",
+      "region": "dreadmire_marshes",
+      "reward_npc": "The Last Survivor",
+      "reward_location": "Blightfen Village",
+
+      "tasks": {
+        "easy": [
+          {"id": 1, "description": "Craft a spirit ward from scratch in Dreadmire", "type": "skilling", "skill": "crafting"},
+          {"id": 2, "description": "Cook bog fish on the Blightfen fire", "type": "skilling", "skill": "cooking"},
+          {"id": 3, "description": "Kill a shade in the Sunken Crypts", "type": "combat", "skill": "slayer", "level": 15},
+          {"id": 4, "description": "Get a bounty from Father Morbius", "type": "slayer"},
+          {"id": 5, "description": "Enter Wraithwood", "type": "exploration"}
+        ],
+        "medium": [
+          {"id": 1, "description": "Catch a marsh crawler in Blightfen", "type": "skilling", "skill": "hunter", "level": 29},
+          {"id": 2, "description": "Complete a game of Spirit Hunt", "type": "minigame"},
+          {"id": 3, "description": "Make spirit ammunition at Ghostharbor", "type": "skilling", "skill": "smithing", "level": 35},
+          {"id": 4, "description": "Kill a werewolf in human form", "type": "combat"}
+        ],
+        "hard": [
+          {"id": 1, "description": "Enter the Dreadmire portal at your estate", "type": "construction", "level": 50},
+          {"id": 2, "description": "Defeat the barrow brothers", "type": "boss"},
+          {"id": 3, "description": "Harvest nightshade from the Dreadmire patch", "type": "skilling", "skill": "farming", "level": 47},
+          {"id": 4, "description": "Kill a spectral horror", "type": "combat", "skill": "slayer", "level": 58}
+        ],
+        "elite": [
+          {"id": 1, "description": "Catch a shadow fish in Blightfen with your bare hands", "type": "skilling", "skill": "fishing", "level": 96},
+          {"id": 2, "description": "Complete the Blood Sanctum raid", "type": "raid"},
+          {"id": 3, "description": "Craft blood runes at the dark altar", "type": "skilling", "skill": "runecrafting", "level": 77}
+        ]
+      },
+
+      "rewards": {
+        "easy": {
+          "item": "dreadmire_ward_1",
+          "perks": ["double_bounty_contract_points", "50_percent_more_essence_from_spirits"]
+        },
+        "medium": {
+          "item": "dreadmire_ward_2",
+          "perks": ["all_easy_perks", "ghostharbor_7_teleports_daily", "bonus_slayer_xp_in_crypts"]
+        },
+        "hard": {
+          "item": "dreadmire_ward_3",
+          "perks": ["all_medium_perks", "50_percent_more_loot_from_barrows", "spirit_protection"]
+        },
+        "elite": {
+          "item": "dreadmire_ward_4",
+          "perks": ["all_hard_perks", "double_loot_from_barrows", "free_daily_raid_entry"]
+        }
+      }
+    },
+
+    "ashfall_badlands": {
+      "id": "ashfall_badlands",
+      "name": "Ashfall Badlands Diary",
+      "region": "ashfall_badlands",
+      "reward_npc": "Chaos Touched",
+      "reward_location": "Ember's Edge",
+
+      "tasks": {
+        "easy": [
+          {"id": 1, "description": "Cast basic transmute at the Chaos Sanctum", "type": "magic"},
+          {"id": 2, "description": "Mine some obsidian in the Badlands", "type": "skilling", "skill": "mining"},
+          {"id": 3, "description": "Kill a fire elemental in the Badlands", "type": "combat"},
+          {"id": 4, "description": "Enter the Scorched Fort", "type": "exploration"},
+          {"id": 5, "description": "Kill an ash wraith at Bonefield", "type": "combat"}
+        ],
+        "medium": [
+          {"id": 1, "description": "Mine volcanic crystal at the Hellrift", "type": "skilling", "skill": "mining", "level": 55},
+          {"id": 2, "description": "Kill a demon in the Chaos Sanctum", "type": "combat", "skill": "slayer", "level": 50},
+          {"id": 3, "description": "Offer demon essence at the Chaos Temple", "type": "skilling", "skill": "sanctity"},
+          {"id": 4, "description": "Kill the Chaos Incarnate", "type": "boss"}
+        ],
+        "hard": [
+          {"id": 1, "description": "Kill a void touched creature in the Badlands", "type": "combat", "skill": "slayer", "level": 68},
+          {"id": 2, "description": "Kill the Volcanic Titan", "type": "boss"},
+          {"id": 3, "description": "Kill the Demon Overlord", "type": "boss"},
+          {"id": 4, "description": "Charge a chaos orb", "type": "skilling", "skill": "magic", "level": 66}
+        ],
+        "elite": [
+          {"id": 1, "description": "Kill all three Badlands bosses", "type": "boss"},
+          {"id": 2, "description": "Teleport to Obsidian Spire", "type": "magic", "skill": "magic", "level": 96},
+          {"id": 3, "description": "Fish and cook an infernal eel in the Badlands", "type": "skilling", "skill": "fishing", "level": 85}
+        ]
+      },
+
+      "rewards": {
+        "easy": {
+          "item": "chaos_blade_1",
+          "perks": ["free_teleport_to_embers_edge", "noted_demon_bones"]
+        },
+        "medium": {
+          "item": "chaos_blade_2",
+          "perks": ["all_easy_perks", "increased_slayer_points_from_badlands_tasks"]
+        },
+        "hard": {
+          "item": "chaos_blade_3",
+          "perks": ["all_medium_perks", "noted_volcanic_crystals", "free_access_to_chaos_sanctum"]
+        },
+        "elite": {
+          "item": "chaos_blade_4",
+          "perks": ["all_hard_perks", "50_percent_increased_rare_drops", "unlimited_teleports_to_obsidian"]
+        }
+      }
+    },
+
+    "sunscorch_wastes": {
+      "id": "sunscorch_wastes",
+      "name": "Sunscorch Wastes Diary",
+      "region": "sunscorch_wastes",
+      "reward_npc": "Desert Chronicler",
+      "reward_location": "Al'Kazar",
+
+      "rewards": {
+        "easy": {
+          "item": "sun_amulet_1",
+          "perks": ["oasis_teleport_once_daily", "free_water_pouches"]
+        },
+        "medium": {
+          "item": "sun_amulet_2",
+          "perks": ["all_easy_perks", "oasis_teleport_unlimited", "buried_kingdom_shortcut"]
+        },
+        "hard": {
+          "item": "sun_amulet_3",
+          "perks": ["all_medium_perks", "sandworm_lair_teleport", "noted_sand_from_quarry"]
+        },
+        "elite": {
+          "item": "sun_amulet_4",
+          "perks": ["all_hard_perks", "pharaoh_tomb_shortcut", "free_caravan_rides"]
+        }
+      }
+    },
+
+    "frostpeak_reaches": {
+      "id": "frostpeak_reaches",
+      "name": "Frostpeak Reaches Diary",
+      "region": "frostpeak_reaches",
+      "reward_npc": "Jarl's Chronicler",
+      "reward_location": "Winterhold",
+
+      "rewards": {
+        "easy": {
+          "item": "frost_boots_1",
+          "perks": ["glacierheim_deposit_box", "cold_resistance_minor"]
+        },
+        "medium": {
+          "item": "frost_boots_2",
+          "perks": ["all_easy_perks", "iceveil_teleport", "bonus_xp_on_frost_bounties"]
+        },
+        "hard": {
+          "item": "frost_boots_3",
+          "perks": ["all_medium_perks", "noted_ice_wyrm_bones", "shortcut_to_frozen_throne"]
+        },
+        "elite": {
+          "item": "frost_boots_4",
+          "perks": ["all_hard_perks", "cold_immunity", "noted_frost_dragon_bones"]
+        }
+      }
+    },
+
+    "celestine_archipelago": {
+      "id": "celestine_archipelago",
+      "name": "Celestine Archipelago Diary",
+      "region": "celestine_archipelago",
+      "reward_npc": "Pirate Quartermaster",
+      "reward_location": "Freeport",
+
+      "rewards": {
+        "easy": {
+          "item": "corsair_gloves_1",
+          "perks": ["1_free_ship_ride_daily", "fishing_bonus_in_archipelago"]
+        },
+        "medium": {
+          "item": "corsair_gloves_2",
+          "perks": ["all_easy_perks", "10_percent_more_treasure_hunt_rewards", "diving_bell_access"]
+        },
+        "hard": {
+          "item": "corsair_gloves_3",
+          "perks": ["all_medium_perks", "10_percent_more_coral_reach_loot", "unlimited_teleports_to_freeport"]
+        },
+        "elite": {
+          "item": "corsair_gloves_4",
+          "perks": ["all_hard_perks", "double_sea_monster_drops", "free_ship_repairs"]
+        }
+      }
+    },
+
+    "crystalvale_highlands": {
+      "id": "crystalvale_highlands",
+      "name": "Crystalvale Highlands Diary",
+      "region": "crystalvale_highlands",
+      "reward_npc": "Arcane Chronicler",
+      "reward_location": "Aetherpoint",
+
+      "rewards": {
+        "easy": {
+          "item": "mage_banner_1",
+          "perks": ["50_percent_more_leyline_essence", "free_arcanum_teleport"]
+        },
+        "medium": {
+          "item": "mage_banner_2",
+          "perks": ["all_easy_perks", "100_percent_more_essence", "magic_focus_bonus"]
+        },
+        "hard": {
+          "item": "mage_banner_3",
+          "perks": ["all_medium_perks", "reality_equipment_20_percent_cheaper", "faster_spell_casting"]
+        },
+        "elite": {
+          "item": "mage_banner_4",
+          "perks": ["all_hard_perks", "aetherpoint_full_teleport", "150_percent_more_magical_drops"]
+        }
+      }
+    },
+
+    "eternal_rift": {
+      "id": "eternal_rift",
+      "name": "Eternal Rift Diary",
+      "region": "eternal_rift",
+      "reward_npc": "Keeper of Records",
+      "reward_location": "The Last Bastion",
+
+      "rewards": {
+        "easy": {
+          "item": "void_pendant_1",
+          "perks": ["reality_resistance_minor", "bastion_teleport"]
+        },
+        "medium": {
+          "item": "void_pendant_2",
+          "perks": ["all_easy_perks", "void_damage_reduction", "temporal_stability"]
+        },
+        "hard": {
+          "item": "void_pendant_3",
+          "perks": ["all_medium_perks", "increased_eternal_drops", "corruption_immunity"]
+        },
+        "elite": {
+          "item": "void_pendant_4",
+          "perks": ["all_hard_perks", "heart_of_eternity_access", "reality_manipulation"]
+        }
+      }
+    }
+  },
+
+  "ue5_implementation": {
+    "diary_interface": {
+      "map_integration": true,
+      "progress_visualization": true,
+      "tier_badges": true,
+      "completion_celebration": true,
+      "eternal_themed_badges": true
+    },
+    "reward_equipment": {
+      "unique_models": true,
+      "tier_visual_upgrades": true,
+      "perk_particle_effects": true,
+      "eternal_glow_effects": {
+        "solarius_regions": "golden_glow",
+        "nythara_regions": "purple_shadow",
+        "valdros_regions": "crimson_ember",
+        "terrwyn_regions": "nature_aura",
+        "voidthar_regions": "void_distortion"
+      }
+    }
+  }
+}

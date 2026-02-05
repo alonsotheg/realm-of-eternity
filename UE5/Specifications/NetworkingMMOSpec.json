@@ -1,0 +1,1243 @@
+{
+  "documentInfo": {
+    "title": "Realm of Eternity - UE5 Networking & MMO Architecture Specification",
+    "version": "1.0.0",
+    "game": "Realm of Eternity",
+    "engine": "Unreal Engine 5",
+    "networkModel": "Authoritative Server",
+    "lastUpdated": "2026-01-07"
+  },
+
+  "architectureOverview": {
+    "description": "Scalable MMO architecture using authoritative dedicated servers with UE5 replication",
+
+    "networkModel": {
+      "type": "client_server_authoritative",
+      "description": "Server has final authority on all game state",
+      "benefits": [
+        "Cheat prevention",
+        "Consistent game state",
+        "Server-side validation",
+        "Fair gameplay"
+      ]
+    },
+
+    "infrastructureComponents": {
+      "loginServer": {
+        "purpose": "Authentication and initial connection",
+        "technology": "REST API + JWT",
+        "features": ["account_auth", "character_select", "server_list"]
+      },
+      "worldServer": {
+        "purpose": "Main game world simulation",
+        "technology": "UE5 Dedicated Server",
+        "features": ["gameplay", "combat", "npc_ai", "replication"]
+      },
+      "zoneServer": {
+        "purpose": "Individual zone instances",
+        "technology": "UE5 Dedicated Server",
+        "features": ["zone_gameplay", "seamless_travel"]
+      },
+      "instanceServer": {
+        "purpose": "Dungeons and private instances",
+        "technology": "UE5 Dedicated Server",
+        "features": ["instanced_content", "group_play"]
+      },
+      "chatServer": {
+        "purpose": "Global chat and messaging",
+        "technology": "WebSocket Server",
+        "features": ["global_chat", "whispers", "clan_chat"]
+      },
+      "databaseServer": {
+        "purpose": "Persistent data storage",
+        "technology": "PostgreSQL + Redis",
+        "features": ["character_data", "inventory", "progression"]
+      },
+      "matchmakingServer": {
+        "purpose": "Group finder and PvP queues",
+        "technology": "Custom Service",
+        "features": ["dungeon_finder", "pvp_queue", "raid_browser"]
+      }
+    },
+
+    "connectionFlow": {
+      "steps": [
+        {
+          "step": 1,
+          "action": "Client connects to Login Server",
+          "protocol": "HTTPS",
+          "data": "credentials"
+        },
+        {
+          "step": 2,
+          "action": "Login Server validates and returns JWT + server list",
+          "protocol": "HTTPS",
+          "data": "auth_token, available_servers"
+        },
+        {
+          "step": 3,
+          "action": "Client selects server and character",
+          "protocol": "HTTPS",
+          "data": "server_id, character_id"
+        },
+        {
+          "step": 4,
+          "action": "Login Server provides World Server connection info",
+          "protocol": "HTTPS",
+          "data": "world_server_ip, connection_token"
+        },
+        {
+          "step": 5,
+          "action": "Client connects to World Server",
+          "protocol": "UDP (UE5 NetDriver)",
+          "data": "connection_token"
+        },
+        {
+          "step": 6,
+          "action": "World Server validates token and spawns player",
+          "protocol": "UDP",
+          "data": "initial_replication"
+        },
+        {
+          "step": 7,
+          "action": "Client connects to Chat Server",
+          "protocol": "WebSocket",
+          "data": "auth_token"
+        }
+      ]
+    }
+  },
+
+  "replicationSystem": {
+    "overview": "UE5 network replication configuration for MMO-scale gameplay",
+
+    "replicationPriority": {
+      "description": "Priority levels for network updates",
+      "levels": {
+        "critical": {
+          "priority": 100,
+          "updateRate": 60,
+          "examples": ["player_health", "player_position", "combat_damage"]
+        },
+        "high": {
+          "priority": 75,
+          "updateRate": 30,
+          "examples": ["enemy_position", "ability_cast", "projectiles"]
+        },
+        "medium": {
+          "priority": 50,
+          "updateRate": 15,
+          "examples": ["npc_position", "resource_state", "buff_status"]
+        },
+        "low": {
+          "priority": 25,
+          "updateRate": 5,
+          "examples": ["ambient_npc", "weather_state", "time_of_day"]
+        },
+        "static": {
+          "priority": 10,
+          "updateRate": 0,
+          "examples": ["world_props", "terrain", "buildings"],
+          "replicateOnce": true
+        }
+      }
+    },
+
+    "relevancySystem": {
+      "description": "Determines what data is sent to each client",
+      "baseRelevancyRadius": 5000,
+      "relevancyTypes": {
+        "always": {
+          "description": "Always relevant to owning client",
+          "examples": ["own_character", "party_members", "quest_state"]
+        },
+        "distance": {
+          "description": "Relevant within radius",
+          "radius": 5000,
+          "examples": ["other_players", "enemies", "npcs"]
+        },
+        "visibility": {
+          "description": "Only when visible",
+          "useLOS": true,
+          "examples": ["stealthed_players", "hidden_traps"]
+        },
+        "zone": {
+          "description": "Relevant to entire zone",
+          "examples": ["zone_events", "world_bosses", "zone_chat"]
+        },
+        "global": {
+          "description": "Relevant to all players",
+          "examples": ["server_announcements", "global_events"]
+        }
+      },
+      "dormancy": {
+        "enabled": true,
+        "dormantAfter": 30,
+        "wakeUpRadius": 3000,
+        "dormantActors": ["distant_npcs", "inactive_resources"]
+      }
+    },
+
+    "replicatedProperties": {
+      "playerCharacter": {
+        "replicated": [
+          { "property": "position", "condition": "always", "quantization": "vector_100" },
+          { "property": "rotation", "condition": "always", "quantization": "rotation_byte" },
+          { "property": "velocity", "condition": "moving", "quantization": "vector_10" },
+          { "property": "health", "condition": "always", "notifyChange": true },
+          { "property": "maxHealth", "condition": "owner_only" },
+          { "property": "mana", "condition": "owner_only" },
+          { "property": "devotionPoints", "condition": "owner_only" },
+          { "property": "combatState", "condition": "always" },
+          { "property": "activeBuffs", "condition": "always", "arrayReplication": true },
+          { "property": "equippedItems", "condition": "always", "visualOnly": true },
+          { "property": "characterName", "condition": "initial_only" },
+          { "property": "guildName", "condition": "initial_only" },
+          { "property": "combatLevel", "condition": "initial_only" }
+        ],
+        "ownerOnly": [
+          "inventory",
+          "questProgress",
+          "skillLevels",
+          "currency",
+          "bankContents"
+        ]
+      },
+      "enemyCharacter": {
+        "replicated": [
+          { "property": "position", "condition": "always", "quantization": "vector_100" },
+          { "property": "rotation", "condition": "always", "quantization": "rotation_byte" },
+          { "property": "healthPercent", "condition": "always", "quantization": "byte" },
+          { "property": "targetActor", "condition": "always" },
+          { "property": "combatState", "condition": "always" },
+          { "property": "activeEffects", "condition": "always" }
+        ]
+      },
+      "npcCharacter": {
+        "replicated": [
+          { "property": "position", "condition": "always", "quantization": "vector_100" },
+          { "property": "rotation", "condition": "always", "quantization": "rotation_byte" },
+          { "property": "currentActivity", "condition": "always" },
+          { "property": "isInteractable", "condition": "always" }
+        ]
+      },
+      "projectile": {
+        "replicated": [
+          { "property": "position", "condition": "always", "quantization": "vector_10" },
+          { "property": "velocity", "condition": "initial_only" },
+          { "property": "ownerPlayer", "condition": "initial_only" }
+        ],
+        "interpolation": "cubic",
+        "predictOnClient": true
+      },
+      "resourceNode": {
+        "replicated": [
+          { "property": "isDepleted", "condition": "always" },
+          { "property": "currentUser", "condition": "always" },
+          { "property": "respawnTime", "condition": "depleted_only" }
+        ]
+      }
+    },
+
+    "rpcSystem": {
+      "description": "Remote Procedure Calls for actions",
+      "rpcTypes": {
+        "serverRPC": {
+          "description": "Client requests server action",
+          "validation": "required",
+          "examples": [
+            "RequestAttack(targetId)",
+            "RequestUseAbility(abilityId, targetId)",
+            "RequestPickupItem(itemId)",
+            "RequestInteractNPC(npcId)",
+            "RequestTrade(playerId)"
+          ]
+        },
+        "clientRPC": {
+          "description": "Server sends to specific client",
+          "reliable": true,
+          "examples": [
+            "ReceiveInventoryUpdate(items)",
+            "ReceiveQuestUpdate(questData)",
+            "ReceiveDialogue(dialogueData)",
+            "ReceiveTradeOffer(offerData)"
+          ]
+        },
+        "multicastRPC": {
+          "description": "Server sends to all relevant clients",
+          "reliable": "varies",
+          "examples": [
+            "MulticastPlayEffect(effectId, location)",
+            "MulticastSpawnProjectile(projectileData)",
+            "MulticastEnemyDeath(enemyId)",
+            "MulticastZoneAnnouncement(message)"
+          ]
+        }
+      }
+    },
+
+    "bandwidthOptimization": {
+      "quantization": {
+        "position": { "precision": 0.1, "bits": 24 },
+        "rotation": { "precision": "byte_compressed", "bits": 8 },
+        "health": { "precision": 1, "bits": 16 },
+        "healthPercent": { "precision": 1, "bits": 8 }
+      },
+      "deltaCompression": {
+        "enabled": true,
+        "description": "Only send changed properties"
+      },
+      "updateBatching": {
+        "enabled": true,
+        "batchInterval": 0.033,
+        "maxBatchSize": 64
+      },
+      "priorityThrottling": {
+        "enabled": true,
+        "maxBandwidthKbps": 256,
+        "throttleByPriority": true
+      }
+    }
+  },
+
+  "zoneSystem": {
+    "overview": "World partitioning and zone management for seamless gameplay",
+
+    "zoneTypes": {
+      "openWorld": {
+        "description": "Main persistent world zones",
+        "playerCap": 200,
+        "seamlessTravel": true,
+        "persistence": "always_running",
+        "examples": ["Kingshold", "Eldergrove", "Scorchlands"]
+      },
+      "city": {
+        "description": "High-population hub areas",
+        "playerCap": 500,
+        "seamlessTravel": true,
+        "persistence": "always_running",
+        "features": ["instanced_buildings", "reduced_combat"],
+        "examples": ["Kingshold City", "Whiteguard"]
+      },
+      "dungeon": {
+        "description": "Instanced group content",
+        "playerCap": 5,
+        "seamlessTravel": false,
+        "persistence": "on_demand",
+        "instancedPerGroup": true,
+        "examples": ["Shadowfen Depths", "Volcanic Caverns"]
+      },
+      "raid": {
+        "description": "Large group instanced content",
+        "playerCap": 20,
+        "seamlessTravel": false,
+        "persistence": "on_demand",
+        "instancedPerGroup": true,
+        "lockout": true,
+        "examples": ["Scorath's Lair", "Void Citadel"]
+      },
+      "pvpArena": {
+        "description": "Instanced PvP battlegrounds",
+        "playerCap": { "min": 4, "max": 40 },
+        "seamlessTravel": false,
+        "persistence": "on_demand",
+        "matchmade": true,
+        "examples": ["Gladiator Pit", "Castle Siege"]
+      },
+      "playerHousing": {
+        "description": "Personal instanced areas",
+        "playerCap": 10,
+        "seamlessTravel": false,
+        "persistence": "on_demand",
+        "ownerControlled": true
+      }
+    },
+
+    "seamlessTravel": {
+      "description": "Moving between zones without loading screens",
+      "implementation": {
+        "zoneBoundaries": {
+          "type": "overlap_volumes",
+          "overlapSize": 500,
+          "preloadDistance": 2000
+        },
+        "levelStreaming": {
+          "asyncLoading": true,
+          "preloadActors": true,
+          "streamingDistance": 3000
+        },
+        "serverHandoff": {
+          "method": "seamless_travel",
+          "stateTransfer": true,
+          "handoffTimeout": 10
+        }
+      },
+      "playerTransfer": {
+        "steps": [
+          "Player approaches zone boundary",
+          "Client begins preloading new zone",
+          "Server notifies destination zone server",
+          "Player state serialized and transferred",
+          "Destination server spawns player",
+          "Client completes zone transition",
+          "Origin server despawns player"
+        ]
+      }
+    },
+
+    "instanceManagement": {
+      "instanceCreation": {
+        "trigger": "group_enters_dungeon",
+        "process": [
+          "Request instance from Instance Manager",
+          "Instance Manager allocates server resources",
+          "Zone server spawns instance level",
+          "Group members transferred to instance",
+          "Instance becomes active"
+        ]
+      },
+      "instanceLifecycle": {
+        "active": {
+          "condition": "players_present",
+          "fullSimulation": true
+        },
+        "idle": {
+          "condition": "no_players_5min",
+          "reducedSimulation": true,
+          "timeout": 30
+        },
+        "closed": {
+          "condition": "timeout_or_completed",
+          "cleanup": true,
+          "saveProgress": "if_raid"
+        }
+      },
+      "instanceLimits": {
+        "maxInstancesPerServer": 50,
+        "maxPlayersPerInstance": {
+          "dungeon": 5,
+          "raid": 20,
+          "scenario": 3
+        }
+      }
+    },
+
+    "populationManagement": {
+      "layering": {
+        "description": "Multiple instances of open world zones for population",
+        "enabled": true,
+        "layerCap": 200,
+        "minPlayersPerLayer": 50,
+        "layerBalancing": true
+      },
+      "layerTransfer": {
+        "automatic": false,
+        "playerRequested": true,
+        "partySync": true,
+        "cooldown": 300
+      },
+      "megaserver": {
+        "description": "Single logical server with dynamic layering",
+        "benefits": [
+          "No server selection",
+          "Play with anyone",
+          "Dynamic population"
+        ]
+      }
+    }
+  },
+
+  "combatNetworking": {
+    "overview": "Server-authoritative combat with client prediction",
+
+    "hitDetection": {
+      "model": "server_authoritative",
+      "clientPrediction": true,
+      "lagCompensation": {
+        "enabled": true,
+        "maxCompensationMs": 200,
+        "method": "rewind_and_check"
+      },
+      "hitValidation": {
+        "distanceCheck": true,
+        "losCheck": true,
+        "cooldownCheck": true,
+        "resourceCheck": true
+      }
+    },
+
+    "abilitySystem": {
+      "castFlow": {
+        "steps": [
+          {
+            "step": 1,
+            "location": "client",
+            "action": "Player presses ability key",
+            "response": "Local prediction begins, animation starts"
+          },
+          {
+            "step": 2,
+            "location": "client_to_server",
+            "action": "ServerRPC_RequestAbility(abilityId, targetId, timestamp)"
+          },
+          {
+            "step": 3,
+            "location": "server",
+            "action": "Validate ability (cooldown, resources, range, LOS)",
+            "onFail": "Reject and notify client"
+          },
+          {
+            "step": 4,
+            "location": "server",
+            "action": "Execute ability, apply effects, consume resources"
+          },
+          {
+            "step": 5,
+            "location": "server_to_clients",
+            "action": "Multicast ability effects to relevant clients"
+          },
+          {
+            "step": 6,
+            "location": "client",
+            "action": "Reconcile prediction with server result"
+          }
+        ]
+      },
+      "predictionReconciliation": {
+        "onMatch": "continue_animation",
+        "onMismatch": "snap_to_server_state",
+        "visualSmoothing": true
+      }
+    },
+
+    "damageCalculation": {
+      "location": "server_only",
+      "factors": [
+        "base_damage",
+        "attacker_stats",
+        "defender_stats",
+        "equipment_bonuses",
+        "buff_modifiers",
+        "debuff_modifiers",
+        "critical_chance",
+        "damage_type_resistance"
+      ],
+      "randomSeed": "server_generated",
+      "criticalHits": {
+        "rollLocation": "server",
+        "notification": "multicast_to_involved"
+      }
+    },
+
+    "projectileNetworking": {
+      "spawnAuthority": "server",
+      "clientPrediction": true,
+      "replication": {
+        "spawnData": ["position", "velocity", "owner", "damage"],
+        "updateRate": 30,
+        "interpolation": "cubic_bezier"
+      },
+      "hitResolution": {
+        "authority": "server",
+        "lagCompensation": true
+      }
+    },
+
+    "aoeAbilities": {
+      "groundTargeted": {
+        "clientPreview": true,
+        "serverValidation": "range_and_los",
+        "affectedTargets": "server_calculated"
+      },
+      "playerCentered": {
+        "radiusCheck": "server",
+        "affectedTargets": "server_calculated"
+      }
+    },
+
+    "combatLogging": {
+      "enabled": true,
+      "loggedEvents": [
+        "damage_dealt",
+        "damage_received",
+        "healing_done",
+        "ability_used",
+        "buff_applied",
+        "debuff_applied",
+        "death",
+        "resurrection"
+      ],
+      "retention": "7_days",
+      "antiCheatAnalysis": true
+    }
+  },
+
+  "socialSystems": {
+    "chatSystem": {
+      "architecture": {
+        "server": "dedicated_chat_server",
+        "protocol": "websocket",
+        "persistence": "redis_for_history"
+      },
+      "channels": {
+        "local": {
+          "range": 500,
+          "prefix": null,
+          "color": "#FFFFFF"
+        },
+        "zone": {
+          "range": "current_zone",
+          "prefix": "[Zone]",
+          "color": "#90EE90"
+        },
+        "global": {
+          "range": "all_servers",
+          "prefix": "[Global]",
+          "color": "#87CEEB",
+          "cooldown": 5
+        },
+        "trade": {
+          "range": "all_servers",
+          "prefix": "[Trade]",
+          "color": "#FFD700",
+          "cooldown": 30
+        },
+        "party": {
+          "range": "party_members",
+          "prefix": "[Party]",
+          "color": "#00BFFF"
+        },
+        "clan": {
+          "range": "clan_members",
+          "prefix": "[Clan]",
+          "color": "#32CD32"
+        },
+        "whisper": {
+          "range": "target_player",
+          "prefix": "[From/To]",
+          "color": "#FF69B4"
+        }
+      },
+      "features": {
+        "profanityFilter": {
+          "enabled": true,
+          "customizable": true
+        },
+        "spamProtection": {
+          "enabled": true,
+          "messageCooldown": 0.5,
+          "duplicateBlockTime": 30
+        },
+        "reportSystem": {
+          "enabled": true,
+          "reportTypes": ["harassment", "spam", "cheating", "inappropriate_name"]
+        },
+        "chatHistory": {
+          "localCache": 1000,
+          "serverHistory": 100
+        }
+      }
+    },
+
+    "friendSystem": {
+      "maxFriends": 400,
+      "features": {
+        "onlineStatus": true,
+        "currentActivity": true,
+        "currentZone": true,
+        "joinGame": true,
+        "sendMessage": true,
+        "inviteToParty": true,
+        "inviteToClan": true
+      },
+      "privacySettings": {
+        "onlineVisibility": ["everyone", "friends_only", "invisible"],
+        "messageAcceptance": ["everyone", "friends_only", "nobody"],
+        "joinRequests": ["everyone", "friends_only", "nobody"]
+      }
+    },
+
+    "partySystem": {
+      "maxPartySize": 5,
+      "features": {
+        "partyLeader": true,
+        "lootDistribution": ["free_for_all", "round_robin", "need_before_greed", "master_looter"],
+        "partyMarkers": true,
+        "readyCheck": true,
+        "votekick": true,
+        "instanceSync": true
+      },
+      "partyFinder": {
+        "enabled": true,
+        "listingTypes": ["dungeon", "raid", "quest", "general"],
+        "filters": ["level", "role", "class"]
+      }
+    },
+
+    "clanSystem": {
+      "maxMembers": 500,
+      "ranks": {
+        "owner": { "permissions": "all" },
+        "deputy": { "permissions": ["invite", "kick", "promote", "demote", "motd", "bank"] },
+        "officer": { "permissions": ["invite", "kick_below", "bank_limited"] },
+        "veteran": { "permissions": ["invite", "bank_deposit"] },
+        "member": { "permissions": ["bank_deposit"] },
+        "initiate": { "permissions": [] }
+      },
+      "features": {
+        "clanBank": {
+          "enabled": true,
+          "tabs": 8,
+          "slotsPerTab": 100,
+          "accessByRank": true,
+          "withdrawLimits": true
+        },
+        "clanChat": true,
+        "clanEvents": true,
+        "allianceSystem": {
+          "maxAlliances": 5,
+          "sharedChat": true
+        }
+      }
+    },
+
+    "tradeSystem": {
+      "directTrade": {
+        "maxItemsPerSide": 12,
+        "requireBothAccept": true,
+        "tradeLog": true,
+        "scamProtection": {
+          "itemModificationWarning": true,
+          "valueWarning": true
+        }
+      },
+      "grandExchange": {
+        "type": "auction_house",
+        "listingDuration": { "min": 1, "max": 14, "unit": "days" },
+        "listingFee": "0.5%",
+        "salesTax": "2%",
+        "maxActiveListings": 8,
+        "priceHistory": true,
+        "buyOrders": true,
+        "sellOrders": true
+      },
+      "mailSystem": {
+        "enabled": true,
+        "maxAttachments": 12,
+        "codDelivery": true,
+        "expirationDays": 30
+      }
+    }
+  },
+
+  "databaseArchitecture": {
+    "overview": "Persistent data storage for MMO game state",
+
+    "databaseTechnology": {
+      "primary": {
+        "type": "PostgreSQL",
+        "purpose": "Persistent game data",
+        "features": ["ACID_compliance", "complex_queries", "data_integrity"]
+      },
+      "cache": {
+        "type": "Redis",
+        "purpose": "Fast access cache and sessions",
+        "features": ["low_latency", "pub_sub", "session_store"]
+      },
+      "analytics": {
+        "type": "ClickHouse",
+        "purpose": "Game analytics and metrics",
+        "features": ["time_series", "aggregations", "high_throughput"]
+      }
+    },
+
+    "dataSchemas": {
+      "accounts": {
+        "table": "accounts",
+        "fields": [
+          { "name": "account_id", "type": "UUID", "primary": true },
+          { "name": "email", "type": "VARCHAR(255)", "unique": true },
+          { "name": "password_hash", "type": "VARCHAR(255)" },
+          { "name": "created_at", "type": "TIMESTAMP" },
+          { "name": "last_login", "type": "TIMESTAMP" },
+          { "name": "subscription_tier", "type": "ENUM" },
+          { "name": "is_banned", "type": "BOOLEAN" },
+          { "name": "ban_reason", "type": "TEXT" }
+        ]
+      },
+      "characters": {
+        "table": "characters",
+        "fields": [
+          { "name": "character_id", "type": "UUID", "primary": true },
+          { "name": "account_id", "type": "UUID", "foreign": "accounts" },
+          { "name": "name", "type": "VARCHAR(20)", "unique": true },
+          { "name": "race", "type": "ENUM" },
+          { "name": "appearance", "type": "JSONB" },
+          { "name": "created_at", "type": "TIMESTAMP" },
+          { "name": "play_time", "type": "INTEGER" },
+          { "name": "last_location", "type": "JSONB" },
+          { "name": "is_deleted", "type": "BOOLEAN" }
+        ]
+      },
+      "character_stats": {
+        "table": "character_stats",
+        "fields": [
+          { "name": "character_id", "type": "UUID", "primary": true, "foreign": "characters" },
+          { "name": "health", "type": "INTEGER" },
+          { "name": "max_health", "type": "INTEGER" },
+          { "name": "mana", "type": "INTEGER" },
+          { "name": "max_mana", "type": "INTEGER" },
+          { "name": "devotion_points", "type": "INTEGER" }
+        ]
+      },
+      "character_skills": {
+        "table": "character_skills",
+        "fields": [
+          { "name": "character_id", "type": "UUID", "foreign": "characters" },
+          { "name": "skill_id", "type": "VARCHAR(50)" },
+          { "name": "level", "type": "INTEGER" },
+          { "name": "experience", "type": "BIGINT" },
+          { "name": "PRIMARY KEY": "(character_id, skill_id)" }
+        ]
+      },
+      "inventory": {
+        "table": "inventory",
+        "fields": [
+          { "name": "inventory_id", "type": "UUID", "primary": true },
+          { "name": "character_id", "type": "UUID", "foreign": "characters" },
+          { "name": "slot_index", "type": "INTEGER" },
+          { "name": "item_id", "type": "VARCHAR(50)" },
+          { "name": "quantity", "type": "INTEGER" },
+          { "name": "item_data", "type": "JSONB" }
+        ]
+      },
+      "equipment": {
+        "table": "equipment",
+        "fields": [
+          { "name": "character_id", "type": "UUID", "primary": true, "foreign": "characters" },
+          { "name": "slot", "type": "ENUM" },
+          { "name": "item_id", "type": "VARCHAR(50)" },
+          { "name": "item_data", "type": "JSONB" }
+        ]
+      },
+      "bank": {
+        "table": "bank",
+        "fields": [
+          { "name": "bank_id", "type": "UUID", "primary": true },
+          { "name": "character_id", "type": "UUID", "foreign": "characters" },
+          { "name": "tab_index", "type": "INTEGER" },
+          { "name": "slot_index", "type": "INTEGER" },
+          { "name": "item_id", "type": "VARCHAR(50)" },
+          { "name": "quantity", "type": "INTEGER" },
+          { "name": "item_data", "type": "JSONB" }
+        ]
+      },
+      "quest_progress": {
+        "table": "quest_progress",
+        "fields": [
+          { "name": "character_id", "type": "UUID", "foreign": "characters" },
+          { "name": "quest_id", "type": "VARCHAR(50)" },
+          { "name": "status", "type": "ENUM" },
+          { "name": "current_step", "type": "INTEGER" },
+          { "name": "step_progress", "type": "JSONB" },
+          { "name": "started_at", "type": "TIMESTAMP" },
+          { "name": "completed_at", "type": "TIMESTAMP" },
+          { "name": "PRIMARY KEY": "(character_id, quest_id)" }
+        ]
+      },
+      "beastslayer_progress": {
+        "table": "beastslayer_progress",
+        "fields": [
+          { "name": "character_id", "type": "UUID", "primary": true, "foreign": "characters" },
+          { "name": "current_task", "type": "JSONB" },
+          { "name": "task_kills", "type": "INTEGER" },
+          { "name": "streak", "type": "INTEGER" },
+          { "name": "total_points", "type": "INTEGER" },
+          { "name": "unlocked_rewards", "type": "JSONB" }
+        ]
+      },
+      "grand_exchange": {
+        "table": "grand_exchange_listings",
+        "fields": [
+          { "name": "listing_id", "type": "UUID", "primary": true },
+          { "name": "character_id", "type": "UUID", "foreign": "characters" },
+          { "name": "item_id", "type": "VARCHAR(50)" },
+          { "name": "listing_type", "type": "ENUM" },
+          { "name": "quantity", "type": "INTEGER" },
+          { "name": "price_per_item", "type": "BIGINT" },
+          { "name": "quantity_filled", "type": "INTEGER" },
+          { "name": "created_at", "type": "TIMESTAMP" },
+          { "name": "expires_at", "type": "TIMESTAMP" },
+          { "name": "status", "type": "ENUM" }
+        ]
+      },
+      "clans": {
+        "table": "clans",
+        "fields": [
+          { "name": "clan_id", "type": "UUID", "primary": true },
+          { "name": "name", "type": "VARCHAR(30)", "unique": true },
+          { "name": "tag", "type": "VARCHAR(5)", "unique": true },
+          { "name": "owner_id", "type": "UUID", "foreign": "characters" },
+          { "name": "created_at", "type": "TIMESTAMP" },
+          { "name": "motd", "type": "TEXT" },
+          { "name": "settings", "type": "JSONB" }
+        ]
+      },
+      "clan_members": {
+        "table": "clan_members",
+        "fields": [
+          { "name": "clan_id", "type": "UUID", "foreign": "clans" },
+          { "name": "character_id", "type": "UUID", "foreign": "characters" },
+          { "name": "rank", "type": "ENUM" },
+          { "name": "joined_at", "type": "TIMESTAMP" },
+          { "name": "PRIMARY KEY": "(clan_id, character_id)" }
+        ]
+      },
+      "friends": {
+        "table": "friends",
+        "fields": [
+          { "name": "character_id", "type": "UUID", "foreign": "characters" },
+          { "name": "friend_id", "type": "UUID", "foreign": "characters" },
+          { "name": "added_at", "type": "TIMESTAMP" },
+          { "name": "note", "type": "VARCHAR(100)" },
+          { "name": "PRIMARY KEY": "(character_id, friend_id)" }
+        ]
+      }
+    },
+
+    "cachingStrategy": {
+      "redis": {
+        "sessionData": {
+          "key": "session:{account_id}",
+          "ttl": 3600,
+          "data": ["auth_token", "current_character", "server_id"]
+        },
+        "characterCache": {
+          "key": "char:{character_id}",
+          "ttl": 300,
+          "data": ["stats", "skills", "inventory_summary"]
+        },
+        "onlineStatus": {
+          "key": "online:{character_id}",
+          "ttl": 60,
+          "data": ["zone", "activity", "last_seen"]
+        },
+        "grandExchangePrices": {
+          "key": "ge_price:{item_id}",
+          "ttl": 60,
+          "data": ["buy_price", "sell_price", "volume"]
+        }
+      },
+      "writeStrategy": {
+        "inventory": "write_through",
+        "questProgress": "write_behind",
+        "skillExperience": "write_behind_batched",
+        "chatHistory": "async_write"
+      }
+    },
+
+    "backupStrategy": {
+      "fullBackup": {
+        "frequency": "daily",
+        "retention": "30_days",
+        "storage": "offsite_encrypted"
+      },
+      "incrementalBackup": {
+        "frequency": "hourly",
+        "retention": "7_days"
+      },
+      "replication": {
+        "type": "streaming_replication",
+        "replicas": 2,
+        "failover": "automatic"
+      }
+    }
+  },
+
+  "securitySystems": {
+    "authentication": {
+      "method": "JWT",
+      "tokenLifetime": 3600,
+      "refreshToken": true,
+      "refreshLifetime": 604800,
+      "passwordHashing": "bcrypt",
+      "mfaSupport": true
+    },
+
+    "antiCheat": {
+      "serverSideValidation": {
+        "enabled": true,
+        "checks": [
+          "movement_speed_validation",
+          "teleport_detection",
+          "damage_validation",
+          "cooldown_validation",
+          "resource_validation",
+          "inventory_manipulation",
+          "position_desync_detection"
+        ]
+      },
+      "clientSideDetection": {
+        "enabled": true,
+        "checks": [
+          "memory_integrity",
+          "process_monitoring",
+          "signature_scanning"
+        ]
+      },
+      "behaviorAnalysis": {
+        "enabled": true,
+        "metrics": [
+          "actions_per_minute",
+          "movement_patterns",
+          "combat_efficiency",
+          "resource_gathering_rate"
+        ],
+        "flagThreshold": 3,
+        "autoAction": "flag_for_review"
+      },
+      "reportSystem": {
+        "enabled": true,
+        "reviewQueue": true,
+        "autoEscalation": true
+      }
+    },
+
+    "rateLimiting": {
+      "api": {
+        "loginAttempts": { "limit": 5, "window": 300 },
+        "generalRequests": { "limit": 100, "window": 60 }
+      },
+      "game": {
+        "actionsPerSecond": 20,
+        "chatMessagesPerMinute": 30,
+        "tradeRequestsPerMinute": 10
+      }
+    },
+
+    "ddosProtection": {
+      "connectionLimits": {
+        "perIP": 5,
+        "perAccount": 2
+      },
+      "packetValidation": true,
+      "trafficShaping": true,
+      "cloudflareIntegration": true
+    },
+
+    "dataProtection": {
+      "encryption": {
+        "atRest": "AES-256",
+        "inTransit": "TLS 1.3"
+      },
+      "pii": {
+        "fields": ["email", "ip_address", "payment_info"],
+        "handling": "encrypted_separate_storage"
+      },
+      "gdprCompliance": {
+        "dataExport": true,
+        "rightToDelete": true,
+        "consentTracking": true
+      }
+    }
+  },
+
+  "serverInfrastructure": {
+    "overview": "Cloud-based scalable server infrastructure",
+
+    "cloudProvider": {
+      "primary": "AWS",
+      "regions": [
+        { "region": "us-east-1", "name": "North America East" },
+        { "region": "us-west-2", "name": "North America West" },
+        { "region": "eu-west-1", "name": "Europe" },
+        { "region": "ap-southeast-1", "name": "Asia Pacific" }
+      ]
+    },
+
+    "serverTypes": {
+      "loginServer": {
+        "instanceType": "t3.medium",
+        "count": 2,
+        "autoScaling": true,
+        "loadBalanced": true
+      },
+      "worldServer": {
+        "instanceType": "c5.2xlarge",
+        "countPerRegion": 4,
+        "autoScaling": true,
+        "loadBalanced": true
+      },
+      "instanceServer": {
+        "instanceType": "c5.xlarge",
+        "countPerRegion": 10,
+        "autoScaling": true,
+        "minCount": 2,
+        "maxCount": 50
+      },
+      "chatServer": {
+        "instanceType": "t3.large",
+        "count": 2,
+        "autoScaling": false
+      },
+      "databaseServer": {
+        "instanceType": "r5.2xlarge",
+        "storage": "1TB SSD",
+        "readReplicas": 2
+      },
+      "cacheServer": {
+        "instanceType": "r5.large",
+        "clusterMode": true,
+        "nodes": 3
+      }
+    },
+
+    "autoScaling": {
+      "worldServers": {
+        "metric": "player_count",
+        "scaleUpThreshold": 180,
+        "scaleDownThreshold": 50,
+        "cooldown": 300
+      },
+      "instanceServers": {
+        "metric": "active_instances",
+        "scaleUpThreshold": "80%_capacity",
+        "scaleDownThreshold": "20%_capacity",
+        "cooldown": 180
+      }
+    },
+
+    "monitoring": {
+      "metrics": {
+        "serverHealth": ["cpu", "memory", "network", "disk"],
+        "gameMetrics": ["player_count", "instance_count", "latency", "tick_rate"],
+        "businessMetrics": ["concurrent_users", "new_registrations", "revenue"]
+      },
+      "alerting": {
+        "critical": ["server_down", "database_unreachable", "high_latency"],
+        "warning": ["high_cpu", "low_disk_space", "elevated_errors"],
+        "channels": ["pagerduty", "slack", "email"]
+      },
+      "logging": {
+        "centralized": true,
+        "service": "CloudWatch + ELK",
+        "retention": "90_days"
+      }
+    },
+
+    "deployment": {
+      "strategy": "blue_green",
+      "containerization": "Docker",
+      "orchestration": "Kubernetes",
+      "cicd": "GitHub Actions + ArgoCD"
+    }
+  },
+
+  "performanceTargets": {
+    "latency": {
+      "clientToServer": {
+        "target": 50,
+        "acceptable": 100,
+        "degraded": 200,
+        "unit": "ms"
+      },
+      "serverTick": {
+        "target": 16.67,
+        "acceptable": 33.33,
+        "unit": "ms",
+        "description": "60Hz / 30Hz tick rate"
+      },
+      "databaseQuery": {
+        "target": 5,
+        "acceptable": 20,
+        "unit": "ms"
+      }
+    },
+
+    "bandwidth": {
+      "perPlayerDownstream": {
+        "average": 50,
+        "peak": 150,
+        "unit": "kbps"
+      },
+      "perPlayerUpstream": {
+        "average": 10,
+        "peak": 30,
+        "unit": "kbps"
+      }
+    },
+
+    "capacity": {
+      "playersPerWorldServer": 200,
+      "playersPerZone": 200,
+      "totalConcurrentPlayers": 10000,
+      "peakCapacity": 25000
+    },
+
+    "availability": {
+      "uptime": "99.9%",
+      "plannedMaintenance": "weekly_4hours",
+      "maxUnplannedDowntime": "4_hours_monthly"
+    }
+  },
+
+  "implementationPhases": {
+    "phase1_Foundation": {
+      "description": "Core networking infrastructure",
+      "tasks": [
+        "Setup dedicated server builds",
+        "Implement basic replication",
+        "Create character spawn system",
+        "Setup database schemas",
+        "Implement authentication flow"
+      ]
+    },
+    "phase2_Gameplay": {
+      "description": "Gameplay networking",
+      "tasks": [
+        "Implement combat replication",
+        "Add ability system networking",
+        "Create projectile replication",
+        "Implement inventory sync",
+        "Add NPC replication"
+      ]
+    },
+    "phase3_Zones": {
+      "description": "Zone and instance management",
+      "tasks": [
+        "Implement seamless travel",
+        "Create instance management",
+        "Setup zone boundaries",
+        "Add population layering"
+      ]
+    },
+    "phase4_Social": {
+      "description": "Social systems",
+      "tasks": [
+        "Implement chat server",
+        "Create party system",
+        "Add clan functionality",
+        "Implement trade system",
+        "Build Grand Exchange"
+      ]
+    },
+    "phase5_Security": {
+      "description": "Security and anti-cheat",
+      "tasks": [
+        "Implement server validation",
+        "Add anti-cheat measures",
+        "Setup rate limiting",
+        "Implement DDoS protection"
+      ]
+    },
+    "phase6_Scale": {
+      "description": "Scalability and performance",
+      "tasks": [
+        "Setup auto-scaling",
+        "Implement monitoring",
+        "Optimize bandwidth usage",
+        "Load testing and tuning"
+      ]
+    }
+  }
+}

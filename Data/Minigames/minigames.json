@@ -1,0 +1,394 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Minigame definitions for Realm of Eternity"
+  },
+  "minigames": [
+    {
+      "id": "soul_wars",
+      "name": "Soul Wars",
+      "description": "Two teams battle to collect soul fragments and defeat the enemy avatar",
+      "type": "pvp",
+      "location": "nomads_camp",
+      "playerCount": { "min": 10, "max": 100, "perTeam": 50 },
+      "matchDuration": 1200,
+      "levelRequirements": { "combat": 40 },
+      "mechanics": {
+        "objectives": ["collect_soul_fragments", "capture_graveyards", "destroy_avatar"],
+        "scoring": {
+          "soulFragment": 1,
+          "graveyardCapture": 25,
+          "avatarDamage": 5,
+          "avatarKill": 500
+        },
+        "respawnTime": 15,
+        "avatarHealth": 10000
+      },
+      "rewards": {
+        "currency": "zeal_points",
+        "baseReward": { "win": 50, "loss": 25, "draw": 35 },
+        "bonuses": {
+          "mvp": 25,
+          "highDamage": 15,
+          "highHealing": 15
+        }
+      },
+      "shop": {
+        "items": [
+          { "id": "soul_cape", "cost": 2500 },
+          { "id": "zeal_aura", "cost": 5000 },
+          { "id": "xp_scroll_combat", "cost": 100 }
+        ]
+      }
+    },
+    {
+      "id": "castle_wars",
+      "name": "Castle Wars",
+      "description": "Capture-the-flag style combat between two castles",
+      "type": "pvp",
+      "location": "castle_wars_arena",
+      "playerCount": { "min": 10, "max": 200, "perTeam": 100 },
+      "matchDuration": 1200,
+      "levelRequirements": null,
+      "mechanics": {
+        "objectives": ["capture_flag", "defend_flag", "destroy_barricades"],
+        "scoring": {
+          "flagCapture": 1
+        },
+        "items": {
+          "barricades": { "maxPerPlayer": 5, "health": 100 },
+          "explosives": { "maxPerPlayer": 2, "damage": 200 },
+          "bandages": { "maxPerPlayer": 5, "heal": 50 }
+        }
+      },
+      "rewards": {
+        "currency": "castle_wars_tickets",
+        "baseReward": { "win": 3, "loss": 1, "draw": 2 },
+        "bonuses": { "flagCapture": 2 }
+      },
+      "shop": {
+        "items": [
+          { "id": "decorative_armor_gold", "cost": 250 },
+          { "id": "decorative_armor_white", "cost": 150 },
+          { "id": "castlewars_halo", "cost": 500 }
+        ]
+      }
+    },
+    {
+      "id": "pest_control",
+      "name": "Pest Control",
+      "description": "Defend the Void Knight from waves of pests",
+      "type": "pve_coop",
+      "location": "void_knight_outpost",
+      "playerCount": { "min": 5, "max": 25 },
+      "matchDuration": 300,
+      "levelRequirements": { "combat": 40 },
+      "tiers": [
+        { "name": "novice", "combatReq": 40, "points": 2 },
+        { "name": "intermediate", "combatReq": 70, "points": 3 },
+        { "name": "veteran", "combatReq": 100, "points": 4 }
+      ],
+      "mechanics": {
+        "objectives": ["protect_void_knight", "destroy_portals"],
+        "voidKnightHealth": 2000,
+        "portals": 4,
+        "portalHealth": 2500,
+        "waves": {
+          "spawnRate": 10,
+          "enemies": ["spinner", "brawler", "shifter", "splatter", "torcher", "defiler", "ravager"]
+        }
+      },
+      "rewards": {
+        "currency": "void_commendations",
+        "baseReward": { "win": 3, "loss": 0 },
+        "bonuses": { "flawless": 2, "speedrun": 1 }
+      },
+      "shop": {
+        "items": [
+          { "id": "void_knight_helm_melee", "cost": 200 },
+          { "id": "void_knight_helm_ranged", "cost": 200 },
+          { "id": "void_knight_helm_magic", "cost": 200 },
+          { "id": "void_knight_body", "cost": 250 },
+          { "id": "void_knight_legs", "cost": 250 },
+          { "id": "void_knight_gloves", "cost": 150 },
+          { "id": "xp_scroll_any", "cost": 10 }
+        ]
+      }
+    },
+    {
+      "id": "fight_caves",
+      "name": "Fight Caves",
+      "description": "Solo wave-based combat challenge culminating in a boss fight",
+      "type": "pve_solo",
+      "location": "tzhaar_city",
+      "playerCount": { "min": 1, "max": 1 },
+      "matchDuration": null,
+      "levelRequirements": null,
+      "mechanics": {
+        "waves": 63,
+        "checkpoints": [31, 45, 54, 62],
+        "bossWave": 63,
+        "boss": "tzkal_zuk",
+        "enemies": ["tzkih", "tzxil", "tzkal", "tzher", "tzmej", "tzjad"],
+        "saveProgress": true
+      },
+      "rewards": {
+        "completion": [
+          { "id": "fire_cape", "requirement": "defeat_tzjad" },
+          { "id": "infernal_cape", "requirement": "defeat_tzkal_zuk" }
+        ],
+        "xpReward": { "skill": "hitpoints", "amount": 16000 }
+      }
+    },
+    {
+      "id": "barbarian_assault",
+      "name": "Barbarian Assault",
+      "description": "Team-based minigame with unique combat roles",
+      "type": "pve_coop",
+      "location": "barbarian_outpost",
+      "playerCount": { "min": 5, "max": 5 },
+      "matchDuration": 900,
+      "levelRequirements": null,
+      "mechanics": {
+        "roles": [
+          { "id": "attacker", "action": "call_attacks", "reward_multiplier": 1.0 },
+          { "id": "defender", "action": "repair_traps", "reward_multiplier": 1.0 },
+          { "id": "healer", "action": "heal_team", "reward_multiplier": 1.0 },
+          { "id": "collector", "action": "collect_eggs", "reward_multiplier": 1.0 }
+        ],
+        "waves": 10,
+        "queen": { "wave": 10, "health": 5000 },
+        "callingSystem": true,
+        "eggs": ["red", "green", "blue", "yellow", "poison", "explosive"]
+      },
+      "rewards": {
+        "currency": "honour_points",
+        "pointTypes": ["attacker_points", "defender_points", "healer_points", "collector_points"],
+        "baseReward": { "perWave": 10, "queenKill": 80 }
+      },
+      "shop": {
+        "items": [
+          { "id": "fighter_torso", "cost": { "attacker": 375 } },
+          { "id": "penance_skirt", "cost": { "defender": 375 } },
+          { "id": "healer_hat", "cost": { "healer": 275 } },
+          { "id": "runner_boots", "cost": { "collector": 100 } }
+        ]
+      }
+    },
+    {
+      "id": "warriors_guild",
+      "name": "Warriors' Guild",
+      "description": "Combat training games to earn defenders",
+      "type": "training",
+      "location": "warriors_guild",
+      "playerCount": { "min": 1, "max": 1 },
+      "levelRequirements": { "melee": 99, "or": { "strength_defense_combined": 130 } },
+      "subgames": [
+        {
+          "id": "animation_room",
+          "description": "Fight animated suits of armor",
+          "tokensPerKill": { "copperweave": 5, "ironbark": 10, "stormforged": 15, "moonveil": 20, "voidstone": 25, "eternium": 30 }
+        },
+        {
+          "id": "catapult_room",
+          "description": "Deflect projectiles with shields",
+          "tokensPerDeflect": 4
+        },
+        {
+          "id": "dummy_room",
+          "description": "Attack dummies with correct combat style",
+          "tokensPerHit": 5
+        }
+      ],
+      "cyclops": {
+        "tokenCost": 100,
+        "tokenDrain": 10,
+        "drainInterval": 60,
+        "drops": [
+          { "id": "copperweave_defender", "dropRate": 0.03 },
+          { "id": "ironbark_defender", "dropRate": 0.025, "requires": "copperweave_defender" },
+          { "id": "stormforged_defender", "dropRate": 0.02, "requires": "ironbark_defender" },
+          { "id": "moonveil_defender", "dropRate": 0.015, "requires": "stormforged_defender" },
+          { "id": "voidstone_defender", "dropRate": 0.01, "requires": "moonveil_defender" },
+          { "id": "eternium_defender", "dropRate": 0.008, "requires": "voidstone_defender" },
+          { "id": "wyrm_defender", "dropRate": 0.005, "requires": "eternium_defender" }
+        ]
+      }
+    },
+    {
+      "id": "stealing_creation",
+      "name": "Stealing Creation",
+      "description": "Resource gathering and combat game",
+      "type": "pvp_skilling",
+      "location": "gamers_grotto",
+      "playerCount": { "min": 10, "max": 20, "perTeam": 10 },
+      "matchDuration": 1200,
+      "levelRequirements": null,
+      "mechanics": {
+        "resources": {
+          "clay": { "tiers": [1, 2, 3, 4, 5], "respawnTime": 30 },
+          "processing": ["kiln", "anvil", "altar"]
+        },
+        "craftableItems": [
+          { "type": "weapon", "tiers": [1, 2, 3, 4, 5] },
+          { "type": "armor", "tiers": [1, 2, 3, 4, 5] },
+          { "type": "barrier", "tiers": [1, 2, 3, 4, 5] }
+        ],
+        "scoring": {
+          "depositClay": 1,
+          "processItem": 2,
+          "playerKill": 10
+        }
+      },
+      "rewards": {
+        "currency": "creation_points",
+        "baseReward": { "win": 30, "loss": 15 },
+        "bonuses": { "mvp": 10, "perPoint": 0.1 }
+      },
+      "shop": {
+        "items": [
+          { "id": "sc_hammer", "cost": 200, "effect": "2x smithing xp", "charges": 9760 },
+          { "id": "sc_hatchet", "cost": 200, "effect": "2x woodcutting xp", "charges": 9760 },
+          { "id": "sc_pickaxe", "cost": 200, "effect": "2x mining xp", "charges": 9760 },
+          { "id": "sc_needle", "cost": 200, "effect": "2x crafting xp", "charges": 9760 }
+        ]
+      }
+    },
+    {
+      "id": "temple_trekking",
+      "name": "Temple Trekking",
+      "description": "Escort NPCs through dangerous swamps",
+      "type": "pve_solo",
+      "location": "dreadmire_marshes",
+      "playerCount": { "min": 1, "max": 1 },
+      "matchDuration": null,
+      "mechanics": {
+        "escorts": [
+          { "tier": "easy", "npcs": ["pazuzu", "dalcian", "zachory"], "difficulty": 1 },
+          { "tier": "medium", "npcs": ["sylvani", "rolayne", "smiddi"], "difficulty": 2 },
+          { "tier": "hard", "npcs": ["jayene", "valantay", "sillaf"], "difficulty": 3 }
+        ],
+        "paths": ["short", "medium", "long"],
+        "events": [
+          { "type": "combat", "enemies": ["shade", "snail", "ghast", "nail_beast", "vampyre"] },
+          { "type": "puzzle", "puzzles": ["bridge_puzzle", "bog_puzzle", "tentacle_puzzle"] },
+          { "type": "skill", "skills": ["firemaking", "woodcutting", "mining", "cooking"] }
+        ],
+        "npcLeveling": true,
+        "maxNpcLevel": 99
+      },
+      "rewards": {
+        "rewardTokens": {
+          "easy": 1,
+          "medium": 2,
+          "hard": 3
+        },
+        "rewardTypes": ["bowstrings", "silver_bars", "herbs", "pure_essence", "watermelon_seeds", "tomes_of_xp"]
+      }
+    },
+    {
+      "id": "fishing_trawler",
+      "name": "Fishing Trawler",
+      "description": "Cooperative fishing on a sinking ship",
+      "type": "skilling_coop",
+      "location": "tidecrest_harbor",
+      "playerCount": { "min": 1, "max": 10 },
+      "matchDuration": 600,
+      "levelRequirements": { "fishing": 15 },
+      "mechanics": {
+        "activities": [
+          { "id": "bail_water", "action": "bucket", "effect": "remove_water" },
+          { "id": "repair_hull", "action": "swamp_paste", "effect": "fix_leaks" },
+          { "id": "fill_net", "action": "fishing", "effect": "catch_fish" }
+        ],
+        "failConditions": ["ship_sinks", "net_destroyed"],
+        "contribution": { "minActivity": 50, "afkPenalty": true }
+      },
+      "rewards": {
+        "fish": ["mudcrawler", "sardine", "anchovies", "silverscale", "razorfin", "monkfish", "sea_turtle", "manta_ray"],
+        "xpBonus": 1.5,
+        "uniqueDrops": [
+          { "id": "anglers_outfit_piece", "chance": 0.03 }
+        ]
+      }
+    },
+    {
+      "id": "wintertodt",
+      "name": "Wintertodt",
+      "description": "Boss-like skilling encounter against an ancient cold spirit",
+      "type": "skilling_raid",
+      "location": "frozen_door",
+      "playerCount": { "min": 1, "max": 50 },
+      "matchDuration": null,
+      "levelRequirements": { "firemaking": 50 },
+      "mechanics": {
+        "activities": [
+          { "id": "chop_roots", "skill": "woodcutting", "xp": 0.4 },
+          { "id": "light_brazier", "skill": "firemaking", "xp": 6 },
+          { "id": "feed_brazier", "skill": "firemaking", "xp": 3 },
+          { "id": "fletch_kindling", "skill": "bowcraft", "xp": 0.6 },
+          { "id": "heal_pyromancer", "skill": "alchemy", "xp": 0.1 }
+        ],
+        "hazards": [
+          { "type": "cold_damage", "damage": 10, "interval": 10 },
+          { "type": "falling_snow", "damage": 20, "avoidable": true },
+          { "type": "brazier_break", "damage": 30, "avoidable": false }
+        ],
+        "winCondition": { "energyDepleted": 0 },
+        "startingEnergy": 100,
+        "energyDrain": { "perBrazierLit": 3, "interval": 5 }
+      },
+      "rewards": {
+        "minPoints": 500,
+        "rewardCrates": {
+          "rollsPerCrate": 2,
+          "extraRollPer": 500
+        },
+        "lootTable": [
+          { "id": "pyromancer_outfit_piece", "weight": 1, "chance": 0.015 },
+          { "id": "warm_gloves", "weight": 5 },
+          { "id": "bruma_torch", "weight": 2 },
+          { "id": "tome_of_fire", "weight": 1, "chance": 0.005 },
+          { "id": "phoenix_pet", "weight": 1, "chance": 0.002 }
+        ]
+      }
+    }
+  ],
+  "matchmaking": {
+    "queueTypes": {
+      "solo": {
+        "maxWaitTime": 300,
+        "backfill": false
+      },
+      "team": {
+        "maxWaitTime": 180,
+        "backfill": true,
+        "minStartPlayers": 0.6
+      },
+      "competitive": {
+        "maxWaitTime": 120,
+        "eloMatching": true,
+        "eloRange": 200
+      }
+    },
+    "balancing": {
+      "combatLevelWeight": 0.7,
+      "gearScoreWeight": 0.3,
+      "teamBalanceTolerance": 0.1
+    }
+  },
+  "rewards": {
+    "globalBonuses": {
+      "spotlightMinigame": {
+        "description": "Rotating spotlight gives bonus rewards",
+        "rotationPeriod": 604800,
+        "bonusMultiplier": 1.5
+      },
+      "minigameWeekend": {
+        "description": "Double points on weekends",
+        "active": ["saturday", "sunday"],
+        "bonusMultiplier": 2.0
+      }
+    }
+  }
+}

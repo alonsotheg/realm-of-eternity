@@ -1,0 +1,12 @@
+{
+  "nextId": 2,
+  "list": {
+    "alonsotheg@gmail.com": {
+      "id": 1,
+      "email": "alonsotheg@gmail.com",
+      "password": "$2a$10$hJtBKU1sB97Wq/lGemxpF.JjpoUSrV4bjtgqEo0KxkXVw/jRYvRtC",
+      "displayName": "alonsotheg",
+      "createdAt": "2026-01-28T13:08:29.060Z"
+    }
+  }
+}

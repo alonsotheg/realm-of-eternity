@@ -1,0 +1,273 @@
+{
+  "shops": [
+    {
+      "id": "dawnhaven_general_store",
+      "name": "Dawnhaven General Store",
+      "owner": "shop_keeper",
+      "location": { "zone": "dawnhaven", "x": 3211, "y": 3247 },
+      "currency": "gold_coins",
+      "buyRate": 0.6,
+      "sellRate": 1.0,
+      "stock": [
+        { "itemId": "pot", "quantity": 5, "price": 1 },
+        { "itemId": "jug", "quantity": 2, "price": 1 },
+        { "itemId": "shears", "quantity": 2, "price": 1 },
+        { "itemId": "bucket", "quantity": 3, "price": 2 },
+        { "itemId": "bowl", "quantity": 2, "price": 5 },
+        { "itemId": "cake_tin", "quantity": 2, "price": 10 },
+        { "itemId": "tinderbox", "quantity": 3, "price": 1 },
+        { "itemId": "chisel", "quantity": 2, "price": 14 },
+        { "itemId": "smithing_hammer", "quantity": 5, "price": 13 },
+        { "itemId": "realm_map", "quantity": 10, "price": 1 }
+      ],
+      "buysAll": true
+    },
+    {
+      "id": "brams_tools",
+      "name": "Bram's Fine Tools",
+      "owner": "bram",
+      "location": { "zone": "dawnhaven", "x": 3231, "y": 3203 },
+      "currency": "gold_coins",
+      "buyRate": 0.5,
+      "sellRate": 1.0,
+      "stock": [
+        { "itemId": "copperweave_axe", "quantity": 10, "price": 16 },
+        { "itemId": "ironbark_axe", "quantity": 5, "price": 56 },
+        { "itemId": "stormforged_axe", "quantity": 3, "price": 200 },
+        { "itemId": "copperweave_pickaxe", "quantity": 5, "price": 18 },
+        { "itemId": "ironbark_pickaxe", "quantity": 3, "price": 70 }
+      ],
+      "repairs": true,
+      "repairTypes": ["cryptforged"]
+    },
+    {
+      "id": "ironhold_sword_shop",
+      "name": "Ironhold Blade Emporium",
+      "owner": "zephyr",
+      "location": { "zone": "ironhold", "x": 3203, "y": 3434 },
+      "currency": "gold_coins",
+      "buyRate": 0.5,
+      "sellRate": 1.0,
+      "stock": [
+        { "itemId": "copperweave_sword", "quantity": 10, "price": 26 },
+        { "itemId": "ironbark_sword", "quantity": 5, "price": 91 },
+        { "itemId": "stormforged_sword", "quantity": 3, "price": 325 },
+        { "itemId": "moonveil_sword", "quantity": 1, "price": 845 },
+        { "itemId": "voidstone_sword", "quantity": 1, "price": 2080 },
+        { "itemId": "copperweave_longsword", "quantity": 5, "price": 40 },
+        { "itemId": "ironbark_longsword", "quantity": 3, "price": 140 },
+        { "itemId": "stormforged_longsword", "quantity": 2, "price": 500 },
+        { "itemId": "moonveil_longsword", "quantity": 1, "price": 1300 }
+      ]
+    },
+    {
+      "id": "zephyrs_staffs",
+      "name": "Zephyr's Arcane Staffs",
+      "owner": "zephyr",
+      "location": { "zone": "ironhold", "x": 3203, "y": 3434 },
+      "currency": "gold_coins",
+      "buyRate": 0.5,
+      "sellRate": 1.0,
+      "stock": [
+        { "itemId": "apprentice_staff", "quantity": 5, "price": 15 },
+        { "itemId": "elemental_staff", "quantity": 5, "price": 200 },
+        { "itemId": "staff_of_wind", "quantity": 2, "price": 1500 },
+        { "itemId": "staff_of_tides", "quantity": 2, "price": 1500 },
+        { "itemId": "staff_of_stone", "quantity": 2, "price": 1500 },
+        { "itemId": "staff_of_flame", "quantity": 2, "price": 1500 },
+        { "itemId": "channeling_staff", "quantity": 5, "price": 7000, "dailyLimit": 5 }
+      ]
+    },
+    {
+      "id": "aubrics_essence_shop",
+      "name": "Arcanist Aubric's Essence",
+      "owner": "aubric",
+      "location": { "zone": "ironhold", "x": 3253, "y": 3401 },
+      "currency": "gold_coins",
+      "buyRate": 0.5,
+      "sellRate": 1.0,
+      "stock": [
+        { "itemId": "wind_essence", "quantity": 1000, "price": 5 },
+        { "itemId": "tide_essence", "quantity": 1000, "price": 5 },
+        { "itemId": "stone_essence", "quantity": 1000, "price": 5 },
+        { "itemId": "flame_essence", "quantity": 1000, "price": 5 },
+        { "itemId": "thought_essence", "quantity": 500, "price": 7 },
+        { "itemId": "life_essence", "quantity": 500, "price": 8 },
+        { "itemId": "chaos_essence", "quantity": 250, "price": 90 },
+        { "itemId": "void_essence", "quantity": 250, "price": 180 },
+        { "itemId": "nature_essence", "quantity": 250, "price": 150 },
+        { "itemId": "order_essence", "quantity": 250, "price": 240 }
+      ],
+      "teleports": ["essence_wellspring"]
+    },
+    {
+      "id": "ironhold_armor_shop",
+      "name": "Forge Master Halvard's Armory",
+      "owner": "halvard",
+      "location": { "zone": "ironhold", "x": 3229, "y": 3436 },
+      "currency": "gold_coins",
+      "buyRate": 0.5,
+      "sellRate": 1.0,
+      "stock": [
+        { "itemId": "copperweave_platebody", "quantity": 5, "price": 160 },
+        { "itemId": "ironbark_platebody", "quantity": 3, "price": 560 },
+        { "itemId": "stormforged_platebody", "quantity": 2, "price": 2000 },
+        { "itemId": "moonveil_platebody", "quantity": 1, "price": 5200 },
+        { "itemId": "copperweave_chainmail", "quantity": 5, "price": 60 },
+        { "itemId": "ironbark_chainmail", "quantity": 3, "price": 210 },
+        { "itemId": "stormforged_chainmail", "quantity": 2, "price": 750 }
+      ]
+    },
+    {
+      "id": "fishing_shop",
+      "name": "Fisher Geralt's Tackle",
+      "owner": "geralt",
+      "location": { "zone": "saltmere", "x": 3014, "y": 3224 },
+      "currency": "gold_coins",
+      "buyRate": 0.5,
+      "sellRate": 1.0,
+      "stock": [
+        { "itemId": "reed_net", "quantity": 5, "price": 5 },
+        { "itemId": "reed_rod", "quantity": 10, "price": 5 },
+        { "itemId": "feather_rod", "quantity": 5, "price": 50 },
+        { "itemId": "feather", "quantity": 1000, "price": 2 },
+        { "itemId": "fishing_bait", "quantity": 1000, "price": 3 },
+        { "itemId": "deep_harpoon", "quantity": 3, "price": 45 },
+        { "itemId": "claw_trap", "quantity": 3, "price": 20 }
+      ],
+      "buyCategories": ["fish"]
+    },
+    {
+      "id": "alchemy_supplies",
+      "name": "Alchemist Jareth's Supplies",
+      "owner": "jareth",
+      "location": { "zone": "fernwood", "x": 2899, "y": 3428 },
+      "currency": "gold_coins",
+      "buyRate": 0.4,
+      "sellRate": 1.0,
+      "stock": [
+        { "itemId": "vial", "quantity": 50, "price": 2 },
+        { "itemId": "vial_of_water", "quantity": 50, "price": 3 },
+        { "itemId": "salamander_eye", "quantity": 100, "price": 3 },
+        { "itemId": "mortar_pestle", "quantity": 5, "price": 25 }
+      ]
+    },
+    {
+      "id": "beastslayer_equipment",
+      "name": "Beastslayer Equipment",
+      "owner": "huntmaster_kael",
+      "location": { "zone": "northwatch", "x": 2930, "y": 3535 },
+      "currency": "gold_coins",
+      "slayerPointCurrency": true,
+      "stock": [
+        { "itemId": "beast_tracker_gem", "quantity": 10, "price": 1 },
+        { "itemId": "reflective_shield", "quantity": 5, "price": 5000 },
+        { "itemId": "scent_blocker", "quantity": 5, "price": 500 },
+        { "itemId": "sound_dampeners", "quantity": 5, "price": 400 },
+        { "itemId": "breath_filter", "quantity": 5, "price": 500 },
+        { "itemId": "ward_talisman", "quantity": 3, "price": 8500 },
+        { "itemId": "lure_lantern", "quantity": 5, "price": 1500 }
+      ],
+      "slayerPointStock": [
+        { "itemId": "beastslayer_helm", "quantity": 1, "points": 400 },
+        { "itemId": "piercing_arrows", "quantity": 250, "points": 35 },
+        { "itemId": "essence_pouch", "quantity": 1, "points": 750 },
+        { "itemId": "herb_satchel", "quantity": 1, "points": 750 }
+      ]
+    },
+    {
+      "id": "feast_hall_chest",
+      "name": "Feast Hall Vault",
+      "owner": "chest",
+      "location": { "zone": "dawnhaven_basement", "x": 3212, "y": 9617 },
+      "currency": "gold_coins",
+      "requirements": { "quest": "culinary_conquest", "subquests": "variable" },
+      "stock": [
+        { "itemId": "copperweave_gloves", "quantity": 10, "price": 130, "subquestsRequired": 0 },
+        { "itemId": "ironbark_gloves", "quantity": 10, "price": 325, "subquestsRequired": 1 },
+        { "itemId": "stormforged_gloves", "quantity": 10, "price": 650, "subquestsRequired": 2 },
+        { "itemId": "moonveil_gloves", "quantity": 10, "price": 1300, "subquestsRequired": 4 },
+        { "itemId": "voidstone_gloves", "quantity": 10, "price": 2600, "subquestsRequired": 5 },
+        { "itemId": "eternium_gloves", "quantity": 10, "price": 6500, "subquestsRequired": 6 },
+        { "itemId": "wyrmscale_gloves", "quantity": 10, "price": 100000, "subquestsRequired": 7 },
+        { "itemId": "cryptforged_gloves", "quantity": 10, "price": 130000, "subquestsRequired": 8 }
+      ]
+    },
+    {
+      "id": "champions_hall_armory",
+      "name": "Commander Lydon's Armory",
+      "owner": "lydon",
+      "location": { "zone": "champions_hall", "x": 2858, "y": 3551 },
+      "currency": "champion_tokens",
+      "requirements": { "meleeTotal": 130 },
+      "stock": [
+        { "itemId": "copperweave_defender", "quantity": 1, "tokens": 10 },
+        { "itemId": "ironbark_defender", "quantity": 1, "tokens": 20 },
+        { "itemId": "stormforged_defender", "quantity": 1, "tokens": 30 },
+        { "itemId": "moonveil_defender", "quantity": 1, "tokens": 40 },
+        { "itemId": "voidstone_defender", "quantity": 1, "tokens": 50 },
+        { "itemId": "eternium_defender", "quantity": 1, "tokens": 60 },
+        { "itemId": "wyrmscale_defender", "quantity": 1, "tokens": 100 }
+      ]
+    }
+  ],
+  "shopkeepers": [
+    {
+      "id": "shop_keeper",
+      "name": "Shop Keeper",
+      "type": "shopkeeper",
+      "dialogue": "shopkeeper_chat",
+      "examine": "A friendly shopkeeper"
+    },
+    {
+      "id": "bram",
+      "name": "Bram",
+      "type": "shopkeeper",
+      "dialogue": "bram_chat",
+      "examine": "A skilled tool seller and repairer"
+    },
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "type": "shopkeeper",
+      "dialogue": "zephyr_chat",
+      "examine": "Sells blades and magical staffs"
+    },
+    {
+      "id": "aubric",
+      "name": "Arcanist Aubric",
+      "type": "shopkeeper",
+      "dialogue": "aubric_chat",
+      "examine": "A mysterious essence seller",
+      "teleports": ["essence_wellspring"]
+    },
+    {
+      "id": "halvard",
+      "name": "Forge Master Halvard",
+      "type": "shopkeeper",
+      "dialogue": "halvard_chat",
+      "examine": "A burly blacksmith"
+    },
+    {
+      "id": "geralt",
+      "name": "Fisher Geralt",
+      "type": "shopkeeper",
+      "dialogue": "geralt_chat",
+      "examine": "Knows everything about fishing"
+    },
+    {
+      "id": "jareth",
+      "name": "Alchemist Jareth",
+      "type": "shopkeeper",
+      "dialogue": "jareth_chat",
+      "examine": "Sells alchemy supplies"
+    },
+    {
+      "id": "lydon",
+      "name": "Commander Lydon",
+      "type": "shopkeeper",
+      "dialogue": "lydon_chat",
+      "examine": "Sells defender shields to proven warriors"
+    }
+  ]
+}
