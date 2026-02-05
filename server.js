@@ -41,6 +41,7 @@ const DATA_DIR = path.join(__dirname, 'Data');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
 const SAVES_FILE = path.join(DATA_DIR, 'saves.json');
 const LOCATIONS_FILE = path.join(DATA_DIR, 'locations.json');
+const BOSSES_FILE = path.join(DATA_DIR, 'bosses.json');
 
 // Ensure data directory exists
 function ensureDataDirectory() {
@@ -198,6 +199,7 @@ ensureDataDirectory();
 let users = loadData(USERS_FILE, { nextId: 1, list: {} });
 let saves = loadData(SAVES_FILE, {});
 let locations = loadData(LOCATIONS_FILE, {});
+let bosses = loadData(BOSSES_FILE, {});
 
 // ============================================
 // MIDDLEWARE
@@ -483,6 +485,254 @@ app.get('/api/leaderboard', (req, res) => {
 });
 
 // ============================================
+// BOSS FIGHT ENDPOINTS (Multiplayer Group Fights)
+// ============================================
+
+// Boss fight timeout - reset inactive fights after 10 minutes
+const BOSS_TIMEOUT_MS = 10 * 60 * 1000;
+
+// Helper to clean up stale boss fights
+function cleanupStaleBosses() {
+  const now = Date.now();
+  let changed = false;
+
+  Object.keys(bosses).forEach(bossId => {
+    const boss = bosses[bossId];
+    if (boss.isActive && (now - boss.lastActivity > BOSS_TIMEOUT_MS)) {
+      console.log(`Cleaning up stale boss fight: ${bossId}`);
+      delete bosses[bossId];
+      changed = true;
+    }
+  });
+
+  if (changed) {
+    saveDataSync(BOSSES_FILE, bosses);
+  }
+}
+
+// Run cleanup every minute
+setInterval(cleanupStaleBosses, 60000);
+
+// GET /api/boss/state - Get current state of a boss fight
+app.get('/api/boss/state', authMiddleware, (req, res) => {
+  try {
+    const { bossId } = req.query;
+
+    if (!bossId) {
+      return res.status(400).json({ message: 'bossId required' });
+    }
+
+    const boss = bosses[bossId];
+
+    if (!boss || !boss.isActive) {
+      return res.json({ active: false, boss: null });
+    }
+
+    // Return boss state with fighter info
+    res.json({
+      active: true,
+      boss: {
+        bossId: boss.bossId,
+        maxHp: boss.maxHp,
+        currentHp: boss.currentHp,
+        fighterCount: Object.keys(boss.fighters).length,
+        fighters: Object.values(boss.fighters).map(f => ({
+          odplayerId: f.odplayerId,
+          displayName: f.displayName,
+          totalDamageDealt: f.totalDamageDealt
+        })),
+        startedAt: boss.startedAt
+      }
+    });
+  } catch (err) {
+    console.error('Boss state error:', err);
+    res.status(500).json({ message: 'Failed to get boss state' });
+  }
+});
+
+// POST /api/boss/join - Join or start a boss fight
+app.post('/api/boss/join', authMiddleware, (req, res) => {
+  try {
+    const { bossId, bossData } = req.body;
+    const userId = req.user.id;
+
+    if (!bossId || !bossData) {
+      return res.status(400).json({ message: 'bossId and bossData required' });
+    }
+
+    // Get player display name from locations
+    const playerLocation = locations[userId];
+    const displayName = playerLocation?.displayName || 'Adventurer';
+
+    const now = Date.now();
+
+    if (!bosses[bossId] || !bosses[bossId].isActive) {
+      // Start new boss fight
+      bosses[bossId] = {
+        bossId: bossId,
+        maxHp: bossData.hp,
+        currentHp: bossData.hp,
+        isActive: true,
+        fighters: {
+          [userId]: {
+            odplayerId: userId,
+            displayName: displayName,
+            totalDamageDealt: 0,
+            firstHitTimestamp: now,
+            lastHitTimestamp: now
+          }
+        },
+        startedAt: now,
+        lastActivity: now
+      };
+    } else {
+      // Join existing fight
+      if (!bosses[bossId].fighters[userId]) {
+        bosses[bossId].fighters[userId] = {
+          odplayerId: userId,
+          displayName: displayName,
+          totalDamageDealt: 0,
+          firstHitTimestamp: now,
+          lastHitTimestamp: now
+        };
+      }
+      bosses[bossId].lastActivity = now;
+    }
+
+    saveDataSync(BOSSES_FILE, bosses);
+
+    res.json({
+      success: true,
+      boss: {
+        bossId: bosses[bossId].bossId,
+        maxHp: bosses[bossId].maxHp,
+        currentHp: bosses[bossId].currentHp,
+        fighterCount: Object.keys(bosses[bossId].fighters).length
+      }
+    });
+  } catch (err) {
+    console.error('Boss join error:', err);
+    res.status(500).json({ message: 'Failed to join boss fight' });
+  }
+});
+
+// POST /api/boss/damage - Record damage dealt to boss
+app.post('/api/boss/damage', authMiddleware, (req, res) => {
+  try {
+    const { bossId, damage } = req.body;
+    const userId = req.user.id;
+
+    if (!bossId || typeof damage !== 'number') {
+      return res.status(400).json({ message: 'bossId and damage required' });
+    }
+
+    const boss = bosses[bossId];
+
+    if (!boss || !boss.isActive) {
+      return res.status(400).json({ message: 'Boss fight not active' });
+    }
+
+    const now = Date.now();
+
+    // Update boss HP
+    const newHp = Math.max(0, boss.currentHp - damage);
+    boss.currentHp = newHp;
+    boss.lastActivity = now;
+
+    // Update fighter's damage
+    if (boss.fighters[userId]) {
+      boss.fighters[userId].totalDamageDealt += damage;
+      boss.fighters[userId].lastHitTimestamp = now;
+    } else {
+      // Player joined mid-fight
+      const playerLocation = locations[userId];
+      boss.fighters[userId] = {
+        odplayerId: userId,
+        displayName: playerLocation?.displayName || 'Adventurer',
+        totalDamageDealt: damage,
+        firstHitTimestamp: now,
+        lastHitTimestamp: now
+      };
+    }
+
+    // Check if boss is defeated
+    let defeated = false;
+    let lootInfo = null;
+
+    if (newHp <= 0) {
+      defeated = true;
+      boss.isActive = false;
+
+      // Calculate contributions for all fighters
+      const totalDamage = Object.values(boss.fighters)
+        .reduce((sum, f) => sum + f.totalDamageDealt, 0);
+
+      lootInfo = {
+        totalDamage,
+        fighters: Object.values(boss.fighters).map(f => ({
+          odplayerId: f.odplayerId,
+          displayName: f.displayName,
+          damageDealt: f.totalDamageDealt,
+          contribution: totalDamage > 0 ? f.totalDamageDealt / totalDamage : 0
+        }))
+      };
+
+      // Keep defeated boss in state briefly for other clients to see result
+      setTimeout(() => {
+        if (bosses[bossId] && !bosses[bossId].isActive) {
+          delete bosses[bossId];
+          saveDataSync(BOSSES_FILE, bosses);
+        }
+      }, 5000);
+    }
+
+    saveDataSync(BOSSES_FILE, bosses);
+
+    res.json({
+      success: true,
+      currentHp: newHp,
+      defeated,
+      lootInfo,
+      yourDamage: boss.fighters[userId]?.totalDamageDealt || 0,
+      fighterCount: Object.keys(boss.fighters).length
+    });
+  } catch (err) {
+    console.error('Boss damage error:', err);
+    res.status(500).json({ message: 'Failed to record damage' });
+  }
+});
+
+// POST /api/boss/leave - Leave a boss fight (flee)
+app.post('/api/boss/leave', authMiddleware, (req, res) => {
+  try {
+    const { bossId } = req.body;
+    const userId = req.user.id;
+
+    if (!bossId) {
+      return res.status(400).json({ message: 'bossId required' });
+    }
+
+    const boss = bosses[bossId];
+
+    if (boss && boss.fighters[userId]) {
+      delete boss.fighters[userId];
+
+      // If no fighters left, end the fight
+      if (Object.keys(boss.fighters).length === 0) {
+        delete bosses[bossId];
+      }
+
+      saveDataSync(BOSSES_FILE, bosses);
+    }
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Boss leave error:', err);
+    res.status(500).json({ message: 'Failed to leave boss fight' });
+  }
+});
+
+// ============================================
 // HEALTH CHECK (for hosting providers)
 // ============================================
 
@@ -551,6 +801,10 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log('  GET  /api/load            Load game progress');
   console.log('  GET  /api/location/players Get players at location');
   console.log('  GET  /api/leaderboard     View top players');
+  console.log('  GET  /api/boss/state      Get boss fight state');
+  console.log('  POST /api/boss/join       Join boss fight');
+  console.log('  POST /api/boss/damage     Record boss damage');
+  console.log('  POST /api/boss/leave      Leave boss fight');
   console.log('  GET  /api/health          Health check');
   console.log('═══════════════════════════════════════════════════════════');
   console.log('');

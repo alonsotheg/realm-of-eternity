@@ -572,7 +572,7 @@
       position: relative;
       width: 100%;
       aspect-ratio: 1;
-      max-width: 236px;
+      max-width: 320px;
       margin: 0 auto;
       border-radius: 50%;
       overflow: hidden;
@@ -596,13 +596,13 @@
     .map-node {
       position: absolute;
       transform: translate(-50%, -50%);
-      width: 36px;
-      height: 36px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 13px;
       cursor: pointer;
       transition: all 0.2s ease;
       border: 2px solid transparent;
@@ -613,9 +613,9 @@
     /* Touch-friendly sizing */
     @media (pointer: coarse) {
       .map-node {
-        width: 44px;
-        height: 44px;
-        font-size: 18px;
+        width: 38px;
+        height: 38px;
+        font-size: 15px;
       }
     }
 
@@ -805,18 +805,20 @@
       "cave": ["starter-village", "volcanic-plain"],
       "fishing-pond": ["starter-village", "volcanic-plain"],
       "volcanic-plain": ["cave", "fishing-pond", "mountains"],
-      "mountains": ["forest", "volcanic-plain"]
+      "mountains": ["forest", "volcanic-plain", "devils-port"],
+      "devils-port": ["mountains"]
     };
 
     // MAP NODE POSITIONS AND ICONS - Geographic layout for island map
     const LOCATION_MAP_DATA = {
-      "starter-village": { icon: "🏘️", name: "Starter Village", position: { top: "50%", left: "45%" } },
-      "blacksmith": { icon: "🔨", name: "Blacksmith", position: { top: "55%", left: "30%" } },
-      "forest": { icon: "🌲", name: "Forest", position: { top: "20%", left: "55%" } },
-      "cave": { icon: "🕳️", name: "Cave", position: { top: "45%", left: "75%" } },
-      "fishing-pond": { icon: "🎣", name: "Fishing Pond", position: { top: "70%", left: "65%" } },
-      "volcanic-plain": { icon: "🌋", name: "Volcanic Plain", position: { top: "85%", left: "40%" } },
-      "mountains": { icon: "⛰️", name: "Mountains", position: { top: "15%", left: "25%" } }
+      "starter-village": { icon: "🏘️", name: "Starter Village", position: { top: "52%", left: "57%" } },
+      "blacksmith": { icon: "🔨", name: "Blacksmith", position: { top: "59%", left: "41%" } },
+      "forest": { icon: "🌲", name: "Forest", position: { top: "28%", left: "67%" } },
+      "cave": { icon: "🕳️", name: "Cave", position: { top: "49%", left: "81%" } },
+      "fishing-pond": { icon: "🎣", name: "Fishing Pond", position: { top: "72%", left: "71%" } },
+      "volcanic-plain": { icon: "🌋", name: "Volcanic Plain", position: { top: "86%", left: "51%" } },
+      "mountains": { icon: "⛰️", name: "Mountains", position: { top: "24%", left: "39%" } },
+      "devils-port": { icon: "⚓", name: "Devil's Port", position: { top: "16%", left: "23%" } }
     };
 
     // SCENE IMAGE CONFIGURATION
@@ -831,7 +833,8 @@
         "blacksmith": "assets/scenes/blacksmith.png",
         "fishing-pond": "assets/scenes/fishing_pond.png",
         "mountains": "assets/scenes/mountains.png",
-        "volcanic-plain": "assets/scenes/volcanic_plain.png"
+        "volcanic-plain": "assets/scenes/volcanic_plain.png",
+        "devils-port": "assets/scenes/devils_port.png"
       },
       // Traveling images - shown during travel animation
       traveling: {
@@ -853,7 +856,8 @@
         "Ash Drake": "assets/scenes/combat_ash_drake.png",
         "Golem": "assets/scenes/combat_golem.png",
         "Dragon": "assets/scenes/combat_dragon.png",
-        "Elder Dragon": "assets/scenes/combat_elder_dragon.png"
+        "Elder Dragon": "assets/scenes/combat_elder_dragon.png",
+        "Hydra": "assets/scenes/combat_hydra.png"
       },
       // Skilling images - shown when training skills
       skilling: {
@@ -1807,7 +1811,7 @@
             { item: "dragon_sword", chance: 0.01, min: 1, max: 1 },
             { item: "steel_platelegs", chance: 0.03, min: 1, max: 1 }
           ] },
-          { name: "Elder Dragon", icon: "🐲", level: 40, hp: 30000, attack: 1200, gold: 1000, exp: 5000, drops: [
+          { name: "Elder Dragon", icon: "🐲", level: 50, hp: 30000, attack: 1200, gold: 1000, exp: 5000, drops: [
             // Common drops - Resources & Food
             { item: "elder_scale", chance: 0.50, min: 1, max: 3 },
             { item: "dragon_scale", chance: 0.50, min: 1, max: 3 },
@@ -1849,6 +1853,37 @@
             { item: "elder_sword", chance: 0.03, min: 1, max: 1 },
             { item: "fortune_potion", chance: 0.02, min: 1, max: 1 }
           ] }
+        ]
+      },
+      "devils-port": {
+        skills: [],
+        enemies: [
+          {
+            name: "Hydra",
+            icon: "🐍",
+            level: 60,
+            hp: 255000,
+            attack: 1500,
+            gold: 2000,
+            exp: 10000,
+            supportsGroupFight: true,
+            sharedBossId: "hydra_devils_port",
+            drops: [
+              { item: "iron", chance: 0.50, min: 8, max: 20 },
+              { item: "coal", chance: 0.45, min: 6, max: 15 },
+              { item: "pearl", chance: 0.40, min: 2, max: 5 },
+              { item: "ember_gem", chance: 0.35, min: 1, max: 3 },
+              { item: "cooked_salmon", chance: 0.50, min: 4, max: 10 },
+              { item: "superior_healing_potion", chance: 0.40, min: 2, max: 4 },
+              { item: "steel_platebody", chance: 0.25, min: 1, max: 1 },
+              { item: "steel_platelegs", chance: 0.22, min: 1, max: 1 },
+              { item: "steel_shield", chance: 0.20, min: 1, max: 1 },
+              { item: "dragon_sword", chance: 0.15, min: 1, max: 1 },
+              { item: "golden_chest", chance: 0.20, min: 1, max: 2 },
+              { item: "elder_sword_blueprint", chance: 0.08, min: 1, max: 1 },
+              { item: "dragon_familiar", chance: 0.08, min: 1, max: 1 }
+            ]
+          }
         ]
       }
     };
@@ -2045,8 +2080,11 @@
       // SKILLS / QUESTS / EQUIPMENT TABS
       const [activeLeftTab, setActiveLeftTab] = useState('skills'); // 'skills' | 'quests' | 'equipment'
 
-      // ADVENTURER PANEL VIEW STATE - Toggle between info and map
-      const [adventurerView, setAdventurerView] = useState('info'); // 'info' | 'map'
+      // SHARED BOSS STATE - For group fights (future multiplayer ready)
+      const [sharedBossState, setSharedBossState] = useState(() => {
+        const saved = localStorage.getItem("sharedBossState");
+        return saved ? JSON.parse(saved) : {};
+      });
 
       // QUEST STATE
       const [quests, setQuests] = useState([
@@ -2104,6 +2142,7 @@
       // ═══════════════════════════════════════════════════════════════════════════
       const [playersHere, setPlayersHere] = useState([]);
       const playersRefreshRef = useRef(null);
+      const [saveStatus, setSaveStatus] = useState(null); // null, "saving", "saved", "error"
 
       // ═══════════════════════════════════════════════════════════════════════════
       // PLAYER IDENTITY HELPER
@@ -2168,6 +2207,40 @@
         if (isAuthenticated && authToken) {
           pendingReasonRef.current = reason;
         }
+      }
+
+      // Manual save function for user-triggered saves
+      async function manualSave() {
+        if (!isAuthenticated || !authToken) {
+          setSaveStatus("error");
+          setTimeout(() => setSaveStatus(null), 2000);
+          return;
+        }
+        setSaveStatus("saving");
+        try {
+          const res = await fetch('/api/save', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({
+              player,
+              playerIdentity: getPlayerIdentity(),
+              timestamp: Date.now(),
+              reason: "manual_save"
+            })
+          });
+          if (res.ok) {
+            setSaveStatus("saved");
+            lastSaveTimeRef.current = Date.now();
+          } else {
+            setSaveStatus("error");
+          }
+        } catch (err) {
+          setSaveStatus("error");
+        }
+        setTimeout(() => setSaveStatus(null), 2000);
       }
 
       // ═══════════════════════════════════════════════════════════════════════════
@@ -2265,11 +2338,9 @@
       }
 
       function handleLogout() {
-        // Flush any pending server save before auth state is cleared.
-        // player and authToken in this closure ARE current: the user just clicked
-        // a button, so this handler is from the latest committed render.
-        if (pendingReasonRef.current !== null && isAuthenticated && authToken) {
-          performServerSave(player, "logout_flush");
+        // ALWAYS save on logout to ensure data persistence
+        if (isAuthenticated && authToken) {
+          performServerSave(player, "logout");
           pendingReasonRef.current = null;
         }
         if (saveTimeoutRef.current) {
@@ -2338,6 +2409,34 @@
         document.addEventListener('visibilitychange', handleVisibilityChange);
         return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
       }, []);
+
+      // ═══════════════════════════════════════════════════════════════════════════
+      // SAVE ON BROWSER CLOSE/NAVIGATE AWAY - Critical for data persistence
+      // ═══════════════════════════════════════════════════════════════════════════
+      useEffect(() => {
+        const handleBeforeUnload = () => {
+          if (isAuthenticated && authToken) {
+            // Use fetch with keepalive for reliable save on page unload
+            const latestPlayer = JSON.parse(localStorage.getItem("player")) || player;
+            fetch('/api/save', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+              },
+              body: JSON.stringify({
+                player: latestPlayer,
+                playerIdentity: getPlayerIdentity(),
+                timestamp: Date.now(),
+                reason: "page_unload"
+              }),
+              keepalive: true // Ensures request completes even if page unloads
+            }).catch(() => {}); // Ignore errors on unload
+          }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+      }, [isAuthenticated, authToken, player]);
 
       // ═══════════════════════════════════════════════════════════════════════════
       // FETCH PLAYERS AT CURRENT LOCATION (every 30 seconds)
@@ -2410,6 +2509,7 @@
       useEffect(() => localStorage.setItem("combatLog", JSON.stringify(combatLog)), [combatLog]);
       useEffect(() => localStorage.setItem("activePotions", JSON.stringify(activePotions)), [activePotions]);
       useEffect(() => localStorage.setItem("playingOffline", playingOffline ? "true" : "false"), [playingOffline]);
+      useEffect(() => localStorage.setItem("sharedBossState", JSON.stringify(sharedBossState)), [sharedBossState]);
       const currentLocation = locations[player.location] || { skills: [], enemies: [] };
 
       // FARMING GROWTH TIMER - Check plots every second
@@ -3171,6 +3271,203 @@
         };
       }
 
+      // GROUP FIGHT FUNCTIONS - Server-synced multiplayer boss fights
+      const bossPollingRef = useRef(null);
+
+      async function joinGroupFight(enemyData) {
+        if (!isAuthenticated || !authToken) {
+          setCombatLog(prev => [...prev, "⚠️ Must be logged in for group fights!"]);
+          return;
+        }
+
+        const bossId = enemyData.sharedBossId;
+
+        try {
+          const res = await fetch('/api/boss/join', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({
+              bossId,
+              bossData: { hp: enemyData.hp, name: enemyData.name }
+            })
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            // Update local state with server data
+            setSharedBossState(prev => ({
+              ...prev,
+              [bossId]: {
+                bossId,
+                maxHp: data.boss.maxHp,
+                currentHp: data.boss.currentHp,
+                isActive: true,
+                fighterCount: data.boss.fighterCount,
+                activeFighters: {} // Will be populated by polling
+              }
+            }));
+
+            // Start combat with group fight flag
+            startCombatTask({ ...enemyData, isGroupFight: true });
+
+            // Start polling for boss state updates
+            startBossPolling(bossId);
+          } else {
+            setCombatLog(prev => [...prev, "⚠️ Failed to join group fight"]);
+          }
+        } catch (err) {
+          console.error("Join group fight error:", err);
+          setCombatLog(prev => [...prev, "⚠️ Connection error - group fight unavailable"]);
+        }
+      }
+
+      function startBossPolling(bossId) {
+        // Clear any existing polling
+        if (bossPollingRef.current) {
+          clearInterval(bossPollingRef.current);
+        }
+
+        // Poll every 2 seconds for boss state updates
+        bossPollingRef.current = setInterval(async () => {
+          if (!isAuthenticated || !authToken) return;
+
+          try {
+            const res = await fetch(`/api/boss/state?bossId=${bossId}`, {
+              headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+
+            if (res.ok) {
+              const data = await res.json();
+
+              if (data.active && data.boss) {
+                setSharedBossState(prev => ({
+                  ...prev,
+                  [bossId]: {
+                    ...prev[bossId],
+                    currentHp: data.boss.currentHp,
+                    fighterCount: data.boss.fighterCount,
+                    activeFighters: data.boss.fighters.reduce((acc, f) => {
+                      acc[f.odplayerId] = f;
+                      return acc;
+                    }, {})
+                  }
+                }));
+              } else if (!data.active) {
+                // Boss defeated by others - stop polling
+                stopBossPolling();
+              }
+            }
+          } catch (err) {
+            console.warn("Boss polling error:", err);
+          }
+        }, 2000);
+      }
+
+      function stopBossPolling() {
+        if (bossPollingRef.current) {
+          clearInterval(bossPollingRef.current);
+          bossPollingRef.current = null;
+        }
+      }
+
+      function resetBossState(bossId) {
+        stopBossPolling();
+        setSharedBossState(prev => {
+          const { [bossId]: removed, ...rest } = prev;
+          return rest;
+        });
+      }
+
+      // Handle group fight victory with server-confirmed contribution
+      function handleGroupFightVictory(enemyData, contribution, lootInfo) {
+        const MIN_CONTRIBUTION = 0.05;
+        const meetsMinContribution = contribution >= MIN_CONTRIBUTION;
+
+        setCombatLog(prev => [...prev, `🏆 Boss defeated! Your contribution: ${Math.round(contribution * 100)}%`]);
+
+        if (!meetsMinContribution) {
+          setCombatLog(prev => [...prev, `⚠️ Contribution below ${Math.round(MIN_CONTRIBUTION * 100)}% minimum. No rewards.`]);
+          resetBossState(enemyData.sharedBossId);
+          setEnemy(null);
+          saveGame("group_fight_end");
+          return;
+        }
+
+        // Award scaled rewards
+        let inventory = { ...player.inventory };
+        const rewardScale = contribution;
+
+        let goldDrop = Math.floor(enemyData.gold * (0.5 + Math.random()) * rewardScale);
+        let scaledExp = Math.floor(enemyData.exp * rewardScale);
+
+        setCombatLog(prev => [...prev, `💰 You gained ${goldDrop} gold!`, `🏆 You gained ${scaledExp} XP in ${selectedCombatSkill}!`]);
+
+        // Process drops with scaled chances
+        if (enemyData.drops) {
+          const droppedItems = [];
+          const potionBonuses = getPotionBonuses();
+          enemyData.drops.forEach(drop => {
+            let dropChance = drop.chance * Math.max(0.5, contribution);
+            if (potionBonuses.drop_chance_percent > 0) {
+              dropChance = Math.min(1.0, dropChance * (1 + potionBonuses.drop_chance_percent / 100));
+            }
+            if (Math.random() < dropChance) {
+              const baseQty = Math.floor(Math.random() * (drop.max - drop.min + 1)) + drop.min;
+              const qty = Math.max(1, Math.round(baseQty * rewardScale));
+              inventory[drop.item] = (inventory[drop.item] || 0) + qty;
+              droppedItems.push({ id: drop.item, name: ITEMS_DATA[drop.item]?.name || drop.item, qty });
+            }
+          });
+          if (droppedItems.length > 0) {
+            setCombatLog(prev => [...prev, { type: 'drop', prefix: '✨ You found:', items: droppedItems, suffix: '' }]);
+          }
+        }
+
+        // Apply rewards to player
+        setPlayer(prev => {
+          const potionBonuses = getPotionBonuses();
+          let combatXp = Math.floor(enemyData.exp * rewardScale);
+          let healthXp = Math.floor((enemyData.exp / 3) * rewardScale);
+          if (potionBonuses.skill_xp_percent > 0) {
+            combatXp = Math.floor(combatXp * (1 + potionBonuses.skill_xp_percent / 100));
+            healthXp = Math.floor(healthXp * (1 + potionBonuses.skill_xp_percent / 100));
+          }
+          const combatUpdate = completeSkillCycleWithoutProgress(selectedCombatSkill, prev.skills[selectedCombatSkill], combatXp);
+
+          if (selectedCombatSkill === "health") {
+            const totalHealthXp = combatXp + healthXp;
+            const healthUpdate = completeSkillCycleWithoutProgress("health", prev.skills.health, totalHealthXp);
+            return {
+              ...prev,
+              gold: prev.gold + goldDrop,
+              skills: { ...prev.skills, health: healthUpdate.skill },
+              inventory,
+              maxHp: prev.maxHp + healthUpdate.maxHpIncrease
+            };
+          }
+
+          const healthUpdate = completeSkillCycleWithoutProgress("health", prev.skills.health, healthXp);
+          return {
+            ...prev,
+            gold: prev.gold + goldDrop,
+            skills: {
+              ...prev.skills,
+              [selectedCombatSkill]: combatUpdate.skill,
+              health: healthUpdate.skill
+            },
+            inventory,
+            maxHp: prev.maxHp + healthUpdate.maxHpIncrease
+          };
+        });
+
+        resetBossState(enemyData.sharedBossId);
+        setEnemy(null);
+        saveGame("group_fight_victory");
+      }
+
       function startCombatTask(enemyData) {
         setActiveSkill(null); skillEndTimeRef.current = null;
         skillEndTimeRef.current = null;
@@ -3208,43 +3505,139 @@
         const playerPct = PLAYER_ATTACK_MIN_PCT + Math.random() * (PLAYER_ATTACK_MAX_PCT - PLAYER_ATTACK_MIN_PCT);
         const playerHit = Math.max(1, Math.floor(stats.totalAttack * playerPct));
 
-        const newEnemyHp = enemy.hp - playerHit;
+        // For group fights, track damage contribution and use shared HP
+        let newEnemyHp = enemy.hp - playerHit;
+        let bossDefeated = false;
+        let groupContribution = 1.0; // Default 100% for solo
+
+        if (enemy.isGroupFight && enemy.sharedBossId && isAuthenticated && authToken) {
+          const bossId = enemy.sharedBossId;
+          const playerId = user?.id || "local";
+          const boss = sharedBossState[bossId];
+
+          if (boss) {
+            // Send damage to server
+            fetch('/api/boss/damage', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+              },
+              body: JSON.stringify({ bossId, damage: playerHit })
+            }).then(res => res.json()).then(data => {
+              if (data.success) {
+                // Update local state with server response
+                setSharedBossState(prev => ({
+                  ...prev,
+                  [bossId]: {
+                    ...prev[bossId],
+                    currentHp: data.currentHp,
+                    fighterCount: data.fighterCount,
+                    myDamage: data.yourDamage
+                  }
+                }));
+
+                // Handle boss defeat from server
+                if (data.defeated && data.lootInfo) {
+                  const myContrib = data.lootInfo.fighters.find(f => f.odplayerId === user?.id);
+                  if (myContrib) {
+                    handleGroupFightVictory(enemy, myContrib.contribution, data.lootInfo);
+                  }
+                }
+              }
+            }).catch(err => console.warn("Boss damage sync error:", err));
+
+            // Optimistically update local HP
+            const newBossHp = Math.max(0, boss.currentHp - playerHit);
+            const myDamage = (boss.myDamage || 0) + playerHit;
+
+            setSharedBossState(prev => ({
+              ...prev,
+              [bossId]: {
+                ...prev[bossId],
+                currentHp: newBossHp,
+                myDamage: myDamage
+              }
+            }));
+
+            // Use shared HP for display
+            newEnemyHp = newBossHp;
+            bossDefeated = newBossHp <= 0;
+
+            // Estimate contribution
+            const totalAllDamage = boss.maxHp - newBossHp;
+            groupContribution = totalAllDamage > 0 ? myDamage / totalAllDamage : 1.0;
+          }
+        }
 
         // Log player's hit immediately
         setCombatLog(prev => [...prev, `⚔️ You hit ${enemy.name} for ${playerHit} damage!`]);
 
         // If enemy died from this hit, handle defeat (enemy does not retaliate)
-        if (newEnemyHp <= 0) {
+        if (newEnemyHp <= 0 || bossDefeated) {
           let inventory = { ...player.inventory };
-          let goldDrop = Math.floor(enemy.gold * (0.5 + Math.random()));
-          setCombatLog(prev => [...prev, `💰 You gained ${goldDrop} gold!`, `🏆 You gained ${enemy.exp} XP in ${selectedCombatSkill}!`] );
 
-          if (enemy.drops) {
-            const droppedItems = [];
-            const potionBonuses = getPotionBonuses();
-            enemy.drops.forEach(drop => {
-              // Apply potion drop chance bonus
-              let dropChance = drop.chance;
-              if (potionBonuses.drop_chance_percent > 0) {
-                dropChance = Math.min(1.0, dropChance * (1 + potionBonuses.drop_chance_percent / 100));
+          // GROUP FIGHT: Check minimum contribution (5%)
+          const MIN_CONTRIBUTION = 0.05;
+          const isGroupFight = enemy.isGroupFight && enemy.sharedBossId;
+          const meetsMinContribution = !isGroupFight || groupContribution >= MIN_CONTRIBUTION;
+
+          if (isGroupFight) {
+            setCombatLog(prev => [...prev, `🏆 Boss defeated! Your contribution: ${Math.round(groupContribution * 100)}%`]);
+          }
+
+          if (!meetsMinContribution) {
+            setCombatLog(prev => [...prev, `⚠️ Contribution below ${Math.round(MIN_CONTRIBUTION * 100)}% minimum. No rewards.`]);
+          } else {
+            // Scale rewards by contribution (100% for solo, scaled for group)
+            const rewardScale = isGroupFight ? groupContribution : 1.0;
+            let goldDrop = Math.floor(enemy.gold * (0.5 + Math.random()) * rewardScale);
+            let scaledExp = Math.floor(enemy.exp * rewardScale);
+
+            setCombatLog(prev => [...prev, `💰 You gained ${goldDrop} gold!`, `🏆 You gained ${scaledExp} XP in ${selectedCombatSkill}!`]);
+
+            if (enemy.drops) {
+              const droppedItems = [];
+              const potionBonuses = getPotionBonuses();
+              enemy.drops.forEach(drop => {
+                // Scale drop chance by contribution (minimum 50% of base chance for group fights)
+                let dropChance = drop.chance;
+                if (isGroupFight) {
+                  dropChance = drop.chance * Math.max(0.5, groupContribution);
+                }
+                if (potionBonuses.drop_chance_percent > 0) {
+                  dropChance = Math.min(1.0, dropChance * (1 + potionBonuses.drop_chance_percent / 100));
+                }
+                if (Math.random() < dropChance) {
+                  // Scale quantity by contribution for group fights
+                  const baseQty = Math.floor(Math.random() * (drop.max - drop.min + 1)) + drop.min;
+                  const qty = isGroupFight ? Math.max(1, Math.round(baseQty * rewardScale)) : baseQty;
+                  inventory[drop.item] = (inventory[drop.item] || 0) + qty;
+                  droppedItems.push({ id: drop.item, name: ITEMS_DATA[drop.item]?.name || drop.item, qty });
+                }
+              });
+              if (droppedItems.length > 0) {
+                setCombatLog(prev => [...prev, { type: 'drop', prefix: '✨ You found:', items: droppedItems, suffix: '' }]);
               }
-              if (Math.random() < dropChance) {
-                const qty = Math.floor(Math.random() * (drop.max - drop.min + 1)) + drop.min;
-                inventory[drop.item] = (inventory[drop.item] || 0) + qty;
-                droppedItems.push({ id: drop.item, name: ITEMS_DATA[drop.item]?.name || drop.item, qty });
-              }
-            });
-            if (droppedItems.length > 0) {
-              setCombatLog(prev => [...prev, { type: 'drop', prefix: '✨ You found:', items: droppedItems, suffix: '' }]);
             }
           }
 
-          // Apply skill XP and rewards
+          // Reset boss state for group fights
+          if (isGroupFight) {
+            resetBossState(enemy.sharedBossId);
+          }
+
+          // Apply skill XP and rewards (only if meets minimum contribution)
           setPlayer(prev => {
-            // Apply potion XP bonus to combat XP
+            if (!meetsMinContribution) {
+              return prev; // No rewards if below minimum contribution
+            }
+
             const potionBonuses = getPotionBonuses();
-            let combatXp = enemy.exp;
-            let healthXp = Math.floor(enemy.exp / 3);
+            const rewardScale = isGroupFight ? groupContribution : 1.0;
+            let combatXp = Math.floor(enemy.exp * rewardScale);
+            let healthXp = Math.floor((enemy.exp / 3) * rewardScale);
+            let goldDrop = Math.floor(enemy.gold * (0.5 + Math.random()) * rewardScale);
             if (potionBonuses.skill_xp_percent > 0) {
               combatXp = Math.floor(combatXp * (1 + potionBonuses.skill_xp_percent / 100));
               healthXp = Math.floor(healthXp * (1 + potionBonuses.skill_xp_percent / 100));
@@ -3313,7 +3706,12 @@
               respawnTimer.current = setTimeout(() => {
                 if (countdownTimerRef.current) clearInterval(countdownTimerRef.current);
                 setRespawnCountdown(0);
-                startCombatTask(sameTypeEnemy);
+                // Use joinGroupFight for group-capable enemies, startCombatTask for solo
+                if (sameTypeEnemy.supportsGroupFight && sameTypeEnemy.sharedBossId) {
+                  joinGroupFight(sameTypeEnemy);
+                } else {
+                  startCombatTask(sameTypeEnemy);
+                }
               }, 20000);
             }
           }
@@ -4532,220 +4930,292 @@
       const renderPlayerPanel = () => (
         <div className="space-y-3">
           <div className="mobile-side-by-side">
-          {/* Adventurer Panel with Info/Map Toggle */}
+          {/* Map Panel */}
           <div className="panel">
-            {/* Toggle Header */}
-            <div className="panel-header flex items-center justify-between">
-              <span className="text-[10px] font-bold text-gray-400 uppercase">Adventurer</span>
-              <div className="flex gap-1">
-                {['info', 'map'].map(view => (
-                  <button
-                    key={view}
-                    onClick={() => setAdventurerView(view)}
-                    className={`px-3 py-1 rounded text-[11px] font-bold uppercase ${
-                      adventurerView === view
-                        ? 'bg-amber-600/80 text-black'
-                        : 'bg-[#2a2a30] text-gray-500 hover:text-gray-300'
-                    }`}
-                  >
-                    {view === 'info' ? '👤 Info' : '🗺️ Map'}
-                  </button>
-                ))}
+            <div className="panel-header">
+              <span className="text-[10px] font-bold text-gray-400 uppercase">Map</span>
+            </div>
+            <div className="panel-body">
+              <div className="space-y-2">
+                {/* Current Location Label */}
+                <div className="text-center text-[10px] text-gray-400">
+                  Currently at: <span className="text-amber-400 font-bold capitalize">{player.location.replace(/-/g, " ")}</span>
+                </div>
+
+                {/* Travel Status */}
+                {isTraveling && (
+                  <div className="text-center text-[10px] text-indigo-400 font-bold animate-pulse">
+                    🚶 Traveling to {travelDestination.current?.replace(/-/g, " ")}...
+                  </div>
+                )}
+
+                {/* Island Map */}
+                <div className="island-map">
+                  {/* SVG Connection Lines */}
+                  <svg className="map-connections" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    {Object.entries(LOCATION_ADJACENCY).map(([locA, adjacents]) =>
+                      adjacents.map(locB => {
+                        if (locA >= locB) return null;
+                        const posA = LOCATION_MAP_DATA[locA]?.position;
+                        const posB = LOCATION_MAP_DATA[locB]?.position;
+                        if (!posA || !posB) return null;
+                        const isActiveRoute =
+                          (player.location === locA && isAdjacentLocation(locB)) ||
+                          (player.location === locB && isAdjacentLocation(locA));
+                        return (
+                          <line
+                            key={`${locA}-${locB}`}
+                            x1={parseFloat(posA.left)}
+                            y1={parseFloat(posA.top)}
+                            x2={parseFloat(posB.left)}
+                            y2={parseFloat(posB.top)}
+                            className={isActiveRoute ? 'map-connection-line-active' : 'map-connection-line'}
+                          />
+                        );
+                      })
+                    )}
+                  </svg>
+
+                  {/* Location Nodes */}
+                  {Object.entries(LOCATION_MAP_DATA).map(([locId, locData]) => {
+                    const isCurrent = player.location === locId;
+                    const isAdjacent = isAdjacentLocation(locId);
+                    const isDestination = isTraveling && travelDestination.current === locId;
+                    const canTravel = !isTraveling && isAdjacent && !isCurrent;
+
+                    let nodeClass = 'map-node';
+                    if (isCurrent) {
+                      nodeClass += ' map-node-current';
+                    } else if (isDestination) {
+                      nodeClass += ' map-node-destination';
+                    } else if (isTraveling) {
+                      nodeClass += ' map-node-traveling';
+                    } else if (isAdjacent) {
+                      nodeClass += ' map-node-adjacent';
+                    } else {
+                      nodeClass += ' map-node-disabled';
+                    }
+
+                    return (
+                      <button
+                        key={locId}
+                        onClick={() => canTravel && startTravel(locId)}
+                        disabled={!canTravel}
+                        className={nodeClass}
+                        style={{
+                          top: locData.position.top,
+                          left: locData.position.left
+                        }}
+                        title={`${locData.name}${isCurrent ? ' (You are here)' : isAdjacent ? ' - Click to travel' : ' - Not adjacent'}`}
+                      >
+                        <span>{locData.icon}</span>
+                        <span className="map-node-label">{locData.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Legend */}
+                <div className="flex justify-center gap-3 text-[8px] text-gray-500 mt-2">
+                  <span><span className="inline-block w-2 h-2 rounded-full bg-amber-500 mr-1"></span>Current</span>
+                  <span><span className="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span>Adjacent</span>
+                  <span><span className="inline-block w-2 h-2 rounded-full bg-gray-600 mr-1"></span>Distant</span>
+                </div>
               </div>
             </div>
+          </div>
 
+          {/* Adventurer Panel - always visible */}
+          <div className="panel">
+            <div className="panel-header">
+              <span className="text-[10px] font-bold text-gray-400 uppercase">Adventurer</span>
+            </div>
             <div className="panel-body">
-              {/* INFO VIEW - Player Stats */}
-              {adventurerView === 'info' && (
-                <>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded bg-[#2a2a30] border border-[#3a3a42] flex items-center justify-center text-xl">👤</div>
-                    <div>
-                      <h2 className="font-bold text-base text-gray-100 font-heading">{user?.displayName || "Adventurer"}</h2>
-                      <div className="text-[9px] text-gray-500 uppercase font-bold">Combat Lvl {equipmentStats.combatLevel}</div>
-                    </div>
+              {/* Adventurer Information */}
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded bg-[#2a2a30] border border-[#3a3a42] flex items-center justify-center text-xl">👤</div>
+                <div>
+                  <h2 className="font-bold text-base text-gray-100 font-heading">{user?.displayName || "Adventurer"}</h2>
+                  <div className="text-[9px] text-gray-500 uppercase font-bold">Combat Lvl {equipmentStats.combatLevel}</div>
+                </div>
+              </div>
+
+              {/* Location, Gold, Online Status Row */}
+              <div className="grid grid-cols-3 gap-2 mb-3 text-[10px]">
+                <div className="bg-[#1e1e22] p-2 rounded border border-[#2a2a30] text-center">
+                  <div className="text-gray-500 text-[8px] uppercase mb-0.5">Location</div>
+                  <div className="font-bold text-indigo-400 capitalize truncate" title={player.location.replace(/-/g, " ")}>
+                    📍 {player.location.replace(/-/g, " ")}
                   </div>
-
-                  {/* Location, Gold, Online Status Row */}
-                  <div className="grid grid-cols-3 gap-2 mb-3 text-[10px]">
-                    <div className="bg-[#1e1e22] p-2 rounded border border-[#2a2a30] text-center">
-                      <div className="text-gray-500 text-[8px] uppercase mb-0.5">Location</div>
-                      <div className="font-bold text-indigo-400 capitalize truncate" title={player.location.replace(/-/g, " ")}>
-                        📍 {player.location.replace(/-/g, " ")}
-                      </div>
-                    </div>
-                    <div className="bg-[#1e1e22] p-2 rounded border border-[#2a2a30] text-center">
-                      <div className="text-gray-500 text-[8px] uppercase mb-0.5">Gold</div>
-                      <div className="font-bold text-amber-400">💰 {player.gold.toLocaleString()}</div>
-                    </div>
-                    <div className="bg-[#1e1e22] p-2 rounded border border-[#2a2a30] text-center">
-                      <div className="text-gray-500 text-[8px] uppercase mb-0.5">Status</div>
-                      <div className={`font-bold ${user ? 'text-green-400' : 'text-gray-500'}`}>
-                        {user ? '🟢 Online' : '⚫ Offline'}
-                      </div>
-                    </div>
+                </div>
+                <div className="bg-[#1e1e22] p-2 rounded border border-[#2a2a30] text-center">
+                  <div className="text-gray-500 text-[8px] uppercase mb-0.5">Gold</div>
+                  <div className="font-bold text-amber-400">💰 {player.gold.toLocaleString()}</div>
+                </div>
+                <div className="bg-[#1e1e22] p-2 rounded border border-[#2a2a30] text-center">
+                  <div className="text-gray-500 text-[8px] uppercase mb-0.5">Status</div>
+                  <div className={`font-bold ${user ? 'text-green-400' : 'text-gray-500'}`}>
+                    {user ? '🟢 Online' : '⚫ Offline'}
                   </div>
+                </div>
+              </div>
 
-                  {/* Login/Logout Button */}
-                  <div className="mb-3">
-                    {isAuthenticated ? (
-                      <button
-                        onClick={handleLogout}
-                        className="w-full px-3 py-2 text-[10px] font-bold uppercase bg-[#2a2a30] hover:bg-[#35353c] text-gray-400 border border-[#3a3a42] rounded transition-colors"
-                      >
-                        🚪 Logout
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => { localStorage.removeItem("playingOffline"); setPlayingOffline(false); setAuthLoading(false); }}
-                        className="w-full px-3 py-2 text-[10px] font-bold uppercase bg-[#d4a84b] hover:bg-[#f0c060] text-black rounded transition-colors"
-                      >
-                        🔑 Login
-                      </button>
-                    )}
-                  </div>
+              {/* Save & Login/Logout Buttons */}
+              <div className="mb-3 space-y-2">
+                {isAuthenticated && (
+                  <button
+                    onClick={manualSave}
+                    disabled={saveStatus === "saving"}
+                    className={`w-full px-3 py-2 text-[10px] font-bold uppercase rounded transition-colors border ${
+                      saveStatus === "saved" ? "bg-green-600/30 text-green-400 border-green-500/50" :
+                      saveStatus === "error" ? "bg-red-600/30 text-red-400 border-red-500/50" :
+                      saveStatus === "saving" ? "bg-blue-600/30 text-blue-400 border-blue-500/50" :
+                      "bg-[#2a2a30] hover:bg-[#35353c] text-gray-400 border-[#3a3a42]"
+                    }`}
+                  >
+                    {saveStatus === "saving" ? "Saving..." :
+                     saveStatus === "saved" ? "Saved!" :
+                     saveStatus === "error" ? "Save Failed" :
+                     "💾 Save Game"}
+                  </button>
+                )}
+                {isAuthenticated ? (
+                  <button
+                    onClick={handleLogout}
+                    className="w-full px-3 py-2 text-[10px] font-bold uppercase bg-[#2a2a30] hover:bg-[#35353c] text-gray-400 border border-[#3a3a42] rounded transition-colors"
+                  >
+                    🚪 Logout
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => { localStorage.removeItem("playingOffline"); setPlayingOffline(false); setAuthLoading(false); }}
+                    className="w-full px-3 py-2 text-[10px] font-bold uppercase bg-[#d4a84b] hover:bg-[#f0c060] text-black rounded transition-colors"
+                  >
+                    🔑 Login
+                  </button>
+                )}
+              </div>
 
-                  {/* HP Bar */}
-                  <div className="mb-3">
-                    <div className="flex justify-between text-[10px] mb-1">
-                      <span className="text-red-400 font-bold">❤️ Health</span>
-                      <span className="text-gray-400">{player.hp} / {player.maxHp}</span>
-                    </div>
-                    <div className="stat-bar h-2">
-                      <div className="stat-fill bg-red-500" style={{ width: `${(player.hp / player.maxHp) * 100}%` }} />
-                    </div>
-                  </div>
-
-                  {/* Active Potions */}
-                  {activePotions.length > 0 && (
-                    <div className="mb-3 p-2 bg-purple-900/20 border border-purple-700/30 rounded">
-                      <div className="text-[9px] text-purple-400 font-bold mb-1">ACTIVE BUFFS</div>
-                      <div className="space-y-1.5">
-                        {activePotions.map((potion, idx) => {
-                          const remaining = potion.durationMs - (Date.now() - potion.startedAt);
-                          const remainingMin = Math.floor(remaining / 60000);
-                          const remainingSec = Math.floor((remaining % 60000) / 1000);
-                          const potionName = ITEMS_DATA[potion.potionId]?.name || potion.potionId;
-                          const effectDesc = formatPotionEffect(potion.effect);
-                          return (
-                            <div key={idx} className="bg-purple-900/10 p-1 rounded border border-purple-700/20">
-                              <div className="flex items-center justify-between text-[8px]">
-                                <span className="text-purple-300 font-bold flex items-center gap-1"><ItemIcon itemId={potion.potionId} size="text-xs" /> {potionName}</span>
-                                <span className="text-purple-400 font-mono">{remainingMin}:{remainingSec.toString().padStart(2, '0')}</span>
-                              </div>
-                              <div className="text-[7px] text-purple-400/80 mt-0.5">{effectDesc}</div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Combat Stats Row */}
-                  <div className="grid grid-cols-2 gap-2 text-[10px]">
-                    <div className="bg-[#1e1e22] p-2 rounded border border-[#2a2a30]">
-                      <div className="text-gray-500 text-[9px] uppercase mb-0.5">Attack</div>
-                      <div className="font-bold text-amber-300">⚔️ {equipmentStats.totalAttack}</div>
-                      <div className="text-[8px] text-gray-600">{equipmentStats.baseAttack} + {equipmentStats.equipmentAttack}</div>
-                    </div>
-                    <div className="bg-[#1e1e22] p-2 rounded border border-[#2a2a30]">
-                      <div className="text-gray-500 text-[9px] uppercase mb-0.5">Defense</div>
-                      <div className="font-bold text-blue-300">🛡️ {equipmentStats.equipmentDefense}</div>
-                      <div className="text-[8px] text-gray-600">{equipmentStats.damageReductionPct}% reduction</div>
-                    </div>
-                  </div>
-                </>
-              )}
-
-              {/* MAP VIEW - Island Navigation */}
-              {adventurerView === 'map' && (
-                <div className="space-y-2">
-                  {/* Current Location Label */}
-                  <div className="text-center text-[10px] text-gray-400">
-                    Currently at: <span className="text-amber-400 font-bold capitalize">{player.location.replace(/-/g, " ")}</span>
-                  </div>
-
-                  {/* Travel Status */}
-                  {isTraveling && (
-                    <div className="text-center text-[10px] text-indigo-400 font-bold animate-pulse">
-                      🚶 Traveling to {travelDestination.current?.replace(/-/g, " ")}...
-                    </div>
-                  )}
-
-                  {/* Island Map */}
-                  <div className="island-map">
-                    {/* SVG Connection Lines */}
-                    <svg className="map-connections" viewBox="0 0 100 100" preserveAspectRatio="none">
-                      {Object.entries(LOCATION_ADJACENCY).map(([locA, adjacents]) =>
-                        adjacents.map(locB => {
-                          if (locA >= locB) return null;
-                          const posA = LOCATION_MAP_DATA[locA]?.position;
-                          const posB = LOCATION_MAP_DATA[locB]?.position;
-                          if (!posA || !posB) return null;
-                          const isActiveRoute =
-                            (player.location === locA && isAdjacentLocation(locB)) ||
-                            (player.location === locB && isAdjacentLocation(locA));
-                          return (
-                            <line
-                              key={`${locA}-${locB}`}
-                              x1={parseFloat(posA.left)}
-                              y1={parseFloat(posA.top)}
-                              x2={parseFloat(posB.left)}
-                              y2={parseFloat(posB.top)}
-                              className={isActiveRoute ? 'map-connection-line-active' : 'map-connection-line'}
-                            />
-                          );
-                        })
-                      )}
-                    </svg>
-
-                    {/* Location Nodes */}
-                    {Object.entries(LOCATION_MAP_DATA).map(([locId, locData]) => {
-                      const isCurrent = player.location === locId;
-                      const isAdjacent = isAdjacentLocation(locId);
-                      const isDestination = isTraveling && travelDestination.current === locId;
-                      const canTravel = !isTraveling && isAdjacent && !isCurrent;
-
-                      let nodeClass = 'map-node';
-                      if (isCurrent) {
-                        nodeClass += ' map-node-current';
-                      } else if (isDestination) {
-                        nodeClass += ' map-node-destination';
-                      } else if (isTraveling) {
-                        nodeClass += ' map-node-traveling';
-                      } else if (isAdjacent) {
-                        nodeClass += ' map-node-adjacent';
-                      } else {
-                        nodeClass += ' map-node-disabled';
-                      }
-
+              {/* Active Potions */}
+              {activePotions.length > 0 && (
+                <div className="mb-3 p-2 bg-purple-900/20 border border-purple-700/30 rounded">
+                  <div className="text-[9px] text-purple-400 font-bold mb-1">ACTIVE BUFFS</div>
+                  <div className="space-y-1.5">
+                    {activePotions.map((potion, idx) => {
+                      const remaining = potion.durationMs - (Date.now() - potion.startedAt);
+                      const remainingMin = Math.floor(remaining / 60000);
+                      const remainingSec = Math.floor((remaining % 60000) / 1000);
+                      const potionName = ITEMS_DATA[potion.potionId]?.name || potion.potionId;
+                      const effectDesc = formatPotionEffect(potion.effect);
                       return (
-                        <button
-                          key={locId}
-                          onClick={() => canTravel && startTravel(locId)}
-                          disabled={!canTravel}
-                          className={nodeClass}
-                          style={{
-                            top: locData.position.top,
-                            left: locData.position.left
-                          }}
-                          title={`${locData.name}${isCurrent ? ' (You are here)' : isAdjacent ? ' - Click to travel' : ' - Not adjacent'}`}
-                        >
-                          <span>{locData.icon}</span>
-                          <span className="map-node-label">{locData.name}</span>
-                        </button>
+                        <div key={idx} className="bg-purple-900/10 p-1 rounded border border-purple-700/20">
+                          <div className="flex items-center justify-between text-[8px]">
+                            <span className="text-purple-300 font-bold flex items-center gap-1"><ItemIcon itemId={potion.potionId} size="text-xs" /> {potionName}</span>
+                            <span className="text-purple-400 font-mono">{remainingMin}:{remainingSec.toString().padStart(2, '0')}</span>
+                          </div>
+                          <div className="text-[7px] text-purple-400/80 mt-0.5">{effectDesc}</div>
+                        </div>
                       );
                     })}
                   </div>
-
-                  {/* Legend */}
-                  <div className="flex justify-center gap-3 text-[8px] text-gray-500 mt-2">
-                    <span><span className="inline-block w-2 h-2 rounded-full bg-amber-500 mr-1"></span>Current</span>
-                    <span><span className="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span>Adjacent</span>
-                    <span><span className="inline-block w-2 h-2 rounded-full bg-gray-600 mr-1"></span>Distant</span>
-                  </div>
                 </div>
               )}
+
+              {/* HP Bar */}
+              <div className="mb-3">
+                <div className="flex justify-between text-[10px] mb-1">
+                  <span className="text-red-400 font-bold">❤️ Health</span>
+                  <span className="text-gray-400">{player.hp} / {player.maxHp}</span>
+                </div>
+                <div className="stat-bar h-2">
+                  <div className="stat-fill bg-red-500" style={{ width: `${(player.hp / player.maxHp) * 100}%` }} />
+                </div>
+              </div>
+
+              {/* Combat Stats Row */}
+              <div className="grid grid-cols-2 gap-2 text-[10px] mb-3">
+                <div className="bg-[#1e1e22] p-2 rounded border border-[#2a2a30]">
+                  <div className="text-gray-500 text-[9px] uppercase mb-0.5">Attack</div>
+                  <div className="font-bold text-amber-300">⚔️ {equipmentStats.totalAttack}</div>
+                  <div className="text-[8px] text-gray-600">{equipmentStats.baseAttack} + {equipmentStats.equipmentAttack}</div>
+                </div>
+                <div className="bg-[#1e1e22] p-2 rounded border border-[#2a2a30]">
+                  <div className="text-gray-500 text-[9px] uppercase mb-0.5">Defense</div>
+                  <div className="font-bold text-blue-300">🛡️ {equipmentStats.equipmentDefense}</div>
+                  <div className="text-[8px] text-gray-600">{equipmentStats.damageReductionPct}% reduction</div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-4 gap-1">
+                {['weapon', 'head', 'body', 'legs', 'boots', 'offhand', 'accessory', 'tool'].map(slot => {
+                  const item = player.equipment[slot];
+                  const itemData = item ? ITEMS_DATA[item] : null;
+                  return (
+                    <button
+                      key={slot}
+                      onClick={() => item && unequipItem(slot)}
+                      className="item-slot group"
+                      title={item ? `${getItemName(item)} - Click to unequip` : slot}
+                    >
+                      {item ? (
+                        <ItemIcon itemId={item} size="text-xl" />
+                      ) : (
+                        <span className="text-[8px] text-gray-600 uppercase">{slot.slice(0, 3)}</span>
+                      )}
+                      {item && (
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/90 rounded flex items-center justify-center transition-opacity z-10">
+                          <div className="text-[7px] text-center p-1">
+                            <div className="text-gray-200">{getItemName(item)}</div>
+                            {itemData?.attack && <div className="text-amber-400">+{itemData.attack} ATK</div>}
+                            {itemData?.defense && <div className="text-blue-400">+{itemData.defense} DEF</div>}
+                            {itemData && itemData.bonus && itemData.bonus.skill && (
+                              <div className="text-yellow-400 mt-0.5">Reduces {itemData.bonus.skill} time by {Math.round((1 - itemData.bonus.multiplier) * 100)}%</div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Familiars */}
+              <div className="text-[9px] text-purple-400/70 uppercase font-bold mt-3 mb-1">Familiars</div>
+              <div className="grid grid-cols-3 gap-1">
+                {[1, 2, 3].map(slotNum => {
+                  const slot = `familiar${slotNum}`;
+                  const item = player.equipment[slot];
+                  const itemData = item ? ITEMS_DATA[item] : null;
+                  const isUnlocked = isFamiliarSlotUnlocked(slotNum);
+                  const reqLevel = slotNum * 10;
+                  return (
+                    <button
+                      key={slot}
+                      onClick={() => item && isUnlocked && unequipItem(slot)}
+                      disabled={!isUnlocked}
+                      className={`item-slot group ${!isUnlocked ? 'opacity-40 bg-red-900/20' : ''}`}
+                      title={!isUnlocked ? `Requires Combat Lvl ${reqLevel}` : item ? getItemName(item) : 'Empty'}
+                    >
+                      {!isUnlocked ? (
+                        <span className="text-[8px] text-red-400">🔒{reqLevel}</span>
+                      ) : item ? (
+                        <ItemIcon itemId={item} size="text-xl" />
+                      ) : (
+                        <span className="text-[8px] text-gray-600">F{slotNum}</span>
+                      )}
+                      {item && (
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/90 rounded flex items-center justify-center transition-opacity z-10">
+                          <div className="text-[7px] text-center p-1">
+                            <div className="text-gray-200">{getItemName(item)}</div>
+                            {itemData?.attack && <div className="text-amber-400">+{itemData.attack} ATK</div>}
+                            {itemData?.defense && <div className="text-blue-400">+{itemData.defense} DEF</div>}
+                          </div>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -4935,85 +5405,6 @@
             </div>
           )}
           </div>{/* End skills/quests section */}
-
-          {/* Equipment Panel - always visible */}
-          <div className="panel">
-            <div className="panel-header">
-              <span className="text-[10px] font-bold text-gray-400 uppercase">Equipment</span>
-            </div>
-            <div className="panel-body">
-              <div className="grid grid-cols-4 gap-1">
-                {['weapon', 'head', 'body', 'legs', 'boots', 'offhand', 'accessory', 'tool'].map(slot => {
-                  const item = player.equipment[slot];
-                  const itemData = item ? ITEMS_DATA[item] : null;
-                  return (
-                    <button
-                      key={slot}
-                      onClick={() => item && unequipItem(slot)}
-                      className="item-slot group"
-                      title={item ? `${getItemName(item)} - Click to unequip` : slot}
-                    >
-                      {item ? (
-                        <ItemIcon itemId={item} size="text-xl" />
-                      ) : (
-                        <span className="text-[8px] text-gray-600 uppercase">{slot.slice(0, 3)}</span>
-                      )}
-                      {item && (
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/90 rounded flex items-center justify-center transition-opacity z-10">
-                          <div className="text-[7px] text-center p-1">
-                            <div className="text-gray-200">{getItemName(item)}</div>
-                            {itemData?.attack && <div className="text-amber-400">+{itemData.attack} ATK</div>}
-                            {itemData?.defense && <div className="text-blue-400">+{itemData.defense} DEF</div>}
-                            {itemData && itemData.bonus && itemData.bonus.skill && (
-                              <div className="text-yellow-400 mt-0.5">Reduces {itemData.bonus.skill} time by {Math.round((1 - itemData.bonus.multiplier) * 100)}%</div>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Familiars */}
-              <div className="text-[9px] text-purple-400/70 uppercase font-bold mt-3 mb-1">Familiars</div>
-              <div className="grid grid-cols-3 gap-1">
-                {[1, 2, 3].map(slotNum => {
-                  const slot = `familiar${slotNum}`;
-                  const item = player.equipment[slot];
-                  const itemData = item ? ITEMS_DATA[item] : null;
-                  const isUnlocked = isFamiliarSlotUnlocked(slotNum);
-                  const reqLevel = slotNum * 10;
-                  return (
-                    <button
-                      key={slot}
-                      onClick={() => item && isUnlocked && unequipItem(slot)}
-                      disabled={!isUnlocked}
-                      className={`item-slot group ${!isUnlocked ? 'opacity-40 bg-red-900/20' : ''}`}
-                      title={!isUnlocked ? `Requires Combat Lvl ${reqLevel}` : item ? getItemName(item) : 'Empty'}
-                    >
-                      {!isUnlocked ? (
-                        <span className="text-[8px] text-red-400">🔒{reqLevel}</span>
-                      ) : item ? (
-                        <ItemIcon itemId={item} size="text-xl" />
-                      ) : (
-                        <span className="text-[8px] text-gray-600">F{slotNum}</span>
-                      )}
-                      {item && (
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/90 rounded flex items-center justify-center transition-opacity z-10">
-                          <div className="text-[7px] text-center p-1">
-                            <div className="text-gray-200">{getItemName(item)}</div>
-                            {itemData?.attack && <div className="text-amber-400">+{itemData.attack} ATK</div>}
-                            {itemData?.defense && <div className="text-blue-400">+{itemData.defense} DEF</div>}
-                          </div>
-                        </div>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
           </div>{/* End mobile-side-by-side */}
         </div>
       );
@@ -5168,9 +5559,66 @@
                     </div>
                     <div className="text-right">
                       <div className="text-[10px] text-gray-400 mb-1">{enemy.name} (Lvl {enemy.level})</div>
-                      <ProgressBar progress={(enemy.hp / enemy.maxHp) * 100} color="bg-red-600" sublabel={`${enemy.hp}/${enemy.maxHp}`} />
+                      {/* Use shared HP for group fights */}
+                      {enemy.isGroupFight && enemy.sharedBossId && sharedBossState[enemy.sharedBossId] ? (
+                        <ProgressBar
+                          progress={(sharedBossState[enemy.sharedBossId].currentHp / sharedBossState[enemy.sharedBossId].maxHp) * 100}
+                          color="bg-red-600"
+                          sublabel={`${sharedBossState[enemy.sharedBossId].currentHp}/${sharedBossState[enemy.sharedBossId].maxHp}`}
+                        />
+                      ) : (
+                        <ProgressBar progress={(enemy.hp / enemy.maxHp) * 100} color="bg-red-600" sublabel={`${enemy.hp}/${enemy.maxHp}`} />
+                      )}
                     </div>
                   </div>
+
+                  {/* Group Fight Info */}
+                  {enemy.isGroupFight && enemy.sharedBossId && sharedBossState[enemy.sharedBossId] && (() => {
+                    const boss = sharedBossState[enemy.sharedBossId];
+                    const myDamage = boss.myDamage || boss.activeFighters?.[user?.id]?.totalDamageDealt || 0;
+                    const totalDamage = boss.maxHp - boss.currentHp;
+                    const fighterCount = boss.fighterCount || Object.keys(boss.activeFighters || {}).length || 1;
+                    const contribution = totalDamage > 0 ? Math.round((myDamage / totalDamage) * 100) : 0;
+
+                    return (
+                      <div className="p-2 bg-purple-900/20 rounded border border-purple-500/30">
+                        <div className="flex justify-between items-center text-[9px]">
+                          <span className="text-purple-400 font-bold">⚔️ Group Fight</span>
+                          <span className="text-gray-400">
+                            {fighterCount} fighter(s)
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 mt-1 text-[9px]">
+                          <div>
+                            <span className="text-gray-500">Your damage: </span>
+                            <span className="text-amber-400 font-bold">{myDamage.toLocaleString()}</span>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-gray-500">Total: </span>
+                            <span className="text-gray-300 font-bold">{totalDamage.toLocaleString()}</span>
+                          </div>
+                        </div>
+                        <div className="text-[9px] text-gray-500 mt-1">
+                          Contribution: <span className="text-purple-400 font-bold">{contribution}%</span>
+                        </div>
+                        {/* Show other fighters */}
+                        {boss.activeFighters && Object.keys(boss.activeFighters).length > 1 && (
+                          <div className="mt-2 pt-2 border-t border-purple-500/20">
+                            <div className="text-[8px] text-gray-500 mb-1">Other Fighters:</div>
+                            <div className="flex flex-wrap gap-1">
+                              {Object.values(boss.activeFighters)
+                                .filter(f => f.odplayerId !== user?.id)
+                                .map(f => (
+                                  <span key={f.odplayerId} className="text-[8px] px-1.5 py-0.5 bg-purple-900/30 rounded text-purple-300">
+                                    {f.displayName}: {f.totalDamageDealt?.toLocaleString() || 0}
+                                  </span>
+                                ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
 
                   {/* Attack Timer */}
                   {autoCombatEnabled && combatStartTime.current && (
@@ -5182,7 +5630,21 @@
                     <button onClick={attackEnemy} className="flex-1 btn-primary py-2 rounded text-[11px] font-bold uppercase">
                       ⚔️ Attack
                     </button>
-                    <button onClick={() => setEnemy(null)} className="px-4 py-2 btn-action rounded text-[11px] font-bold text-gray-400">
+                    <button onClick={() => {
+                      // Leave group fight if applicable
+                      if (enemy?.isGroupFight && enemy?.sharedBossId && isAuthenticated && authToken) {
+                        fetch('/api/boss/leave', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${authToken}`
+                          },
+                          body: JSON.stringify({ bossId: enemy.sharedBossId })
+                        }).catch(() => {});
+                        resetBossState(enemy.sharedBossId);
+                      }
+                      setEnemy(null);
+                    }} className="px-4 py-2 btn-action rounded text-[11px] font-bold text-gray-400">
                       Run
                     </button>
                   </div>
@@ -5262,21 +5724,44 @@
                     </div>
                   ) : (
                     <div className="space-y-1.5">
-                      {currentLocation.enemies.map((e, i) => (
-                        <button 
-                          key={i}
-                          onClick={() => startCombatTask(e)}
-                          className="w-full btn-action p-2 rounded flex items-center justify-between group"
-                        >
-                          <div className="flex items-center gap-2">
-                            <div className="text-left">
-                              <div className="text-[11px] font-bold text-gray-200 group-hover:text-amber-400">{e.name}</div>
-                              <div className="text-[9px] text-gray-500">Lvl {e.level} • HP {e.hp}</div>
+                      {currentLocation.enemies.map((e, i) => {
+                        const isGroupCapable = e.supportsGroupFight && e.sharedBossId;
+                        const activeBoss = isGroupCapable && sharedBossState[e.sharedBossId];
+                        const bossIsActive = activeBoss?.isActive;
+
+                        return (
+                          <button
+                            key={i}
+                            onClick={() => isGroupCapable ? joinGroupFight(e) : startCombatTask(e)}
+                            className={`w-full btn-action p-2 rounded flex items-center justify-between group ${isGroupCapable ? 'border border-purple-500/30' : ''}`}
+                          >
+                            <div className="flex items-center gap-2">
+                              <div className="text-left">
+                                <div className="text-[11px] font-bold text-gray-200 group-hover:text-amber-400">
+                                  {isGroupCapable && <span className="text-purple-400 mr-1">⚔️</span>}
+                                  {e.name}
+                                </div>
+                                <div className="text-[9px] text-gray-500">
+                                  Lvl {e.level} • HP {bossIsActive ? `${activeBoss.currentHp}/${activeBoss.maxHp}` : e.hp}
+                                </div>
+                                {bossIsActive && (
+                                  <div className="text-[8px] text-purple-400">
+                                    {Object.keys(activeBoss.activeFighters).length} fighter(s) active
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                          <div className="text-[9px] text-gray-500">+{e.exp} XP</div>
-                        </button>
-                      ))}
+                            <div className="text-right">
+                              <div className="text-[9px] text-gray-500">+{e.exp} XP</div>
+                              {isGroupCapable && (
+                                <div className="text-[8px] text-purple-400 font-bold">
+                                  {bossIsActive ? 'Join Fight' : 'Group Boss'}
+                                </div>
+                              )}
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
 
@@ -5443,6 +5928,92 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* Devil's Port Features */}
+          {player.location === "devils-port" && (
+            <div className="panel">
+              <div className="panel-header">
+                <span className="text-[10px] font-bold text-gray-400 uppercase">Devil's Port</span>
+              </div>
+              <div className="panel-body space-y-3">
+
+                {/* Sea Travel Placeholder */}
+                <div className="bg-[#1e1e22] p-3 rounded border border-[#2a2a30]">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-[11px] font-bold text-blue-400">⛵ Sea Travel</div>
+                      <div className="text-[9px] text-gray-500">Sail to distant shores</div>
+                    </div>
+                    <button disabled className="px-3 py-1 bg-gray-700 text-gray-500 rounded text-[10px] cursor-not-allowed">
+                      Sail to Unknown Island - Coming Soon
+                    </button>
+                  </div>
+                </div>
+
+                {/* Group Fight - Hydra Boss Status */}
+                <div className="bg-[#1e1e22] p-3 rounded border border-purple-500/30">
+                  <div className="flex items-center justify-between mb-2">
+                    <div>
+                      <div className="text-[11px] font-bold text-purple-400">⚔️ Group Combat - Hydra</div>
+                      <div className="text-[9px] text-gray-500">
+                        {sharedBossState["hydra_devils_port"]?.isActive
+                          ? `${Object.keys(sharedBossState["hydra_devils_port"].activeFighters).length} fighter(s) battling`
+                          : "Challenge the mighty Hydra"
+                        }
+                      </div>
+                    </div>
+                  </div>
+                  {sharedBossState["hydra_devils_port"]?.isActive && (
+                    <div className="mb-2">
+                      <div className="flex justify-between text-[9px] text-gray-400 mb-1">
+                        <span>Boss HP</span>
+                        <span>{sharedBossState["hydra_devils_port"].currentHp} / {sharedBossState["hydra_devils_port"].maxHp}</span>
+                      </div>
+                      <div className="w-full h-2 bg-gray-700 rounded overflow-hidden">
+                        <div
+                          className="h-full bg-red-600 transition-all"
+                          style={{ width: `${(sharedBossState["hydra_devils_port"].currentHp / sharedBossState["hydra_devils_port"].maxHp) * 100}%` }}
+                        />
+                      </div>
+                      {sharedBossState["hydra_devils_port"].activeFighters["player_local"] && (
+                        <div className="text-[8px] text-amber-400 mt-1">
+                          Your damage: {sharedBossState["hydra_devils_port"].activeFighters["player_local"].totalDamageDealt}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  <button
+                    onClick={() => {
+                      const hydra = currentLocation.enemies.find(e => e.sharedBossId === "hydra_devils_port");
+                      if (hydra) joinGroupFight(hydra);
+                    }}
+                    disabled={enemy !== null}
+                    className={`w-full px-3 py-2 rounded text-[10px] font-bold ${
+                      enemy !== null
+                        ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                        : 'bg-purple-600 hover:bg-purple-500 text-white'
+                    }`}
+                  >
+                    {enemy !== null ? 'Already in Combat' : sharedBossState["hydra_devils_port"]?.isActive ? 'Join Group Fight' : 'Start Hydra Fight'}
+                  </button>
+                </div>
+
+                {/* Trading Placeholder */}
+                <div className="bg-[#1e1e22] p-3 rounded border border-[#2a2a30]">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-[11px] font-bold text-amber-400">💰 Trading Post</div>
+                      <div className="text-[9px] text-gray-500">Exchange goods with players</div>
+                    </div>
+                    <button disabled className="px-3 py-1 bg-gray-700 text-gray-500 rounded text-[10px] cursor-not-allowed">
+                      Player Trading - Coming Soon
+                    </button>
+                  </div>
+                </div>
+
               </div>
             </div>
           )}
