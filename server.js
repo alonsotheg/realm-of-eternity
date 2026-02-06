@@ -14,7 +14,7 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -50,11 +50,10 @@ let auctionsCollection = null;
 let countersCollection = null;
 
 const mongoClient = new MongoClient(MONGODB_URI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+  tls: true,
+  tlsAllowInvalidCertificates: false,
+  retryWrites: true,
+  w: 'majority'
 });
 
 async function connectToMongoDB() {
