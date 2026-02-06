@@ -49,12 +49,7 @@ let tradesCollection = null;
 let auctionsCollection = null;
 let countersCollection = null;
 
-const mongoClient = new MongoClient(MONGODB_URI, {
-  tls: true,
-  tlsAllowInvalidCertificates: false,
-  retryWrites: true,
-  w: 'majority'
-});
+const mongoClient = new MongoClient(MONGODB_URI);
 
 async function connectToMongoDB() {
   try {
