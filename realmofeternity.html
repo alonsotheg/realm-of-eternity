@@ -4074,8 +4074,8 @@
               setMyConfirmed(isInitiator ? data.trade.initiatorConfirmed : data.trade.partnerConfirmed);
               setPartnerConfirmed(isInitiator ? data.trade.partnerConfirmed : data.trade.initiatorConfirmed);
 
-              if (['trading', 'review'].includes(data.trade.phase)) {
-                startTradePolling(data.trade.tradeId);
+              if (['pending_accept', 'trading', 'review'].includes(data.trade.phase)) {
+                startTradePolling(data.trade.odtradeId);
               }
 
               return data.trade;
@@ -4122,7 +4122,7 @@
             setTradeRole('initiator');
             setTradePhase('pending_accept');
             setCombatLog(prev => [...prev, `Trade request sent to ${data.trade.partnerName}`]);
-            startTradePolling(data.trade.tradeId);
+            startTradePolling(data.trade.odtradeId);
           } else {
             const err = await res.json();
             setTradingError(err.message || 'Failed to send trade request');
@@ -4176,7 +4176,7 @@
             },
             body: JSON.stringify({ tradeId })
           });
-          setPendingTradeRequests(prev => prev.filter(t => t.tradeId !== tradeId));
+          setPendingTradeRequests(prev => prev.filter(t => t.odtradeId !== tradeId));
         } catch (err) {
           console.error('Failed to decline trade:', err);
         }
@@ -4197,7 +4197,7 @@
                 'Authorization': `Bearer ${authToken}`
               },
               body: JSON.stringify({
-                tradeId: activeTradeSession.tradeId,
+                tradeId: activeTradeSession.odtradeId,
                 items: offerToSync.items,
                 gold: offerToSync.gold
               })
@@ -4263,7 +4263,7 @@
               'Authorization': `Bearer ${authToken}`
             },
             body: JSON.stringify({
-              tradeId: activeTradeSession.tradeId,
+              tradeId: activeTradeSession.odtradeId,
               ready: !myReady
             })
           });
@@ -4293,7 +4293,7 @@
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${authToken}`
             },
-            body: JSON.stringify({ tradeId: activeTradeSession.tradeId })
+            body: JSON.stringify({ tradeId: activeTradeSession.odtradeId })
           });
 
           if (res.ok) {
@@ -4326,7 +4326,7 @@
               'Authorization': `Bearer ${authToken}`
             },
             body: JSON.stringify({
-              tradeId: activeTradeSession.tradeId,
+              tradeId: activeTradeSession.odtradeId,
               items: myOffer.items,
               gold: myOffer.gold
             })
@@ -4354,7 +4354,7 @@
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${authToken}`
             },
-            body: JSON.stringify({ tradeId: activeTradeSession.tradeId })
+            body: JSON.stringify({ tradeId: activeTradeSession.odtradeId })
           });
           setCombatLog(prev => [...prev, 'Trade cancelled']);
           resetTradeSession();
@@ -6697,11 +6697,11 @@
                           <div className="p-2 bg-amber-900/30 rounded border border-amber-500/50 animate-pulse">
                             <div className="text-[10px] text-amber-400 font-bold mb-1">Trade Request!</div>
                             {pendingTradeRequests.map(req => (
-                              <div key={req.tradeId} className="flex items-center justify-between">
+                              <div key={req.odtradeId} className="flex items-center justify-between">
                                 <span className="text-[9px] text-gray-200">{req.initiatorName} wants to trade</span>
                                 <div className="flex gap-1">
-                                  <button onClick={() => acceptTradeRequest(req.tradeId)} className="px-2 py-0.5 bg-green-600 hover:bg-green-500 rounded text-[8px] text-white">Accept</button>
-                                  <button onClick={() => declineTradeRequest(req.tradeId)} className="px-2 py-0.5 bg-red-600 hover:bg-red-500 rounded text-[8px] text-white">Decline</button>
+                                  <button onClick={() => acceptTradeRequest(req.odtradeId)} className="px-2 py-0.5 bg-green-600 hover:bg-green-500 rounded text-[8px] text-white">Accept</button>
+                                  <button onClick={() => declineTradeRequest(req.odtradeId)} className="px-2 py-0.5 bg-red-600 hover:bg-red-500 rounded text-[8px] text-white">Decline</button>
                                 </div>
                               </div>
                             ))}
@@ -7340,6 +7340,12 @@
                 // Farming view
                 if (homeView === "farming") {
                   const readyCount = home.plots.filter(p => p.ready).length;
+                  const emptyPlotsCount = home.plots.filter(p => !p.seedId).length;
+                  const availableSeeds = FARMING_CROPS.filter(crop => {
+                    const hasSeeds = (player.inventory[crop.seedId] || 0) > 0;
+                    const levelMet = (player.skills.farming?.level || 1) >= crop.level;
+                    return hasSeeds && levelMet;
+                  });
 
                   return (
                     <div className="space-y-3">
@@ -7357,9 +7363,12 @@
                         )}
                       </div>
 
-                      {/* Plot Grid */}
-                      <div className="grid gap-[2px] max-h-[220px] overflow-y-auto p-1" style={{gridTemplateColumns: 'repeat(auto-fill, 64px)'}}>
-                        {home.plots.map((plot, idx) => {
+                      {/* Plot Grid with Quick Plant on right */}
+                      <div className="flex gap-2">
+                        {/* Left: Plot Grid */}
+                        <div className="flex-1 max-h-[260px] overflow-y-auto p-1">
+                          <div className="grid gap-[2px]" style={{gridTemplateColumns: 'repeat(auto-fill, minmax(64px, 64px))'}}>
+                          {home.plots.map((plot, idx) => {
                           const isSelected = selectedPlotIndex === idx;
 
                           if (!plot.seedId) {
@@ -7413,51 +7422,38 @@
                               </div>
                             </div>
                           );
-                        })}
+                          })}
+                          </div>
+                        </div>
+
+                        {/* Right: Quick Plant Section - Vertical list */}
+                        <div className="w-[120px] flex-shrink-0 bg-[#1e1e22] p-2 rounded border border-emerald-600/30 max-h-[260px] overflow-y-auto">
+                          <div className="text-[9px] text-emerald-400 font-bold mb-2">Quick Plant {emptyPlotsCount > 0 && `(${emptyPlotsCount})`}</div>
+                          <div className="flex flex-col gap-1">
+                            {FARMING_CROPS.map(crop => {
+                              const seedCount = player.inventory[crop.seedId] || 0;
+                              const hasSeeds = seedCount > 0;
+                              const levelMet = (player.skills.farming?.level || 1) >= crop.level;
+                              const canPlant = hasSeeds && levelMet && emptyPlotsCount > 0;
+                              const plantCount = Math.min(seedCount, emptyPlotsCount);
+                              return (
+                                <button
+                                  key={crop.seedId}
+                                  onClick={() => plantAllSeeds(crop.seedId)}
+                                  disabled={!canPlant}
+                                  className={`p-1.5 rounded text-left ${canPlant ? 'bg-[#252528] hover:bg-emerald-900/40 border border-emerald-600/20' : 'opacity-40 bg-[#1a1a1e] cursor-not-allowed'}`}
+                                >
+                                  <div className="text-[8px] font-bold text-gray-300">{ITEMS_DATA[crop.seedId]?.name?.replace(' Seed', '') || crop.seedId}</div>
+                                  <div className="text-[7px] text-gray-500 flex justify-between">
+                                    <span>{!levelMet ? `Lvl ${crop.level}` : `${Math.floor(crop.growthTime / 60000)}m`}</span>
+                                    {hasSeeds && <span className="text-emerald-400">x{plantCount}</span>}
+                                  </div>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
                       </div>
-
-
-                      {/* Quick Plant Section - Always visible */}
-                      {(() => {
-                        const emptyPlotsCount = home.plots.filter(p => !p.seedId).length;
-                        const availableSeeds = FARMING_CROPS.filter(crop => {
-                          const hasSeeds = (player.inventory[crop.seedId] || 0) > 0;
-                          const levelMet = (player.skills.farming?.level || 1) >= crop.level;
-                          return hasSeeds && levelMet;
-                        });
-                        if (emptyPlotsCount > 0 && availableSeeds.length > 0) {
-                          return (
-                            <div className="bg-[#1e1e22] p-2 rounded border border-emerald-600/30 mb-2">
-                              <div className="text-[9px] text-emerald-400 font-bold mb-2">Quick Plant ({emptyPlotsCount} empty plots)</div>
-                              <div className="grid grid-cols-3 gap-1">
-                                {FARMING_CROPS.map(crop => {
-                                  const seedCount = player.inventory[crop.seedId] || 0;
-                                  const hasSeeds = seedCount > 0;
-                                  const levelMet = (player.skills.farming?.level || 1) >= crop.level;
-                                  const canPlant = hasSeeds && levelMet;
-                                  const plantCount = Math.min(seedCount, emptyPlotsCount);
-                                  return (
-                                    <button
-                                      key={crop.seedId}
-                                      onClick={() => plantAllSeeds(crop.seedId)}
-                                      disabled={!canPlant}
-                                      className={`p-1.5 rounded text-left ${canPlant ? 'bg-[#252528] hover:bg-emerald-900/40 border border-emerald-600/20' : 'opacity-40 bg-[#1a1a1e] cursor-not-allowed'}`}
-                                    >
-                                      <div className="text-[8px] font-bold text-gray-300">{ITEMS_DATA[crop.seedId]?.name?.replace(' Seed', '') || crop.seedId}</div>
-                                      <div className="text-[7px] text-gray-500 flex justify-between">
-                                        <span>{!levelMet ? `Lvl ${crop.level}` : `${Math.floor(crop.growthTime / 60000)}m`}</span>
-                                        {hasSeeds && <span className="text-emerald-400">x{plantCount}</span>}
-                                      </div>
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                              <div className="text-[7px] text-gray-500 mt-1 text-center">Click to plant all of that seed type</div>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })()}
 
                       {/* Single Plot Seed Selection (when plot selected) */}
                       {selectedPlotIndex !== null && !home.plots[selectedPlotIndex]?.seedId && (
