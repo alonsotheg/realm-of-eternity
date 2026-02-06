@@ -215,6 +215,60 @@
       padding: 4px;
     }
 
+    /* Trade-specific 64px item slots */
+    .trade-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 64px);
+      gap: 6px;
+      padding: 6px;
+    }
+
+    .trade-item-slot {
+      width: 64px;
+      height: 64px;
+      background: var(--bg-panel-light);
+      border: 2px solid var(--border-dark);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .trade-item-slot::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 70%;
+      height: 70%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .trade-item-slot > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .trade-item-slot:hover {
+      border-color: var(--text-muted);
+      background: rgba(50, 50, 58, 0.9);
+    }
+
+    .trade-grid::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .trade-grid::-webkit-scrollbar-thumb {
+      background: var(--text-muted);
+      border-radius: 3px;
+    }
+
     .inventory-grid::-webkit-scrollbar,
     .inventory-grid-compact::-webkit-scrollbar {
       width: 4px;
@@ -949,6 +1003,12 @@
       // Monster Drops
       "dragon_scale": "assets/items/dragon_scale.png",
       "elder_scale": "assets/items/elder_scale.png",
+      // Hydra Drops
+      "hydra_sword": "assets/items/hydra_sword.png",
+      "hydra_cape": "assets/items/hydra_cape.png",
+      "hydra_ring": "assets/items/hydra_ring.png",
+      // Berserker Gloves
+      "berserker_gloves": "assets/items/berserker_gloves.png",
       "wolf_pelt": "assets/items/wolf_pelt.png",
       "frog_legs": "assets/items/frog_legs.png",
       "cooked_frog_legs": "assets/items/cooked_frog_legs.png",
@@ -1038,7 +1098,7 @@
     // GAME DATA - ITEMS (Stats, icons, requirements, heal values)
     // ═══════════════════════════════════════════════════════════════════════════
     const ITEMS_DATA = {
-      "sword": { slot: "weapon", attack: 50, value: 20, icon: "assets/items/sword.png", reqAtk: 1, name: "Bronze Sword" },
+      "sword": { slot: "weapon", attack: 100, value: 20, icon: "assets/items/sword.png", reqAtk: 1, name: "Bronze Sword" },
       "bronze_shield": { slot: "offhand", defense: 30, value: 25, icon: "assets/items/bronze_shield.png", reqDef: 1, name: "Bronze Shield" },
       "iron_shield": { slot: "offhand", defense: 60, value: 60, icon: "assets/items/iron_shield.png", reqDef: 5, name: "Iron Shield" },
       "steel_shield": { slot: "offhand", defense: 100, value: 120, icon: "assets/items/steel_shield.png", reqDef: 10, name: "Steel Shield" },
@@ -1064,14 +1124,14 @@
       "minor_healing_potion": { slot: null, value: 10, heal: 500, icon: "assets/items/minor_healing_potion.png", name: "Minor Healing Potion", type: "potion", category: "herblore" },
       "potions": { slot: null, value: 10, heal: 500, icon: "assets/items/minor_healing_potion.png", name: "Potions", type: "food" },
       // New Items
-      "iron_sword": { slot: "weapon", attack: 100, value: 100, icon: "assets/items/iron_sword.png", reqAtk: 10, name: "Iron Sword" },
+      "iron_sword": { slot: "weapon", attack: 175, value: 100, icon: "assets/items/iron_sword.png", reqAtk: 10, name: "Iron Sword" },
       "steel_platebody": { slot: "body", defense: 150, value: 250, icon: "assets/items/steel_platebody.png", reqDef: 15, name: "Steel Platebody" },
       "dragon_scale": { slot: null, value: 500, icon: "assets/items/dragon_scale.png", name: "Dragon Scale" },
-      "dragon_sword": { slot: "weapon", attack: 350, value: 2500, icon: "assets/items/dragon_sword.png", reqAtk: 10, name: "Dragon Sword" },
+      "dragon_sword": { slot: "weapon", attack: 500, value: 2500, icon: "assets/items/dragon_sword.png", reqAtk: 10, name: "Dragon Sword" },
       "dragon_sword_blueprint": { slot: null, value: 200, icon: "assets/items/dragon_sword_blueprint.png", name: "Dragon Sword Blueprint" },
       "elder_scale": { slot: null, value: 800, icon: "assets/items/elder_scale.png", name: "Elder Scale" },
       "elder_sword_blueprint": { slot: null, value: 500, icon: "assets/items/elder_sword_blueprint.png", name: "Elder Sword Blueprint" },
-      "elder_sword": { slot: "weapon", attack: 500, value: 1200, icon: "assets/items/elder_sword.png", reqAtk: 15, name: "Elder Sword" },
+      "elder_sword": { slot: "weapon", attack: 750, value: 1200, icon: "assets/items/elder_sword.png", reqAtk: 15, name: "Elder Sword" },
       "dragon_amulet": { slot: "accessory", attack: 500, value: 3000, icon: "assets/items/dragon_amulet.png", name: "Dragon Amulet" },
       "amulet_blueprint": { slot: null, value: 300, icon: "assets/items/amulet_blueprint.png", name: "Amulet Blueprint" },
       // Tools
@@ -1110,6 +1170,13 @@
     ITEMS_DATA["onyx"] = { slot: null, value: 150, icon: "assets/items/onyx.png", name: "Onyx" };
     ITEMS_DATA["ember_gem"] = { slot: null, value: 150, icon: "💎", name: "Onyx" };
     ITEMS_DATA["ash_powder"] = { slot: null, value: 20, icon: "assets/items/ash_powder.png", name: "Ash Powder" };
+
+    // Hydra Gear
+    ITEMS_DATA["hydra_cape"] = { slot: "cape", attack: 500, defense: 200, value: 5000, icon: "🦎", reqDef: 15, name: "Hydra Cape" };
+    ITEMS_DATA["hydra_ring"] = { slot: "ring", attack: 300, value: 3000, icon: "💍", reqAtk: 15, name: "Hydra Ring" };
+    ITEMS_DATA["berserker_gloves"] = { slot: "gloves", attack: 500, value: 4000, icon: "🧤", reqAtk: 15, reqDef: 15, name: "Berserker Gloves" };
+    ITEMS_DATA["hydra_sword"] = { slot: "weapon", attack: 1000, value: 8000, icon: "⚔️", reqAtk: 20, name: "Hydra Sword" };
+    ITEMS_DATA["hydra_legendary_chest"] = { slot: null, value: 10000, icon: "🎁", name: "Hydra Legendary Chest", isChest: true };
 
     // Herbs (Herblore gathering)
     ITEMS_DATA["greenleaf"] = { slot: null, value: 5, icon: "assets/items/greenleaf.png", name: "Greenleaf" };
@@ -1266,6 +1333,42 @@
     { item: "iron_pickaxe", weight: 1, min: 1, max: 1 },
     { item: "iron_axe", weight: 1, min: 1, max: 1 }
   );
+
+  // Hydra Legendary Chest - random drops from Hydra boss
+  CHEST_DEFINITIONS["hydra_legendary_chest"] = {
+    id: "hydra_legendary_chest",
+    name: "Hydra Legendary Chest",
+    minItems: 2,
+    maxItems: 5,
+    loot: [
+      // Rare hydra gear (low weight = rare)
+      { item: "hydra_cape", weight: 10, min: 1, max: 1 },
+      { item: "hydra_ring", weight: 10, min: 1, max: 1 },
+      { item: "berserker_gloves", weight: 10, min: 1, max: 1 },
+      { item: "hydra_sword", weight: 3, min: 1, max: 1 },
+      // Uncommon drops (medium weight)
+      { item: "dragon_sword", weight: 15, min: 1, max: 1 },
+      { item: "steel_platebody", weight: 20, min: 1, max: 1 },
+      { item: "steel_platelegs", weight: 20, min: 1, max: 1 },
+      { item: "steel_shield", weight: 20, min: 1, max: 1 },
+      { item: "elder_sword_blueprint", weight: 10, min: 1, max: 1 },
+      { item: "dragon_familiar", weight: 10, min: 1, max: 1 },
+      // Consumables - Potions (high weight)
+      { item: "superior_healing_potion", weight: 45, min: 3, max: 6 },
+      { item: "greater_attack_potion", weight: 40, min: 2, max: 5 },
+      { item: "greater_defense_potion", weight: 40, min: 2, max: 5 },
+      { item: "vitality_potion", weight: 30, min: 1, max: 3 },
+      { item: "berserker_draught", weight: 25, min: 1, max: 2 },
+      { item: "fortune_potion", weight: 20, min: 1, max: 2 },
+      // Consumables - Food (high weight)
+      { item: "cooked_salmon", weight: 50, min: 5, max: 12 },
+      { item: "cooked_frog_legs", weight: 35, min: 3, max: 8 },
+      // Common material drops (high weight)
+      { item: "ember_gem", weight: 35, min: 2, max: 5 },
+      { item: "pearl", weight: 30, min: 2, max: 5 },
+      { item: "golden_chest", weight: 25, min: 1, max: 2 }
+    ]
+  };
 
     // ═══════════════════════════════════════════════════════════════════════════
     // GAME DATA - RESOURCE TIERS (Gathering skills: mining, woodcutting, fishing)
@@ -1538,7 +1641,7 @@
       "starter-village": {
         skills: [],
         enemies: [
-          { name: "Goblin", icon: "👺", level: 2, hp: 440, attack: 80, gold: 4, exp: 10, drops: [
+          { name: "Goblin", icon: "👺", level: 5, hp: 1320, attack: 80, gold: 4, exp: 50, drops: [
             // Common drops
             { item: "copper", chance: 0.35, min: 1, max: 5 },
             { item: "wood", chance: 0.25, min: 1, max: 3 },
@@ -1554,7 +1657,7 @@
             // Ultra rare drops
             { item: "wooden_chest", chance: 0.05, min: 1, max: 1 }
           ] },
-          { name: "Bat", icon: "🦇", level: 2, hp: 360, attack: 100, gold: 3, exp: 10, drops: [
+          { name: "Bat", icon: "🦇", level: 5, hp: 1080, attack: 100, gold: 3, exp: 50, drops: [
             // Common drops
             { item: "wood", chance: 0.30, min: 1, max: 2 },
             { item: "cooked_shrimp", chance: 0.25, min: 1, max: 2 },
@@ -1564,7 +1667,7 @@
             // Ultra rare drops
             { item: "wooden_chest", chance: 0.03, min: 1, max: 1 }
           ] },
-          { name: "Wolf", icon: "🐺", level: 3, hp: 560, attack: 140, gold: 6, exp: 15, drops: [
+          { name: "Wolf", icon: "🐺", level: 8, hp: 1680, attack: 140, gold: 6, exp: 75, drops: [
             // Common drops
             { item: "wolf_pelt", chance: 0.35, min: 1, max: 1 },
             { item: "copper", chance: 0.30, min: 1, max: 6 },
@@ -1584,7 +1687,7 @@
       "forest": {
         skills: ["woodcutting", "herblore"],
         enemies: [
-          { name: "Goblin Captain", icon: "👹", level: 5, hp: 760, attack: 200, gold: 10, exp: 25, drops: [
+          { name: "Goblin Captain", icon: "👹", level: 12, hp: 2280, attack: 200, gold: 10, exp: 125, drops: [
             // Common drops
             { item: "copper", chance: 0.40, min: 2, max: 8 },
             { item: "iron", chance: 0.30, min: 1, max: 3 },
@@ -1605,7 +1708,7 @@
             // Ultra rare drops
             { item: "iron_chest", chance: 0.06, min: 1, max: 1 }
           ] },
-          { name: "Goblin General", icon: "👑", level: 7, hp: 1040, attack: 260, gold: 16, exp: 38, drops: [
+          { name: "Goblin General", icon: "👑", level: 16, hp: 3120, attack: 260, gold: 16, exp: 190, drops: [
             // Common drops
             { item: "copper", chance: 0.35, min: 3, max: 10 },
             { item: "iron", chance: 0.30, min: 1, max: 4 },
@@ -1622,7 +1725,7 @@
             { item: "iron_chest", chance: 0.08, min: 1, max: 1 },
             { item: "bronze_pickaxe", chance: 0.05, min: 1, max: 1 }
           ] },
-          { name: "Wolf", icon: "🐺", level: 4, hp: 640, attack: 160, gold: 7, exp: 18, drops: [
+          { name: "Wolf", icon: "🐺", level: 10, hp: 1920, attack: 160, gold: 7, exp: 90, drops: [
             // Common drops
             { item: "wolf_pelt", chance: 0.35, min: 1, max: 2 },
             { item: "copper", chance: 0.30, min: 2, max: 7 },
@@ -1640,7 +1743,7 @@
       "cave": {
         skills: ["mining", "herblore"],
         enemies: [
-          { name: "Ogre", icon: "👹", level: 10, hp: 1800, attack: 440, gold: 28, exp: 60, drops: [
+          { name: "Ogre", icon: "👹", level: 22, hp: 5400, attack: 440, gold: 28, exp: 300, drops: [
             // Common drops
             { item: "iron", chance: 0.35, min: 1, max: 5 },
             { item: "copper", chance: 0.35, min: 3, max: 12 },
@@ -1664,7 +1767,7 @@
             { item: "iron_chest", chance: 0.08, min: 1, max: 1 },
             { item: "iron_sword", chance: 0.05, min: 1, max: 1 }
           ] },
-          { name: "Rock Crab", icon: "🦀", level: 8, hp: 2400, attack: 260, gold: 18, exp: 45, drops: [
+          { name: "Rock Crab", icon: "🦀", level: 18, hp: 7200, attack: 260, gold: 18, exp: 225, drops: [
             // Common drops
             { item: "rock_shell", chance: 0.40, min: 1, max: 2 },
             { item: "iron", chance: 0.30, min: 1, max: 4 },
@@ -1683,7 +1786,7 @@
       "fishing-pond": {
         skills: ["fishing", "herblore"],
         enemies: [
-          { name: "Giant Frog", icon: "🐸", level: 7, hp: 1200, attack: 200, gold: 12, exp: 30, drops: [
+          { name: "Giant Frog", icon: "🐸", level: 16, hp: 3600, attack: 200, gold: 12, exp: 150, drops: [
             // Common drops
             { item: "frog_legs", chance: 0.45, min: 1, max: 3 },
             { item: "copper", chance: 0.30, min: 2, max: 8 },
@@ -1706,7 +1809,7 @@
       "volcanic-plain": {
         skills: ["herblore"],
         enemies: [
-          { name: "Ash Drake Whelp", icon: "🔥", level: 11, hp: 1400, attack: 300, gold: 18, exp: 38, drops: [
+          { name: "Ash Drake Whelp", icon: "🔥", level: 25, hp: 4200, attack: 300, gold: 18, exp: 190, drops: [
             // Common drops
             { item: "ash_powder", chance: 0.45, min: 1, max: 3 },
             { item: "emberleaf", chance: 0.20, min: 1, max: 2 },
@@ -1724,7 +1827,7 @@
             { item: "iron_chest", chance: 0.07, min: 1, max: 1 },
             { item: "steel_shield", chance: 0.04, min: 1, max: 1 }
           ] },
-          { name: "Ash Drake", icon: "🔥", level: 14, hp: 2400, attack: 480, gold: 32, exp: 70, drops: [
+          { name: "Ash Drake", icon: "🔥", level: 32, hp: 7200, attack: 480, gold: 32, exp: 350, drops: [
             // Common drops
             { item: "onyx", chance: 0.30, min: 1, max: 2 },
             { item: "ash_powder", chance: 0.50, min: 2, max: 4 },
@@ -1750,7 +1853,7 @@
       "mountains": {
         skills: ["herblore"],
         enemies: [
-          { name: "Golem", icon: "🗿", level: 18, hp: 3600, attack: 560, gold: 40, exp: 110, drops: [
+          { name: "Golem", icon: "🗿", level: 40, hp: 10800, attack: 560, gold: 40, exp: 550, drops: [
             // Common drops
             { item: "iron", chance: 0.50, min: 3, max: 8 },
             { item: "coal", chance: 0.40, min: 2, max: 7 },
@@ -1775,7 +1878,7 @@
             { item: "amulet_blueprint", chance: 0.03, min: 1, max: 1 },
             { item: "steel_platebody", chance: 0.02, min: 1, max: 1 }
           ] },
-          { name: "Dragon", icon: "🐉", level: 25, hp: 6400, attack: 760, gold: 120, exp: 1000, drops: [
+          { name: "Dragon", icon: "🐉", level: 50, hp: 14800, attack: 760, gold: 120, exp: 1000, drops: [
             // Common drops - Resources & Food
             { item: "dragon_scale", chance: 0.50, min: 1, max: 2 },
             { item: "iron", chance: 0.20, min: 1, max: 6 },
@@ -1811,7 +1914,7 @@
             { item: "dragon_sword", chance: 0.01, min: 1, max: 1 },
             { item: "steel_platelegs", chance: 0.03, min: 1, max: 1 }
           ] },
-          { name: "Elder Dragon", icon: "🐲", level: 50, hp: 30000, attack: 1200, gold: 1000, exp: 5000, drops: [
+          { name: "Elder Dragon", icon: "🐲", level: 60, hp: 40000, attack: 1200, gold: 1000, exp: 5000, drops: [
             // Common drops - Resources & Food
             { item: "elder_scale", chance: 0.50, min: 1, max: 3 },
             { item: "dragon_scale", chance: 0.50, min: 1, max: 3 },
@@ -1861,27 +1964,39 @@
           {
             name: "Hydra",
             icon: "🐍",
-            level: 60,
-            hp: 255000,
-            attack: 1500,
-            gold: 2000,
-            exp: 10000,
+            level: 70,
+            hp: 260000,
+            attack: 1700,
+            gold: 5000,
+            exp: 35000,
             supportsGroupFight: true,
             sharedBossId: "hydra_devils_port",
             drops: [
-              { item: "iron", chance: 0.50, min: 8, max: 20 },
-              { item: "coal", chance: 0.45, min: 6, max: 15 },
-              { item: "pearl", chance: 0.40, min: 2, max: 5 },
-              { item: "ember_gem", chance: 0.35, min: 1, max: 3 },
-              { item: "cooked_salmon", chance: 0.50, min: 4, max: 10 },
-              { item: "superior_healing_potion", chance: 0.40, min: 2, max: 4 },
+              // Common materials (increased quantities)
+              { item: "iron", chance: 0.60, min: 15, max: 35 },
+              { item: "coal", chance: 0.55, min: 12, max: 25 },
+              { item: "pearl", chance: 0.50, min: 4, max: 10 },
+              { item: "ember_gem", chance: 0.45, min: 3, max: 8 },
+              // Consumables - Food
+              { item: "cooked_salmon", chance: 0.60, min: 8, max: 18 },
+              { item: "cooked_frog_legs", chance: 0.45, min: 5, max: 12 },
+              // Consumables - Potions
+              { item: "superior_healing_potion", chance: 0.55, min: 4, max: 8 },
+              { item: "greater_attack_potion", chance: 0.40, min: 2, max: 5 },
+              { item: "greater_defense_potion", chance: 0.40, min: 2, max: 5 },
+              { item: "vitality_potion", chance: 0.30, min: 1, max: 3 },
+              { item: "berserker_draught", chance: 0.25, min: 1, max: 2 },
+              // Equipment
               { item: "steel_platebody", chance: 0.25, min: 1, max: 1 },
               { item: "steel_platelegs", chance: 0.22, min: 1, max: 1 },
               { item: "steel_shield", chance: 0.20, min: 1, max: 1 },
               { item: "dragon_sword", chance: 0.15, min: 1, max: 1 },
-              { item: "golden_chest", chance: 0.20, min: 1, max: 2 },
+              // Rare drops
+              { item: "golden_chest", chance: 0.25, min: 1, max: 3 },
               { item: "elder_sword_blueprint", chance: 0.08, min: 1, max: 1 },
-              { item: "dragon_familiar", chance: 0.08, min: 1, max: 1 }
+              { item: "dragon_familiar", chance: 0.08, min: 1, max: 1 },
+              { item: "hydra_sword", chance: 0.10, min: 1, max: 1 },
+              { item: "hydra_legendary_chest", chance: 0.12, min: 1, max: 1 }
             ]
           }
         ]
@@ -1971,6 +2086,10 @@
           weapon: null,
           offhand: null,
           boots: null,
+          cape: null,
+          gloves: null,
+          ring1: null,
+          ring2: null,
           accessory: null,
           tool: null,
           familiar1: null,
@@ -2143,6 +2262,49 @@
       const [playersHere, setPlayersHere] = useState([]);
       const playersRefreshRef = useRef(null);
       const [saveStatus, setSaveStatus] = useState(null); // null, "saving", "saved", "error"
+
+      // ═══════════════════════════════════════════════════════════════════════════
+      // TRADING SYSTEM STATE (RuneScape-style real-time trading)
+      // ═══════════════════════════════════════════════════════════════════════════
+      const [tradingPanelOpen, setTradingPanelOpen] = useState(false);
+      const [tradingTab, setTradingTab] = useState('trade'); // 'trade' | 'auction'
+
+      // Real-time trade session state
+      const [activeTradeSession, setActiveTradeSession] = useState(null);
+      const [tradeRole, setTradeRole] = useState(null); // 'initiator' | 'partner'
+      const [tradePhase, setTradePhase] = useState(null); // 'pending_accept' | 'trading' | 'review' | 'completed' | 'cancelled'
+
+      // Local offer state (what current player is offering)
+      const [myOffer, setMyOffer] = useState({ items: {}, gold: 0 });
+
+      // Partner's offer (received from server via polling)
+      const [partnerOffer, setPartnerOffer] = useState({ items: {}, gold: 0 });
+
+      // Ready/Confirm states
+      const [myReady, setMyReady] = useState(false);
+      const [partnerReady, setPartnerReady] = useState(false);
+      const [myConfirmed, setMyConfirmed] = useState(false);
+      const [partnerConfirmed, setPartnerConfirmed] = useState(false);
+
+      // Polling
+      const [lastKnownVersion, setLastKnownVersion] = useState(0);
+      const tradePollingRef = useRef(null);
+      const offerSyncDebounceRef = useRef(null);
+
+      // Pending trade requests received
+      const [pendingTradeRequests, setPendingTradeRequests] = useState([]);
+
+      // Auction state (unchanged)
+      const [auctionListings, setAuctionListings] = useState([]);
+      const [myAuctionListings, setMyAuctionListings] = useState([]);
+      const [auctionItem, setAuctionItem] = useState(null);
+      const [auctionQuantity, setAuctionQuantity] = useState(1);
+      const [auctionPriceGold, setAuctionPriceGold] = useState(0);
+      const [auctionDuration, setAuctionDuration] = useState(3);
+
+      const [tradingStatus, setTradingStatus] = useState(null); // null | 'loading' | 'success' | 'error'
+      const [tradingError, setTradingError] = useState(null);
+      const [tradeQuantityMultiplier, setTradeQuantityMultiplier] = useState(1);
 
       // ═══════════════════════════════════════════════════════════════════════════
       // PLAYER IDENTITY HELPER
@@ -2467,6 +2629,55 @@
           if (playersRefreshRef.current) clearInterval(playersRefreshRef.current);
         };
       }, [player.location, isAuthenticated, authToken]);
+
+      // ═══════════════════════════════════════════════════════════════════════════
+      // FETCH TRADES & AUCTIONS WHEN AT DEVIL'S PORT
+      // ═══════════════════════════════════════════════════════════════════════════
+      useEffect(() => {
+        if (player.location !== 'devils-port') {
+          // Reset trade state when leaving Devil's Port
+          if (activeTradeSession) {
+            cancelTrade();
+          }
+          return;
+        }
+
+        // Fetch active trade and auctions (will show empty if not authenticated)
+        if (isAuthenticated && authToken) {
+          fetchActiveTrade();
+          fetchAuctions();
+        }
+
+        // Poll for trade requests every 5 seconds while at Devil's Port
+        const tradeRequestInterval = setInterval(async () => {
+          if (!isAuthenticated || !authToken || activeTradeSession) return;
+          try {
+            const res = await fetch('/api/trade/active', {
+              headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+            if (res.ok) {
+              const data = await res.json();
+              if (data.trade && data.trade.phase === 'pending_accept' && data.role === 'partner') {
+                setPendingTradeRequests([data.trade]);
+              }
+            }
+          } catch (err) {
+            console.warn('Trade request poll error:', err);
+          }
+        }, 5000);
+
+        // Poll auctions every 30 seconds
+        const auctionInterval = setInterval(() => {
+          if (isAuthenticated && authToken) {
+            fetchAuctions();
+          }
+        }, 30000);
+
+        return () => {
+          clearInterval(tradeRequestInterval);
+          clearInterval(auctionInterval);
+        };
+      }, [isAuthenticated, authToken, player.location, activeTradeSession]);
 
       // ═══════════════════════════════════════════════════════════════════════════
       // PERSIST STATE TO LOCALSTORAGE
@@ -3091,9 +3302,9 @@
       // Check if a familiar slot is unlocked based on combat level
       function isFamiliarSlotUnlocked(slotNum) {
         const combatLevel = getCombatLevel();
-        if (slotNum === 1) return combatLevel >= 10;
-        if (slotNum === 2) return combatLevel >= 20;
-        if (slotNum === 3) return combatLevel >= 30;
+        if (slotNum === 1) return combatLevel >= 20;
+        if (slotNum === 2) return combatLevel >= 40;
+        if (slotNum === 3) return combatLevel >= 60;
         return false;
       }
 
@@ -3244,8 +3455,15 @@
         // Get potion bonuses
         const potionBonuses = getPotionBonuses();
 
-        // Scale skill contributions 10x: strength gives +20 per level, attack gives +10 per level
-        const baseAttack = player.skills.strength.level * 20 + player.skills.attack.level * 10;
+        // Strength gives +75 per level, attack gives +50 per level
+        // Scaling milestone bonuses: 10th=+250, 20th=+500, 30th=+750, etc. (cumulative)
+        const strLevel = player.skills.strength.level;
+        const atkLevel = player.skills.attack.level;
+        const strMilestones = Math.floor(strLevel / 10);
+        const atkMilestones = Math.floor(atkLevel / 10);
+        const strBonus = 250 * (strMilestones * (strMilestones + 1) / 2);
+        const atkBonus = 250 * (atkMilestones * (atkMilestones + 1) / 2);
+        const baseAttack = (strLevel * 75 + strBonus) + (atkLevel * 50 + atkBonus);
         let totalAttack = Math.max(1, baseAttack + equipmentStats.attack);
 
         // Apply potion bonuses to attack
@@ -3759,6 +3977,507 @@
             // Delay slightly so the state update doesn't conflict
             setTimeout(() => useFood(autoEatFood), 50);
           }
+        }
+      }
+
+      // ═══════════════════════════════════════════════════════════════════════════
+      // RUNESCAPE-STYLE REAL-TIME TRADING FUNCTIONS
+      // ═══════════════════════════════════════════════════════════════════════════
+
+      // Reset all trade state
+      function resetTradeSession() {
+        setActiveTradeSession(null);
+        setTradeRole(null);
+        setTradePhase(null);
+        setMyOffer({ items: {}, gold: 0 });
+        setPartnerOffer({ items: {}, gold: 0 });
+        setMyReady(false);
+        setPartnerReady(false);
+        setMyConfirmed(false);
+        setPartnerConfirmed(false);
+        setLastKnownVersion(0);
+        stopTradePolling();
+      }
+
+      // Start polling for trade updates
+      function startTradePolling(tradeId) {
+        stopTradePolling();
+        tradePollingRef.current = setInterval(async () => {
+          if (!isAuthenticated || !authToken || !tradeId) return;
+          try {
+            const res = await fetch(`/api/trade/state?tradeId=${tradeId}&version=${lastKnownVersion}`, {
+              headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+            if (res.ok) {
+              const data = await res.json();
+              if (data.changed && data.trade) {
+                setActiveTradeSession(data.trade);
+                setTradePhase(data.trade.phase);
+                setLastKnownVersion(data.offerVersion);
+
+                // Update partner's offer and flags based on role
+                const isInitiator = data.role === 'initiator';
+                setPartnerOffer(isInitiator ? data.trade.partnerOffer : data.trade.initiatorOffer);
+                setPartnerReady(isInitiator ? data.trade.partnerReady : data.trade.initiatorReady);
+                setPartnerConfirmed(isInitiator ? data.trade.partnerConfirmed : data.trade.initiatorConfirmed);
+
+                // Handle trade ending
+                if (data.trade.phase === 'completed') {
+                  setCombatLog(prev => [...prev, `Trade completed with ${isInitiator ? data.trade.partnerName : data.trade.initiatorName}!`]);
+                  await loadServerSave(authToken);
+                  saveGame('trade_completed');
+                  setTimeout(() => resetTradeSession(), 2000);
+                } else if (data.trade.phase === 'cancelled') {
+                  const reason = data.trade.cancelReason || 'cancelled';
+                  setCombatLog(prev => [...prev, `Trade ${reason === 'user_cancelled' ? 'cancelled' : 'ended'}: ${reason}`]);
+                  resetTradeSession();
+                }
+              } else if (data.trade === null || data.phase === 'cancelled') {
+                setCombatLog(prev => [...prev, 'Trade cancelled']);
+                resetTradeSession();
+              }
+            }
+          } catch (err) {
+            console.warn('Trade polling error:', err);
+          }
+        }, 5000); // 5 second interval
+      }
+
+      function stopTradePolling() {
+        if (tradePollingRef.current) {
+          clearInterval(tradePollingRef.current);
+          tradePollingRef.current = null;
+        }
+      }
+
+      // Fetch active trade session
+      async function fetchActiveTrade() {
+        if (!isAuthenticated || !authToken) return;
+        try {
+          const res = await fetch('/api/trade/active', {
+            headers: { 'Authorization': `Bearer ${authToken}` }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.trade) {
+              setActiveTradeSession(data.trade);
+              setTradeRole(data.role);
+              setTradePhase(data.trade.phase);
+              setLastKnownVersion(data.offerVersion);
+
+              // Set offers based on role
+              const isInitiator = data.role === 'initiator';
+              setMyOffer(isInitiator ? data.trade.initiatorOffer : data.trade.partnerOffer);
+              setPartnerOffer(isInitiator ? data.trade.partnerOffer : data.trade.initiatorOffer);
+              setMyReady(isInitiator ? data.trade.initiatorReady : data.trade.partnerReady);
+              setPartnerReady(isInitiator ? data.trade.partnerReady : data.trade.initiatorReady);
+              setMyConfirmed(isInitiator ? data.trade.initiatorConfirmed : data.trade.partnerConfirmed);
+              setPartnerConfirmed(isInitiator ? data.trade.partnerConfirmed : data.trade.initiatorConfirmed);
+
+              if (['trading', 'review'].includes(data.trade.phase)) {
+                startTradePolling(data.trade.tradeId);
+              }
+
+              return data.trade;
+            } else {
+              // Check for pending requests
+              const pendingRes = await fetch('/api/trade/active', {
+                headers: { 'Authorization': `Bearer ${authToken}` }
+              });
+              if (pendingRes.ok) {
+                const pendingData = await pendingRes.json();
+                if (pendingData.trade && pendingData.trade.phase === 'pending_accept' && pendingData.role === 'partner') {
+                  setPendingTradeRequests([pendingData.trade]);
+                }
+              }
+            }
+          }
+        } catch (err) {
+          console.error('Failed to fetch active trade:', err);
+        }
+        return null;
+      }
+
+      // Send trade request to another player
+      async function sendTradeRequest(partnerId) {
+        if (!isAuthenticated || !authToken) {
+          setTradingError('Login to trade');
+          return;
+        }
+        setTradingStatus('loading');
+        setTradingError(null);
+        try {
+          const res = await fetch('/api/trade/request', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ partnerId })
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            setActiveTradeSession(data.trade);
+            setTradeRole('initiator');
+            setTradePhase('pending_accept');
+            setCombatLog(prev => [...prev, `Trade request sent to ${data.trade.partnerName}`]);
+            startTradePolling(data.trade.tradeId);
+          } else {
+            const err = await res.json();
+            setTradingError(err.message || 'Failed to send trade request');
+          }
+        } catch (err) {
+          setTradingError('Connection failed');
+        }
+        setTradingStatus(null);
+      }
+
+      // Accept a trade request
+      async function acceptTradeRequest(tradeId) {
+        setTradingStatus('loading');
+        setTradingError(null);
+        try {
+          const res = await fetch('/api/trade/accept-request', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ tradeId })
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            setActiveTradeSession(data.trade);
+            setTradeRole('partner');
+            setTradePhase('trading');
+            setPendingTradeRequests([]);
+            setCombatLog(prev => [...prev, `Trade started with ${data.trade.initiatorName}`]);
+            startTradePolling(tradeId);
+          } else {
+            const err = await res.json();
+            setTradingError(err.message || 'Failed to accept trade');
+          }
+        } catch (err) {
+          setTradingError('Connection failed');
+        }
+        setTradingStatus(null);
+      }
+
+      // Decline a trade request
+      async function declineTradeRequest(tradeId) {
+        try {
+          await fetch('/api/trade/decline', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ tradeId })
+          });
+          setPendingTradeRequests(prev => prev.filter(t => t.tradeId !== tradeId));
+        } catch (err) {
+          console.error('Failed to decline trade:', err);
+        }
+      }
+
+      // Sync offer to server (debounced) - accepts offer to avoid stale closure
+      function syncOfferToServer(offerToSync) {
+        if (offerSyncDebounceRef.current) {
+          clearTimeout(offerSyncDebounceRef.current);
+        }
+        offerSyncDebounceRef.current = setTimeout(async () => {
+          if (!activeTradeSession || tradePhase !== 'trading') return;
+          try {
+            await fetch('/api/trade/update-offer', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+              },
+              body: JSON.stringify({
+                tradeId: activeTradeSession.tradeId,
+                items: offerToSync.items,
+                gold: offerToSync.gold
+              })
+            });
+          } catch (err) {
+            console.error('Failed to sync offer:', err);
+          }
+        }, 250);
+      }
+
+      // Add item to my offer
+      function addItemToOffer(itemId, quantity) {
+        const currentQty = myOffer.items[itemId] || 0;
+        const maxQty = player.inventory[itemId] || 0;
+        const newQty = Math.min(currentQty + quantity, maxQty);
+
+        if (newQty > currentQty) {
+          const newOffer = {
+            ...myOffer,
+            items: { ...myOffer.items, [itemId]: newQty }
+          };
+          setMyOffer(newOffer);
+          setMyReady(false);
+          syncOfferToServer(newOffer);
+        }
+      }
+
+      // Remove item from my offer
+      function removeItemFromOffer(itemId, quantity) {
+        const newItems = { ...myOffer.items };
+        const currentQty = newItems[itemId] || 0;
+        const newQty = Math.max(0, currentQty - quantity);
+
+        if (newQty <= 0) {
+          delete newItems[itemId];
+        } else {
+          newItems[itemId] = newQty;
+        }
+
+        const newOffer = { ...myOffer, items: newItems };
+        setMyOffer(newOffer);
+        setMyReady(false);
+        syncOfferToServer(newOffer);
+      }
+
+      // Set gold offer
+      function setOfferGold(amount) {
+        const clampedAmount = Math.max(0, Math.min(amount, player.gold));
+        const newOffer = { ...myOffer, gold: clampedAmount };
+        setMyOffer(newOffer);
+        setMyReady(false);
+        syncOfferToServer(newOffer);
+      }
+
+      // Toggle ready status
+      async function toggleReady() {
+        if (!activeTradeSession || tradePhase !== 'trading') return;
+        try {
+          const res = await fetch('/api/trade/toggle-ready', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({
+              tradeId: activeTradeSession.tradeId,
+              ready: !myReady
+            })
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            setMyReady(!myReady);
+            if (data.phase === 'review') {
+              setTradePhase('review');
+              setMyConfirmed(false);
+              setPartnerConfirmed(false);
+            }
+          }
+        } catch (err) {
+          console.error('Failed to toggle ready:', err);
+        }
+      }
+
+      // Confirm trade in review phase
+      async function confirmTrade() {
+        if (!activeTradeSession || tradePhase !== 'review') return;
+        setTradingStatus('loading');
+        try {
+          const res = await fetch('/api/trade/confirm', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ tradeId: activeTradeSession.tradeId })
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            setMyConfirmed(true);
+            if (data.phase === 'completed') {
+              setCombatLog(prev => [...prev, 'Trade completed!']);
+              await loadServerSave(authToken);
+              saveGame('trade_completed');
+              setTimeout(() => resetTradeSession(), 2000);
+            }
+          } else {
+            const err = await res.json();
+            setTradingError(err.message || 'Failed to confirm trade');
+          }
+        } catch (err) {
+          setTradingError('Connection failed');
+        }
+        setTradingStatus(null);
+      }
+
+      // Modify offer during review (returns to trading)
+      async function modifyInReview() {
+        if (!activeTradeSession || tradePhase !== 'review') return;
+        try {
+          const res = await fetch('/api/trade/modify', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({
+              tradeId: activeTradeSession.tradeId,
+              items: myOffer.items,
+              gold: myOffer.gold
+            })
+          });
+
+          if (res.ok) {
+            setTradePhase('trading');
+            setMyReady(false);
+            setPartnerReady(false);
+            setMyConfirmed(false);
+            setPartnerConfirmed(false);
+          }
+        } catch (err) {
+          console.error('Failed to modify trade:', err);
+        }
+      }
+
+      // Cancel trade
+      async function cancelTrade() {
+        if (!activeTradeSession) return;
+        try {
+          await fetch('/api/trade/cancel', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ tradeId: activeTradeSession.tradeId })
+          });
+          setCombatLog(prev => [...prev, 'Trade cancelled']);
+          resetTradeSession();
+        } catch (err) {
+          console.error('Failed to cancel trade:', err);
+        }
+      }
+
+      // Auction functions
+      async function fetchAuctions() {
+        if (!isAuthenticated || !authToken) return;
+        try {
+          const res = await fetch('/api/auction/list', {
+            headers: { 'Authorization': `Bearer ${authToken}` }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            setAuctionListings(data.listings || []);
+            setMyAuctionListings(data.myListings || []);
+          }
+        } catch (err) {
+          console.error('Failed to fetch auctions:', err);
+        }
+      }
+
+      async function createAuction() {
+        if (!auctionItem || auctionQuantity <= 0) {
+          setTradingError('Select an item and quantity');
+          return;
+        }
+        if (auctionPriceGold <= 0) {
+          setTradingError('Set a price');
+          return;
+        }
+
+        setTradingStatus('loading');
+        setTradingError(null);
+        try {
+          const res = await fetch('/api/auction/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({
+              itemId: auctionItem,
+              quantity: auctionQuantity,
+              priceGold: auctionPriceGold,
+              durationDays: auctionDuration
+            })
+          });
+
+          if (res.ok) {
+            setCombatLog(prev => [...prev, '📦 Auction listed!']);
+            // Update local inventory
+            setPlayer(prev => ({
+              ...prev,
+              inventory: {
+                ...prev.inventory,
+                [auctionItem]: (prev.inventory[auctionItem] || 0) - auctionQuantity
+              }
+            }));
+            setAuctionItem(null);
+            setAuctionQuantity(1);
+            setAuctionPriceGold(0);
+            fetchAuctions();
+            saveGame('auction_create');
+          } else {
+            const err = await res.json();
+            setTradingError(err.message || 'Failed to create auction');
+          }
+        } catch (err) {
+          setTradingError('Connection failed');
+        }
+        setTradingStatus(null);
+      }
+
+      async function buyAuction(auctionId) {
+        setTradingStatus('loading');
+        setTradingError(null);
+        try {
+          const res = await fetch('/api/auction/buy', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ auctionId })
+          });
+
+          if (res.ok) {
+            setCombatLog(prev => [...prev, '🛒 Purchase successful!']);
+            fetchAuctions();
+            await loadServerSave(authToken);
+            saveGame('auction_purchase');
+          } else {
+            const err = await res.json();
+            setTradingError(err.message || 'Failed to purchase');
+          }
+        } catch (err) {
+          setTradingError('Connection failed');
+        }
+        setTradingStatus(null);
+      }
+
+      async function cancelAuction(auctionId) {
+        try {
+          const res = await fetch('/api/auction/cancel', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ auctionId })
+          });
+
+          if (res.ok) {
+            setCombatLog(prev => [...prev, '📦 Auction cancelled, items returned']);
+            fetchAuctions();
+            await loadServerSave(authToken);
+          }
+        } catch (err) {
+          console.error('Failed to cancel auction:', err);
         }
       }
 
@@ -4414,15 +5133,26 @@
           // Find first available unlocked familiar slot
           if (combatLevel >= 10 && !player.equipment.familiar1) {
             slot = "familiar1";
-          } else if (combatLevel >= 20 && !player.equipment.familiar2) {
+          } else if (combatLevel >= 40 && !player.equipment.familiar2) {
             slot = "familiar2";
-          } else if (combatLevel >= 30 && !player.equipment.familiar3) {
+          } else if (combatLevel >= 60 && !player.equipment.familiar3) {
             slot = "familiar3";
-          } else if (combatLevel >= 10 && player.equipment.familiar1) {
+          } else if (combatLevel >= 20 && player.equipment.familiar1) {
             slot = "familiar1"; // Replace first slot if all are full
           } else {
             setCombatLog(prev => [...prev, `❌ No familiar slots unlocked! Need Combat Lvl 10 (current: ${combatLevel})`]);
             return;
+          }
+        }
+
+        // Handle ring slot assignment (2 ring slots available)
+        if (slot === "ring") {
+          if (!player.equipment.ring1) {
+            slot = "ring1";
+          } else if (!player.equipment.ring2) {
+            slot = "ring2";
+          } else {
+            slot = "ring1"; // Replace first ring if both are full
           }
         }
         
@@ -5146,21 +5876,34 @@
                 </div>
               </div>
 
-              <div className="grid grid-cols-4 gap-1">
-                {['weapon', 'head', 'body', 'legs', 'boots', 'offhand', 'accessory', 'tool'].map(slot => {
+              <div className="grid gap-1 justify-center" style={{gridTemplateColumns: 'repeat(3, 64px)'}}>
+                {[
+                  'accessory', 'head', 'cape',           // Row 1: Amulet, Helmet, Cape
+                  'weapon', 'body', 'offhand',           // Row 2: Weapon, Chest, Shield
+                  'ring1', 'legs', 'ring2',              // Row 3: Ring, Legs, Ring
+                  'gloves', 'boots', 'tool',             // Row 4: Gloves, Boots, Tool
+                  'familiar1', 'familiar2', 'familiar3'  // Row 5: Familiars
+                ].map(slot => {
                   const item = player.equipment[slot];
                   const itemData = item ? ITEMS_DATA[item] : null;
+                  const isFamiliar = slot.startsWith('familiar');
+                  const familiarNum = isFamiliar ? parseInt(slot.slice(-1)) : 0;
+                  const isUnlocked = !isFamiliar || isFamiliarSlotUnlocked(familiarNum);
+                  const reqLevel = familiarNum * 10;
                   return (
                     <button
                       key={slot}
-                      onClick={() => item && unequipItem(slot)}
-                      className="item-slot group"
-                      title={item ? `${getItemName(item)} - Click to unequip` : slot}
+                      onClick={() => item && isUnlocked && unequipItem(slot)}
+                      disabled={isFamiliar && !isUnlocked}
+                      className={`item-slot group ${isFamiliar && !isUnlocked ? 'opacity-40 bg-red-900/20' : ''}`}
+                      title={isFamiliar && !isUnlocked ? `Requires Combat Lvl ${reqLevel}` : item ? `${getItemName(item)} - Click to unequip` : slot}
                     >
-                      {item ? (
+                      {isFamiliar && !isUnlocked ? (
+                        <span className="text-[8px] text-red-400">🔒{reqLevel}</span>
+                      ) : item ? (
                         <ItemIcon itemId={item} size="text-xl" />
                       ) : (
-                        <span className="text-[8px] text-gray-600 uppercase">{slot.slice(0, 3)}</span>
+                        <span className="text-[8px] text-gray-600 uppercase">{slot.replace(/\d/g, '').slice(0, 3)}</span>
                       )}
                       {item && (
                         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/90 rounded flex items-center justify-center transition-opacity z-10">
@@ -5179,43 +5922,6 @@
                 })}
               </div>
 
-              {/* Familiars */}
-              <div className="text-[9px] text-purple-400/70 uppercase font-bold mt-3 mb-1">Familiars</div>
-              <div className="grid grid-cols-3 gap-1">
-                {[1, 2, 3].map(slotNum => {
-                  const slot = `familiar${slotNum}`;
-                  const item = player.equipment[slot];
-                  const itemData = item ? ITEMS_DATA[item] : null;
-                  const isUnlocked = isFamiliarSlotUnlocked(slotNum);
-                  const reqLevel = slotNum * 10;
-                  return (
-                    <button
-                      key={slot}
-                      onClick={() => item && isUnlocked && unequipItem(slot)}
-                      disabled={!isUnlocked}
-                      className={`item-slot group ${!isUnlocked ? 'opacity-40 bg-red-900/20' : ''}`}
-                      title={!isUnlocked ? `Requires Combat Lvl ${reqLevel}` : item ? getItemName(item) : 'Empty'}
-                    >
-                      {!isUnlocked ? (
-                        <span className="text-[8px] text-red-400">🔒{reqLevel}</span>
-                      ) : item ? (
-                        <ItemIcon itemId={item} size="text-xl" />
-                      ) : (
-                        <span className="text-[8px] text-gray-600">F{slotNum}</span>
-                      )}
-                      {item && (
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/90 rounded flex items-center justify-center transition-opacity z-10">
-                          <div className="text-[7px] text-center p-1">
-                            <div className="text-gray-200">{getItemName(item)}</div>
-                            {itemData?.attack && <div className="text-amber-400">+{itemData.attack} ATK</div>}
-                            {itemData?.defense && <div className="text-blue-400">+{itemData.defense} DEF</div>}
-                          </div>
-                        </div>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
             </div>
           </div>
 
@@ -5953,64 +6659,424 @@
                   </div>
                 </div>
 
-                {/* Group Fight - Hydra Boss Status */}
-                <div className="bg-[#1e1e22] p-3 rounded border border-purple-500/30">
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <div className="text-[11px] font-bold text-purple-400">⚔️ Group Combat - Hydra</div>
-                      <div className="text-[9px] text-gray-500">
-                        {sharedBossState["hydra_devils_port"]?.isActive
-                          ? `${Object.keys(sharedBossState["hydra_devils_port"].activeFighters).length} fighter(s) battling`
-                          : "Challenge the mighty Hydra"
-                        }
-                      </div>
+                {/* Trading Post - RuneScape-Style Real-Time Trading */}
+                <div className="panel">
+                  <div className="panel-header flex justify-between items-center">
+                    <div className="flex gap-2">
+                      {['trade', 'auction'].map(tab => (
+                        <button
+                          key={tab}
+                          onClick={() => { setTradingTab(tab); setTradingError(null); if (tab === 'auction') fetchAuctions(); if (tab === 'trade') fetchActiveTrade(); }}
+                          className={`px-2 py-1 rounded text-[9px] font-bold uppercase ${
+                            tradingTab === tab
+                              ? 'bg-amber-500/80 text-black'
+                              : 'bg-[#2a2a30] text-gray-500 hover:text-gray-300'
+                          }`}
+                        >
+                          {tab === 'trade' ? (activeTradeSession ? '🔄 Trading' : '📤 Trade') : '🏪 Auction'}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="text-[10px] text-amber-400 font-bold">
+                      💰 {player.gold.toLocaleString()} gold
                     </div>
                   </div>
-                  {sharedBossState["hydra_devils_port"]?.isActive && (
-                    <div className="mb-2">
-                      <div className="flex justify-between text-[9px] text-gray-400 mb-1">
-                        <span>Boss HP</span>
-                        <span>{sharedBossState["hydra_devils_port"].currentHp} / {sharedBossState["hydra_devils_port"].maxHp}</span>
-                      </div>
-                      <div className="w-full h-2 bg-gray-700 rounded overflow-hidden">
-                        <div
-                          className="h-full bg-red-600 transition-all"
-                          style={{ width: `${(sharedBossState["hydra_devils_port"].currentHp / sharedBossState["hydra_devils_port"].maxHp) * 100}%` }}
-                        />
-                      </div>
-                      {sharedBossState["hydra_devils_port"].activeFighters["player_local"] && (
-                        <div className="text-[8px] text-amber-400 mt-1">
-                          Your damage: {sharedBossState["hydra_devils_port"].activeFighters["player_local"].totalDamageDealt}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  <button
-                    onClick={() => {
-                      const hydra = currentLocation.enemies.find(e => e.sharedBossId === "hydra_devils_port");
-                      if (hydra) joinGroupFight(hydra);
-                    }}
-                    disabled={enemy !== null}
-                    className={`w-full px-3 py-2 rounded text-[10px] font-bold ${
-                      enemy !== null
-                        ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                        : 'bg-purple-600 hover:bg-purple-500 text-white'
-                    }`}
-                  >
-                    {enemy !== null ? 'Already in Combat' : sharedBossState["hydra_devils_port"]?.isActive ? 'Join Group Fight' : 'Start Hydra Fight'}
-                  </button>
-                </div>
 
-                {/* Trading Placeholder */}
-                <div className="bg-[#1e1e22] p-3 rounded border border-[#2a2a30]">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-[11px] font-bold text-amber-400">💰 Trading Post</div>
-                      <div className="text-[9px] text-gray-500">Exchange goods with players</div>
-                    </div>
-                    <button disabled className="px-3 py-1 bg-gray-700 text-gray-500 rounded text-[10px] cursor-not-allowed">
-                      Player Trading - Coming Soon
-                    </button>
+                  <div className="panel-body space-y-3 max-h-[800px] overflow-y-auto">
+                    {tradingError && (
+                      <div className="text-red-400 text-[10px] p-2 bg-red-900/30 rounded">
+                        {tradingError}
+                      </div>
+                    )}
+
+                    {/* Trade Tab */}
+                    {tradingTab === 'trade' && (
+                      <div className="space-y-3">
+                        {/* Pending Trade Request Notification */}
+                        {pendingTradeRequests.length > 0 && !activeTradeSession && (
+                          <div className="p-2 bg-amber-900/30 rounded border border-amber-500/50 animate-pulse">
+                            <div className="text-[10px] text-amber-400 font-bold mb-1">Trade Request!</div>
+                            {pendingTradeRequests.map(req => (
+                              <div key={req.tradeId} className="flex items-center justify-between">
+                                <span className="text-[9px] text-gray-200">{req.initiatorName} wants to trade</span>
+                                <div className="flex gap-1">
+                                  <button onClick={() => acceptTradeRequest(req.tradeId)} className="px-2 py-0.5 bg-green-600 hover:bg-green-500 rounded text-[8px] text-white">Accept</button>
+                                  <button onClick={() => declineTradeRequest(req.tradeId)} className="px-2 py-0.5 bg-red-600 hover:bg-red-500 rounded text-[8px] text-white">Decline</button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        {/* No Active Trade - Show Players */}
+                        {!activeTradeSession && (
+                          <div>
+                            <div className="text-[9px] text-gray-400 uppercase mb-1">Players Here - Click to Trade</div>
+                            <div className="flex flex-wrap gap-1 max-h-20 overflow-y-auto">
+                              {playersHere.filter(p => (p.odplayerId || p.playerId) !== user?.id).map((p, i) => (
+                                <button
+                                  key={p.odplayerId || p.playerId || i}
+                                  onClick={() => sendTradeRequest(p.odplayerId || p.playerId)}
+                                  disabled={!isAuthenticated || tradingStatus === 'loading'}
+                                  className="px-2 py-1 bg-[#2a2a30] hover:bg-amber-600 text-gray-300 hover:text-white rounded text-[9px] disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                  {p.displayName} {p.online && '🟢'}
+                                </button>
+                              ))}
+                              {playersHere.filter(p => (p.odplayerId || p.playerId) !== user?.id).length === 0 && (
+                                <div className="text-gray-500 text-[9px]">No other players here</div>
+                              )}
+                            </div>
+                            {!isAuthenticated && (
+                              <div className="text-[9px] text-gray-500 mt-1">Login to trade with players</div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Pending Accept - Waiting for partner */}
+                        {activeTradeSession && tradePhase === 'pending_accept' && tradeRole === 'initiator' && (
+                          <div className="text-center py-4">
+                            <div className="text-[10px] text-amber-400 mb-2">Waiting for {activeTradeSession.partnerName} to accept...</div>
+                            <div className="text-[8px] text-gray-500 mb-3">Request expires in 5 minutes</div>
+                            <button onClick={cancelTrade} className="px-3 py-1 bg-red-600 hover:bg-red-500 rounded text-[9px] text-white">
+                              Cancel Request
+                            </button>
+                          </div>
+                        )}
+
+                        {/* Trading Phase */}
+                        {activeTradeSession && tradePhase === 'trading' && (
+                          <div className="space-y-2">
+                            <div className="text-[10px] text-amber-400 font-bold text-center">
+                              Trading with {tradeRole === 'initiator' ? activeTradeSession.partnerName : activeTradeSession.initiatorName}
+                            </div>
+
+                            {/* Quantity Multiplier */}
+                            <div className="flex items-center gap-2">
+                              <span className="text-[9px] text-gray-400">Add qty:</span>
+                              <input
+                                type="number"
+                                value={tradeQuantityMultiplier}
+                                onChange={(e) => setTradeQuantityMultiplier(Math.max(1, parseInt(e.target.value) || 1))}
+                                min="1"
+                                className="w-16 px-2 py-0.5 bg-[#1a1a1e] border border-[#3a3a42] rounded text-[9px] text-amber-400"
+                              />
+                              <span className="text-[7px] text-gray-500">(click add, right-click remove)</span>
+                            </div>
+
+                            {/* Two-column trade grid */}
+                            <div className="grid grid-cols-2 gap-2">
+                              {/* Your Offer */}
+                              <div className="p-3 bg-[#1e1e22] rounded border border-green-500/30">
+                                <div className="text-[10px] text-green-400 uppercase mb-2 font-bold">Your Offer</div>
+                                <div className="trade-grid max-h-[220px] overflow-y-auto bg-[#1a1a1e] rounded mb-2">
+                                  {Object.entries(player.inventory).filter(([k, v]) => v > 0).map(([itemId, qty]) => {
+                                    const offeredQty = myOffer.items[itemId] || 0;
+                                    return (
+                                      <button
+                                        key={itemId}
+                                        onClick={() => addItemToOffer(itemId, tradeQuantityMultiplier)}
+                                        onContextMenu={(e) => { e.preventDefault(); removeItemFromOffer(itemId, tradeQuantityMultiplier); }}
+                                        className={`trade-item-slot ${offeredQty > 0 ? 'ring-2 ring-green-500' : ''}`}
+                                      >
+                                        <ItemIcon itemId={itemId} size="text-xl" />
+                                        <span className="absolute bottom-0 right-0 px-1 bg-black/80 text-[8px] text-gray-300 rounded-tl">
+                                          {offeredQty}/{qty}
+                                        </span>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                                {/* Show offered items summary */}
+                                <div className="text-[9px] text-gray-300 space-y-0.5 max-h-16 overflow-y-auto">
+                                  {Object.entries(myOffer.items).filter(([_, q]) => q > 0).map(([id, q]) => (
+                                    <div key={id} className="flex justify-between">
+                                      <span>{getItemName(id)}</span>
+                                      <span className="text-green-400">x{q}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                                <div className="flex items-center gap-2 mt-2">
+                                  <span className="text-[10px] text-gray-400 font-medium">Gold:</span>
+                                  <input
+                                    type="number"
+                                    value={myOffer.gold}
+                                    onChange={(e) => setOfferGold(parseInt(e.target.value) || 0)}
+                                    className="w-20 px-2 py-1 bg-[#1a1a1e] border border-[#3a3a42] rounded text-[10px] text-amber-400"
+                                  />
+                                </div>
+                              </div>
+
+                              {/* Their Offer */}
+                              <div className="p-3 bg-[#1e1e22] rounded border border-blue-500/30">
+                                <div className="text-[10px] text-blue-400 uppercase mb-2 font-bold">Their Offer</div>
+                                <div className="trade-grid min-h-[80px] max-h-[220px] overflow-y-auto bg-[#1a1a1e] rounded mb-2">
+                                  {Object.entries(partnerOffer.items).filter(([_, q]) => q > 0).length === 0 && partnerOffer.gold === 0 ? (
+                                    <div className="text-[9px] text-gray-500 text-center py-6 col-span-full">Waiting for items...</div>
+                                  ) : (
+                                    <>
+                                      {Object.entries(partnerOffer.items).filter(([_, q]) => q > 0).map(([itemId, qty]) => (
+                                        <div key={itemId} className="trade-item-slot">
+                                          <ItemIcon itemId={itemId} size="text-xl" />
+                                          <span className="absolute bottom-0 right-0 px-1 bg-black/80 text-[8px] text-blue-300 rounded-tl">x{qty}</span>
+                                        </div>
+                                      ))}
+                                    </>
+                                  )}
+                                </div>
+                                <div className="text-[9px] text-gray-300 space-y-0.5 max-h-16 overflow-y-auto">
+                                  {Object.entries(partnerOffer.items).filter(([_, q]) => q > 0).map(([id, q]) => (
+                                    <div key={id} className="flex justify-between">
+                                      <span>{getItemName(id)}</span>
+                                      <span className="text-blue-400">x{q}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                                {partnerOffer.gold > 0 && (
+                                  <div className="text-[10px] text-amber-400 mt-2 font-medium">Gold: {partnerOffer.gold.toLocaleString()}</div>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Ready Status */}
+                            <div className="flex items-center justify-between p-2 bg-[#1a1a1e] rounded">
+                              <div className="text-[9px]">
+                                <span className="text-gray-400">You:</span>
+                                <span className={myReady ? 'text-green-400 ml-1' : 'text-yellow-400 ml-1'}>
+                                  {myReady ? 'Ready' : 'Not Ready'}
+                                </span>
+                              </div>
+                              <div className="text-[9px]">
+                                <span className="text-gray-400">Partner:</span>
+                                <span className={partnerReady ? 'text-green-400 ml-1' : 'text-yellow-400 ml-1'}>
+                                  {partnerReady ? 'Ready' : 'Not Ready'}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex gap-2">
+                              <button
+                                onClick={toggleReady}
+                                className={`flex-1 py-1.5 rounded text-[10px] font-bold text-white ${
+                                  myReady ? 'bg-yellow-600 hover:bg-yellow-500' : 'bg-green-600 hover:bg-green-500'
+                                }`}
+                              >
+                                {myReady ? 'Unready' : 'Ready'}
+                              </button>
+                              <button
+                                onClick={cancelTrade}
+                                className="px-3 py-1.5 bg-red-600 hover:bg-red-500 rounded text-[10px] font-bold text-white"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Review Phase */}
+                        {activeTradeSession && tradePhase === 'review' && (
+                          <div className="space-y-2">
+                            <div className="text-center p-2 bg-amber-900/30 rounded border border-amber-500/50">
+                              <div className="text-[11px] text-amber-400 font-bold">CONFIRM TRADE</div>
+                              <div className="text-[8px] text-gray-400">Review carefully before confirming</div>
+                            </div>
+
+                            {/* Final Trade Summary */}
+                            <div className="grid grid-cols-2 gap-2">
+                              {/* You Give */}
+                              <div className="p-2 bg-red-900/20 rounded border border-red-500/30">
+                                <div className="text-[9px] text-red-400 uppercase mb-1 font-bold">You Give</div>
+                                <div className="text-[8px] text-gray-300 space-y-0.5">
+                                  {Object.entries(myOffer.items).filter(([_, q]) => q > 0).map(([id, q]) => (
+                                    <div key={id} className="flex items-center gap-1">
+                                      <ItemIcon itemId={id} size="text-xs" />
+                                      <span>{getItemName(id)} x{q}</span>
+                                    </div>
+                                  ))}
+                                  {myOffer.gold > 0 && (
+                                    <div className="text-amber-400">{myOffer.gold.toLocaleString()} gold</div>
+                                  )}
+                                  {Object.keys(myOffer.items).filter(k => myOffer.items[k] > 0).length === 0 && myOffer.gold === 0 && (
+                                    <div className="text-gray-500 italic">Nothing</div>
+                                  )}
+                                </div>
+                              </div>
+
+                              {/* You Receive */}
+                              <div className="p-2 bg-green-900/20 rounded border border-green-500/30">
+                                <div className="text-[9px] text-green-400 uppercase mb-1 font-bold">You Receive</div>
+                                <div className="text-[8px] text-gray-300 space-y-0.5">
+                                  {Object.entries(partnerOffer.items).filter(([_, q]) => q > 0).map(([id, q]) => (
+                                    <div key={id} className="flex items-center gap-1">
+                                      <ItemIcon itemId={id} size="text-xs" />
+                                      <span>{getItemName(id)} x{q}</span>
+                                    </div>
+                                  ))}
+                                  {partnerOffer.gold > 0 && (
+                                    <div className="text-amber-400">{partnerOffer.gold.toLocaleString()} gold</div>
+                                  )}
+                                  {Object.keys(partnerOffer.items).filter(k => partnerOffer.items[k] > 0).length === 0 && partnerOffer.gold === 0 && (
+                                    <div className="text-gray-500 italic">Nothing</div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Confirm Status */}
+                            <div className="flex items-center justify-between p-2 bg-[#1a1a1e] rounded">
+                              <div className="text-[9px]">
+                                <span className="text-gray-400">You:</span>
+                                <span className={myConfirmed ? 'text-green-400 ml-1' : 'text-yellow-400 ml-1'}>
+                                  {myConfirmed ? 'Confirmed' : 'Waiting'}
+                                </span>
+                              </div>
+                              <div className="text-[9px]">
+                                <span className="text-gray-400">Partner:</span>
+                                <span className={partnerConfirmed ? 'text-green-400 ml-1' : 'text-yellow-400 ml-1'}>
+                                  {partnerConfirmed ? 'Confirmed' : 'Waiting'}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex gap-2">
+                              <button
+                                onClick={modifyInReview}
+                                className="px-3 py-1.5 bg-yellow-600 hover:bg-yellow-500 rounded text-[10px] font-bold text-white"
+                              >
+                                Modify
+                              </button>
+                              <button
+                                onClick={confirmTrade}
+                                disabled={myConfirmed || tradingStatus === 'loading'}
+                                className="flex-1 py-1.5 bg-green-600 hover:bg-green-500 disabled:bg-gray-700 rounded text-[10px] font-bold text-white"
+                              >
+                                {myConfirmed ? 'Waiting for Partner...' : tradingStatus === 'loading' ? 'Confirming...' : 'Confirm Trade'}
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Completed State */}
+                        {activeTradeSession && tradePhase === 'completed' && (
+                          <div className="text-center py-4">
+                            <div className="text-[12px] text-green-400 font-bold mb-2">Trade Completed!</div>
+                            <div className="text-[9px] text-gray-400">Items have been exchanged</div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Auction Tab */}
+                    {tradingTab === 'auction' && (
+                      <div className="space-y-3">
+                        {/* Create Listing */}
+                        <div className="p-2 bg-[#1e1e22] rounded border border-amber-500/30">
+                          <div className="text-[9px] text-amber-400 uppercase mb-1">Create Listing</div>
+                          <div className="grid grid-cols-4 gap-1 mb-1">
+                            <select
+                              value={auctionItem || ''}
+                              onChange={(e) => { setAuctionItem(e.target.value || null); setAuctionQuantity(1); }}
+                              disabled={!isAuthenticated}
+                              className="col-span-2 px-1 py-0.5 bg-[#1a1a1e] border border-[#3a3a42] rounded text-[9px] text-gray-200 disabled:opacity-50"
+                            >
+                              <option value="">Select item...</option>
+                              {Object.entries(player.inventory).filter(([k, v]) => v > 0).map(([itemId, qty]) => (
+                                <option key={itemId} value={itemId}>{getItemName(itemId)} ({qty})</option>
+                              ))}
+                            </select>
+                            <input
+                              type="number"
+                              value={auctionQuantity}
+                              onChange={(e) => setAuctionQuantity(Math.max(1, Math.min(player.inventory[auctionItem] || 1, parseInt(e.target.value) || 1)))}
+                              disabled={!isAuthenticated}
+                              placeholder="Qty"
+                              className="px-1 py-0.5 bg-[#1a1a1e] border border-[#3a3a42] rounded text-[9px] disabled:opacity-50"
+                            />
+                            <input
+                              type="number"
+                              value={auctionPriceGold || ''}
+                              onChange={(e) => setAuctionPriceGold(Math.max(0, parseInt(e.target.value) || 0))}
+                              disabled={!isAuthenticated}
+                              placeholder="Gold"
+                              className="px-1 py-0.5 bg-[#1a1a1e] border border-[#3a3a42] rounded text-[9px] text-amber-400 disabled:opacity-50"
+                            />
+                          </div>
+                          <div className="flex items-center gap-1 mb-1">
+                            <span className="text-[8px] text-gray-400">Duration:</span>
+                            {[1, 3, 7].map(d => (
+                              <button
+                                key={d}
+                                onClick={() => setAuctionDuration(d)}
+                                disabled={!isAuthenticated}
+                                className={`px-1.5 py-0.5 rounded text-[8px] ${auctionDuration === d ? 'bg-amber-600 text-white' : 'bg-[#2a2a30] text-gray-400'} disabled:opacity-50`}
+                              >
+                                {d}d
+                              </button>
+                            ))}
+                          </div>
+                          <button
+                            onClick={createAuction}
+                            disabled={!isAuthenticated || !auctionItem || auctionPriceGold <= 0}
+                            className="w-full py-1 bg-amber-600 hover:bg-amber-500 disabled:bg-gray-700 rounded text-[9px] font-bold text-white"
+                          >
+                            {!isAuthenticated ? 'Login to List' : 'List Item'}
+                          </button>
+                        </div>
+
+                        {/* My Listings */}
+                        {myAuctionListings.filter(a => a.status === 'active').length > 0 && (
+                          <div>
+                            <div className="text-[9px] text-blue-400 uppercase mb-1">Your Listings</div>
+                            <div className="space-y-1 max-h-20 overflow-y-auto">
+                              {myAuctionListings.filter(a => a.status === 'active').map(auction => (
+                                <div key={auction.auctionId} className="flex items-center justify-between p-1 bg-[#1e1e22] rounded text-[8px]">
+                                  <div className="flex items-center gap-1">
+                                    <ItemIcon itemId={auction.itemId} size="text-xs" />
+                                    <span>{getItemName(auction.itemId)} x{auction.quantity}</span>
+                                    <span className="text-amber-400">{auction.priceGold}g</span>
+                                  </div>
+                                  <button onClick={() => cancelAuction(auction.auctionId)} disabled={!isAuthenticated} className="px-1 py-0.5 bg-red-600/50 hover:bg-red-500 disabled:bg-gray-700 rounded text-[7px]">Cancel</button>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Browse Listings */}
+                        <div>
+                          <div className="text-[9px] text-green-400 uppercase mb-1">Browse ({auctionListings.filter(a => a.sellerId !== user?.id).length})</div>
+                          <div className="space-y-1 max-h-32 overflow-y-auto">
+                            {auctionListings.filter(a => a.sellerId !== user?.id).length === 0 ? (
+                              <div className="text-gray-500 text-[9px] text-center py-2 bg-[#1a1a1e] rounded">No listings</div>
+                            ) : (
+                              auctionListings.filter(a => a.sellerId !== user?.id).map(auction => (
+                                <div key={auction.auctionId} className="flex items-center justify-between p-1 bg-[#1e1e22] rounded text-[8px]">
+                                  <div className="flex items-center gap-1">
+                                    <ItemIcon itemId={auction.itemId} size="text-xs" />
+                                    <div>
+                                      <div>{getItemName(auction.itemId)} x{auction.quantity}</div>
+                                      <div className="text-[7px] text-gray-500">by {auction.sellerName}</div>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-1">
+                                    <span className="text-amber-400">{auction.priceGold}g</span>
+                                    <button
+                                      onClick={() => buyAuction(auction.auctionId)}
+                                      disabled={!isAuthenticated || player.gold < auction.priceGold}
+                                      className="px-1.5 py-0.5 bg-green-600 hover:bg-green-500 disabled:bg-gray-700 rounded text-[8px] text-white"
+                                    >
+                                      Buy
+                                    </button>
+                                  </div>
+                                </div>
+                              ))
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
