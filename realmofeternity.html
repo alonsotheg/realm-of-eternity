@@ -629,7 +629,6 @@
       aspect-ratio: 1;
       max-width: 320px;
       margin: 0 auto;
-      border-radius: 50%;
       overflow: hidden;
       background:
         radial-gradient(ellipse at 30% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
@@ -641,6 +640,9 @@
           rgba(30, 64, 175, 0.3) 100%
         ),
         linear-gradient(180deg, #1e3a5f 0%, #1e40af33 100%);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       border: 2px solid rgba(59, 130, 246, 0.3);
       box-shadow:
         inset 0 0 30px rgba(0, 0, 0, 0.5),
@@ -660,9 +662,9 @@
       font-size: 13px;
       cursor: pointer;
       transition: all 0.2s ease;
-      border: 2px solid transparent;
+      border: 2px solid rgba(255, 255, 255, 0.7);
       background: rgba(28, 28, 32, 0.9);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
     }
 
     /* Touch-friendly sizing */
@@ -691,24 +693,24 @@
 
     /* Adjacent location - clickable */
     .map-node-adjacent {
-      border-color: rgba(74, 222, 128, 0.6);
+      border-color: rgba(13, 151, 64, 1);
       cursor: pointer;
     }
 
     .map-node-adjacent:hover {
-      border-color: rgba(74, 222, 128, 1);
+      border-color: rgba(13, 151, 64, 1);
       transform: translate(-50%, -50%) scale(1.15);
       box-shadow:
-        0 0 0 3px rgba(74, 222, 128, 0.3),
-        0 0 12px rgba(74, 222, 128, 0.4),
+        0 0 0 3px rgba(13, 151, 64, 1),
+        0 0 12px rgba(13, 151, 64, 1),
         0 4px 12px rgba(0, 0, 0, 0.5);
     }
 
     /* Non-adjacent location - disabled */
     .map-node-disabled {
-      opacity: 0.4;
+      opacity: 0.8;
       cursor: not-allowed;
-      filter: grayscale(50%);
+      border-color: rgba(128, 128, 128, 0.7);
     }
 
     /* Traveling destination - pulsing cool blue */
@@ -727,7 +729,7 @@
 
     /* Traveling state - all nodes except destination are dimmed */
     .map-node-traveling {
-      opacity: 0.3;
+      opacity: 0.8;
       cursor: not-allowed;
     }
 
@@ -746,7 +748,7 @@
       border-radius: 3px;
       background: rgba(0, 0, 0, 0.85);
       color: #e2e2e6;
-      opacity: 0;
+      opacity: 0.4;
       pointer-events: none;
       transition: opacity 0.15s ease;
       z-index: 10;
@@ -754,7 +756,7 @@
 
     .map-node:hover .map-node-label,
     .map-node-current .map-node-label {
-      opacity: 1;
+      opacity: 3;
     }
 
     /* Connection lines between adjacent locations */
@@ -765,13 +767,13 @@
     }
 
     .map-connection-line {
-      stroke: rgba(255, 255, 255, 0.15);
+      stroke: rgba(255, 255, 255, 0.7);
       stroke-width: 1.5;
       stroke-dasharray: 4, 4;
     }
 
     .map-connection-line-active {
-      stroke: rgba(74, 222, 128, 0.4);
+      stroke: rgba(74, 222, 128, 0.7);
       stroke-width: 2;
     }
 
@@ -866,20 +868,22 @@
 
     // MAP NODE POSITIONS AND ICONS - Geographic layout for island map
     const LOCATION_MAP_DATA = {
-      "starter-village": { icon: "🏘️", name: "Starter Village", position: { top: "52%", left: "57%" } },
-      "blacksmith": { icon: "🔨", name: "Blacksmith", position: { top: "59%", left: "41%" } },
-      "forest": { icon: "🌲", name: "Forest", position: { top: "28%", left: "67%" } },
-      "cave": { icon: "🕳️", name: "Cave", position: { top: "49%", left: "81%" } },
-      "fishing-pond": { icon: "🎣", name: "Fishing Pond", position: { top: "72%", left: "71%" } },
-      "volcanic-plain": { icon: "🌋", name: "Volcanic Plain", position: { top: "86%", left: "51%" } },
-      "mountains": { icon: "⛰️", name: "Mountains", position: { top: "24%", left: "39%" } },
-      "devils-port": { icon: "⚓", name: "Devil's Port", position: { top: "16%", left: "23%" } }
+      "starter-village": { icon: "🏘️", iconPath: "assets/icons/starter_village.png", name: "Starter Village", position: { top: "50%", left: "25%" } },
+      "blacksmith": { icon: "🔨", iconPath: "assets/icons/blacksmith.png", name: "Blacksmith", position: { top: "69%", left: "25%" } },
+      "forest": { icon: "🌲", iconPath: "assets/icons/forest.png", name: "Forest", position: { top: "30%", left: "30%" } },
+      "cave": { icon: "🕳️", iconPath: "assets/icons/cave.png", name: "Cave", position: { top: "45%", left: "15%" } },
+      "fishing-pond": { icon: "🎣", iconPath: "assets/icons/fishing_pond.png", name: "Fishing Pond", position: { top: "15%", left: "15%" } },
+      "volcanic-plain": { icon: "🌋", iconPath: "assets/icons/volcanic_plain.png", name: "Volcanic Plain", position: { top: "45%", left: "60%" } },
+      "mountains": { icon: "⛰️", iconPath: "assets/icons/mountains.png", name: "Mountains", position: { top: "20%", left: "45%" } },
+      "devils-port": { icon: "⚓", iconPath: "assets/icons/devils_port.png", name: "Devil's Port", position: { top: "25%", left: "77%" } }
     };
 
     // SCENE IMAGE CONFIGURATION
     // Add your image paths here. Images should be placed in assets/scenes/ folder
     // Set to null or remove entry to use gradient fallback
     const SCENE_IMAGES = {
+      // Minimap background image
+      minimap: "assets/scenes/minimap_background.png",
       // Location idle images - shown when standing in a location
       locations: {
         "starter-village": "assets/scenes/village.png",
@@ -5731,7 +5735,7 @@
                 )}
 
                 {/* Island Map */}
-                <div className="island-map">
+                <div className="island-map" style={{ backgroundImage: SCENE_IMAGES.minimap ? `url(${SCENE_IMAGES.minimap})` : undefined }}>
                   {/* SVG Connection Lines */}
                   <svg className="map-connections" viewBox="0 0 100 100" preserveAspectRatio="none">
                     {Object.entries(LOCATION_ADJACENCY).map(([locA, adjacents]) =>
@@ -5789,7 +5793,19 @@
                         }}
                         title={`${locData.name}${isCurrent ? ' (You are here)' : isAdjacent ? ' - Click to travel' : ' - Not adjacent'}`}
                       >
-                        <span>{locData.icon}</span>
+                        <span style={{
+                          backgroundImage: locData.iconPath ? `url(${locData.iconPath})` : undefined,
+                          backgroundSize: 'contain',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat',
+                          width: '100%',
+                          height: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          {!locData.iconPath ? locData.icon : ''}
+                        </span>
                         <span className="map-node-label">{locData.name}</span>
                       </button>
                     );
