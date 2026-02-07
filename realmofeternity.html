@@ -2224,7 +2224,7 @@
 
       const handleWorldSend = () => {
         if (worldInput.trim()) {
-          socketRef.current.emit('world:message', { sender: player.displayName, message: worldInput });
+          socketRef.current.emit('world:message', { sender: user?.displayName || "Adventurer", message: worldInput });
           setWorldInput('');
         }
       };
