@@ -2148,7 +2148,8 @@
       });
       const [selectedCombatSkill, setSelectedCombatSkill] = useState("strength");
       const [activeResource, setActiveResource] = useState(null);
-      const [shopQuantity, setShopQuantity] = useState(1);
+      const [shopBuyMultiplier, setShopBuyMultiplier] = useState(1);
+      const [shopSellMultiplier, setShopSellMultiplier] = useState(1);
       const [autoCombatEnabled, setAutoCombatEnabled] = useState(true);
       const [autoEatEnabled, setAutoEatEnabled] = useState(false);
       const [autoEatThreshold, setAutoEatThreshold] = useState(60);
@@ -2184,6 +2185,8 @@
       // HOME & FARMING UI STATE
       const [homeView, setHomeView] = useState("overview"); // "overview" | "inventory" | "farming"
       const [selectedPlotIndex, setSelectedPlotIndex] = useState(null);
+      const [homeDepositMultiplier, setHomeDepositMultiplier] = useState(1);
+      const [homeWithdrawMultiplier, setHomeWithdrawMultiplier] = useState(1);
 
       // SKILLS / QUESTS / EQUIPMENT TABS
       const [activeLeftTab, setActiveLeftTab] = useState('skills'); // 'skills' | 'quests' | 'equipment'
@@ -5270,23 +5273,25 @@
         saveGame("equip_change");
       }
 
-      function buyItem(itemName) {
+      function buyItem(itemName, quantity = 1) {
         const item = ITEMS_DATA[itemName];
-        const cost = item ? item.value * shopQuantity : 0;
-        if (!item || player.gold < cost) return;
+        const maxAffordable = item ? Math.floor(player.gold / item.value) : 0;
+        const toBuy = Math.min(quantity, maxAffordable);
+        const cost = item ? item.value * toBuy : 0;
+        if (!item || toBuy <= 0) return;
         setPlayer(prev => ({
           ...prev,
           gold: prev.gold - cost,
-          inventory: { ...prev.inventory, [itemName]: (prev.inventory[itemName] || 0) + shopQuantity }
+          inventory: { ...prev.inventory, [itemName]: (prev.inventory[itemName] || 0) + toBuy }
         }));
         saveGame("shop_transaction");
       }
 
-      function sellItem(itemName) {
+      function sellItem(itemName, quantity = 1) {
         const item = ITEMS_DATA[itemName];
         if (!item || !player.inventory[itemName] || player.inventory[itemName] < 1) return;
 
-        const amountToSell = Math.min(player.inventory[itemName], shopQuantity);
+        const amountToSell = Math.min(player.inventory[itemName], quantity);
         const sellPrice = Math.floor(item.value / 2) * amountToSell;
 
         setPlayer(prev => ({
@@ -6644,20 +6649,27 @@
             <div className="panel">
               <div className="panel-header flex justify-between items-center">
                 <span className="text-[10px] font-bold text-gray-400 uppercase">Village Shop</span>
-                <div className="flex gap-1">
-                  {[1, 5, 10, 100].map(qty => (
-                    <button
-                      key={qty}
-                      onClick={() => setShopQuantity(qty)}
-                      className={`px-3 py-1 rounded text-[11px] font-bold ${
-                        shopQuantity === qty
-                          ? 'bg-amber-500/80 text-black'
-                          : 'bg-[#2a2a30] text-gray-500'
-                      }`}
-                    >
-                      x{qty}
-                    </button>
-                  ))}
+                <div className="flex gap-2">
+                  <div className="flex items-center gap-1">
+                    <span className="text-[9px] text-amber-400">Buy qty:</span>
+                    <input
+                      type="number"
+                      value={shopBuyMultiplier}
+                      onChange={(e) => setShopBuyMultiplier(Math.max(1, parseInt(e.target.value) || 1))}
+                      min="1"
+                      className="w-16 px-2 py-0.5 bg-[#1a1a1e] border border-[#3a3a42] rounded text-[9px] text-amber-400"
+                    />
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-[9px] text-green-400">Sell qty:</span>
+                    <input
+                      type="number"
+                      value={shopSellMultiplier}
+                      onChange={(e) => setShopSellMultiplier(Math.max(1, parseInt(e.target.value) || 1))}
+                      min="1"
+                      className="w-16 px-2 py-0.5 bg-[#1a1a1e] border border-[#3a3a42] rounded text-[9px] text-green-400"
+                    />
+                  </div>
                 </div>
               </div>
               <div className="panel-body">
@@ -6669,14 +6681,14 @@
                       {["minor_healing_potion", "sword", "bronze_shield", "iron_shield", "bronze_helmet", "bronze_platelegs", "bronze_platebody", "bronze_pickaxe", "iron_pickaxe", "bronze_axe", "iron_axe"].map(item => (
                         <button 
                           key={item} 
-                          onClick={() => buyItem(item)} 
+                          onClick={() => buyItem(item, shopBuyMultiplier)} 
                           className="w-full btn-action p-1.5 rounded flex items-center justify-between text-left"
                         >
                           <div className="flex items-center gap-2">
                             <ItemIcon itemId={item} size="text-sm" />
                             <span className="text-[10px] text-gray-300">{getItemName(item)}</span>
                           </div>
-                          <span className="text-[9px] text-amber-400">-{ITEMS_DATA[item].value * shopQuantity}g</span>
+                          <span className="text-[9px] text-amber-400">-{ITEMS_DATA[item].value * shopBuyMultiplier}g</span>
                         </button>
                       ))}
                     </div>
@@ -6688,14 +6700,14 @@
                       {Object.keys(player.inventory).filter(k => player.inventory[k] > 0).map(item => (
                         <button 
                           key={item} 
-                          onClick={() => sellItem(item)} 
+                          onClick={() => sellItem(item, shopSellMultiplier)} 
                           className="w-full btn-action p-1.5 rounded flex items-center justify-between text-left"
                         >
                           <div className="flex items-center gap-2">
                             <ItemIcon itemId={item} size="text-sm" />
                             <span className="text-[10px] text-gray-300">{getItemName(item)} <span className="text-gray-600">x{player.inventory[item]}</span></span>
                           </div>
-                          <span className="text-[9px] text-green-400">+{Math.floor(ITEMS_DATA[item].value / 2) * Math.min(player.inventory[item], shopQuantity)}g</span>
+                          <span className="text-[9px] text-green-400">+{Math.floor(ITEMS_DATA[item].value / 2) * Math.min(player.inventory[item], shopSellMultiplier)}g</span>
                         </button>
                       ))}
                     </div>
@@ -7317,6 +7329,30 @@
                         <div className="text-[10px] text-gray-400">Home Storage ({usedSlots}/{config.inventorySlots} slots)</div>
                       </div>
 
+                      {/* Quantity Multipliers */}
+                      <div className="col-span-full flex items-center justify-center gap-4">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] text-amber-400">Deposit qty:</span>
+                          <input
+                            type="number"
+                            value={homeDepositMultiplier}
+                            onChange={(e) => setHomeDepositMultiplier(Math.max(1, parseInt(e.target.value) || 1))}
+                            min="1"
+                            className="w-16 px-2 py-0.5 bg-[#1a1a1e] border border-[#3a3a42] rounded text-[9px] text-amber-400"
+                          />
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] text-emerald-400">Withdraw qty:</span>
+                          <input
+                            type="number"
+                            value={homeWithdrawMultiplier}
+                            onChange={(e) => setHomeWithdrawMultiplier(Math.max(1, parseInt(e.target.value) || 1))}
+                            min="1"
+                            className="w-16 px-2 py-0.5 bg-[#1a1a1e] border border-[#3a3a42] rounded text-[9px] text-emerald-400"
+                          />
+                        </div>
+                      </div>
+
                       {/* Player Inventory - Transfer TO Home */}
                       <div className="bg-[#1e1e22] p-2 rounded home-inv-section">
                         <div className="text-[9px] text-amber-400 font-bold mb-1">Your Inventory (Click to Store)</div>
@@ -7328,7 +7364,7 @@
                             return (
                               <button
                                 key={key}
-                                onClick={() => transferToHome(key, 1)}
+                                onClick={() => transferToHome(key, homeDepositMultiplier)}
                                 onContextMenu={(e) => { e.preventDefault(); transferToHome(key, value); }}
                                 className="item-slot group relative"
                               >
@@ -7373,7 +7409,7 @@
                                 onDragLeave={handleHomeDragLeave}
                                 onDrop={(e) => handleHomeDrop(e, key)}
                                 onDragEnd={handleHomeDragEnd}
-                                onClick={() => transferFromHome(key, 1)}
+                                onClick={() => transferFromHome(key, homeWithdrawMultiplier)}
                                 onContextMenu={(e) => { e.preventDefault(); transferFromHome(key, value); }}
                                 className={`item-slot group relative ${draggedHomeItem === key ? 'dragging' : ''} ${dragOverHomeItem === key ? 'drag-over' : ''}`}
                               >
