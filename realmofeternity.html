@@ -1083,6 +1083,7 @@
       "tomato_seed": "assets/items/tomato_seed.png",
       "cucumber_seed": "assets/items/cucumber_seed.png",
       "squash_seed": "assets/items/squash_seed.png",
+      "herb_seed_verdantleaf": "assets/items/herb_seed_verdantleaf.png",
       // Farming Crops
       "strawberry": "assets/items/strawberry.png",
       "blueberry": "assets/items/blueberry.png",
@@ -1233,6 +1234,7 @@
     ITEMS_DATA["tomato_seed"] = { slot: null, value: 18, icon: "assets/items/tomato_seed.png", name: "Tomato Seed", type: "seed", category: "farming" };
     ITEMS_DATA["cucumber_seed"] = { slot: null, value: 18, icon: "assets/items/cucumber_seed.png", name: "Cucumber Seed", type: "seed", category: "farming" };
     ITEMS_DATA["squash_seed"] = { slot: null, value: 35, icon: "assets/items/squash_seed.png", name: "Squash Seed", type: "seed", category: "farming" };
+    ITEMS_DATA["herb_seed_verdantleaf"] = { slot: null, value: 20, icon: "assets/items/herb_seed_verdantleaf.png", name: "Verdantleaf Seed", type: "seed", category: "farming" };
 
     // Farming Crops (consumable food items)
     ITEMS_DATA["strawberry"] = { slot: null, value: 15, icon: "🍓", name: "Strawberry", heal: 150, type: "food", category: "farming" };
@@ -1422,7 +1424,7 @@
         ] }
       ],
       woodcutting: [
-        { id: 'wood', resourceName: 'Birch Tree', level: 1, xp: 10, interval: 3000, drops: [
+        { id: 'wood', resourceName: 'Birch Tree', level: 1, xp: 40, interval: 3000, drops: [
           { item: 'wood', chance: 1.0, min: 1, max: 2 },
           { item: 'golden_leaf', chance: 0.01, min: 1, max: 1 },
           { item: 'strawberry_seed', chance: 0.40, min: 1, max: 2 },
@@ -1431,79 +1433,121 @@
           { item: 'iron_chest', chance: 0.0025, min: 1, max: 1 },
           { item: 'golden_chest', chance: 0.00075, min: 1, max: 1 }
         ] },
-        { id: 'wood', resourceName: 'Oak Tree', level: 5, xp: 25, interval: 5000, drops: [
+        { id: 'wood', resourceName: 'Oak Tree', level: 5, xp: 100, interval: 5000, drops: [
           { item: 'wood', chance: 1.0, min: 1, max: 4 },
           { item: 'golden_leaf', chance: 0.02, min: 1, max: 1 },
           { item: 'raspberry_seed', chance: 0.40, min: 1, max: 2 },
           { item: 'blackberry_seed', chance: 0.40, min: 1, max: 2 },
           { item: 'lettuce_seed', chance: 0.40, min: 1, max: 2 },
-          { item: 'wooden_chest', chance: 0.00375, min: 1, max: 1 },
-          { item: 'iron_chest', chance: 0.003, min: 1, max: 1 },
-          { item: 'golden_chest', chance: 0.001, min: 1, max: 1 }
+          { item: 'wooden_chest', chance: 0.0125, min: 1, max: 1 },
+          { item: 'iron_chest', chance: 0.0025, min: 1, max: 1 },
+          { item: 'golden_chest', chance: 0.00075, min: 1, max: 1 }
         ] },
-        { id: 'wood', resourceName: 'Willow Tree', level: 7, xp: 45, interval: 7000, drops: [
+        { id: 'wood', resourceName: 'Willow Tree', level: 7, xp: 180, interval: 7000, drops: [
           { item: 'wood', chance: 1.0, min: 5, max: 8 },
           { item: 'golden_leaf', chance: 0.03, min: 1, max: 1 },
           { item: 'radish_seed', chance: 0.40, min: 1, max: 2 },
           { item: 'tomato_seed', chance: 0.40, min: 1, max: 2 },
           { item: 'cucumber_seed', chance: 0.40, min: 1, max: 2 },
           { item: 'squash_seed', chance: 0.40, min: 1, max: 2 },
-          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 },
-          { item: 'iron_chest', chance: 0.0375, min: 1, max: 1 },
-          { item: 'golden_chest', chance: 0.0025, min: 1, max: 1 }
+          { item: 'wooden_chest', chance: 0.0125, min: 1, max: 1 },
+          { item: 'iron_chest', chance: 0.0025, min: 1, max: 1 },
+          { item: 'golden_chest', chance: 0.00075, min: 1, max: 1 }
+        ] },
+        { id: 'wood', resourceName: 'Spruce Tree', level: 12, xp: 260, interval: 9000, drops: [
+          { item: 'wood', chance: 1.0, min: 8, max: 12 },
+          { item: 'golden_leaf', chance: 0.04, min: 1, max: 1 },
+          { item: 'tomato_seed', chance: 0.40, min: 1, max: 2 },
+          { item: 'cucumber_seed', chance: 0.40, min: 1, max: 2 },
+          { item: 'squash_seed', chance: 0.40, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.0125, min: 1, max: 1 },
+          { item: 'iron_chest', chance: 0.0025, min: 1, max: 1 },
+          { item: 'golden_chest', chance: 0.00075, min: 1, max: 1 }
+        ] },
+        { id: 'wood', resourceName: 'Maple Tree', level: 18, xp: 360, interval: 11000, drops: [
+          { item: 'wood', chance: 1.0, min: 12, max: 18 },
+          { item: 'golden_leaf', chance: 0.05, min: 1, max: 1 },
+          { item: 'cucumber_seed', chance: 0.40, min: 1, max: 2 },
+          { item: 'squash_seed', chance: 0.40, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.0125, min: 1, max: 1 },
+          { item: 'iron_chest', chance: 0.0025, min: 1, max: 1 },
+          { item: 'golden_chest', chance: 0.00075, min: 1, max: 1 }
+        ] },
+        { id: 'wood', resourceName: 'Sequoia Tree', level: 25, xp: 520, interval: 13000, drops: [
+          { item: 'wood', chance: 1.0, min: 20, max: 30 },
+          { item: 'golden_leaf', chance: 0.06, min: 1, max: 1 },
+          { item: 'squash_seed', chance: 0.40, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.0125, min: 1, max: 1 },
+          { item: 'iron_chest', chance: 0.0025, min: 1, max: 1 },
+          { item: 'golden_chest', chance: 0.00075, min: 1, max: 1 }
         ] }
       ],
       herblore: [
-        { id: 'greenleaf', location: 'forest', level: 1, xp: 12, interval: 3500, drops: [
+        { id: 'greenleaf', location: 'forest', level: 1, xp: 60, interval: 3500, drops: [
           { item: 'greenleaf', chance: 1.0, min: 1, max: 2 },
           { item: 'strawberry_seed', chance: 0.24, min: 1, max: 2 },
-          { item: 'blueberry_seed', chance: 0.24, min: 1, max: 2 }
+          { item: 'blueberry_seed', chance: 0.24, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'swiftgrass', location: 'forest', level: 3, xp: 18, interval: 4000, drops: [
+        { id: 'swiftgrass', location: 'forest', level: 2, xp: 90, interval: 4000, drops: [
           { item: 'swiftgrass', chance: 1.0, min: 1, max: 2 },
           { item: 'strawberry_seed', chance: 0.24, min: 1, max: 2 },
-          { item: 'blueberry_seed', chance: 0.24, min: 1, max: 2 }
+          { item: 'blueberry_seed', chance: 0.24, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'earthweed', location: 'fishing-pond', level: 5, xp: 25, interval: 4500, drops: [
+        { id: 'earthweed', location: 'fishing-pond', level: 4, xp: 125, interval: 4500, drops: [
           { item: 'earthweed', chance: 1.0, min: 1, max: 2 },
           { item: 'raspberry_seed', chance: 0.40, min: 1, max: 2 },
-          { item: 'lettuce_seed', chance: 0.40, min: 1, max: 2 }
+          { item: 'lettuce_seed', chance: 0.40, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'bloodroot', location: 'fishing-pond', level: 7, xp: 35, interval: 5000, drops: [
+        { id: 'bloodroot', location: 'fishing-pond', level: 6, xp: 175, interval: 5000, drops: [
           { item: 'bloodroot', chance: 1.0, min: 1, max: 2 },
           { item: 'blackberry_seed', chance: 0.40, min: 1, max: 2 },
-          { item: 'radish_seed', chance: 0.40, min: 1, max: 2 }
+          { item: 'radish_seed', chance: 0.40, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'glowcap', location: 'cave', level: 10, xp: 45, interval: 5500, drops: [
+        { id: 'glowcap', location: 'cave', level: 8, xp: 225, interval: 5500, drops: [
           { item: 'glowcap', chance: 1.0, min: 1, max: 2 },
           { item: 'tomato_seed', chance: 0.20, min: 1, max: 2 },
-          { item: 'cucumber_seed', chance: 0.20, min: 1, max: 2 }
+          { item: 'cucumber_seed', chance: 0.20, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'ironleaf', location: 'mountains', level: 13, xp: 60, interval: 6000, drops: [
+        { id: 'ironleaf', location: 'mountains', level: 10, xp: 300, interval: 6000, drops: [
           { item: 'ironleaf', chance: 1.0, min: 1, max: 1 },
           { item: 'tomato_seed', chance: 0.20, min: 1, max: 2 },
-          { item: 'cucumber_seed', chance: 0.20, min: 1, max: 2 }
+          { item: 'cucumber_seed', chance: 0.20, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'silverleaf', location: 'mountains', level: 16, xp: 75, interval: 6500, drops: [
+        { id: 'silverleaf', location: 'mountains', level: 12, xp: 375, interval: 6500, drops: [
           { item: 'silverleaf', chance: 1.0, min: 1, max: 1 },
-          { item: 'squash_seed', chance: 0.20, min: 1, max: 2 }
+          { item: 'squash_seed', chance: 0.20, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'emberleaf', location: 'volcanic-plain', level: 20, xp: 95, interval: 7000, drops: [
+        { id: 'emberleaf', location: 'volcanic-plain', level: 14, xp: 475, interval: 7000, drops: [
           { item: 'emberleaf', chance: 1.0, min: 1, max: 1 },
-          { item: 'squash_seed', chance: 0.20, min: 1, max: 2 }
+          { item: 'squash_seed', chance: 0.20, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'nightshade_bloom', location: 'mountains', level: 25, xp: 120, interval: 8000, drops: [
+        { id: 'nightshade_bloom', location: 'mountains', level: 16, xp: 600, interval: 8000, drops: [
           { item: 'nightshade_bloom', chance: 1.0, min: 1, max: 1 },
-          { item: 'squash_seed', chance: 0.16, min: 1, max: 2 }
+          { item: 'squash_seed', chance: 0.16, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'spirit_moss', location: 'mountains', level: 30, xp: 150, interval: 9000, drops: [
-          { item: 'spirit_moss', chance: 1.0, min: 1, max: 1 }
+        { id: 'spirit_moss', location: 'mountains', level: 18, xp: 750, interval: 9000, drops: [
+          { item: 'spirit_moss', chance: 1.0, min: 1, max: 1 },
+          { item: 'squash_seed', chance: 0.16, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'astral_lotus', location: 'mountains', level: 35, xp: 200, interval: 10000, drops: [
-          { item: 'astral_lotus', chance: 1.0, min: 1, max: 1 }
+        { id: 'astral_lotus', location: 'mountains', level: 20, xp: 1000, interval: 10000, drops: [
+          { item: 'astral_lotus', chance: 1.0, min: 1, max: 1 },
+          { item: 'squash_seed', chance: 0.16, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'chronoweed', location: 'mountains', level: 40, xp: 250, interval: 12000, drops: [
-          { item: 'chronoweed', chance: 1.0, min: 1, max: 1 }
+        { id: 'chronoweed', location: 'mountains', level: 22, xp: 1250, interval: 12000, drops: [
+          { item: 'chronoweed', chance: 1.0, min: 1, max: 1 },
+          { item: 'squash_seed', chance: 0.16, min: 1, max: 2 },
+          { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] }
       ]
     };
@@ -1979,7 +2023,7 @@
               { item: "pearl", chance: 0.50, min: 4, max: 10 },
               { item: "ember_gem", chance: 0.45, min: 3, max: 8 },
               // Consumables - Food
-              { item: "cooked_salmon", chance: 0.60, min: 8, max: 18 },
+              { item: "cooked_salmon", chance: 0.60, min: 15, max: 25 },
               { item: "cooked_frog_legs", chance: 0.45, min: 5, max: 12 },
               // Consumables - Potions
               { item: "superior_healing_potion", chance: 0.55, min: 4, max: 8 },
@@ -1995,9 +2039,9 @@
               // Rare drops
               { item: "golden_chest", chance: 0.25, min: 1, max: 3 },
               { item: "elder_sword_blueprint", chance: 0.08, min: 1, max: 1 },
-              { item: "dragon_familiar", chance: 0.08, min: 1, max: 1 },
+              { item: "elder_familiar", chance: 0.08, min: 1, max: 1 },
               { item: "hydra_sword", chance: 0.10, min: 1, max: 1 },
-              { item: "hydra_legendary_chest", chance: 0.12, min: 1, max: 1 }
+              { item: "hydra_legendary_chest", chance: 0.15, min: 1, max: 2 }
             ]
           }
         ]
