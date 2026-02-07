@@ -1237,15 +1237,15 @@
     ITEMS_DATA["herb_seed_verdantleaf"] = { slot: null, value: 20, icon: "assets/items/herb_seed_verdantleaf.png", name: "Verdantleaf Seed", type: "seed", category: "farming" };
 
     // Farming Crops (consumable food items)
-    ITEMS_DATA["strawberry"] = { slot: null, value: 15, icon: "🍓", name: "Strawberry", heal: 150, type: "food", category: "farming" };
-    ITEMS_DATA["blueberry"] = { slot: null, value: 15, icon: "🫐", name: "Blueberry", heal: 150, type: "food", category: "farming" };
-    ITEMS_DATA["raspberry"] = { slot: null, value: 22, icon: "🍇", name: "Raspberry", heal: 250, type: "food", category: "farming" };
-    ITEMS_DATA["blackberry"] = { slot: null, value: 22, icon: "🫒", name: "Blackberry", heal: 250, type: "food", category: "farming" };
-    ITEMS_DATA["lettuce"] = { slot: null, value: 30, icon: "🥬", name: "Lettuce", heal: 350, type: "food", category: "farming" };
-    ITEMS_DATA["radish"] = { slot: null, value: 38, icon: "🥕", name: "Radish", heal: 450, type: "food", category: "farming" };
-    ITEMS_DATA["tomato"] = { slot: null, value: 55, icon: "🍅", name: "Tomato", heal: 650, type: "food", category: "farming" };
-    ITEMS_DATA["cucumber"] = { slot: null, value: 55, icon: "🥒", name: "Cucumber", heal: 650, type: "food", category: "farming" };
-    ITEMS_DATA["squash"] = { slot: null, value: 100, icon: "🎃", name: "Squash", heal: 1200, type: "food", category: "farming" };
+    ITEMS_DATA["strawberry"] = { slot: null, value: 15, icon: "🍓", name: "Strawberry", heal: 250, type: "food", category: "farming" };
+    ITEMS_DATA["blueberry"] = { slot: null, value: 15, icon: "🫐", name: "Blueberry", heal: 250, type: "food", category: "farming" };
+    ITEMS_DATA["raspberry"] = { slot: null, value: 22, icon: "🍇", name: "Raspberry", heal: 350, type: "food", category: "farming" };
+    ITEMS_DATA["blackberry"] = { slot: null, value: 22, icon: "🫒", name: "Blackberry", heal: 350, type: "food", category: "farming" };
+    ITEMS_DATA["lettuce"] = { slot: null, value: 30, icon: "🥬", name: "Lettuce", heal: 750, type: "food", category: "farming" };
+    ITEMS_DATA["radish"] = { slot: null, value: 38, icon: "🥕", name: "Radish", heal: 750, type: "food", category: "farming" };
+    ITEMS_DATA["tomato"] = { slot: null, value: 55, icon: "🍅", name: "Tomato", heal: 1250, type: "food", category: "farming" };
+    ITEMS_DATA["cucumber"] = { slot: null, value: 55, icon: "🥒", name: "Cucumber", heal: 1750, type: "food", category: "farming" };
+    ITEMS_DATA["squash"] = { slot: null, value: 100, icon: "🎃", name: "Squash", heal: 2500, type: "food", category: "farming" };
 
     // ═══════════════════════════════════════════════════════════════════════════
     // GAME DATA - LOOT CHESTS (Chest drop tables)
@@ -1255,33 +1255,29 @@
         id: "wooden_chest",
         name: "Wooden Chest",
         minItems: 1,
-        maxItems: 3,
+        maxItems: 4,
         loot: [
           { item: "copper", weight: 30, min: 2, max: 8 },
           { item: "wood", weight: 25, min: 20, max: 100 },
           { item: "coal", weight: 15, min: 1, max: 4 },
           { item: "shrimp", weight: 10, min: 2, max: 5 },
-          { item: "minor_healing_potion", weight: 8, min: 1, max: 2 },
+          { item: "minor_healing_potion", weight: 8, min: 1, max: 4 },
           { item: "greenleaf", weight: 12, min: 1, max: 3 },
           { item: "swiftgrass", weight: 10, min: 1, max: 2 },
           { item: "strawberry_seed", weight: 30, min: 10, max: 30 },
           { item: "blueberry_seed", weight: 30, min: 10, max: 30 },
-          { item: "bronze_shield", weight: 5, min: 1, max: 1 },
-          { item: "bronze_helmet", weight: 4, min: 1, max: 1 },
-          { item: "leather_boots", weight: 3, min: 1, max: 1 }
         ]
       },
       "iron_chest": {
         id: "iron_chest",
         name: "Iron Chest",
-        minItems: 2,
-        maxItems: 4,
+        minItems: 3,
+        maxItems: 5,
         loot: [
           { item: "iron", weight: 25, min: 2, max: 6 },
           { item: "coal", weight: 20, min: 3, max: 8 },
           { item: "copper", weight: 15, min: 5, max: 15 },
           { item: "minor_healing_potion", weight: 12, min: 2, max: 4 },
-          { item: "diamond", weight: 8, min: 1, max: 2 },
           { item: "bloodroot", weight: 10, min: 1, max: 2 },
           { item: "glowcap", weight: 10, min: 1, max: 2 },
           { item: "ironleaf", weight: 8, min: 1, max: 2 },
@@ -1289,20 +1285,15 @@
           { item: "blackberry_seed", weight: 10, min: 10, max: 30 },
           { item: "lettuce_seed", weight: 6, min: 10, max: 30 },
           { item: "radish_seed", weight: 5, min: 10, max: 30 },
-          { item: "greater_healing_potion", weight: 7, min: 1, max: 2 },
-          { item: "minor_attack_potion", weight: 6, min: 1, max: 1 },
-          { item: "iron_helmet", weight: 6, min: 1, max: 1 },
-          { item: "iron_shield", weight: 5, min: 1, max: 1 },
-          { item: "iron_boots", weight: 4, min: 1, max: 1 },
-          { item: "iron_sword", weight: 3, min: 1, max: 1 },
-          { item: "bronze_boots", weight: 2, min: 1, max: 1 }
+          { item: "greater_healing_potion", weight: 7, min: 1, max: 3 },
+          { item: "minor_attack_potion", weight: 6, min: 1, max: 2 },
         ]
       },
       "golden_chest": {
         id: "golden_chest",
         name: "Golden Chest",
         minItems: 3,
-        maxItems: 5,
+        maxItems: 6,
         loot: [
           { item: "iron", weight: 20, min: 5, max: 15 },
           { item: "diamond", weight: 15, min: 2, max: 5 },
@@ -1321,9 +1312,6 @@
           { item: "defense_elixir", weight: 7, min: 1, max: 1 },
           { item: "superior_haste_potion", weight: 6, min: 1, max: 1 },
           { item: "fortune_potion", weight: 4, min: 1, max: 1 },
-          { item: "steel_platebody", weight: 6, min: 1, max: 1 },
-          { item: "steel_boots", weight: 5, min: 1, max: 1 },
-          { item: "iron_sword", weight: 5, min: 1, max: 1 },
           { item: "dragon_amulet", weight: 3, min: 1, max: 1 },
           { item: "amulet_blueprint", weight: 2, min: 1, max: 1 },
           { item: "dragon_sword_blueprint", weight: 1, min: 1, max: 1 }
@@ -1341,8 +1329,8 @@
   CHEST_DEFINITIONS["hydra_legendary_chest"] = {
     id: "hydra_legendary_chest",
     name: "Hydra Legendary Chest",
-    minItems: 2,
-    maxItems: 5,
+    minItems: 1,
+    maxItems: 7,
     loot: [
       // Rare hydra gear (low weight = rare)
       { item: "hydra_cape", weight: 10, min: 1, max: 1 },
@@ -1351,9 +1339,6 @@
       { item: "hydra_sword", weight: 3, min: 1, max: 1 },
       // Uncommon drops (medium weight)
       { item: "dragon_sword", weight: 15, min: 1, max: 1 },
-      { item: "steel_platebody", weight: 20, min: 1, max: 1 },
-      { item: "steel_platelegs", weight: 20, min: 1, max: 1 },
-      { item: "steel_shield", weight: 20, min: 1, max: 1 },
       { item: "elder_sword_blueprint", weight: 10, min: 1, max: 1 },
       { item: "dragon_familiar", weight: 10, min: 1, max: 1 },
       // Consumables - Potions (high weight)
@@ -1364,12 +1349,11 @@
       { item: "berserker_draught", weight: 25, min: 1, max: 2 },
       { item: "fortune_potion", weight: 20, min: 1, max: 2 },
       // Consumables - Food (high weight)
-      { item: "cooked_salmon", weight: 50, min: 5, max: 12 },
-      { item: "cooked_frog_legs", weight: 35, min: 3, max: 8 },
+      { item: "cooked_salmon", weight: 50, min: 10, max: 20 },
+      { item: "cooked_frog_legs", weight: 35, min: 10, max: 20 },
       // Common material drops (high weight)
-      { item: "ember_gem", weight: 35, min: 2, max: 5 },
       { item: "pearl", weight: 30, min: 2, max: 5 },
-      { item: "golden_chest", weight: 25, min: 1, max: 2 }
+      { item: "golden_chest", weight: 25, min: 1, max: 3 }
     ]
   };
 
@@ -1378,21 +1362,21 @@
     // ═══════════════════════════════════════════════════════════════════════════
     const RESOURCE_TIERS = {
       mining: [
-        { id: 'copper', level: 1, xp: 10, interval: 3000, drops: [
+        { id: 'copper', level: 1, xp: 20, interval: 3000, drops: [
           { item: 'copper', chance: 1.0, min: 1, max: 1 },
           { item: 'diamond', chance: 0.01, min: 1, max: 1 },
           { item: 'wooden_chest', chance: 0.005, min: 1, max: 1 },
           { item: 'iron_chest', chance: 0.0025, min: 1, max: 1 },
           { item: 'golden_chest', chance: 0.00075, min: 1, max: 1 }
         ] },
-        { id: 'coal', level: 5, xp: 18, interval: 4000, drops: [
+        { id: 'coal', level: 5, xp: 40, interval: 4000, drops: [
           { item: 'coal', chance: 1.0, min: 1, max: 1 },
           { item: 'diamond', chance: 0.015, min: 1, max: 1 },
           { item: 'wooden_chest', chance: 0.00375, min: 1, max: 1 },
           { item: 'iron_chest', chance: 0.003, min: 1, max: 1 },
           { item: 'golden_chest', chance: 0.001, min: 1, max: 1 }
         ] },
-        { id: 'iron', level: 7, xp: 25, interval: 5000, drops: [
+        { id: 'iron', level: 7, xp: 80, interval: 5000, drops: [
           { item: 'iron', chance: 1.0, min: 1, max: 1 },
           { item: 'diamond', chance: 0.02, min: 1, max: 1 },
           { item: 'wooden_chest', chance: 0.0025, min: 1, max: 1 },
@@ -1401,21 +1385,21 @@
         ] }
       ],
       fishing: [
-        { id: 'shrimp', name: 'Shrimp', level: 1, xp: 10, interval: 3000, drops: [
+        { id: 'shrimp', name: 'Shrimp', level: 1, xp: 20, interval: 3000, drops: [
           { item: 'shrimp', chance: 1.0, min: 1, max: 2 },
           { item: 'pearl', chance: 0.01, min: 1, max: 1 },
           { item: 'wooden_chest', chance: 0.005, min: 1, max: 1 },
           { item: 'iron_chest', chance: 0.0025, min: 1, max: 1 },
           { item: 'golden_chest', chance: 0.00075, min: 1, max: 1 }
         ] },
-        { id: 'trout', name: 'trout', level: 5, xp: 30, interval: 5000, drops: [
+        { id: 'trout', name: 'trout', level: 5, xp: 40, interval: 5000, drops: [
           { item: 'trout', chance: 1.0, min: 1, max: 2 },
           { item: 'pearl', chance: 0.02, min: 1, max: 1 },
           { item: 'wooden_chest', chance: 0.00375, min: 1, max: 1 },
           { item: 'iron_chest', chance: 0.003, min: 1, max: 1 },
           { item: 'golden_chest', chance: 0.001, min: 1, max: 1 }
         ] },
-        { id: 'salmon', name: 'salmon', level: 7, xp: 70, interval: 8000, drops: [
+        { id: 'salmon', name: 'salmon', level: 7, xp: 80, interval: 8000, drops: [
           { item: 'salmon', chance: 1.0, min: 1, max: 3 },
           { item: 'pearl', chance: 0.03, min: 1, max: 1 },
           { item: 'wooden_chest', chance: 0.0025, min: 1, max: 1 },
@@ -1483,37 +1467,37 @@
         ] }
       ],
       herblore: [
-        { id: 'greenleaf', location: 'forest', level: 1, xp: 60, interval: 3500, drops: [
+        { id: 'greenleaf', location: 'forest', level: 1, xp: 10, interval: 3500, drops: [
           { item: 'greenleaf', chance: 1.0, min: 1, max: 2 },
           { item: 'strawberry_seed', chance: 0.24, min: 1, max: 2 },
           { item: 'blueberry_seed', chance: 0.24, min: 1, max: 2 },
           { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'swiftgrass', location: 'forest', level: 2, xp: 90, interval: 4000, drops: [
+        { id: 'swiftgrass', location: 'forest', level: 2, xp: 25, interval: 4000, drops: [
           { item: 'swiftgrass', chance: 1.0, min: 1, max: 2 },
           { item: 'strawberry_seed', chance: 0.24, min: 1, max: 2 },
           { item: 'blueberry_seed', chance: 0.24, min: 1, max: 2 },
           { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'earthweed', location: 'fishing-pond', level: 4, xp: 125, interval: 4500, drops: [
+        { id: 'earthweed', location: 'fishing-pond', level: 4, xp: 40, interval: 4500, drops: [
           { item: 'earthweed', chance: 1.0, min: 1, max: 2 },
           { item: 'raspberry_seed', chance: 0.40, min: 1, max: 2 },
           { item: 'lettuce_seed', chance: 0.40, min: 1, max: 2 },
           { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'bloodroot', location: 'fishing-pond', level: 6, xp: 175, interval: 5000, drops: [
+        { id: 'bloodroot', location: 'fishing-pond', level: 6, xp: 70, interval: 5000, drops: [
           { item: 'bloodroot', chance: 1.0, min: 1, max: 2 },
           { item: 'blackberry_seed', chance: 0.40, min: 1, max: 2 },
           { item: 'radish_seed', chance: 0.40, min: 1, max: 2 },
           { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'glowcap', location: 'cave', level: 8, xp: 225, interval: 5500, drops: [
+        { id: 'glowcap', location: 'cave', level: 8, xp: 150, interval: 5500, drops: [
           { item: 'glowcap', chance: 1.0, min: 1, max: 2 },
           { item: 'tomato_seed', chance: 0.20, min: 1, max: 2 },
           { item: 'cucumber_seed', chance: 0.20, min: 1, max: 2 },
           { item: 'wooden_chest', chance: 0.05, min: 1, max: 1 }
         ] },
-        { id: 'ironleaf', location: 'mountains', level: 10, xp: 300, interval: 6000, drops: [
+        { id: 'ironleaf', location: 'mountains', level: 10, xp: 250, interval: 6000, drops: [
           { item: 'ironleaf', chance: 1.0, min: 1, max: 1 },
           { item: 'tomato_seed', chance: 0.20, min: 1, max: 2 },
           { item: 'cucumber_seed', chance: 0.20, min: 1, max: 2 },
@@ -1600,56 +1584,56 @@
       // INSTANT HEALING POTIONS
       { name: "minor_healing_potion", type: "healing", cost: { greenleaf: 1 }, level: 1, xp: 20 },
       { name: "greater_healing_potion", type: "healing", cost: { greenleaf: 2, wolf_pelt: 1 }, level: 5, xp: 50 },
-      { name: "superior_healing_potion", type: "healing", cost: { silverleaf: 2, bloodroot: 1 }, level: 15, xp: 150 },
+      { name: "superior_healing_potion", type: "healing", cost: { silverleaf: 2, bloodroot: 1 }, level: 15, xp: 550 },
 
       // COMBAT - ATTACK (category: attack)
       { name: "minor_attack_potion", type: "buff", category: "attack", cost: { greenleaf: 1, wolf_pelt: 1 }, level: 3, xp: 30,
-        effect: { type: "combat_flat", stat: "attack", value: 20 }, duration: 120000 }, // 2 min
-      { name: "greater_attack_potion", type: "buff", category: "attack", cost: { silverleaf: 1, frog_legs: 1 }, level: 12, xp: 80,
-        effect: { type: "combat_flat", stat: "attack", value: 50 }, duration: 300000 }, // 5 min
-      { name: "attack_elixir", type: "buff", category: "attack", cost: { emberleaf: 1, ember_gem: 1 }, level: 22, xp: 150,
-        effect: { type: "combat_percent", stat: "attack", value: 15 }, duration: 120000 }, // 2 min
+        effect: { type: "combat_percent", stat: "attack", value: 5 }, duration: 300000 }, // 5 min
+      { name: "greater_attack_potion", type: "buff", category: "attack", cost: { silverleaf: 1, frog_legs: 1 }, level: 12, xp: 200,
+        effect: { type: "combat_percent", stat: "attack", value: 10 }, duration: 300000 }, // 5 min
+      { name: "attack_elixir", type: "buff", category: "attack", cost: { emberleaf: 1, ember_gem: 1 }, level: 20, xp: 1000,
+        effect: { type: "combat_percent", stat: "attack", value: 15 }, duration: 300000 }, // 5 min
 
       // COMBAT - DEFENSE (category: defense)
       { name: "minor_defense_potion", type: "buff", category: "defense", cost: { earthweed: 1, rock_shell: 1 }, level: 6, xp: 40,
-        effect: { type: "combat_flat", stat: "defense", value: 20 }, duration: 120000 }, // 2 min
-      { name: "greater_defense_potion", type: "buff", category: "defense", cost: { ironleaf: 1, rock_shell: 1 }, level: 14, xp: 90,
-        effect: { type: "combat_flat", stat: "defense", value: 50 }, duration: 300000 }, // 5 min
-      { name: "defense_elixir", type: "buff", category: "defense", cost: { spirit_moss: 1, pearl: 1 }, level: 32, xp: 200,
-        effect: { type: "damage_reduction", value: 10 }, duration: 120000 }, // 2 min, 10% reduction (capped)
+        effect: { type: "combat_percent", stat: "defense", value: 5 }, duration: 300000 }, // 5 min
+      { name: "greater_defense_potion", type: "buff", category: "defense", cost: { ironleaf: 1, rock_shell: 1 }, level: 14, xp: 200,
+        effect: { type: "combat_percent", stat: "defense", value: 10 }, duration: 300000 }, // 5 min
+      { name: "defense_elixir", type: "buff", category: "defense", cost: { spirit_moss: 1, pearl: 1 }, level: 22, xp: 1500,
+        effect: { type: "damage_reduction", value: 10 }, duration: 300000 }, // 5 min, 10% reduction (capped)
 
       // HYBRID COMBAT (category: hybrid)
-      { name: "battle_tonic", type: "buff", category: "hybrid", cost: { bloodroot: 1, wolf_pelt: 1 }, level: 8, xp: 60,
+      { name: "battle_tonic", type: "buff", category: "hybrid", cost: { bloodroot: 1, wolf_pelt: 1 }, level: 8, xp: 100,
         effect: { type: "combat_multi", attack: 15, defense: 15 }, duration: 300000 }, // 5 min
-      { name: "berserker_draught", type: "buff", category: "hybrid", cost: { nightshade_bloom: 1, frog_legs: 1 }, level: 26, xp: 170,
-        effect: { type: "combat_multi", attackPercent: 20, defense: -30 }, duration: 120000 }, // 2 min
+      { name: "berserker_draught", type: "buff", category: "hybrid", cost: { nightshade_bloom: 1, frog_legs: 1 }, level: 23, xp: 1700,
+        effect: { type: "combat_multi", attackPercent: 20, defense: -30 }, duration: 300000 }, // 5 min
 
       // SURVIVAL (category: survival)
-      { name: "vitality_potion", type: "buff", category: "survival", cost: { moonpetal: 1, pearl: 1 }, level: 18, xp: 110,
+      { name: "vitality_potion", type: "buff", category: "survival", cost: { moonpetal: 1, pearl: 1 }, level: 18, xp: 1100,
         effect: { type: "max_hp", value: 500 }, duration: 300000 }, // 5 min
 
       // SKILLING - SPEED (category: skill_speed)
-      { name: "minor_haste_potion", type: "buff", category: "skill_speed", cost: { swiftgrass: 1, frog_legs: 1 }, level: 4, xp: 35,
+      { name: "minor_haste_potion", type: "buff", category: "skill_speed", cost: { swiftgrass: 1, frog_legs: 1 }, level: 4, xp: 65,
         effect: { type: "skill_speed", value: 10 }, duration: 1800000 }, // 30 min, -10% time
       { name: "haste_potion", type: "buff", category: "skill_speed", cost: { glowcap: 1, golden_leaf: 1 }, level: 11, xp: 75,
         effect: { type: "skill_speed", value: 15 }, duration: 2700000 }, // 45 min, -15% time
-      { name: "superior_haste_potion", type: "buff", category: "skill_speed", cost: { chronoweed: 1, pearl: 1 }, level: 40, xp: 300,
+      { name: "superior_haste_potion", type: "buff", category: "skill_speed", cost: { chronoweed: 1, pearl: 1 }, level: 25, xp: 3500,
         effect: { type: "skill_speed", value: 25 }, duration: 1800000 }, // 30 min, -25% time
 
       // SKILLING - XP / EFFICIENCY (category: skill_xp / skill_efficiency)
-      { name: "skilling_focus_potion", type: "buff", category: "skill_xp", cost: { silverleaf: 1, golden_leaf: 1 }, level: 16, xp: 100,
+      { name: "skilling_focus_potion", type: "buff", category: "skill_xp", cost: { silverleaf: 1, golden_leaf: 1 }, level: 16, xp: 1000,
         effect: { type: "skill_xp", value: 20 }, duration: 2700000 }, // 45 min, +20% XP
-      { name: "efficient_worker_potion", type: "buff", category: "skill_efficiency", cost: { ironleaf: 1, wolf_pelt: 1 }, level: 13, xp: 85,
+      { name: "efficient_worker_potion", type: "buff", category: "skill_efficiency", cost: { ironleaf: 1, wolf_pelt: 1 }, level: 13, xp: 650,
         effect: { type: "extra_resource", value: 15 }, duration: 2700000 }, // 45 min, +15% extra resource chance
 
       // LOOT & ECONOMY (category: loot)
-      { name: "fortune_potion", type: "buff", category: "loot", cost: { astral_lotus: 1, pearl: 1 }, level: 36, xp: 250,
-        effect: { type: "drop_chance", value: 5 }, duration: 120000 }, // 2 min, +5% drop chance (low cap)
+      { name: "fortune_potion", type: "buff", category: "loot", cost: { astral_lotus: 1, pearl: 1 }, level: 25, xp: 2750,
+        effect: { type: "drop_chance", value: 10 }, duration: 600000 }, // 10 min, +10% drop chance (low cap)
 
       // UTILITY / SPECIAL (category: utility)
-      { name: "endurance_potion", type: "buff", category: "utility", cost: { spirit_moss: 1, golden_leaf: 1 }, level: 30, xp: 190,
+      { name: "endurance_potion", type: "buff", category: "utility", cost: { spirit_moss: 1, golden_leaf: 1 }, level: 27, xp: 3900,
         effect: { type: "afk_extension", value: 300000 }, duration: 0 }, // +5 minutes AFK cap, one-time
-      { name: "focus_draught", type: "buff", category: "utility", cost: { nightshade_bloom: 1, ember_gem: 1 }, level: 28, xp: 180,
+      { name: "focus_draught", type: "buff", category: "utility", cost: { nightshade_bloom: 1, ember_gem: 1 }, level: 28, xp: 4800,
         effect: { type: "prevent_interrupt", value: 1 }, duration: 0 } // Prevent next AFK interruption, consumed on trigger
     ];
 
@@ -1657,15 +1641,15 @@
     // GAME DATA - FARMING CROPS
     // ═══════════════════════════════════════════════════════════════════════════
     const FARMING_CROPS = [
-      { seedId: "strawberry_seed", cropId: "strawberry", level: 1, xp: 15, growthTime: 600000 },   // 10 min
-      { seedId: "blueberry_seed", cropId: "blueberry", level: 1, xp: 15, growthTime: 600000 },     // 10 min
-      { seedId: "raspberry_seed", cropId: "raspberry", level: 5, xp: 25, growthTime: 900000 },    // 15 min
-      { seedId: "blackberry_seed", cropId: "blackberry", level: 5, xp: 25, growthTime: 900000 },  // 15 min
+      { seedId: "strawberry_seed", cropId: "strawberry", level: 1, xp: 25, growthTime: 1200000 },   // 20 min
+      { seedId: "blueberry_seed", cropId: "blueberry", level: 1, xp: 25, growthTime: 1200000 },     // 20 min
+      { seedId: "raspberry_seed", cropId: "raspberry", level: 5, xp: 25, growthTime: 1200000 },    // 20 min
+      { seedId: "blackberry_seed", cropId: "blackberry", level: 5, xp: 40, growthTime: 1200000 },  // 20 min
       { seedId: "lettuce_seed", cropId: "lettuce", level: 10, xp: 40, growthTime: 1200000 },      // 20 min
-      { seedId: "radish_seed", cropId: "radish", level: 15, xp: 55, growthTime: 1500000 },        // 25 min
-      { seedId: "tomato_seed", cropId: "tomato", level: 25, xp: 85, growthTime: 2400000 },        // 40 min
-      { seedId: "cucumber_seed", cropId: "cucumber", level: 25, xp: 85, growthTime: 2400000 },    // 40 min
-      { seedId: "squash_seed", cropId: "squash", level: 40, xp: 150, growthTime: 5400000 }        // 90 min
+      { seedId: "radish_seed", cropId: "radish", level: 15, xp: 75, growthTime: 1500000 },        // 25 min
+      { seedId: "tomato_seed", cropId: "tomato", level: 25, xp: 125, growthTime: 2400000 },        // 40 min
+      { seedId: "cucumber_seed", cropId: "cucumber", level: 25, xp: 125, growthTime: 2400000 },    // 40 min
+      { seedId: "squash_seed", cropId: "squash", level: 30, xp: 250, growthTime: 5400000 }        // 90 min
     ];
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -1697,7 +1681,6 @@
             { item: "strawberry_seed", chance: 0.04, min: 1, max: 1 },
             { item: "blueberry_seed", chance: 0.04, min: 1, max: 1 },
             // Rare drops
-            { item: "bronze_shield", chance: 0.08, min: 1, max: 1 },
             { item: "sword", chance: 0.06, min: 1, max: 1 },
             // Ultra rare drops
             { item: "wooden_chest", chance: 0.05, min: 1, max: 1 }
@@ -1722,7 +1705,6 @@
             { item: "swiftgrass", chance: 0.20, min: 1, max: 1 },
             // Rare drops
             { item: "leather_boots", chance: 0.10, min: 1, max: 1 },
-            { item: "bronze_shield", chance: 0.07, min: 1, max: 1 },
             // Ultra rare drops
             { item: "wooden_chest", chance: 0.05, min: 1, max: 1 }
           ] }
@@ -1738,18 +1720,15 @@
             { item: "iron", chance: 0.30, min: 1, max: 3 },
             { item: "wood", chance: 0.35, min: 2, max: 5 },
             { item: "cooked_shrimp", chance: 0.25, min: 1, max: 3 },
-            { item: "cooked_trout", chance: 0.20, min: 1, max: 2 },
-            { item: "minor_healing_potion", chance: 0.20, min: 1, max: 2 },
+            { item: "cooked_trout", chance: 0.20, min: 1, max: 3 },
+            { item: "minor_healing_potion", chance: 0.20, min: 1, max: 4 },
             { item: "greenleaf", chance: 0.30, min: 1, max: 3 },
             { item: "swiftgrass", chance: 0.25, min: 1, max: 2 },
             // Seed drops
             { item: "raspberry_seed", chance: 0.05, min: 1, max: 1 },
             { item: "blackberry_seed", chance: 0.05, min: 1, max: 1 },
             // Rare drops
-            { item: "bronze_shield", chance: 0.15, min: 1, max: 1 },
-            { item: "bronze_helmet", chance: 0.12, min: 1, max: 1 },
-            { item: "sword", chance: 0.10, min: 1, max: 1 },
-            { item: "greater_healing_potion", chance: 0.08, min: 1, max: 1 },
+            { item: "greater_healing_potion", chance: 0.08, min: 1, max: 3 },
             // Ultra rare drops
             { item: "iron_chest", chance: 0.06, min: 1, max: 1 }
           ] },
@@ -1759,13 +1738,8 @@
             { item: "iron", chance: 0.30, min: 1, max: 4 },
             { item: "wood", chance: 0.30, min: 3, max: 6 },
             { item: "cooked_trout", chance: 0.25, min: 1, max: 3 },
-            { item: "cooked_frog_legs", chance: 0.20, min: 1, max: 2 },
-            { item: "minor_healing_potion", chance: 0.25, min: 1, max: 2 },
-            // Rare drops
-            { item: "bronze_helmet", chance: 0.18, min: 1, max: 1 },
-            { item: "bronze_platebody", chance: 0.12, min: 1, max: 1 },
-            { item: "iron_shield", chance: 0.10, min: 1, max: 1 },
-            { item: "sword", chance: 0.12, min: 1, max: 1 },
+            { item: "cooked_frog_legs", chance: 0.20, min: 1, max: 3 },
+            { item: "minor_healing_potion", chance: 0.25, min: 1, max: 3 },
             // Ultra rare drops
             { item: "iron_chest", chance: 0.08, min: 1, max: 1 },
             { item: "bronze_pickaxe", chance: 0.05, min: 1, max: 1 }
@@ -1775,11 +1749,8 @@
             { item: "wolf_pelt", chance: 0.35, min: 1, max: 2 },
             { item: "copper", chance: 0.30, min: 2, max: 7 },
             { item: "cooked_shrimp", chance: 0.25, min: 1, max: 3 },
-            { item: "cooked_trout", chance: 0.20, min: 1, max: 2 },
-            { item: "minor_healing_potion", chance: 0.20, min: 1, max: 1 },
-            // Rare drops
-            { item: "leather_boots", chance: 0.12, min: 1, max: 1 },
-            { item: "bronze_shield", chance: 0.08, min: 1, max: 1 },
+            { item: "cooked_trout", chance: 0.20, min: 1, max: 3 },
+            { item: "minor_healing_potion", chance: 0.20, min: 1, max: 4 },
             // Ultra rare drops
             { item: "wooden_chest", chance: 0.06, min: 1, max: 1 }
           ] }
@@ -1803,11 +1774,7 @@
             { item: "radish_seed", chance: 0.05, min: 1, max: 1 },
             { item: "tomato_seed", chance: 0.04, min: 1, max: 1 },
             // Rare drops
-            { item: "iron_boots", chance: 0.15, min: 1, max: 1 },
-            { item: "iron_shield", chance: 0.12, min: 1, max: 1 },
-            { item: "iron_helmet", chance: 0.10, min: 1, max: 1 },
-            { item: "bronze_platebody", chance: 0.12, min: 1, max: 1 },
-            { item: "greater_healing_potion", chance: 0.10, min: 1, max: 1 },
+            { item: "greater_healing_potion", chance: 0.10, min: 1, max: 3 },
             // Ultra rare drops
             { item: "iron_chest", chance: 0.08, min: 1, max: 1 },
             { item: "iron_sword", chance: 0.05, min: 1, max: 1 }
@@ -1817,14 +1784,10 @@
             { item: "rock_shell", chance: 0.40, min: 1, max: 2 },
             { item: "iron", chance: 0.30, min: 1, max: 4 },
             { item: "copper", chance: 0.30, min: 2, max: 10 },
-            { item: "cooked_trout", chance: 0.20, min: 1, max: 2 },
-            { item: "minor_healing_potion", chance: 0.25, min: 1, max: 2 },
-            // Rare drops
-            { item: "bronze_platelegs", chance: 0.12, min: 1, max: 1 },
-            { item: "iron_shield", chance: 0.10, min: 1, max: 1 },
+            { item: "cooked_trout", chance: 0.20, min: 1, max: 3 },
+            { item: "minor_healing_potion", chance: 0.25, min: 1, max: 3 },
             // Ultra rare drops
             { item: "iron_chest", chance: 0.06, min: 1, max: 1 },
-            { item: "iron_pickaxe", chance: 0.04, min: 1, max: 1 }
           ] }
         ]
       },
@@ -1842,12 +1805,10 @@
             { item: "earthweed", chance: 0.30, min: 1, max: 2 },
             { item: "bloodroot", chance: 0.25, min: 1, max: 2 },
             // Rare drops
-            { item: "bronze_platelegs", chance: 0.10, min: 1, max: 1 },
             { item: "leather_boots", chance: 0.12, min: 1, max: 1 },
             { item: "minor_haste_potion", chance: 0.08, min: 1, max: 1 },
             // Ultra rare drops
             { item: "iron_chest", chance: 0.05, min: 1, max: 1 },
-            { item: "bronze_axe", chance: 0.04, min: 1, max: 1 }
           ] }
         ]
       },
@@ -1863,14 +1824,9 @@
             { item: "copper", chance: 0.30, min: 3, max: 12 },
             { item: "cooked_frog_legs", chance: 0.25, min: 1, max: 3 },
             { item: "cooked_trout", chance: 0.20, min: 1, max: 3 },
-            { item: "minor_healing_potion", chance: 0.25, min: 1, max: 2 },
-            // Rare drops
-            { item: "iron_platebody", chance: 0.10, min: 1, max: 1 },
-            { item: "iron_helmet", chance: 0.12, min: 1, max: 1 },
-            { item: "iron_sword", chance: 0.10, min: 1, max: 1 },
+            { item: "minor_healing_potion", chance: 0.25, min: 1, max: 3 },
             // Ultra rare drops
             { item: "iron_chest", chance: 0.07, min: 1, max: 1 },
-            { item: "steel_shield", chance: 0.04, min: 1, max: 1 }
           ] },
           { name: "Ash Drake", icon: "🔥", level: 32, hp: 7200, attack: 480, gold: 32, exp: 350, drops: [
             // Common drops
@@ -1883,11 +1839,6 @@
             { item: "cooked_salmon", chance: 0.20, min: 1, max: 3 },
             { item: "cooked_frog_legs", chance: 0.25, min: 1, max: 4 },
             { item: "minor_healing_potion", chance: 0.30, min: 1, max: 3 },
-            // Rare drops
-            { item: "iron_platebody", chance: 0.12, min: 1, max: 1 },
-            { item: "iron_platelegs", chance: 0.10, min: 1, max: 1 },
-            { item: "steel_shield", chance: 0.10, min: 1, max: 1 },
-            { item: "iron_sword", chance: 0.12, min: 1, max: 1 },
             // Ultra rare drops
             { item: "iron_chest", chance: 0.08, min: 1, max: 1 },
             { item: "golden_chest", chance: 0.03, min: 1, max: 1 },
@@ -1911,17 +1862,11 @@
             { item: "cucumber_seed", chance: 0.05, min: 1, max: 1 },
             { item: "squash_seed", chance: 0.04, min: 1, max: 1 },
             // Rare drops
-            { item: "iron_platelegs", chance: 0.12, min: 1, max: 1 },
-            { item: "iron_platebody", chance: 0.10, min: 1, max: 1 },
-            { item: "steel_helmet", chance: 0.10, min: 1, max: 1 },
-            { item: "steel_shield", chance: 0.12, min: 1, max: 1 },
-            { item: "iron_sword", chance: 0.14, min: 1, max: 1 },
             { item: "iron_chest", chance: 0.12, min: 1, max: 1 },
             // Ultra rare drops
             { item: "stone_familiar", chance: 0.04, min: 1, max: 1 },
             { item: "golden_chest", chance: 0.05, min: 1, max: 1 },
             { item: "amulet_blueprint", chance: 0.03, min: 1, max: 1 },
-            { item: "steel_platebody", chance: 0.02, min: 1, max: 1 }
           ] },
           { name: "Dragon", icon: "🐉", level: 50, hp: 14800, attack: 760, gold: 120, exp: 1000, drops: [
             // Common drops - Resources & Food
@@ -1942,10 +1887,6 @@
             { item: "tomato_seed", chance: 0.05, min: 1, max: 1 },
             { item: "cucumber_seed", chance: 0.05, min: 1, max: 1 },
             // Rare drops - Equipment & Chests
-            { item: "steel_platebody", chance: 0.05, min: 1, max: 1 },
-            { item: "steel_helmet", chance: 0.08, min: 1, max: 1 },
-            { item: "steel_shield", chance: 0.08, min: 1, max: 1 },
-            { item: "iron_sword", chance: 0.12, min: 1, max: 1 },
             { item: "iron_chest", chance: 0.10, min: 1, max: 1 },
             { item: "superior_healing_potion", chance: 0.12, min: 1, max: 2 },
             { item: "greater_attack_potion", chance: 0.08, min: 1, max: 1 },
@@ -1957,7 +1898,6 @@
             { item: "dragon_familiar", chance: 0.03, min: 1, max: 1 },
             { item: "golden_chest", chance: 0.05, min: 1, max: 1 },
             { item: "dragon_sword", chance: 0.01, min: 1, max: 1 },
-            { item: "steel_platelegs", chance: 0.03, min: 1, max: 1 }
           ] },
           { name: "Elder Dragon", icon: "🐲", level: 60, hp: 40000, attack: 1200, gold: 1000, exp: 5000, drops: [
             // Common drops - Resources & Food
@@ -1979,11 +1919,6 @@
             { item: "tomato_seed", chance: 0.08, min: 1, max: 2 },
             { item: "cucumber_seed", chance: 0.08, min: 1, max: 2 },
             // Rare drops - Equipment & Chests
-            { item: "steel_platebody", chance: 0.20, min: 1, max: 1 },
-            { item: "steel_platelegs", chance: 0.18, min: 1, max: 1 },
-            { item: "steel_helmet", chance: 0.15, min: 1, max: 1 },
-            { item: "steel_shield", chance: 0.15, min: 1, max: 1 },
-            { item: "iron_sword", chance: 0.20, min: 1, max: 1 },
             { item: "dragon_sword", chance: 0.12, min: 1, max: 1 },
             { item: "iron_chest", chance: 0.18, min: 1, max: 2 },
             { item: "golden_chest", chance: 0.15, min: 1, max: 2 },
@@ -2032,9 +1967,6 @@
               { item: "vitality_potion", chance: 0.30, min: 1, max: 3 },
               { item: "berserker_draught", chance: 0.25, min: 1, max: 2 },
               // Equipment
-              { item: "steel_platebody", chance: 0.25, min: 1, max: 1 },
-              { item: "steel_platelegs", chance: 0.22, min: 1, max: 1 },
-              { item: "steel_shield", chance: 0.20, min: 1, max: 1 },
               { item: "dragon_sword", chance: 0.15, min: 1, max: 1 },
               // Rare drops
               { item: "golden_chest", chance: 0.25, min: 1, max: 3 },
