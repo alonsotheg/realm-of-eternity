@@ -15,8 +15,14 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const http = require('http');
+const { Server } = require('socket.io');
+const worldChat = require('./worldChat');
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+worldChat(io);
 const PORT = process.env.PORT || 3000;
 
 // ============================================
@@ -1486,7 +1492,7 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 async function startServer() {
   const dbConnected = await connectToMongoDB();
 
-  app.listen(PORT, '0.0.0.0', () => {
+  server.listen(PORT, '0.0.0.0', () => {
     console.log('');
     console.log('═══════════════════════════════════════════════════════════');
     console.log('           Realm of Eternity - Server Running              ');
