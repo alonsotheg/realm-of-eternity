@@ -44,15 +44,24 @@ module.exports = (io) => {
 
     // Handle whisper messages
     socket.on("whisper:send", (data) => {
-      const { sender, message } = data;
+      const { sender, message, to } = data;
 
-      // Parse whisper format: @name: message
-      const whisperRegex = /^@([^:]+):\s*(.+)$/;
-      const match = message.match(whisperRegex);
-      if (!match) return; // Not a whisper, ignore
+      let targetName, whisperMessage;
 
-      const targetName = match[1].trim();
-      const whisperMessage = match[2].trim();
+      if (to) {
+        // Direct whisper from UI
+        targetName = to;
+        whisperMessage = message.trim();
+      } else {
+        // Parse whisper format: @name: message
+        const whisperRegex = /^@([^:]+):\s*(.+)$/;
+        const match = message.match(whisperRegex);
+        if (!match) return; // Not a whisper, ignore
+
+        targetName = match[1].trim();
+        whisperMessage = match[2].trim();
+      }
+
       if (!whisperMessage) return; // Empty message
 
       const now = Date.now();
@@ -89,8 +98,7 @@ module.exports = (io) => {
         timestamp: now,
       };
 
-      // Send to sender and target
-      socket.emit("whisper:receive", whisperData);
+      // Send to target only (sender adds locally)
       io.to(targetSocketId).emit("whisper:receive", whisperData);
     });
 

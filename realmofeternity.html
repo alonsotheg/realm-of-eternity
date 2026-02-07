@@ -2235,9 +2235,29 @@
       const handleWorldSend = () => {
         if (worldInput.trim()) {
           const sender = user?.displayName || "Adventurer";
-          if (worldInput.startsWith('@')) {
-            // Whisper message
-            socketRef.current.emit('whisper:send', { sender, message: worldInput });
+          if (eventTab === 'whisper' && selectedWhisperThread) {
+            // Send whisper to selected thread
+            socketRef.current.emit('whisper:send', { sender, to: selectedWhisperThread, message: worldInput });
+            // Add to local whispers
+            setWhispers((prev) => ({
+              ...prev,
+              [selectedWhisperThread]: [...(prev[selectedWhisperThread] || []), { from: sender, to: selectedWhisperThread, message: worldInput }],
+            }));
+          } else if (worldInput.startsWith('@')) {
+            // Parse and send whisper via @ syntax
+            const match = worldInput.match(/^@([^:]+):\s*(.+)$/);
+            if (match) {
+              const target = match[1].trim();
+              const msg = match[2].trim();
+              if (msg) {
+                socketRef.current.emit('whisper:send', { sender, message: worldInput });
+                // Add to local whispers
+                setWhispers((prev) => ({
+                  ...prev,
+                  [target]: [...(prev[target] || []), { from: sender, to: target, message: msg }],
+                }));
+              }
+            }
           } else {
             // World message
             socketRef.current.emit('world:message', { sender, message: worldInput });
@@ -7662,13 +7682,13 @@
                             {msg.from === (user?.displayName || "Adventurer") ? (
                               <div className="flex justify-end">
                                 <div className="bg-[#2a2a30] px-2 py-1 rounded text-[10px] text-gray-300">
-                                  You → {msg.to}: {msg.message}
+                                  You: {msg.message}
                                 </div>
                               </div>
                             ) : (
                               <div className="flex justify-start">
                                 <div className="bg-[#1a1a1e] px-2 py-1 rounded text-[10px] text-gray-300">
-                                  {msg.from} → You: {msg.message}
+                                  {msg.from}: {msg.message}
                                 </div>
                               </div>
                             )}
@@ -7684,11 +7704,20 @@
                         type="text"
                         value={worldInput}
                         onChange={(e) => setWorldInput(e.target.value)}
-                        placeholder="Type @player: message in World Chat"
+                        onKeyPress={(e) => e.key === 'Enter' && handleWorldSend()}
+                        placeholder="Type your message..."
                         className="flex-1 px-2 py-1 bg-[#1a1a1e] border border-[#2a2a30] rounded text-[10px] text-gray-300"
-                        disabled
+                        disabled={!selectedWhisperThread}
                       />
-                      <button className="px-3 py-1 bg-[#3a3a42] border border-[#1a1a1e] rounded text-[10px] text-gray-400 cursor-not-allowed" disabled>
+                      <button
+                        onClick={() => handleWorldSend()}
+                        disabled={!selectedWhisperThread || !worldInput.trim()}
+                        className={`px-3 py-1 border border-[#1a1a1e] rounded text-[10px] ${
+                          selectedWhisperThread && worldInput.trim()
+                            ? 'bg-[#3a3a42] text-gray-300 cursor-pointer hover:bg-[#4a4a52]'
+                            : 'bg-[#2a2a30] text-gray-500 cursor-not-allowed'
+                        }`}
+                      >
                         Send
                       </button>
                     </div>
