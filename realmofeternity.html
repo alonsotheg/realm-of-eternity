@@ -7641,6 +7641,12 @@
                       type="text"
                       value={worldInput}
                       onChange={(e) => setWorldInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault(); // Prevent default form submission
+                          handleWorldSend(); // Reuse existing send handler
+                        }
+                      }}
                       placeholder="Type a message..."
                       className="flex-1 px-2 py-1 bg-[#1a1a1e] border border-[#2a2a30] rounded text-[10px] text-gray-300"
                     />
