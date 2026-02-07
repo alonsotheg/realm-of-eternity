@@ -1,6 +1,18 @@
 # Realm of Eternity
 
+<<<<<<< HEAD
+An open-world MMORPG built with Unreal Engine 5, featuring classless progression, a player-driven economy, and the freedom to pursue any path in a vast fantasy world.
 
+## Vision
+
+A living, breathing world where players can:
+- **Gather & Craft** - Deep resource gathering and crafting systems
+- **Explore** - Vast open world with diverse biomes and secrets
+- **Quest** - Rich storylines and dynamic world events
+- **Trade** - Player-driven economy
+- **Build** - Player housing and guild territories
+- **Fight** - PvE dungeons, world bosses, and optional PvP zones
+=======
 A browser-based idle RPG game with combat, gathering, crafting, and progression systems built with vanilla HTML, CSS, and React.
 
 ## Features
@@ -250,3 +262,4 @@ This project is open source and available for personal and educational use.
 Game concept inspired by classic idle/incremental RPGs and games like RuneScape.
 
 Built with assistance from Claude (Anthropic).
+>>>>>>> 80a1b75f7cbfc3ab1f96974d677ba8381f2dc57d
